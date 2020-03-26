@@ -30,5 +30,8 @@
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
     "@starkbank/ecdsa": "^0.0.3"
+  },
+  "devDependencies": {
+    "decamelize": "^4.0.0"
   }
 }

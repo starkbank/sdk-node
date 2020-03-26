@@ -1,6 +1,4 @@
-const rest = require('../utils/rest.js');
-
-class Boleto {
+class Balance {
     constructor(amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
                 due = null, fine = null, interest = null, overdueLimit = null, tags = null, descriptions = null, id = null,
                 fee = null, line = null, barCode = null, status = null, created = null) {
@@ -27,24 +25,24 @@ class Boleto {
     }
 }
 
-exports.Boleto = Boleto;
+exports.Balance = Balance;
 
-exports.create = function (boletos, user = null) {
-    return rest.post('boleto', boletos, user);
+exports.create = function (balances, user = null) {
+    return rest.post("balance", balances, user);
 };
 
 exports.get = function (id, user = null) {
-    return rest.getId('boleto', id, user);
+    return new balance(rest.getId("balance", id, user));
 };
 
 exports.getPdf = function (id, user = null) {
-    return rest.getPdf('boleto', id, user);
+    return rest.getPdf("balance", id, user);
 };
 
 exports.query = function (limit = null, status = null, tags = null, ids = null, after = null, before = null, user = null) {
-    return rest.getList('boleto', user);
+    return rest.getList("balance", user);
 };
 
 exports.delete = function (id, user = null) {
-    return new Boleto(rest.delete('boleto', id, user));
+    return rest.delete("balance", id, user);
 };
