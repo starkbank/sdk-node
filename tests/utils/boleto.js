@@ -3,17 +3,18 @@ const starkbank = require('../../starkbank');
 exampleBoleto = new starkbank.Boleto(
     10,
     'Random Company',
-    '2020-03-29',
+    '012.345.678-90',
     'Rua ABC',
     'Ap 123',
     'Jardim Paulista',
     'São Paulo',
     'SP',
     '01234-567',
-    '012.345.678-90',
-    10,
+    '2020-03-29',
     0.00,
     0.00,
+    59,
+    null,
     [
         {
             'text': 'product A',
@@ -39,6 +40,7 @@ function randomInt(min, max) {
 
 exports.generateExampleBoletosJson = function (n, amount = null) {
     boletos = [];
+    exampleBoleto = JSON.parse(JSON.stringify(exampleBoleto));
     for (let i = 0; i < n; i++) {
         boletoAmount = Math.floor(amount);
         if (!amount) {
