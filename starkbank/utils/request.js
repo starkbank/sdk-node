@@ -1,6 +1,7 @@
 const Ecdsa = require('@starkbank/ecdsa');
 const got = require('got');
 const pjson = require('../../package.json');
+const error = require('./error.js');
 
 class Response {
     constructor(status, content) {
@@ -33,7 +34,7 @@ exports.apiFetch = async function (user, path, method = 'GET', payload = null,
         }
         url += queryString;
     }
-
+    console.log(url);
     let accessTime = Math.round((new Date()).getTime() / 1000);
     let message = user.accessId() + ':' + accessTime + ':';
 
@@ -57,12 +58,21 @@ exports.apiFetch = async function (user, path, method = 'GET', payload = null,
         response = await got(url, options);
         content = response.body;
         status = response.statusCode;
-    } catch (error) {
-        if (error instanceof TypeError) {
-            throw error;
+    } catch (e) {
+        if (e instanceof TypeError) {
+            throw e;
         }
-        content = error.response.body;
-        status = error.response.statusCode;
+        content = e.response.body;
+        status = e.response.statusCode;
+        switch (status) {
+            case 400:
+            case 404:
+                throw new error.InputErrors(content, status);
+            case 500:
+                throw new error.InternalServerError(content, status);
+            default:
+                throw e;
+        }
     }
     return new Response(status, content);
 };
