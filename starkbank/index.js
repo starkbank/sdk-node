@@ -10,3 +10,5 @@ exports.webhook = require('./webhook');
 exports.key = require('./key.js');
 exports.Project = exports.project.Project;
 exports.Boleto = exports.boleto.Boleto;
+exports.BoletoPayment = exports.payment.boleto.BoletoPayment;
+exports.UtilityPayment = exports.payment.utility.UtilityPayment;
