@@ -1,6 +1,6 @@
 const Ecdsa = require('@starkbank/ecdsa');
 const got = require('got');
-const pjson = require('./package.json');
+const pjson = require('../../package.json');
 
 class Response {
     constructor(status, content) {
@@ -13,8 +13,8 @@ class Response {
     }
 }
 
-exports.apiFetch = function (user, path, method = 'GET', payload = null,
-                             query = null, version = 'v2') {
+exports.apiFetch = async function (user, path, method = 'GET', payload = null,
+                                   query = null, version = 'v2') {
     let hostname = {
         'production': 'https://api.starkbank.com/' + version,
         'sandbox': 'https://sandbox.api.starkbank.com/' + version,
@@ -23,7 +23,6 @@ exports.apiFetch = function (user, path, method = 'GET', payload = null,
 
     let options = {
         method: method,
-        json: false
     };
 
     let url = hostname + path;
@@ -41,25 +40,29 @@ exports.apiFetch = function (user, path, method = 'GET', payload = null,
     if (payload && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
         let body = JSON.stringify(payload);
         message += body;
-        options['body'] = body
+        options['body'] = body;
     }
 
     options['headers'] = {
         'Access-Id': user.accessId(),
-        'Access-Time': accessTime,
-        'Access-Signature': Ecdsa.Ecdsa.sign(message, user.privateKey()).toBase64(),
-        'Content-Type': 'application/json',
         'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
+        'Access-Time': accessTime,
+        'Content-Type': 'application/json',
+        'Access-Signature': Ecdsa.Ecdsa.sign(message, user.privateKey()).toBase64(),
     };
-
-    let response = null;
-    (async () => {
-        try {
-            response = await got(url, options);
-        } catch (error) {
-            console.log(error.response.body);
+    let response;
+    let content;
+    let status;
+    try {
+        response = await got(url, options);
+        content = response.body;
+        status = response.statusCode;
+    } catch (error) {
+        if (error instanceof TypeError) {
+            throw error;
         }
-    })();
-
-    return new Response(response.status, response.content);
+        content = error.response.body;
+        status = error.response.statusCode;
+    }
+    return new Response(status, content);
 };
