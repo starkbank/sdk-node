@@ -28,9 +28,11 @@ exports.apiFetch = async function (user, path, method = 'GET', payload = null,
 
     let url = hostname + path;
     if (query) {
-        let queryString = '?';
+        let queryString = '';
+        let symbol = '?';
         for (let key in query) {
-            queryString += key + '=' + query[key];
+            queryString += symbol + key + '=' + query[key];
+            symbol = '&';
         }
         url += queryString;
     }

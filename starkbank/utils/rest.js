@@ -1,21 +1,31 @@
 const api = require('./api.js');
 const apiFetch = require('./request').apiFetch;
 
-exports.getList = function* (resource, cursor = null, limit = 100, user = null) {
+exports.getList = async function* (resource, limit = 100, user = null) {
+    let json;
+    let response;
+    let list;
+    let query;
+    let cursor = '';
+    let entity = new resource;
+    let names = api.lastPlural(entity.constructor.name);
+    let endpoint = `${api.endpoint(entity.constructor.name)}`;
     do {
         query = {
             'limit': limit,
             'cursor': cursor,
         };
-        Object.assign(query, {});
-        let endpoint = api.endpoint(resource);
-        apiFetch(user, `/${endpoint}`, method = GET, null, query, 'v2', (response) => {
-            let json = JSON.parse(response);
-        });
+        response = await apiFetch(user, `/${endpoint}`, method = 'GET', null, query, 'v2');
+        json = JSON.parse(response.content);
+        list = json[api.lastName(names)];
+        cursor = json['cursor'];
         if (limit) {
             limit -= 100;
         }
-    } while (!cursor || (limit && limit <= 0));
+        for (let entity of list) {
+            yield Object.assign(new resource, entity);
+        }
+    } while (cursor && (limit && limit >= 0));
 };
 
 exports.post = async function (resource, entities, user = null) {
