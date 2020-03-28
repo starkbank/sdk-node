@@ -45,7 +45,7 @@ exports.getPdf = async function (id, user = null) {
 };
 
 exports.query = async function (limit = null, status = null, tags = null, ids = null, after = null, before = null, user = null) {
-    return rest.getList(resource, user);
+    return rest.getList(resource, limit, user);
 };
 
 exports.delete = async function (id, user = null) {
