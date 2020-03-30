@@ -1,2 +1,2 @@
-exports.boleto = require("./boleto")
-exports.utility = require("./utility")
+exports.boleto = require('./boleto');
+exports.utility = require('./utility');
