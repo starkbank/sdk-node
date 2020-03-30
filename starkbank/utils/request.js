@@ -1,3 +1,4 @@
+const starkbank = require('../../starkbank');
 const Ecdsa = require('@starkbank/ecdsa');
 const got = require('got');
 const pjson = require('../../package.json');
@@ -14,8 +15,15 @@ class Response {
     }
 }
 
-exports.apiFetch = async function (user, path, method = 'GET', payload = null,
-                                   query = null, version = 'v2') {
+exports.fetch = async function (path, method = 'GET', payload = null,
+                                query = null, user = null, version = 'v2') {
+    if (!user) {
+        if (!starkbank.user) {
+            throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
+        }
+        user = starkbank.user;
+    }
+
     let hostname = {
         'production': 'https://api.starkbank.com/' + version,
         'sandbox': 'https://sandbox.api.starkbank.com/' + version,
@@ -27,12 +35,14 @@ exports.apiFetch = async function (user, path, method = 'GET', payload = null,
     };
 
     let url = hostname + path;
-    if (query) {
+    if (query) { // TODO query
         let queryString = '';
-        let symbol = '?';
+        let separator = '?';
         for (let key in query) {
-            queryString += symbol + key + '=' + query[key];
-            symbol = '&';
+            if (query[key]) {
+                queryString += separator + key + '=' + query[key];
+                separator = '&';
+            }
         }
         url += queryString;
     }
@@ -61,11 +71,13 @@ exports.apiFetch = async function (user, path, method = 'GET', payload = null,
         content = response.body;
         status = response.statusCode;
     } catch (e) {
-        if (e instanceof TypeError) {
+        if (!e.response) {
             throw e;
+            console.log('error:', e);
         }
         content = e.response.body;
         status = e.response.statusCode;
+        console.log('Content:', content);
         switch (status) {
             case 400:
             case 404:

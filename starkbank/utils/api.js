@@ -10,8 +10,8 @@ exports.endpoint = function (resource, keepDash = false) {
 };
 
 exports.lastName = function (resource) {
-    let splitString = decamelize(resource, '-').split('-')
-    return splitString[splitString.length-1];
+    let splitString = decamelize(resource, '-').split('-');
+    return splitString[splitString.length - 1];
 };
 
 exports.lastPlural = function (resource) {
