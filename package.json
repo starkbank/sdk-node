@@ -33,6 +33,7 @@
     "got": "^10.7.0"
   },
   "devDependencies": {
-    "decamelize": "^4.0.0"
+    "decamelize": "^4.0.0",
+    "mocha": "^7.1.1"
   }
 }

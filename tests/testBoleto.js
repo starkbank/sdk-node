@@ -1,25 +1,61 @@
+const assert = require('assert');
 const starkbank = require('../starkbank');
-const user = require('./utils/user').exampleProject;
 const generateExampleBoletosJson = require('./utils/boleto.js').generateExampleBoletosJson;
 
+starkbank.user = require('./utils/user').exampleProject;
 
-(async () => {
-    let boletos = generateExampleBoletosJson(5);
-    boletos = await starkbank.boleto.create(boletos, user);
-    console.log(boletos)
-    // for (let i of boletos){
-    //     console.log(boleto)
-    // }
-    // boleto = await starkbank.boleto.get('6573629986832384', user)
-    // console.log(boleto)
-})();
-//
-//
-// for (let boleto of boletos) {
-//     console.log(boleto);
-// }
-// boletos = starkbank.boleto.query();
-//
-// for (let boleto of boletos) {
-//     console.log(boleto);
-// }
+describe('TestBoletoPost', () => {
+    it('test_success', async () => {
+        let boletos = generateExampleBoletosJson(5);
+        boletos = await starkbank.boleto.create(boletos);
+        for (let boleto of boletos) {
+            assert(typeof boleto.id == 'string');
+        }
+    });
+});
+
+describe('TestBoletoGet', () => {
+    it('test_success', async () => {
+        let i = 0;
+        const boletos = await starkbank.boleto.query(150);
+        for await (let boleto of boletos) {
+            assert(typeof boleto.id == 'string');
+            i += 1;
+        }
+        assert(i === 150);
+        console.log('Number of boletos:', i);
+    });
+});
+
+describe('TestBoletoPostAndDelete', () => {
+    it('test_success', async () => {
+        let boletos = generateExampleBoletosJson(1);
+        boletos = await starkbank.boleto.create(boletos);
+        let boleto = boletos[0];
+        assert(typeof boleto.id == 'string');
+        boleto = await starkbank.boleto.delete(boleto.id);
+        assert(typeof boleto.id == 'string');
+    });
+});
+
+describe('TestBoletoInfoGet', () => {
+    it('test_success', async () => {
+        let boletos = await starkbank.boleto.query(1);
+        for await (let boleto of boletos) {
+            assert(typeof boleto.id == 'string');
+            boleto = await starkbank.boleto.get(boleto.id);
+            assert(typeof boleto.id == 'string');
+        }
+    });
+});
+
+describe('TestBoletoPdfGet', () => {
+    it('test_success', async () => {
+        let boletos = await starkbank.boleto.query(1);
+        for await (let boleto of boletos) {
+            assert(typeof boleto.id == 'string');
+            let pdf = await starkbank.boleto.pdf(boleto.id);
+            assert(typeof pdf == 'string');
+        }
+    });
+});

@@ -1,6 +1,6 @@
 const starkbank = require('../../starkbank');
 
-exampleBoleto = new starkbank.Boleto(
+var defaultExampleBoleto = new starkbank.Boleto(
     10,
     'Random Company',
     '012.345.678-90',
@@ -39,18 +39,18 @@ function randomInt(min, max) {
 
 
 exports.generateExampleBoletosJson = function (n, amount = null) {
-    boletos = [];
-    exampleBoleto = JSON.parse(JSON.stringify(exampleBoleto));
+    let boletos = [];
+    let exampleBoleto = JSON.parse(JSON.stringify(defaultExampleBoleto));
     for (let i = 0; i < n; i++) {
-        boletoAmount = Math.floor(amount);
+        let boletoAmount = Math.floor(amount);
         if (!amount) {
-            boletoAmount = randomInt(5, 100);
+            boletoAmount = randomInt(5, 1000);
         }
         exampleBoleto.name = 'Jon Snow'; //TODO random name generator
         exampleBoleto.amount = boletoAmount;
-        exampleBoleto.due = '2020-03-30'; //TODO date generator
+        exampleBoleto.due = '2020-04-30'; //TODO date generator
         exampleBoleto.taxId = '012.345.678-90'; // TODO taxId generator
-        boletos.push(JSON.parse(JSON.stringify(exampleBoleto)));
+        boletos.push(Object.assign(new starkbank.Boleto, JSON.parse(JSON.stringify(exampleBoleto))));
     }
     return boletos;
 };
