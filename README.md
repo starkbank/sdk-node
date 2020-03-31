@@ -39,10 +39,10 @@ Once you've created your project, load it in the SDK:
 ```javascript
 const starkbank = require('starkbank');
 
-let project = new starkbank.Project(
-    'sandbox',
-    '5656565656565656',
-    `-----BEGIN EC PARAMETERS-----
+let project = new starkbank.Project({
+    environment: 'sandbox',
+    id: '5656565656565656',
+    privateKey: `-----BEGIN EC PARAMETERS-----
     BgUrgQQACg==
     -----END EC PARAMETERS-----
     -----BEGIN EC PRIVATE KEY-----
@@ -51,7 +51,7 @@ let project = new starkbank.Project(
     IF16ZoTVt1FzZ8WkYQ3XomRD4HS13A==
     -----END EC PRIVATE KEY-----
     `
-);
+});
 ```
 
 Once you are done testing and want to move to Production, create a new Project

@@ -4,7 +4,7 @@ class BoletoPayment {
     constructor({
                     taxId, description, scheduled = null,
                     line = null, barCode = null, tags = null,
-                    status=null, amout = null, fee = null, created = null
+                    status=null, amount = null, fee = null, created = null
                 }) {
         this.taxId = taxId;
         this.description = description;

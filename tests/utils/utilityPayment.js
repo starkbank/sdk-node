@@ -22,7 +22,7 @@ exports.generateExampleUtilityPaymentsJson = function (n, amount = null) {
         let paddedAmount = ("00000000000" + amountString).slice(-11);
         exampleUtilityPayment.description = 'abcdefghijklmnopqrstuvwxyz'; //TODO random description
         exampleUtilityPayment.barCode = barCode.substring(0, 4) + paddedAmount + barCode.substring(15);
-        exampleUtilityPayment.scheduled = '2020-03-30'; //TODO date generator
+        exampleUtilityPayment.scheduled = '2020-04-30'; //TODO date generator
         payments.push(JSON.parse(JSON.stringify(exampleUtilityPayment)));
     }
     return payments;
