@@ -17,7 +17,7 @@ describe('TestBoletoPost', () => {
 describe('TestBoletoGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const boletos = await starkbank.boleto.query(150);
+        const boletos = await starkbank.boleto.query({limit:150});
         for await (let boleto of boletos) {
             assert(typeof boleto.id == 'string');
             i += 1;
@@ -40,7 +40,7 @@ describe('TestBoletoPostAndDelete', () => {
 
 describe('TestBoletoInfoGet', () => {
     it('test_success', async () => {
-        let boletos = await starkbank.boleto.query(1);
+        let boletos = await starkbank.boleto.query({limit: 1});
         for await (let boleto of boletos) {
             assert(typeof boleto.id == 'string');
             boleto = await starkbank.boleto.get(boleto.id);
@@ -51,7 +51,7 @@ describe('TestBoletoInfoGet', () => {
 
 describe('TestBoletoPdfGet', () => {
     it('test_success', async () => {
-        let boletos = await starkbank.boleto.query(1);
+        let boletos = await starkbank.boleto.query({limit: 1});
         for await (let boleto of boletos) {
             assert(typeof boleto.id == 'string');
             let pdf = await starkbank.boleto.pdf(boleto.id);

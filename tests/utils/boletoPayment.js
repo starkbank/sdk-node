@@ -3,12 +3,12 @@ const generateExampleBoletosJson = require('./boleto').generateExampleBoletosJso
 
 starkbank.user = require('../utils/user').exampleProject;
 
-var defaultExampleBoletoPayment = new starkbank.BoletoPayment(
-    '20.018.183/0001-80',
-    '34191.09008 61713.957308 71444.640008 2 83430000984732',
-    '2020-02-29',
-    'loading a random account',
-);
+var defaultExampleBoletoPayment = new starkbank.BoletoPayment({
+    taxId: '20.018.183/0001-80',
+    line: '34191.09008 61713.957308 71444.640008 2 83430000984732',
+    scheduled: '2020-02-29',
+    description: 'loading a random account',
+});
 
 function randomInt(min, max) {
     min = Math.ceil(min);
@@ -33,12 +33,7 @@ exports.generateExampleBoletoPaymentsJson = async function (n) {
         exampleBoletoPayment.line = lines[i];
         exampleBoletoPayment.description = `Pagamento ${amounts[i]}`;
         exampleBoletoPayment.scheduled = '2020-04-30'; //TODO date generator
-        payments.push(Object.assign(new starkbank.BoletoPayment, JSON.parse(JSON.stringify(exampleBoletoPayment))));
+        payments.push(new starkbank.BoletoPayment(JSON.parse(JSON.stringify(exampleBoletoPayment))));
     }
     return payments;
 };
-(async()=>{
-    payments = await exports.generateExampleBoletoPaymentsJson(3)
-    console.log(payments)
-    console.log(payments[0]['description']);
-})();

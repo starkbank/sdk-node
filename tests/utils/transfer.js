@@ -1,13 +1,13 @@
 const starkbank = require('../../starkbank');
 
-var defaultExampleTransfer = new starkbank.Transfer(
-    10,
-    "João da Silva",
-    "01234567890",
-    "01",
-    "0001",
-    "10000-0"
-);
+var defaultExampleTransfer = new starkbank.Transfer({
+    amount: 10,
+    name: "João da Silva",
+    taxId: "01234567890",
+    bankCode: "01",
+    branchCode: "0001",
+    accountNumber: "10000-0",
+});
 
 function randomInt(min, max) {
     min = Math.ceil(min);
@@ -27,9 +27,7 @@ exports.generateExampleTransfersJson = function (n, amount = null) {
         exampleTransfer.name = 'Jon Snow'; //TODO random name generator
         exampleTransfer.amount = transferAmount;
         exampleTransfer.taxId = '012.345.678-90'; // TODO taxId generator
-        transfers.push(Object.assign(new starkbank.Transfer, JSON.parse(JSON.stringify(exampleTransfer))));
+        transfers.push(Object.assign(new starkbank.Transfer({}), JSON.parse(JSON.stringify(exampleTransfer))));
     }
     return transfers;
 };
-// console.log(generateExampleTransfersJson(3));
-// console.log(generateExampleTransfersJson(3)[0]['amount']);

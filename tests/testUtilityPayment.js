@@ -17,7 +17,7 @@ describe('TestUtilityPaymentPost', () => {
 describe('TestUtilityPaymentGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const payments = await starkbank.payment.utility.query(150);
+        const payments = await starkbank.payment.utility.query({limit: 150});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             i += 1;
@@ -40,7 +40,7 @@ describe('TestUtilityPaymentPostAndDelete', () => {
 
 describe('TestUtilityPaymentInfoGet', () => {
     it('test_success', async () => {
-        let payments = await starkbank.payment.utility.query(1);
+        let payments = await starkbank.payment.utility.query({limit: 1});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             payment = await starkbank.payment.utility.get(payment.id);
@@ -51,7 +51,7 @@ describe('TestUtilityPaymentInfoGet', () => {
 
 describe('TestUtilityPaymentPdfGet', () => {
     it('test_success', async () => {
-        let payments = await starkbank.payment.utility.query(1, "processing");
+        let payments = await starkbank.payment.utility.query({limit: 1, status: 'processing'});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             let pdf = await starkbank.payment.utility.pdf(payment.id);

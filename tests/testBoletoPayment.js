@@ -17,7 +17,7 @@ describe('TestBoletoPaymentPost', () => {
 describe('TestBoletoPaymentGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const payments = await starkbank.payment.boleto.query(150);
+        const payments = await starkbank.payment.boleto.query({limit: 150});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             i += 1;
@@ -40,7 +40,7 @@ describe('TestBoletoPaymentPostAndDelete', () => {
 
 describe('TestBoletoPaymentInfoGet', () => {
     it('test_success', async () => {
-        let payments = await starkbank.payment.boleto.query(1);
+        let payments = await starkbank.payment.boleto.query({limit: 1});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             payment = await starkbank.payment.boleto.get(payment.id);
@@ -51,7 +51,7 @@ describe('TestBoletoPaymentInfoGet', () => {
 
 describe('TestBoletoPaymentPdfGet', () => {
     it('test_success', async () => {
-        let payments = await starkbank.payment.boleto.query(1, "processing");
+        let payments = await starkbank.payment.boleto.query({limit: 1, status:['processing']});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             let pdf = await starkbank.payment.boleto.pdf(payment.id);

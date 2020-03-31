@@ -8,7 +8,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestWebhookGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const webhooks = await starkbank.webhook.query(150);
+        const webhooks = await starkbank.webhook.query({limit: 150});
         for await (let webhook of webhooks) {
             assert(typeof webhook.id == 'string');
             i += 1;
@@ -21,7 +21,7 @@ describe('TestWebhookGet', () => {
 describe('TestWebhookPostAndDelete', () => {
     it('test_success', async () => {
         let webhook = generateExampleWebhook(1);
-        webhook = await starkbank.webhook.create(webhook.url, webhook.subscriptions);
+        webhook = await starkbank.webhook.create({url: webhook.url, subscriptions: webhook.subscriptions});
         assert(typeof webhook.id == 'string');
         webhook = await starkbank.webhook.delete(webhook.id);
         assert(typeof webhook.id == 'string');
@@ -30,7 +30,7 @@ describe('TestWebhookPostAndDelete', () => {
 
 describe('TestWebhookInfoGet', () => {
     it('test_success', async () => {
-        let webhooks = await starkbank.webhook.query(1);
+        let webhooks = await starkbank.webhook.query({limit: 1});
         for await (let webhook of webhooks) {
             assert(typeof webhook.id == 'string');
             webhook = await starkbank.webhook.get(webhook.id);

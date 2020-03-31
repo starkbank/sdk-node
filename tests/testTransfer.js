@@ -17,7 +17,7 @@ describe('TestTransferPost', () => {
 describe('TestTransferGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const transfers = await starkbank.transfer.query(150);
+        const transfers = await starkbank.transfer.query({limit: 150});
         for await (let transfer of transfers) {
             assert(typeof transfer.id == 'string');
             i += 1;
@@ -29,7 +29,7 @@ describe('TestTransferGet', () => {
 
 describe('TestTransferInfoGet', () => {
     it('test_success', async () => {
-        let transfers = await starkbank.transfer.query(1);
+        let transfers = await starkbank.transfer.query({limit: 1});
         for await (let transfer of transfers) {
             assert(typeof transfer.id == 'string');
             transfer = await starkbank.transfer.get(transfer.id);
@@ -40,7 +40,7 @@ describe('TestTransferInfoGet', () => {
 
 describe('TestTransferPdfGet', () => {
     it('test_success', async () => {
-        let transfers = await starkbank.transfer.query(1, "processing");
+        let transfers = await starkbank.transfer.query({limit: 1, status: 'processing'});
         for await (let transfer of transfers) {
             assert(typeof transfer.id == 'string');
             let pdf = await starkbank.transfer.pdf(transfer.id);

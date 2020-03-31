@@ -1,11 +1,10 @@
 const starkbank = require('../../starkbank');
 
-exampleUtilityPayment = new starkbank.UtilityPayment(
-    'Random description',
-    '2020-03-27',
-    null,
-    '83660000001084301380074119002551100010601813',
-);
+exampleUtilityPayment = new starkbank.UtilityPayment({
+    description: 'Random description',
+    scheduled: '2020-03-27',
+    barCode: '83660000001084301380074119002551100010601813',
+});
 
 function randomInt(min, max) {
     min = Math.ceil(min);
