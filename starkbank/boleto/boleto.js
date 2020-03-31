@@ -1,9 +1,12 @@
 const rest = require('../utils/rest.js');
 
 class Boleto {
-    constructor(amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
-                due = null, fine = null, interest = null, overdueLimit = null,
-                tags = null, descriptions = null) {
+    constructor({
+                    amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
+                    due = null, fine = null, interest = null, overdueLimit = null,
+                    tags = null, descriptions = null, id = null, fee = null, line = null,
+                    barCode = null, status = null, created = null
+                }) {
         this.amount = amount;
         this.name = name;
         this.taxId = taxId;
@@ -19,6 +22,12 @@ class Boleto {
         this.overdueLimit = overdueLimit;
         this.tags = tags;
         this.descriptions = descriptions;
+        this.id = id;
+        this.fee = fee;
+        this.line = line;
+        this.barCode = barCode;
+        this.status = status;
+        this.created = created;
     }
 }
 
@@ -37,15 +46,16 @@ exports.pdf = async function (id, user = null) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function (limit = null, status = null, tags = null, ids = null, after = null, before = null, user = null) {
+exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
     let query = {
+        limit: limit,
         status: status,
         tags: tags,
         ids: ids,
         after: after,
         before: before,
     };
-    return rest.getList(resource, limit, query, user);
+    return rest.getList(resource, query, user);
 };
 
 exports.delete = async function (id, user = null) {

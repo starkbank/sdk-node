@@ -1,12 +1,15 @@
 const rest = require('../utils/rest.js');
 
 class Transaction {
-    constructor(amount, description, external_id, receiver_id, tags = null) {
+    constructor({amount, description, externalId, receiverId, tags = null}) {
         this.amount = amount;
         this.description = description;
-        this.external_id = external_id;
-        this.receiver_id = receiver_id;
+        this.externalId = externalId;
+        this.receiverId = receiverId;
         this.tags = tags;
+        this.fee = fee;
+        this.created = created;
+        this.source = source;
     }
 }
 
@@ -21,13 +24,14 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function (limit = null, status = null, tags = null, ids = null, after = null, before = null, user = null) {
+exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
     let query = {
+        limit: limit,
         status: status,
         tags: tags,
         ids: ids,
         after: after,
         before: before,
     };
-    return rest.getList(resource, limit, query, user);
+    return rest.getList(resource, query, user);
 };

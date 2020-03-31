@@ -1,11 +1,11 @@
 const rest = require('../../../utils/rest.js');
 
 class UtilityPaymentLog {
-    constructor(created, type, errors) {
+    constructor(created, type, errors, payment = null) {
         this.created = created; // TODO check datetime
         this.type = type;
         this.errors = errors;
-        this.payment = null;
+        this.payment = payment;
     }
 }
 
@@ -17,13 +17,14 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function (limit = null, status = null, tags = null, ids = null, after = null, before = null, user = null) {
+exports.query = async function ({limit = null, status = null, tags = null, paymentIds = null, after = null, before = null}, user = null) {
     let query = {
+        limit: limit,
         status: status,
         tags: tags,
-        ids: ids,
+        paymentIds: paymentIds,
         after: after,
         before: before,
     };
-    return rest.getList(resource, limit, query, user);
+    return rest.getList(resource, query, user);
 };

@@ -1,7 +1,11 @@
 const rest = require('../utils/rest.js');
 
 class Transfer {
-    constructor(amount, name, taxId, bankCode, branchCode, accountNumber, tags = null) {
+    constructor({
+                    amount, name, taxId, bankCode, branchCode, accountNumber, tags = null,
+                    fee=null, status=null,created = null, updated = null,
+                    transactionIds = null
+                }) {
         this.amount = amount;
         this.name = name;
         this.taxId = taxId;
@@ -9,6 +13,11 @@ class Transfer {
         this.branchCode = branchCode;
         this.accountNumber = accountNumber;
         this.tags = tags;
+        this.fee = fee;
+        this.status = status;
+        this.created = created;
+        this.updated = updated;
+        this.transactionIds = transactionIds;
     }
 }
 
@@ -27,15 +36,17 @@ exports.pdf = async function (id, user = null) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function (limit = null, status = null, tags = null, ids = null, after = null, before = null, user = null) {
+exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
     let query = {
+        limit: limit,
+        limit: limit,
         status: status,
         tags: tags,
         ids: ids,
         after: after,
         before: before,
     };
-    return rest.getList(resource, limit, query, user);
+    return rest.getList(resource, query, user);
 };
 
 exports.delete = async function (id, user = null) {

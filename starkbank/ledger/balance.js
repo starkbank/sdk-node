@@ -1,7 +1,12 @@
 const rest = require('../utils/rest.js');
 
 class Balance {
-    constructor() {
+    constructor(id = null, amount = null, currency = null,
+                updated = null,) {
+        this.amount = amount;
+        this.currency = currency;
+        this.updated = updated;
+        this.id = id;
     }
 }
 

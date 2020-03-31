@@ -1,4 +1,4 @@
-boleto = require('./boleto.js');
+const boleto = require('./boleto.js');
 
 exports.log = require('./log');
 exports.create = boleto.create;
