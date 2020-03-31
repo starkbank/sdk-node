@@ -1,4 +1,4 @@
-webhook = require('./webhook.js');
+const webhook = require('./webhook.js');
 
 exports.event = require('./event');
 exports.create = webhook.create;
