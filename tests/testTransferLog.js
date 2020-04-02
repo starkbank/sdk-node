@@ -5,14 +5,15 @@ starkbank.user = require('./utils/user').exampleProject;
 
 
 describe('TestTransferLogGet', () => {
-    it('test_success', async() => {
+    it('test_success', async () => {
         let i = 0;
-        const logs = await starkbank.transfer.log.query({limit: 150});
+        const logs = await starkbank.transfer.log.query({limit: 5});
         for await (let log of logs) {
             assert(typeof log.id == 'string');
             i += 1;
         }
-        assert(i === 150);
+        console.log(i)
+        assert(i === 5);
         console.log('Number of logs:', i);
     });
 });

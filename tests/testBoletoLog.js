@@ -5,7 +5,7 @@ starkbank.user = require('./utils/user').exampleProject;
 
 
 describe('TestBoletoLogGet', () => {
-    it('test_success', async() => {
+    it('test_success', async () => {
         let i = 0;
         const logs = await starkbank.boleto.log.query({limit: 150});
         for await (let log of logs) {

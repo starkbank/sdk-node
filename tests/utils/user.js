@@ -2,8 +2,8 @@ const starkbank = require('../../starkbank');
 
 exports.exampleProject = new starkbank.Project(
     {
-        environment: 'development',
-        id: '4835770477051904',
+        environment: 'sandbox',
+        id: '9999999999999999',
         privateKey: `-----BEGIN EC PARAMETERS-----
 BgUrgQQACg==
 -----END EC PARAMETERS-----

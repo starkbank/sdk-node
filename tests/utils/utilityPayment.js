@@ -1,4 +1,6 @@
 const starkbank = require('../../starkbank');
+const random = require('./random.js');
+const check = require('../../starkbank/utils/check.js');
 
 exampleUtilityPayment = new starkbank.UtilityPayment({
     description: 'Random description',
@@ -18,11 +20,11 @@ exports.generateExampleUtilityPaymentsJson = function (n, amount = null) {
     exampleUtilityPayment = JSON.parse(JSON.stringify(exampleUtilityPayment));
     for (let i = 0; i < n; i++) {
         let barCode = '83660000001084301380074119002551100010601813';
-        let amountString = randomInt(100, 100000).toString();
-        let paddedAmount = ("00000000000" + amountString).slice(-11);
-        exampleUtilityPayment.description = 'abcdefghijklmnopqrstuvwxyz'; //TODO random description
+        let amountString = random.randomInt(100, 100000).toString();
+        let paddedAmount = ('00000000000' + amountString).slice(-11);
+        exampleUtilityPayment.description = 'abcdefghijklmnopqrstuvwxyz';
         exampleUtilityPayment.barCode = barCode.substring(0, 4) + paddedAmount + barCode.substring(15);
-        exampleUtilityPayment.scheduled = '2020-04-30'; //TODO date generator
+        exampleUtilityPayment.scheduled = check.date(random.futureDate(7));
         payments.push(JSON.parse(JSON.stringify(exampleUtilityPayment)));
     }
     return payments;

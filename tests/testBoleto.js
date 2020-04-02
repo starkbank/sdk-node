@@ -17,7 +17,7 @@ describe('TestBoletoPost', () => {
 describe('TestBoletoGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const boletos = await starkbank.boleto.query({limit:150});
+        const boletos = await starkbank.boleto.query({limit: 150});
         for await (let boleto of boletos) {
             assert(typeof boleto.id == 'string');
             i += 1;

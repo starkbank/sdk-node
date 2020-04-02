@@ -8,12 +8,13 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestWebhookGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const webhooks = await starkbank.webhook.query({limit: 150});
+        const webhooks = await starkbank.webhook.query({limit: 5});
         for await (let webhook of webhooks) {
             assert(typeof webhook.id == 'string');
             i += 1;
         }
-        assert(i > 0);
+        console.log(i)
+        assert(webhooks.isArray());
         console.log('Number of webhooks:', i);
     });
 });

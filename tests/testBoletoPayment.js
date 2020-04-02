@@ -17,12 +17,13 @@ describe('TestBoletoPaymentPost', () => {
 describe('TestBoletoPaymentGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const payments = await starkbank.payment.boleto.query({limit: 150});
+        const payments = await starkbank.payment.boleto.query({limit: 5});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             i += 1;
         }
-        assert(i === 150);
+        console.log(i)
+        assert(i === 5);
         console.log('Number of boletos:', i);
     });
 });
@@ -51,7 +52,7 @@ describe('TestBoletoPaymentInfoGet', () => {
 
 describe('TestBoletoPaymentPdfGet', () => {
     it('test_success', async () => {
-        let payments = await starkbank.payment.boleto.query({limit: 1, status:['processing']});
+        let payments = await starkbank.payment.boleto.query({limit: 1, status: ['processing']});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             let pdf = await starkbank.payment.boleto.pdf(payment.id);

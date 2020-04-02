@@ -17,12 +17,13 @@ describe('TestUtilityPaymentPost', () => {
 describe('TestUtilityPaymentGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const payments = await starkbank.payment.utility.query({limit: 150});
+        const payments = await starkbank.payment.utility.query({limit: 5});
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             i += 1;
         }
-        assert(i === 150);
+        console.log(i)
+        assert(i === 5);
         console.log('Number of boletos:', i);
     });
 });
