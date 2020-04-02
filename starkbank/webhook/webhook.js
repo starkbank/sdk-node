@@ -1,10 +1,9 @@
 const rest = require('../utils/rest.js');
 
 class Webhook {
-    constructor({url, subscriptions, allowedIps = null, id = null}) {
+    constructor({url, subscriptions, id = null}) {
         this.url = url;
         this.subscriptions = subscriptions;
-        this.allowedIps = allowedIps;
         this.id = id;
     }
 }

@@ -32,7 +32,6 @@ exports.getList = async function* (resource, query, user = null) {
             limit -= 100;
         }
         for (let entity of list) {
-            // yield Object.assign(new resource({}), entity);
             yield Object.assign(new resource(entity), entity);
         }
     } while (cursor && (limit === null || limit > 0));

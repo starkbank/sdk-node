@@ -20,7 +20,7 @@ If you want to take a look at our API, follow [this link](https://docs.api.stark
 
 ## Installation
 
-To install the package with pip, run:
+To install the package with npm, run:
 
 ```sh
 npm install starkbank

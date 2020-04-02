@@ -45,7 +45,6 @@ exports.fetch = async function (path, method = 'GET', payload = null,
         }
         url += queryString;
     }
-    console.log(url);
     let accessTime = Math.round((new Date()).getTime() / 1000);
     let message = user.accessId() + ':' + accessTime + ':';
 
@@ -75,7 +74,6 @@ exports.fetch = async function (path, method = 'GET', payload = null,
         }
         content = e.response.body;
         status = e.response.statusCode;
-        console.log('Content:', content);
         switch (status) {
             case 400:
             case 404:
