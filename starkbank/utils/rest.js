@@ -74,10 +74,10 @@ exports.getId = async function (resource, id, user = null, callback) {
     return Object.assign(new resource(returnEntity), returnEntity);
 };
 
-exports.getPublicKey = async function (user){
-    let response = await fetch(path="/public-key", "GET", null,{"limit": 1}, user)
-    return JSON.parse(response)["publicKeys"][0]["content"];
-}
+exports.getPublicKey = async function (user) {
+    let response = await fetch(path = '/public-key', 'GET', null, {'limit': 1}, user);
+    return JSON.parse(response)['publicKeys'][0]['content'];
+};
 
 exports.deleteId = async function (resource, id, user = null) {
     let entity = new resource({});
@@ -98,11 +98,11 @@ exports.postSingle = async function (resource, options, user = null) {
     return Object.assign(new resource(returnEntity), returnEntity);
 };
 
-exports.patchId = async function (resource, id, user = null) {
+exports.patchId = async function (resource, id, payload, user = null) {
     let entity = new resource({});
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(name)}/${id}`;
-    let response = await fetch(`/${endpoint}`, 'PATCH', null, null, user);
+    let response = await fetch(`/${endpoint}`, 'PATCH', payload, null, user);
     let returnEntity = JSON.parse(response.content)[api.lastName(name)];
     return Object.assign(new resource(returnEntity), returnEntity);
-}
+};

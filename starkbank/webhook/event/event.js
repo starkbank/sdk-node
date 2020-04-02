@@ -3,10 +3,10 @@ const rest = require('../../utils/rest.js');
 const error = require('../../utils/error.js');
 
 class Event {
-    constructor({created=null, delivered=null, subscription=null, log = null, id=null}) {
+    constructor({created, delivered, subscription, log, id = null}) {
         this.log = log;
-        this.created = created; // TODO check datetime
-        this.delivered = delivered; // TODO check datetime
+        this.created = created;
+        this.delivered = delivered;
         this.subscription = subscription;
         this.id = id;
     }
@@ -46,8 +46,11 @@ exports.delete = async function (id, user = null) {
     return rest.deleteId(resource, id, user);
 };
 
-exports.setDelivered = function (id, user = null) {
-    return rest.patchId(resource, id, user);
+exports.update = function (id, {delivered}, user = null) {
+    let payload = {
+        delivered: delivered,
+    };
+    return rest.patchId(resource, id, payload, user);
 };
 
 exports.parse = async function ({content, signature}, user = null) {

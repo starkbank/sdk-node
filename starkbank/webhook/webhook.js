@@ -1,17 +1,18 @@
 const rest = require('../utils/rest.js');
 
 class Webhook {
-    constructor({url, subscriptions, allowedIps = null}) {
+    constructor({url, subscriptions, allowedIps = null, id = null}) {
         this.url = url;
         this.subscriptions = subscriptions;
         this.allowedIps = allowedIps;
+        this.id = id;
     }
 }
 
 exports.Webhook = Webhook;
 let resource = exports.Webhook;
 
-exports.create = async function ({url, subscriptions, }, user = null) {
+exports.create = async function ({url, subscriptions,}, user = null) {
     let options = {
         url: url,
         subscriptions: subscriptions,

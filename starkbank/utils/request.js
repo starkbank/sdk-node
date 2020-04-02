@@ -23,7 +23,6 @@ exports.fetch = async function (path, method = 'GET', payload = null,
         }
         user = starkbank.user;
     }
-
     let hostname = {
         'production': 'https://api.starkbank.com/' + version,
         'sandbox': 'https://sandbox.api.starkbank.com/' + version,
@@ -35,7 +34,7 @@ exports.fetch = async function (path, method = 'GET', payload = null,
     };
 
     let url = hostname + path;
-    if (query) { // TODO query
+    if (query) {
         let queryString = '';
         let separator = '?';
         for (let key in query) {
@@ -73,7 +72,6 @@ exports.fetch = async function (path, method = 'GET', payload = null,
     } catch (e) {
         if (!e.response) {
             throw e;
-            console.log('error:', e);
         }
         content = e.response.body;
         status = e.response.statusCode;
