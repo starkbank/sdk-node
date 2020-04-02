@@ -1,21 +1,23 @@
 const rest = require('../../utils/rest.js');
+const check = require('../../utils/check.js');
 
 class BoletoPayment {
     constructor({
                     taxId, description, scheduled = null,
-                    line = null, barCode = null, tags = null,
-                    status=null, amount = null, fee = null, created = null
+                    line = null, barCode = null, tags = null, id = null,
+                    status = null, amount = null, fee = null, created = null
                 }) {
         this.taxId = taxId;
         this.description = description;
-        this.scheduled = scheduled;
         this.line = line;
         this.barCode = barCode;
+        this.scheduled = check.date(scheduled);
         this.tags = tags;
         this.status = status;
         this.amount = amount;
         this.fee = fee;
         this.created = created;
+        this.id = id;
     }
 }
 

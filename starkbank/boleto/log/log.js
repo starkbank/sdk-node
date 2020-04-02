@@ -1,8 +1,9 @@
 const rest = require('../../utils/rest.js');
+const check = require('../../utils/check.js');
 
 class BoletoLog {
     constructor({created, type, errors, boleto = null, id = null}) {
-        this.created = created; // TODO check datetime
+        this.created = check.date(created);
         this.type = type;
         this.errors = errors;
         this.boleto = boleto;

@@ -1,4 +1,5 @@
 const rest = require('../utils/rest.js');
+const check = require('../utils/check.js');
 
 class Boleto {
     constructor({
@@ -16,7 +17,7 @@ class Boleto {
         this.city = city;
         this.stateCode = stateCode;
         this.zipCode = zipCode;
-        this.due = due;
+        this.due = check.date(due);
         this.fine = fine;
         this.interest = interest;
         this.overdueLimit = overdueLimit;

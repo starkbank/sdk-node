@@ -1,11 +1,12 @@
 const rest = require('../../../utils/rest.js');
 
 class UtilityPaymentLog {
-    constructor(created, type, errors, payment = null) {
-        this.created = created; // TODO check datetime
+    constructor(created, type, errors, payment, id = null) {
+        this.created = created;
         this.type = type;
         this.errors = errors;
         this.payment = payment;
+        this.id = id;
     }
 }
 

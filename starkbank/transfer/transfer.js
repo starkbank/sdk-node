@@ -1,10 +1,11 @@
 const rest = require('../utils/rest.js');
+const check = require('../utils/check.js');
 
 class Transfer {
     constructor({
                     amount, name, taxId, bankCode, branchCode, accountNumber, tags = null,
-                    fee=null, status=null,created = null, updated = null,
-                    transactionIds = null
+                    fee = null, status = null, created = null, updated = null,
+                    transactionIds = null, id = null
                 }) {
         this.amount = amount;
         this.name = name;
@@ -18,6 +19,7 @@ class Transfer {
         this.created = created;
         this.updated = updated;
         this.transactionIds = transactionIds;
+        this.id = id;
     }
 }
 

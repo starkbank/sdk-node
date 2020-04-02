@@ -813,7 +813,7 @@ With this function, you can manually set events retrieved from the API as
 const starkbank = require('starkbank');
 
 (async()=>{
-    let event = await starkbank.webhook.event.setDelivered("5155165527080960");
+    let event = await starkbank.webhook.event.update("5155165527080960", {delivered: true});
     console.log(event);
 })();
 ```

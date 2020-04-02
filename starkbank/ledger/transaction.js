@@ -1,7 +1,7 @@
 const rest = require('../utils/rest.js');
 
 class Transaction {
-    constructor({amount, description, externalId, receiverId, tags = null}) {
+    constructor({amount, description, externalId, receiverId, tags = null, id = null}) {
         this.amount = amount;
         this.description = description;
         this.externalId = externalId;
@@ -10,6 +10,7 @@ class Transaction {
         this.fee = fee;
         this.created = created;
         this.source = source;
+        this.id = id;
     }
 }
 

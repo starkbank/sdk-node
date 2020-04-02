@@ -1,11 +1,12 @@
 const rest = require('../../utils/rest.js');
 
 class TransferLog {
-    constructor({created, type, errors, transfer = null}) {
-        this.created = created; // TODO check datetime
+    constructor({created, type, errors, transfer, id = null}) {
+        this.created = created;
         this.type = type;
         this.errors = errors;
         this.transfer = transfer;
+        this.id = id;
     }
 }
 
