@@ -33,7 +33,7 @@ exports.key = function (key) {
 };
 
 exports.environment = function (environment) {
-    let validEnvironments = ["production", "sandbox"];
+    let validEnvironments = ['production', 'sandbox'];
     if (validEnvironments.includes(environment)){
         return environment;
     }
