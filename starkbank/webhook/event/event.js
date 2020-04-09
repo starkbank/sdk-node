@@ -111,7 +111,7 @@ exports.delete = async function (id, user = null) {
     return rest.deleteId(resource, id, user);
 };
 
-exports.update = function (id, {delivered}, user = null) {
+exports.update = function (id, {delivered: isDelivered}, user = null) {
     /**
      *
      * Set notification Event entity as delivered
@@ -130,7 +130,7 @@ exports.update = function (id, {delivered}, user = null) {
      *
      */
     let payload = {
-        delivered: delivered,
+        isDelivered: isDelivered,
     };
     return rest.patchId(resource, id, payload, user);
 };
