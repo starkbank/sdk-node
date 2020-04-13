@@ -374,7 +374,7 @@ Paying boletos is also simple.
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payments = await starkbank.BoletoPayment.create([
+    let payments = await starkbank.boletoPayment.create([
         {
             taxId: "012.345.678-90",
             description: "take my money",
@@ -404,7 +404,7 @@ To get a single boleto payment by its id, run:
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payment = await starkbank.BoletoPayment.get({id: '5155165527080960'});
+    let payment = await starkbank.boletoPayment.get({id: '5155165527080960'});
     console.log(payment);
 })();
 ```
@@ -417,7 +417,7 @@ After its creation, a boleto payment PDF may be retrieved by passing its id.
 const starkbank = require('starkbank');
 
 (async()=>{
-    let pdf = await starkbank.BoletoPayment.pdf({id: '5155165527080960'});
+    let pdf = await starkbank.boletoPayment.pdf({id: '5155165527080960'});
     fs.writeFile('boleto-payment.pdf', pdf,  'binary', ()=>{});
 })();
 ```
@@ -435,7 +435,7 @@ Note that this is not possible if it has been processed already.
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payment = await starkbank.BoletoPayment.get({id: '5155165527080960'});
+    let payment = await starkbank.boletoPayment.get({id: '5155165527080960'});
     console.log(payment);
 })();
 ```
@@ -448,7 +448,7 @@ You can search for boleto payments using filters.
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payments = await starkbank.BoletoPayment.query({
+    let payments = await starkbank.boletoPayment.query({
             after: '2020-03-01',
             before: '2020-03-30',
         }
@@ -467,7 +467,7 @@ Searches are also possible with boleto payment logs:
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payments = await starkbank.BoletoPayment.query({
+    let payments = await starkbank.boletoPayment.query({
         after: '2020-03-01',
         before: '2020-03-30',
     });
@@ -486,7 +486,7 @@ You can also get a boleto payment log by specifying its id.
 const starkbank = require('starkbank');
 
 (async()=>{
-    let log = await starkbank.BoletoPayment.Log.get({id: '5155165527080960'});
+    let log = await starkbank.boletoPayment.Log.get({id: '5155165527080960'});
     console.log(log);
 })();
 ```
@@ -499,7 +499,7 @@ Its also simple to pay utility bills (such electricity and water bills) in the S
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payments = await starkbank.UtilityPayment.create([
+    let payments = await starkbank.utilityPayment.create([
         {
             line: "34197819200000000011090063609567307144464000",
             scheduled: "2020-03-13",
@@ -528,7 +528,7 @@ To search for utility payments using filters, run:
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payments = await starkbank.UtilityPayment.query({
+    let payments = await starkbank.utilityPayment.query({
         tags: ["electricity", "gas"],
     });
     for await (let payment of payments){
@@ -545,7 +545,7 @@ You can get a specific bill by its id:
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payment = await starkbank.UtilityPayment.get({id: '5155165527080960'});
+    let payment = await starkbank.utilityPayment.get({id: '5155165527080960'});
     console.log(payment);
 })();
 ```
@@ -558,7 +558,7 @@ After its creation, a utility payment PDF may also be retrieved by passing its i
 const starkbank = require('starkbank');
 
 (async()=>{
-    let pdf = await starkbank.UtilityPayment.pdf({id: '5155165527080960'});
+    let pdf = await starkbank.utilityPayment.pdf({id: '5155165527080960'});
     fs.writeFile('utility-payment.pdf', pdf,  'binary', ()=>{});
 })();
 ```
@@ -576,7 +576,7 @@ Note that this is not possible if it has been processed already.
 const starkbank = require('starkbank');
 
 (async()=>{
-    let payment = await starkbank.UtilityPayment.delete({id: '5155165527080960'});
+    let payment = await starkbank.utilityPayment.delete({id: '5155165527080960'});
     console.log(payment);
 })();
 ```
@@ -590,7 +590,7 @@ bills life cycles.
 const starkbank = require('starkbank');
 
 (async()=>{
-    let logs = await starkbank.UtilityPayment.Log.query({
+    let logs = await starkbank.utilityPayment.Log.query({
             paymentIds:["102893710982379182", "92837912873981273"],
         }
     );
@@ -608,7 +608,7 @@ If you want to get a specific payment log by its id, just run:
 const starkbank = require('starkbank');
 
 (async()=>{
-    let log = await starkbank.UtilityPayment.Log.get({id: '5155165527080960'});
+    let log = await starkbank.utilityPayment.Log.get({id: '5155165527080960'});
     console.log(log);
 })();
 ```
