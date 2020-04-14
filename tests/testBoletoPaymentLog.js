@@ -7,7 +7,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestBoletoPaymentLogGet', () => {
     it('test_success', async () => {
         let i = 0;
-        const logs = await starkbank.payment.boleto.log.query({limit: 5});
+        const logs = await starkbank.boletoPayment.log.query({limit: 5});
         for await (let log of logs) {
             assert(typeof log.id == 'string');
             i += 1;
@@ -20,10 +20,10 @@ describe('TestBoletoPaymentLogGet', () => {
 
 describe('TestBoletoPaymentLogInfoGet', () => {
     it('test_success', async () => {
-        let logs = await starkbank.payment.boleto.log.query({limit: 1});
+        let logs = await starkbank.boletoPayment.log.query({limit: 1});
         for await (let log of logs) {
             assert(typeof log.id == 'string');
-            log = await starkbank.payment.boleto.log.get(log.id);
+            log = await starkbank.boletoPayment.log.get(log.id);
             assert(typeof log.id == 'string');
         }
     });

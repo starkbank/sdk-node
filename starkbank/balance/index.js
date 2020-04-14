@@ -1,1 +1,1 @@
-exports.balance = require('./balance.js');
+exports.get = require('./balance.js').get;

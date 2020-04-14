@@ -2,7 +2,7 @@ const starkbank = require('../../starkbank');
 const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 const got = require('got');
 const pjson = require('../../package.json');
-const error = require('./error.js');
+const error = require('../error.js');
 
 
 class Response {

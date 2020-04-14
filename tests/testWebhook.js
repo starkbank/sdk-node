@@ -13,8 +13,6 @@ describe('TestWebhookGet', () => {
             assert(typeof webhook.id == 'string');
             i += 1;
         }
-        console.log(i)
-        assert(webhooks.isArray());
         console.log('Number of webhooks:', i);
     });
 });
