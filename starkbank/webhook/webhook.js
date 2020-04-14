@@ -27,7 +27,7 @@ class Webhook {
 exports.Webhook = Webhook;
 let resource = exports.Webhook;
 
-exports.create = async function ({url, subscriptions,}, user = null) {
+exports.create = async function ({url, subscriptions, user = null} = {}) {
     /**
      *
      * Create Webhook subscription
@@ -52,7 +52,7 @@ exports.create = async function ({url, subscriptions,}, user = null) {
     return rest.postSingle(resource, options, user);
 };
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific Webhook subscription
@@ -72,7 +72,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null, user = null} = {}) {
     /**
      *
      * Retrieve Webhook subcriptions
@@ -98,7 +98,7 @@ exports.query = async function ({limit = null, status = null, tags = null, ids =
     return rest.getList(resource, query, user);
 };
 
-exports.delete = async function (id, user = null) {
+exports.delete = async function (id, {user} = {}) {
     /**
      *
      * Delete a Webhook subscription entity

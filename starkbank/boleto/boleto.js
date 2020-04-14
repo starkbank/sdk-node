@@ -72,7 +72,7 @@ class Boleto {
 exports.Boleto = Boleto;
 let resource = exports.Boleto;
 
-exports.create = async function (boletos, user = null) {
+exports.create = async function (boletos, {user} = {}) {
     /**
      *
      * Create Boletos
@@ -92,7 +92,7 @@ exports.create = async function (boletos, user = null) {
     return rest.post(resource, boletos, user);
 };
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific Boleto
@@ -110,7 +110,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.pdf = async function (id, user = null) {
+exports.pdf = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific Boleto pdf file
@@ -130,7 +130,7 @@ exports.pdf = async function (id, user = null) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve Boletos
@@ -161,7 +161,7 @@ exports.query = async function ({limit = null, status = null, tags = null, ids =
     return rest.getList(resource, query, user);
 };
 
-exports.delete = async function (id, user = null) {
+exports.delete = async function (id, {user} = {}) {
     /**
      *
      * Delete a Boleto entity

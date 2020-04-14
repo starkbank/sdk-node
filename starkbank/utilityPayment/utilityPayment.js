@@ -31,9 +31,9 @@ class UtilityPayment {
      *
      */
     constructor({
-                    description, scheduled = null, line = null, barCode = null,
-                    tags = null, amount = null, status = null, created = null,
-                    fee = null, id = null,
+                    description, scheduled, line, barCode,
+                    tags, amount, status, created,
+                    fee, id,
                 }) {
         this.barCode = barCode;
         this.line = line;
@@ -54,7 +54,7 @@ exports.UtilityPayment = UtilityPayment;
 let resource = exports.UtilityPayment;
 
 
-exports.create = async function (payments, user = null) {
+exports.create = async function (payments, {user} = {}) {
     /**
      *
      * Create UtilityPayments
@@ -72,7 +72,7 @@ exports.create = async function (payments, user = null) {
     return rest.post(resource, payments, user);
 };
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific UtilityPayment
@@ -89,7 +89,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.pdf = async function (id, user = null) {
+exports.pdf = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific UtilityPayment pdf file
@@ -110,7 +110,7 @@ exports.pdf = async function (id, user = null) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve UtilityPayments
@@ -139,7 +139,7 @@ exports.query = async function ({limit = null, status = null, tags = null, ids =
     return rest.getList(resource, query, user);
 };
 
-exports.delete = async function (id, user = null) {
+exports.delete = async function (id, {user} = {}) {
     /**
      *
      * Delete a UtilityPayment entity

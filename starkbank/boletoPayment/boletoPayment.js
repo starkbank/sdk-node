@@ -31,11 +31,7 @@ class BoletoPayment {
      * created [string, default None]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({
-                    taxId, description, scheduled = null,
-                    line = null, barCode = null, tags = null, id = null,
-                    status = null, amount = null, fee = null, created = null
-                }) {
+    constructor({taxId, description, scheduled, line, barCode, tags, id, status, amount, fee, created}) {
         this.taxId = taxId;
         this.description = description;
         this.line = line;
@@ -53,7 +49,7 @@ class BoletoPayment {
 exports.BoletoPayment = BoletoPayment;
 let resource = exports.BoletoPayment;
 
-exports.create = async function (payments, user = null) {
+exports.create = async function (payments, {user} = {}) {
     /**
      *
      * Create BoletoPayments
@@ -73,7 +69,7 @@ exports.create = async function (payments, user = null) {
     return rest.post(resource, payments, user);
 };
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific BoletoPayment
@@ -93,7 +89,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.pdf = async function (id, user = null) {
+exports.pdf = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific BoletoPayment pdf file
@@ -114,7 +110,7 @@ exports.pdf = async function (id, user = null) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve BoletoPayments
@@ -142,7 +138,7 @@ exports.query = async function ({limit = null, status = null, tags = null, ids =
     return rest.getList(resource, query, user);
 };
 
-exports.delete = async function (id, user = null) {
+exports.delete = async function (id, {user} = {}) {
     /**
      *
      * Delete a BoletoPayment entity

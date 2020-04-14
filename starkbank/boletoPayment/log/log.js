@@ -32,7 +32,7 @@ exports.BoletoPaymentLog = BoletoPaymentLog;
 let resource = exports.BoletoPaymentLog;
 
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific BoletoPaymentLog
@@ -52,7 +52,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve BoletoPaymentLogs

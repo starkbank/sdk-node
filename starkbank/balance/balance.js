@@ -18,8 +18,7 @@ class Balance {
      * updated [string, default None]: update datetime for the balance. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor(id = null, amount = null, currency = null,
-                updated = null,) {
+    constructor(id, amount, currency, updated) {
         this.amount = amount;
         this.currency = currency;
         this.updated = updated;
@@ -31,7 +30,7 @@ exports.Balance = Balance;
 let resource = exports.Balance;
 
 
-exports.get = async function (user = null) {
+exports.get = async function ({user} = {}) {
     /**
      *
      * Retrieve the Balance object

@@ -20,10 +20,10 @@ class Event {
      * subscription [string]: service that triggered this event. ex: 'transfer', 'utility-payment'
      *
      */
-    constructor({created, delivered, subscription, log, id = null}) {
+    constructor({created, isDelivered, subscription, log, id}) {
         this.log = log;
         this.created = created;
-        this.delivered = delivered;
+        this.isDelivered = isDelivered;
         this.subscription = subscription;
         this.id = id;
     }
@@ -43,7 +43,7 @@ function verifySignature(content, signature, user = null, refresh = false) {
     return Ellipticcurve.Ecdsa.verify(content, signature, publicKey);
 }
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific notification Event
@@ -63,7 +63,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve notification Events
@@ -92,7 +92,7 @@ exports.query = async function ({limit = null, status = null, tags = null, ids =
     return rest.getList(resource, query, user);
 };
 
-exports.delete = async function (id, user = null) {
+exports.delete = async function (id, {user} = {}) {
     /**
      *
      * Delete notification Events
@@ -112,7 +112,7 @@ exports.delete = async function (id, user = null) {
     return rest.deleteId(resource, id, user);
 };
 
-exports.update = function (id, {delivered: isDelivered}, user = null) {
+exports.update = function (id, {isDelivered, user} = {}) {
     /**
      *
      * Set notification Event entity as delivered
@@ -136,7 +136,7 @@ exports.update = function (id, {delivered: isDelivered}, user = null) {
     return rest.patchId(resource, id, payload, user);
 };
 
-exports.parse = async function ({content, signature}, user = null) {
+exports.parse = async function ({content, signature, user} = {}) {
     /**
      *
      * Create single notification Event from a content string

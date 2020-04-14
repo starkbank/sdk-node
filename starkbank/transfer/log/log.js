@@ -18,7 +18,7 @@ class TransferLog {
      * created [string]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({created, type, errors, transfer, id = null}) {
+    constructor({created, type, errors, transfer, id}) {
         this.created = created;
         this.type = type;
         this.errors = errors;
@@ -31,7 +31,7 @@ exports.TransferLog = TransferLog;
 let resource = exports.TransferLog;
 
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific TransferLog
@@ -51,7 +51,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve TransferLogs

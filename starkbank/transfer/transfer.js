@@ -32,9 +32,9 @@ class Transfer {
      *
      */
     constructor({
-                    amount, name, taxId, bankCode, branchCode, accountNumber, tags = null,
-                    fee = null, status = null, created = null, updated = null,
-                    transactionIds = null, id = null
+                    amount, name, taxId, bankCode, branchCode, accountNumber, tags,
+                    fee, status, created, updated,
+                    transactionIds, id
                 }) {
         this.amount = amount;
         this.name = name;
@@ -55,7 +55,7 @@ class Transfer {
 exports.Transfer = Transfer;
 let resource = exports.Transfer;
 
-exports.create = async function (transfers, user = null) {
+exports.create = async function (transfers, {user} = {}) {
     /**
      *
      * Create Transfers
@@ -75,7 +75,7 @@ exports.create = async function (transfers, user = null) {
     return rest.post(resource, transfers, user);
 };
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific Transfer
@@ -95,7 +95,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.pdf = async function (id, user = null) {
+exports.pdf = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific Transfer pdf file
@@ -116,10 +116,7 @@ exports.pdf = async function (id, user = null) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({
-                                    limit = null, status = null, tags = null, transactionIds = null,
-                                    after = null, before = null, sort = null
-                                }, user = null) {
+exports.query = async function ({limit, status, tags, transactionIds, after, before, sort, user} = {}) {
     /**
      *
      * Retrieve Transfers
@@ -144,6 +141,7 @@ exports.query = async function ({
         limit: limit,
         status: status,
         tags: tags,
+        sort: sort,
         transactionIds: transactionIds,
         after: after,
         before: before,

@@ -31,7 +31,7 @@ exports.UtilityPaymentLog = UtilityPaymentLog;
 let resource = exports.UtilityPaymentLog;
 
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific UtilityPaymentLog
@@ -51,7 +51,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, paymentIds = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit = null, status = null, tags = null, paymentIds = null, after = null, before = null, user = null} = {}) {
     /**
      *
      * Retrieve UtilityPaymentLogs

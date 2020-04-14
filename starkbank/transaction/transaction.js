@@ -29,7 +29,7 @@ class Transaction {
      * created [string, default None]: creation datetime for the boleto. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({amount, description, externalId, receiverId, tags = null, id = null}) {
+    constructor({amount, description, externalId, receiverId, tags, id}) {
         this.amount = amount;
         this.description = description;
         this.externalId = externalId;
@@ -45,7 +45,7 @@ class Transaction {
 exports.Transaction = Transaction;
 let resource = exports.Transaction;
 
-exports.create = async function (transactions, user = null) {
+exports.create = async function (transactions, {user} = {}) {
     /**
      *
      * Create Transactions
@@ -65,7 +65,7 @@ exports.create = async function (transactions, user = null) {
     return rest.post(resource, transactions, user);
 };
 
-exports.get = async function (id, user = null) {
+exports.get = async function (id, {user} = {}) {
     /**
      *
      * Retrieve a specific Transaction
@@ -85,7 +85,7 @@ exports.get = async function (id, user = null) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, ids = null, after = null, before = null}, user = null) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve Transactions
