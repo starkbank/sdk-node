@@ -1,5 +1,6 @@
-const Ecdsa = require('@starkbank/ecdsa');
+const Ecdsa = require('starkbank-ecdsa');
 const User = require('./user').User;
+
 
 class Project extends User {
     /**
@@ -24,8 +25,8 @@ class Project extends User {
      * pem [string]: private key in pem format. ex: '-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEyTIHK6jYuik6ktM9FIF3yCEYzpLjO5X/\ntqDioGM+R2RyW0QEo+1DG8BrUf4UXHSvCjtQ0yLppygz23z0yPZYfw==\n-----END PUBLIC KEY-----'
      *
      */
-    constructor({environment, id, privateKey, name = '', allowedIps = []}) {
-        super(environment, id, privateKey);
+    constructor({id, privateKey, environment, name = '', allowedIps = []}) {
+        super(id, privateKey, environment);
         this.name = name;
         this.allowedIps = allowedIps;
     }

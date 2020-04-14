@@ -1,10 +1,10 @@
 {
-  "name": "@starkbank/sdk",
-  "version": "2.0.0",
-  "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
-  "main": "index.js",
+  "name": "starkbank",
+  "version": "0.0.1",
+  "description": "SDK to facilitate Node integrations with Stark Bank",
+  "main": "starkbank/index.js",
   "directories": {
-    "lib": "lib",
+    "lib": "starkbank",
     "test": "test"
   },
   "scripts": {
@@ -22,14 +22,14 @@
     "starkbank",
     "openbanking"
   ],
-  "author": "dalton menezes",
+  "author": "Stark Bank",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/starkbank/sdk-node/issues"
   },
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
-    "@starkbank/ecdsa": "^0.0.3",
+    "starkbank-ecdsa": "^0.0.1",
     "got": "^10.7.0"
   },
   "devDependencies": {

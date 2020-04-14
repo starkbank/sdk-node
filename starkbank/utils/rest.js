@@ -1,6 +1,7 @@
 const api = require('./api.js');
 const fetch = require('./request').fetch;
 
+
 exports.getList = async function* (resource, query, user = null) {
     let json;
     let response;

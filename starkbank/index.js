@@ -1,19 +1,19 @@
 exports.version = '2.0.0';
 exports.cache = {};
 
-const ledger = require('./ledger');
 
 // Modules
-exports.transaction = ledger.transaction;
-exports.balance = ledger.balance;
+exports.transaction = require('./transaction');
+exports.balance = require('./balance');
 exports.boleto = require('./boleto');
 exports.transfer = require('./transfer');
-exports.boletoPayment = require('./payment').boleto;
-exports.utilityPayment = require('./payment').utility;
+exports.boletoPayment = require('./boletoPayment');
+exports.utilityPayment = require('./utilityPayment');
 exports.webhook = require('./webhook');
-exports.event = exports.webhook.event;
+exports.event = require('./event');
 exports.key = require('./key.js');
-exports.error = require('./utils/error.js');
+exports.error = require('./error.js');
+
 
 // Classes
 exports.Project = require('./user').project.Project;

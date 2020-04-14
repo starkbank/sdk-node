@@ -1,4 +1,5 @@
-const rest = require('../../../utils/rest.js');
+const rest = require('../../utils/rest.js');
+
 
 class UtilityPaymentLog {
     /**

@@ -1,3 +1,5 @@
+
+
 class InputError extends Error {
     constructor(code, message, status = 400) {
         super(message);

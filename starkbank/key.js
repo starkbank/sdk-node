@@ -1,5 +1,6 @@
 const fs = require('fs');
-const PrivateKey = require('@starkbank/ecdsa').PrivateKey;
+const PrivateKey = require('starkbank-ecdsa').PrivateKey;
+
 
 exports.create = function (path = null) {
     let newPrivateKey = new PrivateKey();

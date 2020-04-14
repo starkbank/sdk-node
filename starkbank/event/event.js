@@ -1,6 +1,7 @@
-const Ecdsa = require('@starkbank/ecdsa');
-const rest = require('../../utils/rest.js');
-const error = require('../../utils/error.js');
+const Ellipticcurve = require('starkbank-ecdsa');
+const rest = require('../utils/rest.js');
+const error = require('../error.js');
+
 
 class Event {
     /**
@@ -32,14 +33,14 @@ exports.Event = Event;
 let resource = exports.Event;
 
 function verifySignature(content, signature, user = null, refresh = false) {
-    signature = Ecdsa.Signature.fromBase64(signature);
+    signature = Ellipticcurve.Signature.fromBase64(signature);
     let publicKey = starkbank.cache['starkbank-public-key'];
     if (!publicKey || refresh) {
         let pem = rest.getPublicKey(user);
-        publicKey = Ecdsa.PublicKey.fromPem(pem);
+        publicKey = Ellipticcurve.PublicKey.fromPem(pem);
         starkbank.cache['starkbank-public-key'] = publicKey;
     }
-    return Ecdsa.Ecdsa.verify(content, signature, publicKey);
+    return Ellipticcurve.Ecdsa.verify(content, signature, publicKey);
 }
 
 exports.get = async function (id, user = null) {

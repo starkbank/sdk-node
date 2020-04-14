@@ -52,7 +52,7 @@ Once you've created your project, load it in the SDK:
 ```javascript
 const starkbank = require('starkbank');
 
-let project = new starkbank.project({
+let project = new starkbank.Project({
     environment: 'sandbox',
     id: '5656565656565656',
     // This private key is only for example purposes! Don't use it for your projects!
@@ -83,7 +83,7 @@ The first way is passing the user argument in all methods, such as:
 
 ```javascript
 const starkbank = require('starkbank');
-(async()=>{
+(async() => {
     let balance = await starkbank.balance.get({user: project});
 })();
 ```
@@ -96,7 +96,7 @@ const starkbank = require('starkbank');
 
 starkbank.user = project;
 
-(async()=>{
+(async() => {
     let balance = await starkbank.balance.get();
 })();
 ```
@@ -130,7 +130,7 @@ To know how much money you have in your workspace, run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let balance = await starkbank.balance.get();
     console.log(balance);
 })();
@@ -144,8 +144,7 @@ you have in other banks.
 ```javascript
 const starkbank = require('starkbank');
 
-
-(async()=>{
+(async() => {
     let boletos = await starkbank.boleto.create([
         {
             amount: 23571,  // R$ 235,71 
@@ -162,7 +161,8 @@ const starkbank = require('starkbank');
             interest: 2.5,  // 2.5% per month
         },
     ]);
-    for (let boleto of boletos){
+
+    for (let boleto of boletos) {
         console.log(boleto);
     }
 })();
@@ -177,8 +177,8 @@ Its status indicates whether it's been paid.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let boleto = await starkbank.boleto.get({id: '5155165527080960'})
+(async() => {
+    let boleto = await starkbank.boleto.get('5155165527080960')
     console.log(boleto);
 })();
 
@@ -192,9 +192,9 @@ After its creation, a boleto PDF may be retrieved by passing its id.
 const starkbank = require('starkbank');
 const fs = require('fs');
 
-(async()=>{
-    let pdf = await starkbank.boleto.pdf({id: '5155165527080960'});
-    fs.writeFile('boleto.pdf', pdf, ()=>{});
+(async() => {
+    let pdf = await starkbank.boleto.pdf('5155165527080960');
+    fs.writeFile('boleto.pdf', pdf, () => {});
 })();
 
 ```
@@ -211,8 +211,8 @@ Note that this is not possible if it has been processed already.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let boleto = await starkbank.boleto.delete({id: '5155165527080960'});
+(async() => {
+    let boleto = await starkbank.boleto.delete('5155165527080960');
     console.log(boleto);
 })();
 ```
@@ -224,14 +224,14 @@ You can get a list of created boletos given some filters.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let boletos = await starkbank.boleto.query({
-            limit: 150,
-            after: '2020-03-01',
-            before: '2020-03-30',
-        }
-    );
-    for await (let boleto of boletos){
+        limit: 150,
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let boleto of boletos) {
         console.log(boleto);
     }
 })();
@@ -244,9 +244,10 @@ Logs are pretty important to understand the life cycle of a boleto.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let logs = await starkbank.boleto.log.query({limit: 100});
-    for await (let log of logs){
+
+    for await (let log of logs) {
         console.log(log);
     }
 })();
@@ -259,8 +260,8 @@ You can get a single log by its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let log = await starkbank.boleto.log.get({id: '5155165527080960'});
+(async() => {
+    let log = await starkbank.boleto.log.get('5155165527080960');
     console.log(log);
 })();
 ```
@@ -272,7 +273,7 @@ You can also create transfers in the SDK (TED/DOC).
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let transfers = await starkbank.transfer.create([
         {
             amount: 100,
@@ -293,7 +294,8 @@ const starkbank = require('starkbank');
             tags: []
         }
     ])
-    for (let transfer of transfers){
+
+    for (let transfer of transfers) {
         console.log(transfer);
     }
 })();
@@ -306,13 +308,13 @@ You can query multiple transfers according to filters.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let transfers = await starkbank.transfer.query({
-            after: '2020-03-01',
-            before: '2020-03-30',
-        }
-    );
-    for await (let transfer of transfers){
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let transfer of transfers) {
         console.log(transfer);
     }
 })();
@@ -325,8 +327,8 @@ To get a single transfer by its id, run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let transfer = await starkbank.transfer.get({id: '5155165527080960'});
+(async() => {
+    let transfer = await starkbank.transfer.get('5155165527080960');
     console.log(transfer);
 })();
 ```
@@ -338,9 +340,9 @@ After its creation, a transfer PDF may also be retrieved by passing its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let pdf = await starkbank.transfer.pdf({id: '5155165527080960'});
-    fs.writeFile('transfer.pdf', pdf,  'binary', ()=>{});
+(async() => {
+    let pdf = await starkbank.transfer.pdf('5155165527080960');
+    fs.writeFile('transfer.pdf', pdf,  'binary', () => {});
 })();
 ```
 
@@ -355,9 +357,10 @@ You can query transfer logs to better understand transfer life cycles.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let logs = await starkbank.transfer.log.query({limit: 50});
-    for await (let log of logs){
+
+    for await (let log of logs) {
         console.log(log);
     }
 })();
@@ -370,8 +373,8 @@ You can also get a specific log by its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let log = await starkbank.boleto.log.get({id: '5155165527080960'});
+(async() => {
+    let log = await starkbank.boleto.log.get('5155165527080960');
     console.log(log);
 })();
 ```
@@ -383,7 +386,7 @@ Paying boletos is also simple.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let payments = await starkbank.boletoPayment.create([
         {
             taxId: "012.345.678-90",
@@ -400,7 +403,8 @@ const starkbank = require('starkbank');
             tags: ["again"],
         },
     ])
-    for (let payment of payments){
+
+    for (let payment of payments) {
         console.log(payment);
     }
 })();
@@ -413,8 +417,8 @@ To get a single boleto payment by its id, run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let payment = await starkbank.boletoPayment.get({id: '5155165527080960'});
+(async() => {
+    let payment = await starkbank.boletoPayment.get('5155165527080960');
     console.log(payment);
 })();
 ```
@@ -426,9 +430,9 @@ After its creation, a boleto payment PDF may be retrieved by passing its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let pdf = await starkbank.boletoPayment.pdf({id: '5155165527080960'});
-    fs.writeFile('boleto-payment.pdf', pdf,  'binary', ()=>{});
+(async() => {
+    let pdf = await starkbank.boletoPayment.pdf('5155165527080960');
+    fs.writeFile('boleto-payment.pdf', pdf,  'binary', () => {});
 })();
 ```
 
@@ -444,8 +448,8 @@ Note that this is not possible if it has been processed already.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let payment = await starkbank.boletoPayment.get({id: '5155165527080960'});
+(async() => {
+    let payment = await starkbank.boletoPayment.get('5155165527080960');
     console.log(payment);
 })();
 ```
@@ -457,13 +461,13 @@ You can search for boleto payments using filters.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let payments = await starkbank.boletoPayment.query({
-            after: '2020-03-01',
-            before: '2020-03-30',
-        }
-    );
-    for await (let payment of payments){
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let payment of payments) {
         console.log(payment);
     }
 })();
@@ -476,12 +480,13 @@ Searches are also possible with boleto payment logs:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let payments = await starkbank.boletoPayment.query({
         after: '2020-03-01',
         before: '2020-03-30',
     });
-    for await (let payment of payments){
+
+    for await (let payment of payments) {
         console.log(payment);
     }
 })();
@@ -495,8 +500,8 @@ You can also get a boleto payment log by specifying its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let log = await starkbank.boletoPayment.log.get({id: '5155165527080960'});
+(async() => {
+    let log = await starkbank.boletoPayment.log.get('5155165527080960');
     console.log(log);
 })();
 ```
@@ -508,7 +513,7 @@ Its also simple to pay utility bills (such electricity and water bills) in the S
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let payments = await starkbank.utilityPayment.create([
         {
             line: "34197819200000000011090063609567307144464000",
@@ -523,7 +528,8 @@ const starkbank = require('starkbank');
             tags: ["again"],
         },
     ]);
-    for await (let payment of payments){
+
+    for await (let payment of payments) {
         console.log(payment);
     }
 })();
@@ -537,11 +543,12 @@ To search for utility payments using filters, run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let payments = await starkbank.utilityPayment.query({
         tags: ["electricity", "gas"],
     });
-    for await (let payment of payments){
+
+    for await (let payment of payments) {
         console.log(payment);
     }
 })();
@@ -554,8 +561,8 @@ You can get a specific bill by its id:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let payment = await starkbank.utilityPayment.get({id: '5155165527080960'});
+(async() => {
+    let payment = await starkbank.utilityPayment.get('5155165527080960');
     console.log(payment);
 })();
 ```
@@ -567,9 +574,9 @@ After its creation, a utility payment PDF may also be retrieved by passing its i
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let pdf = await starkbank.utilityPayment.pdf({id: '5155165527080960'});
-    fs.writeFile('utility-payment.pdf', pdf,  'binary', ()=>{});
+(async() => {
+    let pdf = await starkbank.utilityPayment.pdf(5155165527080960');
+    fs.writeFile('utility-payment.pdf', pdf,  'binary', () => {});
 })();
 ```
 
@@ -585,8 +592,8 @@ Note that this is not possible if it has been processed already.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let payment = await starkbank.utilityPayment.delete({id: '5155165527080960'});
+(async() => {
+    let payment = await starkbank.utilityPayment.delete('5155165527080960');
     console.log(payment);
 })();
 ```
@@ -599,12 +606,12 @@ bills life cycles.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let logs = await starkbank.utilityPayment.log.query({
-            paymentIds:["102893710982379182", "92837912873981273"],
-        }
-    );
-    for await (let log of logs){
+        paymentIds:["102893710982379182", "92837912873981273"],
+    });
+
+    for await (let log of logs) {
         console.log(log);
     }
 })();
@@ -617,8 +624,8 @@ If you want to get a specific payment log by its id, just run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let log = await starkbank.utilityPayment.log.get({id: '5155165527080960'});
+(async() => {
+    let log = await starkbank.utilityPayment.log.get('5155165527080960');
     console.log(log);
 })();
 ```
@@ -630,7 +637,7 @@ To send money between Stark Bank accounts, you can create transactions:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let transactions = await starkbank.transaction.create([
         {
             amount: 100,  // (R$ 1.00)
@@ -647,7 +654,8 @@ const starkbank = require('starkbank');
             tags: ["provider"]
         },
     ])
-    for (let transaction of transactions){
+
+    for (let transaction of transactions) {
         console.log(transaction);
     }
 })();
@@ -663,13 +671,13 @@ you receive boleto payments, pay a bill or make transfers, for example.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let transactions = await starkbank.transaction.query({
-            after: "2020-01-01",
-            before: "2020-03-01",
-        }
-    );
-    for await (let transaction of transactions){
+        after: "2020-01-01",
+        before: "2020-03-01",
+    });
+
+    for await (let transaction of transactions) {
         console.log(transaction);
     }
 })();
@@ -682,8 +690,8 @@ You can get a specific transaction by its id:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let transaction = await starkbank.transaction.get({id: '5155165527080960'});
+(async() => {
+    let transaction = await starkbank.transaction.get('5155165527080960');
     console.log(transaction);
 })();
 ```
@@ -695,14 +703,13 @@ To create a webhook subscription and be notified whenever an event occurs, run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let webhook = await starkbank.webhook.create(
-        {
-            url: "https://webhook.site/dd784f26-1d6a-4ca6-81cb-fda0267761ec",
-            subscriptions: ["transfer", "boleto", "boleto-payment", "utility-payment"],
-        }
-    );
-        console.log(webhook);
+(async() => {
+    let webhook = await starkbank.webhook.create({
+        url: "https://webhook.site/dd784f26-1d6a-4ca6-81cb-fda0267761ec",
+        subscriptions: ["transfer", "boleto", "boleto-payment", "utility-payment"],
+    });
+
+    console.log(webhook);
 })();
 ```
 
@@ -713,13 +720,13 @@ To search for registered webhooks, run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let webhooks = await starkbank.webhook.query({
-            after: "2020-01-01",
-            before: "2020-03-01",
-        }
-    );
-    for await (let webhook of webhooks){
+        after: "2020-01-01",
+        before: "2020-03-01",
+    });
+
+    for await (let webhook of webhooks) {
         console.log(webhook);
     }
 })();
@@ -732,8 +739,8 @@ You can get a specific webhook by its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let webhook = await starkbank.webhook.get({id: '5155165527080960'});
+(async() => {
+    let webhook = await starkbank.webhook.get('5155165527080960');
     console.log(webhook);
 })();
 ```
@@ -745,8 +752,8 @@ You can also delete a specific webhook by its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let webhook = await starkbank.webhook.delete({id: '5155165527080960'});
+(async() => {
+    let webhook = await starkbank.webhook.delete('5155165527080960');
     console.log(webhook);
 })();
 ```
@@ -760,15 +767,18 @@ the event.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let response = await listen()  // this is the method you made to get the events posted to your webhook
-    let event = await starkbank.event.parse({content: response.content, signature: response.headers["Digital-Signature"]});
+    let event = await starkbank.event.parse({
+        content: response.content, 
+        signature: response.headers["Digital-Signature"]
+    });
 
-    if (event.subscription === "transfer"){
+    if (event.subscription === "transfer") {
         console.log(event.log.transfer);
-    } else if (event.subscription === "boleto"){
+    } else if (event.subscription === "boleto") {
         console.log(event.log.boleto);
-    } else if (event.subscription === "boleto-payment"){
+    } else if (event.subscription === "boleto-payment") {
         console.log(event.log.payment);
     }
 })();
@@ -781,13 +791,13 @@ To search for webhooks events, run:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     let events = await starkbank.event.query({
-            after: "2020-01-01",
-            before: "2020-03-01",
-        }
-    );
-    for await (let event of events){
+        after: "2020-01-01",
+        before: "2020-03-01",
+    });
+
+    for await (let event of events) {
         console.log(event);
     }
 })();
@@ -800,8 +810,8 @@ You can get a specific webhook event by its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let event = await starkbank.event.get({id: '5155165527080960'});
+(async() => {
+    let event = await starkbank.event.get('5155165527080960');
     console.log(event);
 })();
 ```
@@ -813,8 +823,8 @@ You can also delete a specific webhook event by its id.
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let event = await starkbank.event.delete({id: '5155165527080960'});
+(async() => {
+    let event = await starkbank.event.delete('5155165527080960');
     console.log(event);
 })();
 ```
@@ -828,8 +838,8 @@ With this function, you can manually set events retrieved from the API as
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
-    let event = await starkbank.event.update({id: '5155165527080960'}, {isDelivered: true});
+(async() => {
+    let event = await starkbank.event.update('5155165527080960', {isDelivered: true});
     console.log(event);
 })();
 ```
@@ -846,7 +856,7 @@ For example:
 ```javascript
 const starkbank = require('starkbank');
 
-(async()=>{
+(async() => {
     try{
         let transactions = await starkbank.transaction.create([
             {
@@ -857,9 +867,9 @@ const starkbank = require('starkbank');
                 tags: ["provider"]
             },
         ]);
-    } catch (e){
+    } catch (e) {
         if (e instanceof InputErrors) {
-            for (error of e.errors){
+            for (error of e.errors) {
                 console.log(error.code, error.message);
             }
         } else {

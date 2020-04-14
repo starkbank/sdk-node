@@ -1,4 +1,5 @@
-const Ecdsa = require('@starkbank/ecdsa');
+const PrivateKey = require('starkbank-ecdsa').PrivateKey;
+
 
 function formatDate(date) {
     let d = new Date(date),
@@ -25,7 +26,7 @@ exports.date = function (input) {
 
 exports.key = function (key) {
     try {
-        Ecdsa.PrivateKey.fromPem(key);
+        PrivateKey.fromPem(key);
     } catch (e) {
         throw new Error('Invalid private key, try another one');
     }

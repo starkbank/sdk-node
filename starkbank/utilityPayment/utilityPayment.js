@@ -1,5 +1,6 @@
-const rest = require('../../utils/rest.js');
-const check = require('../../utils/check.js');
+const rest = require('../utils/rest.js');
+const check = require('../utils/check.js');
+
 
 class UtilityPayment {
     /**

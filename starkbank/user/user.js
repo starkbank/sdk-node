@@ -1,8 +1,10 @@
-const Ecdsa = require('@starkbank/ecdsa');
+const PrivateKey = require('starkbank-ecdsa').PrivateKey;
 const check = require('../utils/check.js')
 
+
 class User extends require('../utils/resource.js').Resource {
-    constructor(environment = null, id = null, privateKey = null) {
+
+    constructor(id = null, privateKey = null, environment = null) {
         super(id);
         this.pem = check.key(privateKey);
         this.environment = check.environment(environment);
@@ -13,7 +15,7 @@ class User extends require('../utils/resource.js').Resource {
     }
 
     privateKey() {
-        return Ecdsa.PrivateKey.fromPem(this.pem);
+        return PrivateKey.fromPem(this.pem);
     }
 }
 

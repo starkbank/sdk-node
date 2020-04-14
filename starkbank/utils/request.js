@@ -1,8 +1,9 @@
 const starkbank = require('../../starkbank');
-const Ecdsa = require('@starkbank/ecdsa');
+const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 const got = require('got');
 const pjson = require('../../package.json');
 const error = require('./error.js');
+
 
 class Response {
     constructor(status, content) {
@@ -15,8 +16,7 @@ class Response {
     }
 }
 
-exports.fetch = async function (path, method = 'GET', payload = null,
-                                query = null, user = null, version = 'v2') {
+exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
     if (!user) {
         if (!starkbank.user) {
             throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
@@ -25,8 +25,7 @@ exports.fetch = async function (path, method = 'GET', payload = null,
     }
     let hostname = {
         'production': 'https://api.starkbank.com/' + version,
-        'sandbox': 'https://sandbox.api.starkbank.com/' + version,
-        'development': 'https://development.api.starkbank.com/' + version,
+        'sandbox': 'https://sandbox.api.starkbank.com/' + version
     }[user.environment];
 
     let options = {
@@ -56,10 +55,10 @@ exports.fetch = async function (path, method = 'GET', payload = null,
 
     options['headers'] = {
         'Access-Id': user.accessId(),
-        'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
         'Access-Time': accessTime,
-        'Content-Type': 'application/json',
-        'Access-Signature': Ecdsa.Ecdsa.sign(message, user.privateKey()).toBase64(),
+        'Access-Signature': Ecdsa.sign(message, user.privateKey()).toBase64(),
+        'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
+        'Content-Type': 'application/json'
     };
     let response;
     let content;
