@@ -53,10 +53,11 @@ npm install starkbank
 We use ECDSA. So, you need to generate a secp256k1 private key to sign your requests to out API, and register 
 with us your public key to we validate your requests.
 
-You can use one of the methods bellow:
+You can use one of the methods below:
 
-2.1. OpenSSL, tutorial [here](https://starkbank.com/faq/how-to-create-ecdsa-keys).
-2.2. Using our SDK:
+2.1. We give some options in our [tutorial](https://starkbank.com/faq/how-to-create-ecdsa-keys).
+
+2.2. Or you can use our SDK:
 
 ```javascript
 const starkbank = require('starkbank');
@@ -69,22 +70,24 @@ let [privateKey, publicKey] = starkbank.key.create("file/keys/")
 
 ### 3. Create a Project
 
-A project is a type of user made specially for direct API integrations. To create one in Sandbox:
+You need a project for direct API integrations. To create one in Sandbox:
 
 3.1. Login into [Starkbank Sandbox](https://sandbox.web.starkbank.com)
-3.2. Go to Menu > User (Usuários) > Project (Projetos)
+
+3.2. Go to Menu > Usuários (Users) > Projetos (Projects)
+
 3.3. Create a project: Give a name and upload the public key you created in the section 2.
-3.4. After create the project, get the project id
-3.5. Use the project id and your private key to create the object bellow:
+
+3.4. After creating the project, get the project id
+
+3.5. Use the project id and your private key to create the object below:
 
 ```javascript
 const starkbank = require('starkbank');
 
-let project = new starkbank.Project({
-    environment: 'sandbox',
-    id: '5656565656565656',
-    // This private key is only for example purposes! Don't use it for your projects!
-    privateKey: `-----BEGIN EC PARAMETERS-----
+// Get your private key from an environment variable or an encrypted database.
+// This is only an example of a private key content. You should use your own key.
+let privateKeyContent = `-----BEGIN EC PARAMETERS-----
     BgUrgQQACg==
     -----END EC PARAMETERS-----
     -----BEGIN EC PRIVATE KEY-----
@@ -92,20 +95,32 @@ let project = new starkbank.Project({
     oUQDQgAE0iaeEHEgr3oTbCfh8U2L+r7zoaeOX964xaAnND5jATGpD/tHec6Oe9U1
     IF16ZoTVt1FzZ8WkYQ3XomRD4HS13A==
     -----END EC PRIVATE KEY-----
-    `
+`
+
+let project = new starkbank.Project({
+    environment: 'sandbox',
+    id: '5656565656565656',
+    privateKey: privateKeyContent
 });
 ```
 
-NOTE 1: Never hard-code your private key. Get it from an environment variable, for example. 
+NOTE 1: Never hard-code your private key. Get it from an environment variable or an encrypted database .
+
 NOTE 2: We support `'sandbox'` and `'production'` as environment.
+
 NOTE 3: The project you created in `sandbox` does not exist in `production` and vice versa.
 
 
 ### 4. Setting up the user
 
-You can inform the project to the SDK in two different ways.
+There are two kinds of users that can access our API: **Project** and **Member**.
 
-The first way is passing the user argument in all methods, such as:
+- Member is the one you use when you log into our webpage.
+- Project is designed for Integrations and is the one meant for our SDK.
+
+There are two ways to inform the user to the SDK:
+ 
+4.1 Passing the user as argument in all functions:
 
 ```javascript
 const starkbank = require('starkbank');
@@ -114,8 +129,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-Or, alternatively, if you want to use the same project on all requests,
-we recommend you set it as the default user by doing:
+4.2 Set it as a default user in the SDK:
 
 ```javascript
 const starkbank = require('starkbank');
