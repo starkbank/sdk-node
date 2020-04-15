@@ -1,5 +1,6 @@
 const api = require('./api.js');
 const fetch = require('./request').fetch;
+const fetchBuffer = require('./request').fetchBuffer;
 
 
 exports.getList = async function* (resource, query, user = null) {
@@ -61,7 +62,7 @@ exports.getPdf = async function (resource, id, user = null) {
     let entity = new resource['class']({});
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}/pdf`;
-    let response = await fetch(`/${endpoint}`, 'GET', null, null, user);
+    let response = await fetchBuffer(`/${endpoint}`, 'GET', null, null, user);
     return response.content;
 };
 
