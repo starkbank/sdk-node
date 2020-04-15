@@ -1,11 +1,11 @@
 {
   "name": "starkbank",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "SDK to facilitate Node integrations with Stark Bank",
-  "main": "starkbank/index.js",
+  "main": "index.js",
   "directories": {
-    "lib": "starkbank",
-    "test": "test"
+    "lib": "sdk",
+    "test": "tests"
   },
   "scripts": {
     "test": "mocha"
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
-    "starkbank-ecdsa": "^0.0.1",
+    "starkbank-ecdsa": "^0.0.2",
     "got": "^10.7.0"
   },
   "devDependencies": {
