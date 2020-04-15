@@ -1,4 +1,4 @@
-# Stark Bank Node SDK
+# Stark Bank Node SDK Beta
 
 Welcome to the Stark Bank Node SDK! This tool is made for Node 
 developers who want to easily integrate with our API.
