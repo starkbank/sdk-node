@@ -8,26 +8,25 @@ If you have no idea what Stark Bank is, check out our [website](https://www.star
 and discover a world where receiving or making payments 
 is as easy as sending a text message to your client!
 
+## Help and Feedback
+
+If you have any questions about our SDK, just email us your questions. 
+We will respond you quickly, pinky promise. We are here to help you integrate with us ASAP. 
+We also love feedback, so don't be shy about sharing your thoughts with us.
+
+Email: developers@starkbank.com
+
 ## Supported Node Versions
 
 This library supports the following Node versions:
 
 * Node 10+
 
-If you have specific version demands for your projects,
-feel free to [contact us](mailto:developers@starkbank.com)
+If you have specific version demands for your projects, feel free to contact us.
 
-## Stark Bank API documentation
+## Stark Bank API Reference
 
-If you want to take a look at our API, follow [this link](https://docs.api.starkbank.com/?version=latest).
-
-## Installation
-
-To install the package with npm, run:
-
-```sh
-npm install starkbank
-```
+If you want to take a look at our API, follow [this link](https://starkbank.com/docs/api).
 
 ## Versioning
 
@@ -39,15 +38,44 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - MINOR version when **breaking changes** are introduced OR **new functionalities** are added in a backwards compatible manner;
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
-## Creating a Project
+## Setup
 
-To connect to the Stark Bank API, you need user credentials. We currently have 2
-kinds of users: Members and Projects. Given the purpose of this SDK, it only
-supports Projects, which is a type of user made specially for direct API
-integrations. To start using the SDK, create your first Sandbox Project in our 
-[website](https://sandbox.web.starkbank.com) in the User -> Projects area.
+### 1. Install our SDK
 
-Once you've created your project, load it in the SDK:
+1.1 To install the package with npm, run:
+
+```sh
+npm install starkbank
+```
+
+### 2. Create your Private and Public Keys
+
+We use ECDSA. So, you need to generate a secp256k1 private key to sign your requests to out API, and register 
+with us your public key to we validate your requests.
+
+You can use one of the methods bellow:
+
+2.1. OpenSSL, tutorial [here](https://starkbank.com/faq/how-to-create-ecdsa-keys).
+2.2. Using our SDK:
+
+```javascript
+const starkbank = require('starkbank');
+
+let [privateKey, publicKey] = starkbank.key.create()
+
+// or, to also save .pem files in a specific path
+let [privateKey, publicKey] = starkbank.key.create("file/keys/")
+```
+
+### 3. Create a Project
+
+A project is a type of user made specially for direct API integrations. To create one in Sandbox:
+
+3.1. Login into [Starkbank Sandbox](https://sandbox.web.starkbank.com)
+3.2. Go to Menu > User (Usuários) > Project (Projetos)
+3.3. Create a project: Give a name and upload the public key you created in the section 2.
+3.4. After create the project, get the project id
+3.5. Use the project id and your private key to create the object bellow:
 
 ```javascript
 const starkbank = require('starkbank');
@@ -68,14 +96,12 @@ let project = new starkbank.Project({
 });
 ```
 
-Once you are done testing and want to move to Production, create a new Project
-in your Production account ([click here](https://web.starkbank.com)). Also,
-when you are loading your Project, change the environment from `'sandbox'` to
-`'production'` in the constructor shown above. 
+NOTE 1: Never hard-code your private key. Get it from an environment variable, for example. 
+NOTE 2: We support `'sandbox'` and `'production'` as environment.
+NOTE 3: The project you created in `sandbox` does not exist in `production` and vice versa.
 
-NOTE: Never hard-code your private key. Get it from an environment variable, for example. 
 
-## Setting up the user
+### 4. Setting up the user
 
 You can inform the project to the SDK in two different ways.
 
@@ -169,6 +195,26 @@ const starkbank = require('starkbank');
 
 ```
 
+### Query boletos
+
+You can get a list of created boletos given some filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let boletos = await starkbank.boleto.query({
+        limit: 150,
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let boleto of boletos) {
+        console.log(boleto);
+    }
+})();
+```
+
 ### Get boleto
 
 After its creation, information on a boleto may be retrieved by passing its id. 
@@ -217,26 +263,6 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query boletos
-
-You can get a list of created boletos given some filters.
-
-```javascript
-const starkbank = require('starkbank');
-
-(async() => {
-    let boletos = await starkbank.boleto.query({
-        limit: 150,
-        after: '2020-03-01',
-        before: '2020-03-30',
-    });
-
-    for await (let boleto of boletos) {
-        console.log(boleto);
-    }
-})();
-```
-
 ### Query boleto logs
 
 Logs are pretty important to understand the life cycle of a boleto.
@@ -277,10 +303,10 @@ const starkbank = require('starkbank');
     let transfers = await starkbank.transfer.create([
         {
             amount: 100,
-            bankCode: '200',
+            bankCode: '033',
             branchCode: '0001',
             accountNumber: '10000-0',
-            taxId: '012.345.678-90',
+            taxId: '276.685.415-00',
             name: 'Tony Stark',
             tags: ['iron', 'suit']
         },
@@ -289,7 +315,7 @@ const starkbank = require('starkbank');
             bankCode: '341',
             branchCode: '1234',
             accountNumber: '123456-7',
-            taxId: '012.345.678-90',
+            taxId: '372.864.795-04',
             name: 'Jon Snow',
             tags: []
         }
@@ -481,13 +507,13 @@ Searches are also possible with boleto payment logs:
 const starkbank = require('starkbank');
 
 (async() => {
-    let payments = await starkbank.boletoPayment.query({
+    let logs = await starkbank.boletoPayment.log.query({
         after: '2020-03-01',
         before: '2020-03-30',
     });
 
-    for await (let payment of payments) {
-        console.log(payment);
+    for await (let log of logs) {
+        console.log(log);
     }
 })();
 ```
@@ -860,10 +886,10 @@ const starkbank = require('starkbank');
     try{
         let transactions = await starkbank.transaction.create([
             {
-                amount: 99999999999999,  // (R$ 1.00)
+                amount: 100, 
                 receiverId: "1029378109327810",
                 description: ".",
-                externalId: "12345",  // so we can block anything you send twice by mistake
+                externalId: "12345",
                 tags: ["provider"]
             },
         ]);
@@ -889,25 +915,3 @@ neither __InputErrors__ nor an __InternalServerError__, such as connectivity pro
 __InvalidSignatureException__ will be raised specifically by starkbank.event.parse()
 when the provided content and signature do not check out with the Stark Bank public
 key.
-
-## Key pair generation
-
-The SDK provides a helper to allow you to easily create ECDSA secp256k1 keys to use
-within our API. If you ever need a new pair of keys, just run:
-
-```javascript
-const starkbank = require('starkbank');
-
-let [privateKey, publicKey] = starkbank.key.create()
-
-// or, to also save .pem files in a specific path
-let [privateKey, publicKey] = starkbank.key.create("file/keys/")
-```
-
-NOTE: When you are creating a new Project, it is recommended that you create the
-keys inside the infrastructure that will use it, in order to avoid risky internet
-transmissions of your **private-key**. Then you can export the **public-key** alone to the
-computer where it will be used in the new Project creation.
-
-
-[API docs]: (https://docs.api.StarkBank.com/?version=v2)

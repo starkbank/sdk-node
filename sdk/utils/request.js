@@ -1,12 +1,12 @@
 const starkbank = require('../../index.js');
 const Ecdsa = require('starkbank-ecdsa').Ecdsa;
-const got = require('got');
 const pjson = require('../../package.json');
 const error = require('../error.js');
-const fs = require('fs');
+const got = require('got');
 
 
 class Response {
+
     constructor(status, content) {
         this.status = status;
         this.content = content;
@@ -18,12 +18,12 @@ class Response {
 }
 
 exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
+    user = user || starkbank.user;
+
     if (!user) {
-        if (!starkbank.user) {
-            throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
-        }
-        user = starkbank.user;
+        throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
     }
+
     let hostname = {
         'production': 'https://api.starkbank.com/' + version,
         'sandbox': 'https://sandbox.api.starkbank.com/' + version
@@ -88,12 +88,12 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
 };
 
 exports.fetchBuffer = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
+    user = user || starkbank.user;
+
     if (!user) {
-        if (!starkbank.user) {
-            throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
-        }
-        user = starkbank.user;
+        throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
     }
+
     let hostname = {
         'production': 'https://api.starkbank.com/' + version,
         'sandbox': 'https://sandbox.api.starkbank.com/' + version

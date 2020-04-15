@@ -1,1 +1,1 @@
-exports.project = require('./project.js');
+exports.Project = require('./project.js').Project;

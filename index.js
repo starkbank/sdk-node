@@ -1,6 +1,6 @@
 exports.version = '0.0.5';
 exports.cache = {};
-
+exports.user = null
 
 // Modules
 exports.transaction = require('./sdk/transaction');
@@ -16,7 +16,7 @@ exports.error = require('./sdk/error.js');
 
 
 // Classes
-exports.Project = require('./sdk/user').project.Project;
+exports.Project = require('./sdk/user').Project;
 exports.Transaction = exports.transaction.Transaction;
 exports.Balance = exports.balance.Balance;
 exports.Boleto = exports.boleto.Boleto;
