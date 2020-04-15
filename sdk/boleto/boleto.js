@@ -70,7 +70,7 @@ class Boleto {
 }
 
 exports.Boleto = Boleto;
-let resource = exports.Boleto;
+let resource = {'class': exports.Boleto, 'name': 'Boleto'};
 
 exports.create = async function (boletos, {user} = {}) {
     /**

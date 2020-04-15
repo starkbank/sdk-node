@@ -43,7 +43,7 @@ class Transaction {
 }
 
 exports.Transaction = Transaction;
-let resource = exports.Transaction;
+let resource = {'class': exports.Transaction, 'name': 'Transaction'};
 
 exports.create = async function (transactions, {user} = {}) {
     /**

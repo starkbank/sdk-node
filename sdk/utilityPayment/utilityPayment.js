@@ -51,7 +51,7 @@ class UtilityPayment {
 }
 
 exports.UtilityPayment = UtilityPayment;
-let resource = exports.UtilityPayment;
+let resource = {'class': exports.UtilityPayment, 'name': 'UtilityPayment'};
 
 
 exports.create = async function (payments, {user} = {}) {

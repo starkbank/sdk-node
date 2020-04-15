@@ -27,7 +27,7 @@ class Balance {
 }
 
 exports.Balance = Balance;
-let resource = exports.Balance;
+let resource = {'class': exports.Balance, 'name': 'Balance'};
 
 
 exports.get = async function ({user} = {}) {

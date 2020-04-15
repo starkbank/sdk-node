@@ -53,7 +53,7 @@ class Transfer {
 }
 
 exports.Transfer = Transfer;
-let resource = exports.Transfer;
+let resource = {'class': exports.Transfer, 'name': 'Transfer'};
 
 exports.create = async function (transfers, {user} = {}) {
     /**

@@ -25,7 +25,7 @@ class Webhook {
 }
 
 exports.Webhook = Webhook;
-let resource = exports.Webhook;
+let resource = {'class': exports.Webhook, 'name': 'Webhook'};
 
 exports.create = async function ({url, subscriptions, user = null} = {}) {
     /**

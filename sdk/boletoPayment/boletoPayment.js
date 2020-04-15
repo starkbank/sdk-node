@@ -47,7 +47,7 @@ class BoletoPayment {
 }
 
 exports.BoletoPayment = BoletoPayment;
-let resource = exports.BoletoPayment;
+let resource = {'class': exports.BoletoPayment, 'name': 'BoletoPayment'};
 
 exports.create = async function (payments, {user} = {}) {
     /**

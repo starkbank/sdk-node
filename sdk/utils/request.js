@@ -44,7 +44,6 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
         }
         url += queryString;
     }
-    console.log(url);
     let accessTime = Math.round((new Date()).getTime() / 1000);
     let message = user.accessId() + ':' + accessTime + ':';
 

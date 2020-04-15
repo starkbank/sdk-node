@@ -14,7 +14,7 @@ class Event {
      *
      * Attributes:
      * id [string]: unique id returned when the log is created. ex: '5656565656565656'
-     * log [Log]: a Log object from one the subscription services (TransferLog, BoletoLog, BoletoPaymentlog or UtilityPaymentLog)
+     * log [Log]: a Log object from one the subscription services (Transfer Log, Boleto Log, BoletoPaymentlog or UtilityPayment Log)
      * created [string]: creation datetime for the notification event. ex: '2020-03-10 10:30:00.000'
      * delivered [string]: delivery datetime when the notification was delivered to the user url. Will be None if no successful attempts to deliver the event occurred. ex: '2020-03-10 10:30:00.000'
      * subscription [string]: service that triggered this event. ex: 'transfer', 'utility-payment'
@@ -30,7 +30,7 @@ class Event {
 }
 
 exports.Event = Event;
-let resource = exports.Event;
+let resource = {'class': exports.Event, 'name': 'Event'};
 
 function verifySignature(content, signature, user = null, refresh = false) {
     signature = Ellipticcurve.Signature.fromBase64(signature);
