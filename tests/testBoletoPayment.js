@@ -22,7 +22,7 @@ describe('TestBoletoPaymentGet', () => {
             assert(typeof payment.id == 'string');
             i += 1;
         }
-        console.log(i)
+        console.log(i);
         assert(i === 5);
         console.log('Number of boletos:', i);
     });
@@ -56,7 +56,7 @@ describe('TestBoletoPaymentPdfGet', () => {
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             let pdf = await starkbank.boletoPayment.pdf(payment.id);
-            assert(typeof pdf == 'string');
+            assert(Buffer.isBuffer(pdf));
         }
     });
 });

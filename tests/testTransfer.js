@@ -44,7 +44,7 @@ describe('TestTransferPdfGet', () => {
         for await (let transfer of transfers) {
             assert(typeof transfer.id == 'string');
             let pdf = await starkbank.transfer.pdf(transfer.id);
-            assert(typeof pdf == 'string');
+            assert(Buffer.isBuffer(pdf));
         }
     });
 });

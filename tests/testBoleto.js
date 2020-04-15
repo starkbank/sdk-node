@@ -55,7 +55,7 @@ describe('TestBoletoPdfGet', () => {
         for await (let boleto of boletos) {
             assert(typeof boleto.id == 'string');
             let pdf = await starkbank.boleto.pdf(boleto.id);
-            assert(typeof pdf == 'string');
+            assert(Buffer.isBuffer(pdf));
         }
     });
 });

@@ -56,7 +56,7 @@ describe('TestUtilityPaymentPdfGet', () => {
         for await (let payment of payments) {
             assert(typeof payment.id == 'string');
             let pdf = await starkbank.utilityPayment.pdf(payment.id);
-            assert(typeof pdf == 'string');
+            assert(Buffer.isBuffer(pdf));
         }
     });
 });
