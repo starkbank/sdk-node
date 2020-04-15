@@ -1,6 +1,6 @@
-const starkbank = require('../../starkbank');
+const starkbank = require('../../index.js');
 const random = require('./random.js');
-const check = require('../../starkbank/utils/check.js');
+const check = require('../../sdk/utils/check.js');
 
 exampleUtilityPayment = new starkbank.UtilityPayment({
     description: 'Random description',

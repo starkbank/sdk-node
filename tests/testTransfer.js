@@ -1,5 +1,5 @@
 const assert = require('assert');
-const starkbank = require('../starkbank');
+const starkbank = require('../index.js');
 const generateExampleTransfersJson = require('./utils/transfer.js').generateExampleTransfersJson;
 
 starkbank.user = require('./utils/user').exampleProject;

@@ -1,4 +1,4 @@
-const starkbank = require('../../starkbank');
+const starkbank = require('../../index.js');
 
 
 exports.generateExampleWebhook = function () {

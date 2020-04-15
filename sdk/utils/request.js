@@ -1,4 +1,4 @@
-const starkbank = require('../../starkbank');
+const starkbank = require('../../index.js');
 const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 const got = require('got');
 const pjson = require('../../package.json');
@@ -44,6 +44,7 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
         }
         url += queryString;
     }
+    console.log(url);
     let accessTime = Math.round((new Date()).getTime() / 1000);
     let message = user.accessId() + ':' + accessTime + ':';
 

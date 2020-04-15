@@ -1,4 +1,4 @@
-const starkbank = require('../../starkbank');
+const starkbank = require('../../index.js');
 const random = require('./random.js');
 
 var defaultExampleBoleto = new starkbank.Boleto({

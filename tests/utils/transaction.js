@@ -1,5 +1,5 @@
 const random = require('./random');
-const starkbank = require('../../starkbank');
+const starkbank = require('../../index.js');
 
 defaultExampleTransaction = new starkbank.Transaction({
         amount: 50,
