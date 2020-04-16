@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
-    "starkbank-ecdsa": "^0.0.2",
+    "starkbank-ecdsa": "^1.0.0",
     "got": "^10.7.0"
   },
   "devDependencies": {

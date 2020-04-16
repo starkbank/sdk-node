@@ -252,11 +252,11 @@ After its creation, a boleto PDF may be retrieved by passing its id.
 
 ```javascript
 const starkbank = require('starkbank');
-const fs = require('fs');
+const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.boleto.pdf('5155165527080960');
-    fs.writeFile('boleto.pdf', pdf, () => {});
+    await fs.writeFile('boleto.pdf', pdf);
 })();
 
 ```
@@ -381,10 +381,11 @@ After its creation, a transfer PDF may also be retrieved by passing its id.
 
 ```javascript
 const starkbank = require('starkbank');
+const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.transfer.pdf('5155165527080960');
-    fs.writeFile('transfer.pdf', pdf,  'binary', () => {});
+    await fs.writeFile('transfer.pdf', pdf);
 })();
 ```
 
@@ -471,10 +472,11 @@ After its creation, a boleto payment PDF may be retrieved by passing its id.
 
 ```javascript
 const starkbank = require('starkbank');
+const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.boletoPayment.pdf('5155165527080960');
-    fs.writeFile('boleto-payment.pdf', pdf,  'binary', () => {});
+    await fs.writeFile('boleto-payment.pdf', pdf);
 })();
 ```
 
@@ -615,10 +617,11 @@ After its creation, a utility payment PDF may also be retrieved by passing its i
 
 ```javascript
 const starkbank = require('starkbank');
+const fs = require('fs').promises;
 
 (async() => {
-    let pdf = await starkbank.utilityPayment.pdf(5155165527080960');
-    fs.writeFile('utility-payment.pdf', pdf,  'binary', () => {});
+    let pdf = await starkbank.utilityPayment.pdf('5155165527080960');
+    await fs.writeFile('utility-payment.pdf', pdf);
 })();
 ```
 
