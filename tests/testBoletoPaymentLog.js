@@ -1,5 +1,6 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
+const { futureDate } = require('./utils/random')
 
 starkbank.user = require('./utils/user').exampleProject;
 
@@ -14,6 +15,60 @@ describe('TestBoletoPaymentLogGet', () => {
         }
         assert(i === 5);
         console.log('Number of logs:', i);
+    });
+
+    it('works with paymentIds', async () => {
+        const makeBoleto = (name, amount) => ({
+            amount: amount,
+            name: name,
+            taxId: '012.345.678-90',
+            streetLine1: 'Av. Paulista, 200',
+            streetLine2: '10 andar',
+            district: 'Bela Vista',
+            city: 'São Paulo',
+            stateCode: 'SP',
+            zipCode: '01310-000',
+        })
+
+        let [boleto1, boleto2] = await starkbank.boleto.create([
+            makeBoleto("Fulano de Tal", 10000),
+            makeBoleto("Beltrano da Silta", 10000),
+        ])
+
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        const scheduled = tomorrow.toISOString().substring(0, 10)
+
+        let [payment1, payment2] = await starkbank.boletoPayment.create([
+            {
+                taxId: boleto1.taxId,
+                description: `Payment to ${boleto1.name}`,
+                scheduled: scheduled,
+                line: boleto1.line,
+            },
+            {
+                taxId: boleto2.taxId,
+                description: `Payment to ${boleto2.name}`,
+                scheduled: scheduled,
+                line: boleto2.line,
+            }
+        ]);
+
+        let paymentLogs = await starkbank.boletoPayment.log.query({
+            paymentIds: [payment1.id]
+        });
+
+        for await (let log of paymentLogs) {
+            assert(log.payment.id == payment1.id)
+        }
+
+        let paymentLogs2 = await starkbank.boletoPayment.log.query({
+            paymentIds: [payment2.id]
+        });
+
+        for await (let log of paymentLogs2) {
+            assert(log.payment.id == payment2.id)
+        }
     });
 });
 
