@@ -35,21 +35,19 @@ describe('TestBoletoPaymentLogGet', () => {
             makeBoleto("Beltrano da Silta", 10000),
         ])
 
-        const tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        const scheduled = tomorrow.toISOString().substring(0, 10)
+        const tomorrow = futureDate(1)
 
         let [payment1, payment2] = await starkbank.boletoPayment.create([
             {
                 taxId: boleto1.taxId,
                 description: `Payment to ${boleto1.name}`,
-                scheduled: scheduled,
+                scheduled: tomorrow,
                 line: boleto1.line,
             },
             {
                 taxId: boleto2.taxId,
                 description: `Payment to ${boleto2.name}`,
-                scheduled: scheduled,
+                scheduled: tomorrow,
                 line: boleto2.line,
             }
         ]);
