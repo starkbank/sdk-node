@@ -6,5 +6,6 @@ exports.randomInt = function (min, max) {
 
 exports.futureDate = function (number) {
     let date = new Date();
-    return date.setDate(date.getDate() + number);
+    date.setDate(date.getDate() + number);
+    return date.toISOString().substring(0, 10);
 };
