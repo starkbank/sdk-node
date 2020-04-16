@@ -51,7 +51,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, status = null, tags = null, paymentIds = null, after = null, before = null, user = null} = {}) {
+exports.query = async function ({limit, types, paymentIds, after, before, user} = {}) {
     /**
      *
      * Retrieve UtilityPayment Logs
@@ -60,8 +60,10 @@ exports.query = async function ({limit = null, status = null, tags = null, payme
      *
      * Parameters (optional):
      * limit [integer, default None]: maximum number of objects to be retrieved. Unlimited if None. ex: 35
-     * payment_ids [list of strings, default None]: list of UtilityPayment ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * paymentIds [list of strings, default None]: list of UtilityPayment ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * types [list of strings, default None]: filter retrieved objects by event types. ex: 'paid' or 'registered'
+     * after [string, default None] date filter for objects created only after specified date. ex: '2020-03-10'
+     * before [string, default None] date filter for objects only before specified date. ex: '2020-03-10'
      * user [Project object, default None]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
@@ -70,8 +72,7 @@ exports.query = async function ({limit = null, status = null, tags = null, payme
      */
     let query = {
         limit: limit,
-        status: status,
-        tags: tags,
+        types: types,
         paymentIds: paymentIds,
         after: after,
         before: before,

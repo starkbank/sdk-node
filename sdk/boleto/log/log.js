@@ -53,7 +53,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
+exports.query = async function ({limit, types, boletoIds, after, before, user} = {}) {
     /**
      *
      * Retrieve Boleto Logs
@@ -62,7 +62,7 @@ exports.query = async function ({limit, status, tags, ids, after, before, user} 
      *
      * Parameters (optional):
      * limit [integer, default None]: maximum number of objects to be retrieved. Unlimited if None. ex: 35
-     * boleto_ids [list of strings, default None]: list of Boleto ids to filter logs. ex: ['5656565656565656', '4545454545454545']
+     * boletoIds [list of strings, default None]: list of Boleto ids to filter logs. ex: ['5656565656565656', '4545454545454545']
      * types [list of strings, default None]: filter for log event types. ex: 'paid' or 'registered'
      * after [string, default None] date filter for objects created only after specified date. ex: '2020-03-10'
      * before [string, default None] date filter for objects only before specified date. ex: '2020-03-10'
@@ -74,9 +74,8 @@ exports.query = async function ({limit, status, tags, ids, after, before, user} 
      */
     let query = {
         limit: limit,
-        status: status,
-        tags: tags,
-        ids: ids,
+        types: types,
+        boletoIds: boletoIds,
         after: after,
         before: before,
     };

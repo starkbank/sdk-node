@@ -51,7 +51,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
+exports.query = async function ({limit, types, transferIds, after, before, user} = {}) {
     /**
      *
      * Retrieve Transfer Logs
@@ -60,7 +60,7 @@ exports.query = async function ({limit, status, tags, ids, after, before, user} 
      *
      * Parameters (optional):
      * limit [integer, default None]: maximum number of objects to be retrieved. Unlimited if None. ex: 35
-     * transfer_ids [list of strings, default None]: list of Transfer ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * transferIds [list of strings, default None]: list of Transfer ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * types [list of strings, default None]: filter retrieved objects by types. ex: 'success' or 'failed'
      * after [string, default None] date filter for objects created only after specified date. ex: '2020-03-10'
      * before [string, default None] date filter for objects only before specified date. ex: '2020-03-10'
@@ -72,9 +72,8 @@ exports.query = async function ({limit, status, tags, ids, after, before, user} 
      */
     let query = {
         limit: limit,
-        status: status,
-        tags: tags,
-        ids: ids,
+        types: types,
+        transferIds: transferIds,
         after: after,
         before: before,
     };
