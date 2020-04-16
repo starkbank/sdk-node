@@ -3,14 +3,14 @@ const starkbank = require('../../index.js');
 exports.exampleProject = new starkbank.Project(
     {
         environment: 'sandbox',
-        id: '5690398416568320',
+        id: '5656565656565656',
         privateKey: `-----BEGIN EC PARAMETERS-----
 BgUrgQQACg==
 -----END EC PARAMETERS-----
 -----BEGIN EC PRIVATE KEY-----
-MHQCAQEEIIoYWZ2OGwqX6n1EVvj1C1YvWHSGqqhZJzfsZZnk0SVgoAcGBSuBBAAK
-oUQDQgAEGS1jWJXoK9RUk+qoNNFquO7X4JzRf5ZA5UDJUfPCbbKe5KwtrBKTJC1/
-vRGIpAM5gNsxdfKgmoXNriiuY4LEPQ==
+MHQCAQEEIMCwW74H6egQkTiz87WDvLNm7fK/cA+ctA2vg/bbHx3woAcGBSuBBAAK
+oUQDQgAE0iaeEHEgr3oTbCfh8U2L+r7zoaeOX964xaAnND5jATGpD/tHec6Oe9U1
+IF16ZoTVt1FzZ8WkYQ3XomRD4HS13A==
 -----END EC PRIVATE KEY-----
 `
     }
