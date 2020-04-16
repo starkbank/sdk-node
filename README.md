@@ -828,6 +828,8 @@ app.post('/', async (req, res) => {
             console.log(event.log.boleto);
         } else if (event.subscription === "boleto-payment") {
             console.log(event.log.payment);
+        } else if (event.subscription === "utility-payment") {
+            console.log(event.log.payment);
         }
         res.end()
     }
