@@ -493,7 +493,7 @@ Note that this is not possible if it has been processed already.
 const starkbank = require('starkbank');
 
 (async() => {
-    let payment = await starkbank.boletoPayment.get('5155165527080960');
+    let payment = await starkbank.boletoPayment.delete('5155165527080960');
     console.log(payment);
 })();
 ```
@@ -811,22 +811,32 @@ the event.
 
 ```javascript
 const starkbank = require('starkbank');
+const express = require('express')
+const app = express()
 
-(async() => {
-    let response = await listen()  // this is the method you made to get the events posted to your webhook
-    let event = await starkbank.event.parse({
-        content: response.content, 
-        signature: response.headers["Digital-Signature"]
-    });
-
-    if (event.subscription === "transfer") {
-        console.log(event.log.transfer);
-    } else if (event.subscription === "boleto") {
-        console.log(event.log.boleto);
-    } else if (event.subscription === "boleto-payment") {
-        console.log(event.log.payment);
+app.use(express.json())
+const port = 3000
+app.post('/', async (req, res) => {
+    try {
+        let event = await starkbank.event.parse({
+            content: request.body,
+            signature: request.headers["Digital-Signature"]
+        });
+        if (event.subscription === "transfer") {
+            console.log(event.log.transfer);
+        } else if (event.subscription === "boleto") {
+            console.log(event.log.boleto);
+        } else if (event.subscription === "boleto-payment") {
+            console.log(event.log.payment);
+        }
+        res.end()
     }
-})();
+    catch (err) {
+        console.log(err)
+        res.status(400).end()
+    }
+})
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 ```
 
 ### Query webhook events
@@ -900,6 +910,7 @@ For example:
 
 ```javascript
 const starkbank = require('starkbank');
+const { InputErrors } = starkbank.errors;
 
 (async() => {
     try{
