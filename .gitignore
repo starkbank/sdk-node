@@ -1,0 +1,10 @@
+# Folders
+.idea
+node_modules
+
+# Files
+**/privateKey.pem
+**/publicKey.pem
+**/development.json
+**/sandbox.json
+**/snippet.js
