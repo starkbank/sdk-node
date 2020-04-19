@@ -7,17 +7,17 @@ const got = require('got');
 
 class Response {
 
-    constructor(status, content) {
+    constructor({status, content}) {
         this.status = status;
         this.content = content;
     }
 
     json() {
-        return JSON.parse(self.content);
+        return JSON.parse(this.content);
     }
 }
 
-exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
+exports.fetch = async function ({path, method = 'GET', payload = null, query = null, user = null, version = 'v2'}) {
     user = user || starkbank.user;
 
     if (!user) {
@@ -29,9 +29,7 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
         'sandbox': 'https://sandbox.api.starkbank.com/' + version
     }[user.environment];
 
-    let options = {
-        method: method,
-    };
+    let options = {method};
 
     let url = hostname + path;
     if (query) {
@@ -84,10 +82,10 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
                 throw e;
         }
     }
-    return new Response(status, content);
+    return new Response({status, content});
 };
 
-exports.fetchBuffer = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
+exports.fetchBuffer = async function ({path, method = 'GET', payload = null, query = null, user = null, version = 'v2'}) {
     user = user || starkbank.user;
 
     if (!user) {
@@ -99,9 +97,7 @@ exports.fetchBuffer = async function (path, method = 'GET', payload = null, quer
         'sandbox': 'https://sandbox.api.starkbank.com/' + version
     }[user.environment];
 
-    let options = {
-        method: method,
-    };
+    let options = {method};
 
     let url = hostname + path;
     if (query) {
@@ -155,6 +151,6 @@ exports.fetchBuffer = async function (path, method = 'GET', payload = null, quer
                 throw e;
         }
     }
-    return new Response(status, content);
+    return new Response({status, content});
 };
 

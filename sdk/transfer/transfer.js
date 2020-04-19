@@ -33,10 +33,9 @@ class Transfer extends Resource {
      *
      */
     constructor({
-                    amount, name, taxId, bankCode, branchCode, accountNumber, tags,
-                    fee, status, created, updated,
-                    transactionIds, id
-                }) {
+        amount, name, taxId, bankCode, branchCode, accountNumber, tags,
+        fee, status, created, updated, transactionIds, id}) {
+
         super(id);
         this.amount = amount;
         this.name = name;
@@ -117,7 +116,7 @@ exports.pdf = async function (id, {user} = {}) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, transactionIds, status, sort, tags, user} = {}) {
+exports.query = async function ({limit, after, before, transactionIds, status, sort, tags, user} = {}) {
     /**
      *
      * Retrieve Transfers
@@ -138,14 +137,7 @@ exports.query = async function ({ limit, after, before, transactionIds, status, 
      * generator of Transfer objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        transactionIds: transactionIds,
-        status: status,
-        sort: sort,
-        tags: tags,
-    };
+    let query = {limit, after, before, transactionIds, status, sort, tags};
+
     return rest.getList(resource, query, user);
 };

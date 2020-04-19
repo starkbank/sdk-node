@@ -19,7 +19,7 @@ class Balance extends Resource {
      * updated [string, default null]: update datetime for the balance. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor(id, amount, currency, updated) {
+    constructor({id, amount, currency, updated}) {
         super(id);
         this.amount = amount;
         this.currency = currency;

@@ -19,7 +19,7 @@ class Log extends Resource {
      * created [string]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ created, type, errors, transfer, id }) {
+    constructor({created, type, errors, transfer, id}) {
         super(id);
         this.created = created;
         this.type = type;
@@ -71,12 +71,7 @@ exports.query = async function ({limit, after, before, types, transferIds, user}
      * list of Transfer Log objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        types: types,
-        transferIds: transferIds,
-    };
+    let query = {limit, after, before, types, transferIds};
+
     return rest.getList(resource, query, user);
 };

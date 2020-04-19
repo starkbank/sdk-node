@@ -41,11 +41,11 @@ class Boleto extends Resource {
      *
      */
     constructor({
-                    amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
-                    due = null, fine = null, interest = null, overdueLimit = null,
-                    tags = null, descriptions = null, id = null, fee = null, line = null,
-                    barCode = null, status = null, created = null
-                }) {
+        amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
+        due = null, fine = null, interest = null, overdueLimit = null,
+        tags = null, descriptions = null, id = null, fee = null, line = null,
+        barCode = null, status = null, created = null}) {
+
         super(id);
         this.amount = amount;
         this.name = name;
@@ -131,7 +131,7 @@ exports.pdf = async function (id, {user} = {}) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {
+exports.query = async function ({limit, after, before, status, tags, ids, user} = {}) {
     /**
      *
      * Retrieve Boletos
@@ -151,14 +151,8 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user}
      * generator of Boleto objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        status: status,
-        tags: tags,
-        ids: ids,
-    };
+    let query = {limit, after, before, status, tags, ids};
+
     return rest.getList(resource, query, user);
 };
 

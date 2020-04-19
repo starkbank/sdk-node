@@ -3,7 +3,7 @@ const fetch = require('./request').fetch;
 const fetchBuffer = require('./request').fetchBuffer;
 
 
-exports.getList = async function* (resource, query, user = null) {
+exports.getList = async function* (resource, query, user) {
     let json;
     let response;
     let list;
@@ -26,7 +26,7 @@ exports.getList = async function* (resource, query, user = null) {
             'limit': Math.min(100, limit),
             'cursor': cursor,
         });
-        response = await fetch(`/${endpoint}`, method = 'GET', null, query, user, 'v2');
+        response = await fetch({path: `/${endpoint}`, method: 'GET', query, user});
         json = JSON.parse(response.content);
         list = json[api.lastName(names)];
         cursor = json['cursor'];
@@ -39,7 +39,7 @@ exports.getList = async function* (resource, query, user = null) {
     } while (cursor && (limit === null || limit > 0));
 };
 
-exports.post = async function (resource, entities, user = null) {
+exports.post = async function (resource, entities, user) {
     let entity = new resource['class']({});
     let names = api.lastPlural(entity.constructor.name);
     let endpoint = `${api.endpoint(resource['name'])}`;
@@ -48,7 +48,7 @@ exports.post = async function (resource, entities, user = null) {
     }
     let payload = {};
     payload[names] = entities;
-    let response = await fetch(`/${endpoint}`, 'POST', payload, null, user);
+    let response = await fetch({path: `/${endpoint}`, method: 'POST', payload, user});
     let list = JSON.parse(response.content)[api.lastName(names)];
     let newList = [];
     for (let entity of list) {
@@ -58,52 +58,52 @@ exports.post = async function (resource, entities, user = null) {
     return newList;
 };
 
-exports.getPdf = async function (resource, id, user = null) {
+exports.getPdf = async function (resource, id, user) {
     let entity = new resource['class']({});
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}/pdf`;
-    let response = await fetchBuffer(`/${endpoint}`, 'GET', null, null, user);
+    let response = await fetchBuffer({path: `/${endpoint}`, method: 'GET', user});
     return response.content;
 };
 
-exports.getId = async function (resource, id, user = null, callback) {
+exports.getId = async function (resource, id, user) {
     let entity = new resource['class']({});
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
-    let response = await fetch(`/${endpoint}`, 'GET', null, null, user);
+    let response = await fetch({path: `/${endpoint}`, method: 'GET', user});
     let returnEntity = JSON.parse(response.content)[api.lastName(name)];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
 exports.getPublicKey = async function (user) {
-    let response = await fetch(path = '/public-key', 'GET', null, {'limit': 1}, user);
+    let response = await fetch({path: '/public-key', method: 'GET', query: {'limit': 1}, user});
     return JSON.parse(response.content)['publicKeys'][0]['content'];
 };
 
-exports.deleteId = async function (resource, id, user = null) {
+exports.deleteId = async function (resource, id, user) {
     let entity = new resource['class']({});
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
-    let response = await fetch(`/${endpoint}`, 'DELETE', null, null, user);
+    let response = await fetch({path: `/${endpoint}`, method: 'DELETE', user});
     let returnEntity = JSON.parse(response.content)[api.lastName(name)];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
-exports.postSingle = async function (resource, options, user = null) {
+exports.postSingle = async function (resource, options, user) {
     let entity = new resource['class']({});
     let name = api.lastName(entity.constructor.name);
     let endpoint = `${api.endpoint(resource['name'])}`;
     let payload = Object.assign(entity, options);
-    let response = await fetch(`/${endpoint}`, 'POST', payload, null, user);
+    let response = await fetch({path: `/${endpoint}`, method:'POST', payload, user});
     let returnEntity = JSON.parse(response.content)[name];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
-exports.patchId = async function (resource, id, payload, user = null) {
+exports.patchId = async function (resource, id, payload, user) {
     let entity = new resource['class']({});
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
-    let response = await fetch(`/${endpoint}`, 'PATCH', payload, null, user);
+    let response = await fetch({path: `/${endpoint}`, method: 'PATCH', payload, user});
     let returnEntity = JSON.parse(response.content)[api.lastName(name)];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };

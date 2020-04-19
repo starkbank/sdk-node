@@ -82,12 +82,8 @@ exports.query = async function ({limit, after, before, isDelivered, user} = {}) 
      * generator of Event objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        isDelivered: isDelivered,
-    };
+    let query = {limit, after, before, isDelivered};
+
     return rest.getList(resource, query, user);
 };
 
@@ -129,9 +125,8 @@ exports.update = function (id, {isDelivered, user} = {}) {
      * target Event with updated attributes
      *
      */
-    let payload = {
-        isDelivered: isDelivered,
-    };
+    let payload = {isDelivered};
+
     return rest.patchId(resource, id, payload, user);
 };
 

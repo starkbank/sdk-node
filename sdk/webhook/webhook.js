@@ -18,7 +18,7 @@ class Webhook extends Resource {
      * id [string, default null]: unique id returned when the log is created. ex: '5656565656565656'
      *
      */
-    constructor({url, subscriptions, id = null}) {
+    constructor({url, subscriptions, id}) {
         super(id);
         this.url = url;
         this.subscriptions = subscriptions;
@@ -28,7 +28,7 @@ class Webhook extends Resource {
 exports.Webhook = Webhook;
 let resource = {'class': exports.Webhook, 'name': 'Webhook'};
 
-exports.create = async function ({url, subscriptions, user = null} = {}) {
+exports.create = async function ({url, subscriptions, user} = {}) {
     /**
      *
      * Create Webhook subscription
@@ -46,10 +46,8 @@ exports.create = async function ({url, subscriptions, user = null} = {}) {
      * Webhook object with updated attributes
      *
      */
-    let options = {
-        url: url,
-        subscriptions: subscriptions,
-    };
+    let options = {url, subscriptions};
+
     return rest.postSingle(resource, options, user);
 };
 
@@ -73,7 +71,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, user = null} = {}) {
+exports.query = async function ({limit, user} = {}) {
     /**
      *
      * Retrieve Webhook subcriptions
@@ -88,9 +86,8 @@ exports.query = async function ({limit = null, user = null} = {}) {
      * generator of Webhook objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-    };
+    let query = {limit};
+
     return rest.getList(resource, query, user);
 };
 

@@ -19,8 +19,9 @@ class Log extends Resource {
      * created [string]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor(created, type, errors, payment, id = null) {
+    constructor({created, type, errors, payment, id}) {
         super(id);
+
         this.created = created;
         this.type = type;
         this.errors = errors;
@@ -52,7 +53,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit = null, after = null, before = null, types = null, paymentIds = null, user = null} = {}) {
+exports.query = async function ({limit, after, before, types, paymentIds, user} = {}) {
     /**
      *
      * Retrieve UtilityPayment Logs
@@ -71,12 +72,7 @@ exports.query = async function ({ limit = null, after = null, before = null, typ
      * list of UtilityPayment Log objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        types: types,
-        paymentIds: paymentIds,
-    };
+    let query = {limit, after, before, types, paymentIds};
+
     return rest.getList(resource, query, user);
 };

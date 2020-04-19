@@ -32,7 +32,7 @@ class BoletoPayment extends Resource {
      * created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ taxId, description, scheduled, line, barCode, tags, id, status, amount, fee, created }) {
+    constructor({taxId, description, scheduled, line, barCode, tags, id, status, amount, fee, created}) {
         super(id);
         this.taxId = taxId;
         this.description = description;
@@ -111,7 +111,7 @@ exports.pdf = async function (id, {user} = {}) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, tags, ids, status, user} = {}) {
+exports.query = async function ({limit, after, before, tags, ids, status, user} = {}) {
     /**
      *
      * Retrieve BoletoPayments
@@ -131,14 +131,8 @@ exports.query = async function ({ limit, after, before, tags, ids, status, user}
      * generator of BoletoPayment objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        tags: tags,
-        ids: ids,
-        status: status,
-    };
+    let query = {limit, after, before, status, tags, ids};
+
     return rest.getList(resource, query, user);
 };
 

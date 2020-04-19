@@ -30,7 +30,7 @@ class Transaction extends Resource {
      * created [string, default null]: creation datetime for the boleto. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ amount, description, externalId, receiverId, tags, fee, created, source, id }) {
+    constructor({amount, description, externalId, receiverId, tags, fee, created, source, id}) {
         super(id);
         this.amount = amount;
         this.description = description;
@@ -104,11 +104,7 @@ exports.query = async function ({limit, after, before, externalIds, user} = {}) 
      * generator of Transaction objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        externalIds: externalIds,
-    };
+    let query = {limit, after, before, externalIds};
+
     return rest.getList(resource, query, user);
 };

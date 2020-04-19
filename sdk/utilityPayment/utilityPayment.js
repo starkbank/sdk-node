@@ -32,10 +32,9 @@ class UtilityPayment extends Resource {
      *
      */
     constructor({
-                    description, scheduled, line, barCode,
-                    tags, amount, status, created,
-                    fee, id,
-                }) {
+        description, scheduled, line, barCode,
+        tags, amount, status, created, fee, id}) {
+
         super(id);
         this.barCode = barCode;
         this.line = line;
@@ -111,7 +110,7 @@ exports.pdf = async function (id, {user} = {}) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, tags, ids, status, user} = {}) {
+exports.query = async function ({limit, after, before, tags, ids, status, user} = {}) {
     /**
      *
      * Retrieve UtilityPayments
@@ -131,14 +130,8 @@ exports.query = async function ({ limit, after, before, tags, ids, status, user}
      * generator of UtilityPayment objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-        after: after,
-        before: before,
-        tags: tags,
-        ids: ids,
-        status: status,
-    };
+    let query = {limit, after, before, tags, ids, status};
+
     return rest.getList(resource, query, user);
 };
 

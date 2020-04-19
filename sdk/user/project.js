@@ -27,6 +27,7 @@ class Project extends User {
      */
     constructor({id, privateKey, environment, name = '', allowedIps = []}) {
         super({id, privateKey, environment});
+
         this.name = name;
         this.allowedIps = allowedIps;
     }
