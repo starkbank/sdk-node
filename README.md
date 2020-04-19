@@ -432,17 +432,17 @@ const starkbank = require('starkbank');
     let payments = await starkbank.boletoPayment.create([
         {
             taxId: "012.345.678-90",
-            description: "take my money",
+            description: "Payment for killing white walkers",
             scheduled: "2023-03-13",
             line: "34191.09008 64694.017308 71444.640008 1 96610000014500",
-            tags: ["take", "my", "money"],
+            tags: ["white", "walkers"],
         },
         {
             taxId: "012.345.678-90",
-            description: "take my money one more time",
+            description: "King's Landing tour",
             scheduled: "2023-03-14",
             barCode: "34191972300000289001090064694197307144464000",
-            tags: ["again"],
+            tags: ["tour"],
         },
     ])
 
@@ -559,16 +559,16 @@ const starkbank = require('starkbank');
 (async() => {
     let payments = await starkbank.utilityPayment.create([
         {
-            line: "83680000001 7 08430138003 0 71070987611 8 00041351685 7",
+            line="83640000001 1 07540138007 0 61053026111 0 08067159411 9",
             scheduled: "2020-03-13",
-            description: "take my money",
-            tags: ["take", "my", "money"],
+            description: "Electricity for the Long Night",
+            tags: ["Energy", "Winterfell"],
         },
         {
             barCode: "83600000001522801380037107172881100021296561",
             scheduled: "2020-03-14",
-            description: "take my money one more time",
-            tags: ["again"],
+            description: "The King Night's phone plane",
+            tags: ["king", "night"],
         },
     ]);
 
@@ -685,15 +685,15 @@ const starkbank = require('starkbank');
         {
             amount: 100,  // (R$ 1.00)
             receiverId: "1029378109327810",
-            description: "Transaction to dear provider",
+            description: "A Lannister always pays his debts",
             externalId: "12345",  // so we can block anything you send twice by mistake
             tags: ["provider"]
         },
         {
             amount: 234,  // (R$ 2.34)
             receiverId: "2093029347820947",
-            description: "Transaction to the other provider",
-            externalId: "12346",  // so we can block anything you send twice by mistake
+            description: "Transfer to Iron Bank digital account at Stark Bank",
+            externalId: "As813n",  // so we can block anything you send twice by mistake
             tags: ["provider"]
         },
     ])
