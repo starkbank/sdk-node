@@ -43,19 +43,21 @@ exports.fetch = async function ({path, method = 'GET', payload = null, query = n
         }
         url += queryString;
     }
-    let accessTime = Math.round((new Date()).getTime() / 1000);
-    let message = user.accessId() + ':' + accessTime + ':';
 
+    let body = ""
     if (payload && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-        let body = JSON.stringify(payload);
-        message += body;
+        body = JSON.stringify(payload);
         options['body'] = body;
     }
+
+    let accessTime = Math.round((new Date()).getTime() / 1000);
+    let message = user.accessId() + ':' + accessTime + ':' + body;
+    let signature = Ecdsa.sign(message, user.privateKey()).toBase64()
 
     options['headers'] = {
         'Access-Id': user.accessId(),
         'Access-Time': accessTime,
-        'Access-Signature': Ecdsa.sign(message, user.privateKey()).toBase64(),
+        'Access-Signature': signature,
         'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
         'Content-Type': 'application/json'
     };
@@ -111,14 +113,17 @@ exports.fetchBuffer = async function ({path, method = 'GET', payload = null, que
         }
         url += queryString;
     }
-    let accessTime = Math.round((new Date()).getTime() / 1000);
-    let message = user.accessId() + ':' + accessTime + ':';
 
+    let body = ""
     if (payload && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-        let body = JSON.stringify(payload);
-        message += body;
+        body = JSON.stringify(payload);
         options['body'] = body;
     }
+
+    let accessTime = Math.round((new Date()).getTime() / 1000);
+    let message = user.accessId() + ':' + accessTime + ':' + body;
+    let signature = Ecdsa.sign(message, user.privateKey()).toBase64()
+
     options['responseType'] = 'buffer';
     options['headers'] = {
         'Access-Id': user.accessId(),

@@ -13,15 +13,14 @@ exports.getList = async function* (resource, query, user) {
     let names = api.lastPlural(entity.constructor.name);
     let endpoint = `${api.endpoint(resource['name'])}`;
     do {
-        if (!query) {
-            query = {};
-        } else {
-            for (let key in query) {
-                if (Array.isArray(query[key])) {
-                    query[key] = query[key].join();
-                }
+        query = query || {};
+
+        for (let key in query) {
+            if (Array.isArray(query[key])) {
+                query[key] = query[key].join();
             }
         }
+
         Object.assign(query, {
             'limit': Math.min(100, limit),
             'cursor': cursor,
