@@ -22,13 +22,14 @@ class Boleto extends Resource {
      * city [string]: payer address city. ex: Rio de Janeiro
      * stateCode [string]: payer address state. ex: GO
      * zipCode [string]: payer address zip code. ex: 01311-200
-     * due [string, default today + 2 days]: Boleto due date in ISO format. ex: 2020-04-30
      *
      * Parameters (optional):
+     * due [string, default today + 2 days]: Boleto due date in ISO format. ex: 2020-04-30
      * fine [float, default 0.0]: Boleto fine for overdue payment in %. ex: 2.5
      * interest [float, default 0.0]: Boleto monthly interest for overdue payment in %. ex: 5.2
      * overdueLimit [integer, default 59]: limit in days for automatic Boleto cancellation after due date. ex: 7 (max: 59)
      * descriptions [list of dictionaries, default null]: list of dictionaries with 'text':string and (optional) 'amount':int pairs
+     * discounts [list of dictionaries, default null]: list of dictionaries with "percentage":float and "date":string pairs
      * tags [list of strings]: list of strings for tagging
      *
      * Attributes (return-only):
@@ -43,8 +44,8 @@ class Boleto extends Resource {
     constructor({
                     amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
                     due = null, fine = null, interest = null, overdueLimit = null,
-                    tags = null, descriptions = null, id = null, fee = null, line = null,
-                    barCode = null, status = null, created = null
+                    tags = null, descriptions = null, discounts = null, id = null,
+                    fee = null, line = null, barCode = null, status = null, created = null
                 }) {
         super(id);
         this.amount = amount;
@@ -62,6 +63,7 @@ class Boleto extends Resource {
         this.overdueLimit = overdueLimit;
         this.tags = tags;
         this.descriptions = descriptions;
+        this.discounts = discounts;
         this.fee = fee;
         this.line = line;
         this.barCode = barCode;
