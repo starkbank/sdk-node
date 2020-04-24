@@ -68,7 +68,7 @@ let privateKey, publicKey;
 [privateKey, publicKey] = starkbank.key.create();
 
 // or, to also save .pem files in a specific path
-[privateKey, publicKey] = starkbank.key.create("file/keys/");
+[privateKey, publicKey] = starkbank.key.create('file/keys/');
 ```
 
 ### 3. Create a Project
@@ -416,7 +416,7 @@ You can also get a specific log by its id.
 const starkbank = require('starkbank');
 
 (async() => {
-    let log = await starkbank.boleto.log.get('5155165527080960');
+    let log = await starkbank.transfer.log.get('5155165527080960');
     console.log(log);
 })();
 ```
@@ -431,18 +431,18 @@ const starkbank = require('starkbank');
 (async() => {
     let payments = await starkbank.boletoPayment.create([
         {
-            taxId: "012.345.678-90",
-            description: "take my money",
-            scheduled: "2023-03-13",
-            line: "34191.09008 64694.017308 71444.640008 1 96610000014500",
-            tags: ["take", "my", "money"],
+            taxId: '012.345.678-90',
+            description: 'take my money',
+            scheduled: '2023-03-13',
+            line: '34191.09008 64694.017308 71444.640008 1 96610000014500',
+            tags: ['take', 'my', 'money'],
         },
         {
-            taxId: "012.345.678-90",
-            description: "take my money one more time",
-            scheduled: "2023-03-14",
-            barCode: "34191972300000289001090064694197307144464000",
-            tags: ["again"],
+            taxId: '012.345.678-90',
+            description: 'take my money one more time',
+            scheduled: '2023-03-14',
+            barCode: '34191972300000289001090064694197307144464000',
+            tags: ['again'],
         },
     ])
 
@@ -559,16 +559,16 @@ const starkbank = require('starkbank');
 (async() => {
     let payments = await starkbank.utilityPayment.create([
         {
-            line: "83680000001 7 08430138003 0 71070987611 8 00041351685 7",
-            scheduled: "2020-03-13",
-            description: "take my money",
-            tags: ["take", "my", "money"],
+            line: '83680000001 7 08430138003 0 71070987611 8 00041351685 7',
+            scheduled: '2020-03-13',
+            description: 'take my money',
+            tags: ['take', 'my', 'money'],
         },
         {
-            barCode: "83600000001522801380037107172881100021296561",
-            scheduled: "2020-03-14",
-            description: "take my money one more time",
-            tags: ["again"],
+            barCode: '83600000001522801380037107172881100021296561',
+            scheduled: '2020-03-14',
+            description: 'take my money one more time',
+            tags: ['again'],
         },
     ]);
 
@@ -587,7 +587,7 @@ const starkbank = require('starkbank');
 
 (async() => {
     let payments = await starkbank.utilityPayment.query({
-        tags: ["electricity", "gas"],
+        tags: ['electricity', 'gas'],
     });
 
     for await (let payment of payments) {
@@ -651,7 +651,7 @@ const starkbank = require('starkbank');
 
 (async() => {
     let logs = await starkbank.utilityPayment.log.query({
-        paymentIds:["102893710982379182", "92837912873981273"],
+        paymentIds:['102893710982379182', '92837912873981273'],
     });
 
     for await (let log of logs) {
@@ -684,17 +684,17 @@ const starkbank = require('starkbank');
     let transactions = await starkbank.transaction.create([
         {
             amount: 100,  // (R$ 1.00)
-            receiverId: "1029378109327810",
-            description: "Transaction to dear provider",
-            externalId: "12345",  // so we can block anything you send twice by mistake
-            tags: ["provider"]
+            receiverId: '1029378109327810',
+            description: 'Transaction to dear provider',
+            externalId: '12345',  // so we can block anything you send twice by mistake
+            tags: ['provider']
         },
         {
             amount: 234,  // (R$ 2.34)
-            receiverId: "2093029347820947",
-            description: "Transaction to the other provider",
-            externalId: "12346",  // so we can block anything you send twice by mistake
-            tags: ["provider"]
+            receiverId: '2093029347820947',
+            description: 'Transaction to the other provider',
+            externalId: '12346',  // so we can block anything you send twice by mistake
+            tags: ['provider']
         },
     ])
 
@@ -715,8 +715,8 @@ const starkbank = require('starkbank');
 
 (async() => {
     let transactions = await starkbank.transaction.query({
-        after: "2020-01-01",
-        before: "2020-03-01",
+        after: '2020-01-01',
+        before: '2020-03-01',
     });
 
     for await (let transaction of transactions) {
@@ -747,8 +747,8 @@ const starkbank = require('starkbank');
 
 (async() => {
     let webhook = await starkbank.webhook.create({
-        url: "https://webhook.site/dd784f26-1d6a-4ca6-81cb-fda0267761ec",
-        subscriptions: ["transfer", "boleto", "boleto-payment", "utility-payment"],
+        url: 'https://webhook.site/dd784f26-1d6a-4ca6-81cb-fda0267761ec',
+        subscriptions: ['transfer', 'boleto', 'boleto-payment', 'utility-payment'],
     });
 
     console.log(webhook);
@@ -814,15 +814,15 @@ app.post('/', async (req, res) => {
     try {
         let event = await starkbank.event.parse({
             content: request.body,
-            signature: request.headers["Digital-Signature"]
+            signature: request.headers['Digital-Signature']
         });
-        if (event.subscription === "transfer") {
+        if (event.subscription === 'transfer') {
             console.log(event.log.transfer);
-        } else if (event.subscription === "boleto") {
+        } else if (event.subscription === 'boleto') {
             console.log(event.log.boleto);
-        } else if (event.subscription === "boleto-payment") {
+        } else if (event.subscription === 'boleto-payment') {
             console.log(event.log.payment);
-        } else if (event.subscription === "utility-payment") {
+        } else if (event.subscription === 'utility-payment') {
             console.log(event.log.payment);
         }
         res.end()
@@ -832,7 +832,7 @@ app.post('/', async (req, res) => {
         res.status(400).end()
     }
 })
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+app.listen(port, () => console.log('Example app listening at http://localhost:${port}'))
 ```
 
 ### Query webhook events
@@ -844,8 +844,8 @@ const starkbank = require('starkbank');
 
 (async() => {
     let events = await starkbank.event.query({
-        after: "2020-01-01",
-        before: "2020-03-01",
+        after: '2020-01-01',
+        before: '2020-03-01',
     });
 
     for await (let event of events) {
@@ -884,7 +884,7 @@ const starkbank = require('starkbank');
 
 This can be used in case you've lost events.
 With this function, you can manually set events retrieved from the API as
-"delivered" to help future event queries with `isDelivered=false`.
+'delivered' to help future event queries with `isDelivered=false`.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -913,10 +913,10 @@ const { InputErrors } = starkbank.errors;
         let transactions = await starkbank.transaction.create([
             {
                 amount: 100, 
-                receiverId: "1029378109327810",
-                description: ".",
-                externalId: "12345",
-                tags: ["provider"]
+                receiverId: '1029378109327810',
+                description: '.',
+                externalId: '12345',
+                tags: ['provider']
             },
         ]);
     } catch (e) {
