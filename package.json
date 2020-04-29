@@ -1,6 +1,6 @@
 {
   "name": "starkbank",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "SDK to facilitate Node integrations with Stark Bank",
   "main": "index.js",
   "directories": {
@@ -34,6 +34,6 @@
   },
   "devDependencies": {
     "decamelize": "^4.0.0",
-    "mocha": "^7.1.1"
+    "mocha": "^7.1.2"
   }
 }
