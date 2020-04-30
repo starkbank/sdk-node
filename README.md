@@ -832,7 +832,7 @@ app.post('/', async (req, res) => {
         res.status(400).end()
     }
 })
-app.listen(port, () => console.log('Example app listening at http://localhost:${port}'))
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 ```
 
 ### Query webhook events
