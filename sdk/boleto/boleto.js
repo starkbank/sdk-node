@@ -38,6 +38,7 @@ class Boleto extends Resource {
      * line [string, default null]: generated Boleto line for payment. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
      * barCode [string, default null]: generated Boleto bar-code for payment. ex: '34195819600000000621090063571277307144464000'
      * status [string, default null]: current Boleto status. ex: 'registered' or 'paid'
+     * balance [integer, default null]: account balance after transaction was processed. ex: 100000000 (= R$ 1,000,000.00)
      * created [string, default null]: creation datetime for the Boleto. ex: '2020-03-10 10:30:00.000'
      *
      */
@@ -45,7 +46,8 @@ class Boleto extends Resource {
                     amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
                     due = null, fine = null, interest = null, overdueLimit = null,
                     tags = null, descriptions = null, discounts = null, id = null,
-                    fee = null, line = null, barCode = null, status = null, created = null
+                    fee = null, line = null, barCode = null, status = null, balance = null,
+                    created = null
                 }) {
         super(id);
         this.amount = amount;
@@ -68,6 +70,7 @@ class Boleto extends Resource {
         this.line = line;
         this.barCode = barCode;
         this.status = status;
+        this.balance = balance;
         this.created = created;
     }
 }
