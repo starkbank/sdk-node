@@ -1,6 +1,6 @@
 {
   "name": "starkbank",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "SDK to facilitate Node integrations with Stark Bank",
   "main": "index.js",
   "directories": {
