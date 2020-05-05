@@ -10,16 +10,16 @@ class Event extends Resource {
      *
      * Webhook Event object
      *
-     * An Event is the notification received from the subscription to the Webhook.
+     * @description An Event is the notification received from the subscription to the Webhook.
      * Events cannot be created, but may be retrieved from the Stark Bank API to
      * list all generated updates on entities.
      *
      * Attributes:
-     * id [string]: unique id returned when the log is created. ex: '5656565656565656'
-     * log [Log]: a Log object from one the subscription services (Transfer Log, Boleto Log, BoletoPaymentlog or UtilityPayment Log)
-     * created [string]: creation datetime for the notification event. ex: '2020-03-10 10:30:00.000'
-     * delivered [string]: delivery datetime when the notification was delivered to the user url. Will be null if no successful attempts to deliver the event occurred. ex: '2020-03-10 10:30:00.000'
-     * subscription [string]: service that triggered this event. ex: 'transfer', 'utility-payment'
+     * @param id [string]: unique id returned when the event is created. ex: '5656565656565656'
+     * @param log [Log]: a Log object from one the subscription services (Transfer Log, Boleto Log, BoletoPaymentlog or UtilityPayment Log)
+     * @param created [string]: creation datetime for the notification event. ex: '2020-03-10 10:30:00.000'
+     * @param delivered [string]: delivery datetime when the notification was delivered to the user url. Will be null if no successful attempts to deliver the event occurred. ex: '2020-03-10 10:30:00.000'
+     * @param subscription [string]: service that triggered this event. ex: 'transfer', 'utility-payment'
      *
      */
     constructor({created, isDelivered, subscription, log, id} = {}) {
@@ -49,16 +49,16 @@ exports.get = async function (id, {user} = {}) {
      *
      * Retrieve a specific notification Event
      *
-     * Receive a single notification Event object previously created in the Stark Bank API by passing its id
+     * @description Receive a single notification Event object previously created in the Stark Bank API by passing its id
      *
      * Parameters (required):
-     * id [string]: object unique id. ex: '5656565656565656'
+     * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * Event object with updated attributes
+     * @returns Event object with updated attributes
      *
      */
     return rest.getId(resource, id, user);
@@ -69,17 +69,17 @@ exports.query = async function ({limit, after, before, isDelivered, user} = {}) 
      *
      * Retrieve notification Events
      *
-     * Receive a generator of notification Event objects previously created in the Stark Bank API
+     * @description Receive a generator of notification Event objects previously created in the Stark Bank API
      *
      * Parameters (optional):
-     * limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
-     * after [string, default null]: date filter for objects created only after specified date. ex: '2020-03-10'
-     * before [string, default null]: date filter for objects only before specified date. ex: '2020-03-10'
-     * isDelivered [bool, default null]: bool to filter successfully delivered events. ex: true or false
-     * user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null]: date filter for objects created only after specified date. ex: '2020-03-10'
+     * @param before [string, default null]: date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param isDelivered [bool, default null]: bool to filter successfully delivered events. ex: true or false
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * generator of Event objects with updated attributes
+     * @returns generator of Event objects with updated attributes
      *
      */
     let query = {
@@ -96,16 +96,16 @@ exports.delete = async function (id, {user} = {}) {
      *
      * Delete notification Events
      *
-     * Delete a list of notification Event entities previously created in the Stark Bank API
+     * @description Delete a list of notification Event entities previously created in the Stark Bank API
      *
      * Parameters (required):
-     * id [string]: Event unique id. ex: '5656565656565656'
+     * @param id [string]: Event unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * deleted Event with updated attributes
+     * @returns deleted Event with updated attributes
      *
      */
     return rest.deleteId(resource, id, user);
@@ -116,17 +116,17 @@ exports.update = function (id, {isDelivered, user} = {}) {
      *
      * Set notification Event entity as delivered
      *
-     * Set notification Event as delivered at the current timestamp (if it was not yet delivered) by passing id.
+     * @description Set notification Event as delivered at the current timestamp (if it was not yet delivered) by passing id.
      * After this is set, the event will no longer be returned on queries with isDelivered=false.
      *
      * Parameters (required):
-     * id [list of strings]: Event unique ids. ex: '5656565656565656'
+     * @param id [list of strings]: Event unique ids. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * target Event with updated attributes
+     * @returns target Event with updated attributes
      *
      */
     let payload = {
@@ -140,19 +140,19 @@ exports.parse = async function ({content, signature, user} = {}) {
      *
      * Create single notification Event from a content string
      *
-     * Create a single Event object received from event listening at subscribed user endpoint.
+     * @description Create a single Event object received from event listening at subscribed user endpoint.
      * If the provided digital signature does not check out with the StarkBank public key, a
      * starkbank.exception.InvalidSignatureException will be raised.
      *
      * Parameters (required):
-     * content [string]: response content from request received at user endpoint (not parsed)
-     * signature [string]: base-64 digital signature received at response header 'Digital-Signature'
+     * @param content [string]: response content from request received at user endpoint (not parsed)
+     * @param signature [string]: base-64 digital signature received at response header 'Digital-Signature'
      *
      * Parameters (optional):
-     * user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * Event object with updated attributes
+     * @returns Event object with updated attributes
      *
      */
 
