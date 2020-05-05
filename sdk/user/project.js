@@ -7,7 +7,7 @@ class Project extends User {
      *
      * Project object
      *
-     * The Project object is the main authentication entity for the SDK.
+     * @description The Project object is the main authentication entity for the SDK.
      * All requests to the Stark Bank API must be authenticated via a project,
      * which must have been previously created at the Stark Bank website
      * [https://sandbox.web.starkbank.com] or [https://web.starkbank.com]
@@ -15,14 +15,14 @@ class Project extends User {
      * each request or may be defined as the default user at the start (See README).
      *
      * Parameters (required):
-     * id [string]: unique id required to identify project. ex: '5656565656565656'
-     * privateKey [string]: PEM string of the private key linked to the project. ex: '-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEyTIHK6jYuik6ktM9FIF3yCEYzpLjO5X/\ntqDioGM+R2RyW0QEo+1DG8BrUf4UXHSvCjtQ0yLppygz23z0yPZYfw==\n-----END PUBLIC KEY-----'
-     * environment [string]: environment where the project is being used. ex: 'sandbox' or 'production'
+     * @param id [string]: unique id required to identify project. ex: '5656565656565656'
+     * @param privateKey [string]: PEM string of the private key linked to the project. ex: '-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEyTIHK6jYuik6ktM9FIF3yCEYzpLjO5X/\ntqDioGM+R2RyW0QEo+1DG8BrUf4UXHSvCjtQ0yLppygz23z0yPZYfw==\n-----END PUBLIC KEY-----'
+     * @param environment [string]: environment where the project is being used. ex: 'sandbox' or 'production'
      *
      * Attributes (return-only):
-     * name [string, default '']: project name. ex: 'MyProject'
-     * allowedIps [list of strings]: list containing the strings of the ips allowed to make requests on behalf of this project. ex: ['190.190.0.50']
-     * pem [string]: private key in pem format. ex: '-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEyTIHK6jYuik6ktM9FIF3yCEYzpLjO5X/\ntqDioGM+R2RyW0QEo+1DG8BrUf4UXHSvCjtQ0yLppygz23z0yPZYfw==\n-----END PUBLIC KEY-----'
+     * @param name [string, default '']: project name. ex: 'MyProject'
+     * @param allowedIps [list of strings]: list containing the strings of the ips allowed to make requests on behalf of this project. ex: ['190.190.0.50']
+     * @param pem [string]: private key in pem format. ex: '-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEyTIHK6jYuik6ktM9FIF3yCEYzpLjO5X/\ntqDioGM+R2RyW0QEo+1DG8BrUf4UXHSvCjtQ0yLppygz23z0yPZYfw==\n-----END PUBLIC KEY-----'
      *
      */
     constructor({id, privateKey, environment, name = '', allowedIps = []}) {
