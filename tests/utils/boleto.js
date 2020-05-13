@@ -15,6 +15,8 @@ var defaultExampleBoleto = new starkbank.Boleto({
     fine: 0.00,
     interest: 0.00,
     overdueLimit: 59,
+    receiverName: 'Random Company',
+    receiverTaxId: '123.456.789-09',
     tags: null,
     descriptions: [
         {

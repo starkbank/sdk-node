@@ -28,8 +28,10 @@ class Boleto extends Resource {
      * @param fine [float, default 0.0]: Boleto fine for overdue payment in %. ex: 2.5
      * @param interest [float, default 0.0]: Boleto monthly interest for overdue payment in %. ex: 5.2
      * @param overdueLimit [integer, default 59]: limit in days for payment after due date. ex: 7 (max: 59)
+     * @param receiverName [string]: receiver (Sacador Avalista) full name. ex: 'Anthony Edward Stark'
+     * @param receiverTaxId [string]: receiver (Sacador Avalista) tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
      * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'text':string and (optional) 'amount':int pairs
-     * @param discounts [list of dictionaries, default null]: list of dictionaries with "percentage":float and "date":string pairs
+     * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'date':string pairs
      * @param tags [list of strings]: list of strings for tagging
      *
      * Attributes (return-only):
@@ -43,8 +45,8 @@ class Boleto extends Resource {
      */
     constructor({
                     amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
-                    due = null, fine = null, interest = null, overdueLimit = null,
-                    tags = null, descriptions = null, discounts = null, id = null,
+                    due = null, fine = null, interest = null, overdueLimit = null, receiverName = null,
+                    receiverTaxId = null, tags = null, descriptions = null, discounts = null, id = null,
                     fee = null, line = null, barCode = null, status = null,
                     created = null
                 }) {
@@ -62,6 +64,8 @@ class Boleto extends Resource {
         this.fine = fine;
         this.interest = interest;
         this.overdueLimit = overdueLimit;
+        this.receiverName = receiverName;
+        this.receiverTaxId = receiverTaxId;
         this.tags = tags;
         this.descriptions = descriptions;
         this.discounts = discounts;
