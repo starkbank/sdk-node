@@ -12,7 +12,6 @@ describe('TestEventGet', () => {
             assert(typeof event.id == 'string');
             i += 1;
         }
-        console.log('Number of events:', i);
     });
 });
 
@@ -37,7 +36,6 @@ describe('TestEventParse', () => {
             content: content,
             signature: valid_signature
         });
-        console.log(event);
     });
 
     it('test_invalid_signature', async () => {
@@ -51,9 +49,8 @@ describe('TestEventParse', () => {
             });
             throw new Error('Oops, signature was accepted!');
         } catch (e) {
-            if (e instanceof starkbank.error.InvalidSignatureError)
-                console.log('Correctly rejected signature');
-            else throw e;
+            if (!(e instanceof starkbank.error.InvalidSignatureError))
+                throw e;
         }
     });
 
@@ -68,9 +65,8 @@ describe('TestEventParse', () => {
             });
             throw new Error('Oops, signature was accepted!');
         } catch (e) {
-            if (e instanceof starkbank.error.InvalidSignatureError)
-                console.log('Correctly rejected signature');
-        else throw e;
+            if (!(e instanceof starkbank.error.InvalidSignatureError))
+                throw e;
         }
     });
 });

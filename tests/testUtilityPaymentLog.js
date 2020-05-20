@@ -12,9 +12,7 @@ describe('TestUtilityPaymentLogGet', () => {
             assert(typeof log.id == 'string');
             i += 1;
         }
-        console.log(i)
         assert(i === 5);
-        console.log('Number of logs:', i);
     });
 });
 
