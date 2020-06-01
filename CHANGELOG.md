@@ -15,6 +15,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ## [Unreleased]
 ### Added
 - Boleto PDF layout option
+- Global error language option
 ### Change
 - Test user credentials to environment variable instead of hard-code
 

@@ -40,3 +40,11 @@ exports.environment = function (environment) {
     }
     throw Error(`Invalid environment, please choose among ${validEnvironments}`);
 };
+
+exports.language = function (language) {
+    let acceptedLanguages = ['en-US', 'pt-BR'];
+    if (acceptedLanguages.includes(language)) {
+        return language;
+    }
+    throw Error(`Invalid language, please choose among ${acceptedLanguages}`);
+}

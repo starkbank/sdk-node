@@ -3,6 +3,7 @@ const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 const pjson = require('../../package.json');
 const error = require('../error.js');
 const got = require('got');
+const Check = require('./check.js');
 
 
 class Response {
@@ -19,6 +20,7 @@ class Response {
 
 function preProcess(path, method, payload, query, user, version) {
     user = user || starkbank.user;
+    language = Check.language(starkbank.language);
 
     if (!user) {
         throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
@@ -59,7 +61,8 @@ function preProcess(path, method, payload, query, user, version) {
         'Access-Time': accessTime,
         'Access-Signature': Ecdsa.sign(message, user.privateKey()).toBase64(),
         'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept-Language': language
     };
 
     return [url, options]
