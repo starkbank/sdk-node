@@ -117,7 +117,7 @@ exports.pdf = async function (id, {user} = {}) {
     return rest.getPdf(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, transactionIds, status, sort, tags, user} = {}) {
+exports.query = async function ({ limit, after, before, transactionIds, status, taxId, sort, tags, user} = {}) {
     /**
      *
      * Retrieve Transfers
@@ -130,6 +130,7 @@ exports.query = async function ({ limit, after, before, transactionIds, status, 
      * @param before [string, default null]: date filter for objects created or updated only before specified date. ex: '2020-03-10'
      * @param transactionIds [list of strings, default null]: list of transaction IDs linked to the desired transfers. ex: ['5656565656565656', '4545454545454545']
      * @param status [string, default null]: filter for status of retrieved objects. ex: 'success' or 'failed'
+     * @param taxId [string, default null]: filter for transfers sent to the specified tax ID.ex: "012.345.678-90"
      * @param sort [string, default '-created']: sort order considered in response. Valid options are 'created', '-created', 'updated' or '-updated'.
      * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
@@ -144,6 +145,7 @@ exports.query = async function ({ limit, after, before, transactionIds, status, 
         before: before,
         transactionIds: transactionIds,
         status: status,
+        taxId: taxId,
         sort: sort,
         tags: tags,
     };
