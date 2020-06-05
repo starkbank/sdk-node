@@ -16,6 +16,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ### Added
 - Boleto PDF layout option
 - Global error language option
+- Transfer query taxId filter
 ### Change
 - Test user credentials to environment variable instead of hard-code
 

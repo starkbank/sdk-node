@@ -108,10 +108,10 @@ exports.get = async function (id, {user} = {}) {
      * @description Receive a single Boleto object previously created in the Stark Bank API by passing its id
      *
      * Parameters (required):
-     * @params id [string]: object unique id. ex: '5656565656565656'
+     * @param id [string]: object unique id. ex: '5656565656565656'
      * 
      * Parameters (optional):
-     * @params user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      * 
      * Return:
      * @returns Boleto object with updated attributes
@@ -128,11 +128,11 @@ exports.pdf = async function (id, { layout, user } = {}) {
      * @description Receive a single Boleto pdf file generated in the Stark Bank API by passing its id.
      *
      * Parameters (required):
-     * @params id [string]: object unique id. ex: '5656565656565656'
+     * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @params layout [string]: Layout specification. Available options are 'default' and 'booklet'
-     * @params user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param layout [string, default 'default']: Layout specification. Available options are 'default' and 'booklet'
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Boleto pdf file
