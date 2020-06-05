@@ -23,7 +23,6 @@ describe('TestTransactionGet', () => {
             i += 1;
         }
         assert(i === 150);
-        console.log('Number of Transactions:', i);
     });
 });
 

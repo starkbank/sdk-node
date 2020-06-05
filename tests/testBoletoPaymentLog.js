@@ -14,7 +14,6 @@ describe('TestBoletoPaymentLogGet', () => {
             i += 1;
         }
         assert(i === 5);
-        console.log('Number of logs:', i);
     });
 
     it('works with paymentIds', async () => {

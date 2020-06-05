@@ -22,9 +22,7 @@ describe('TestUtilityPaymentGet', () => {
             assert(typeof payment.id == 'string');
             i += 1;
         }
-        console.log(i)
         assert(i === 5);
-        console.log('Number of boletos:', i);
     });
 });
 

@@ -13,7 +13,6 @@ describe('TestBoletoLogGet', () => {
             i += 1;
         }
         assert(i === 150);
-        console.log('Number of logs:', i);
     });
 });
 

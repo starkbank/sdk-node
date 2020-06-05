@@ -23,7 +23,6 @@ describe('TestBoletoGet', () => {
             i += 1;
         }
         assert(i === 150);
-        console.log('Number of boletos:', i);
     });
 });
 
