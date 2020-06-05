@@ -1,6 +1,8 @@
 exports.version = '0.4.0';
+
 exports.cache = {};
 exports.user = null
+exports.language = "en-US"
 
 // Modules
 exports.transaction = require('./sdk/transaction');
