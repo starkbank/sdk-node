@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [0.5.0] - 2020-06-05
 ### Added
 - Boleto PDF layout option
 - Global error language option
