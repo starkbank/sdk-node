@@ -11,4 +11,4 @@ install:
   - npm install
 
 script:
-  - ./node_modules/mocha/bin/mocha tests --timeout 10000
+  - ./node_modules/mocha/bin/mocha tests --timeout 30000

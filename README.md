@@ -255,7 +255,7 @@ const starkbank = require('starkbank');
 const fs = require('fs').promises;
 
 (async() => {
-    let pdf = await starkbank.boleto.pdf('5155165527080960');
+    let pdf = await starkbank.boleto.pdf('5155165527080960', { layout: 'default' });
     await fs.writeFile('boleto.pdf', pdf);
 })();
 ```
