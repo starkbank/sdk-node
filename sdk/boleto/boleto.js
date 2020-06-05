@@ -120,7 +120,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.pdf = async function (id, {user} = {}) {
+exports.pdf = async function (id, { layout, user } = {}) {
     /**
      *
      * Retrieve a specific Boleto pdf file
@@ -131,13 +131,14 @@ exports.pdf = async function (id, {user} = {}) {
      * @params id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
+     * @params layout [string]: Layout specification. Available options are 'default' and 'booklet'
      * @params user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Boleto pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf(resource, id, { layout: layout }, user);
 };
 
 exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {

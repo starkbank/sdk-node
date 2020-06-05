@@ -17,7 +17,7 @@ class Response {
     }
 }
 
-exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
+function preProcess(path, method, payload, query, user, version) {
     user = user || starkbank.user;
 
     if (!user) {
@@ -61,6 +61,15 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
         'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
         'Content-Type': 'application/json'
     };
+
+    return [url, options]
+}
+
+exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
+    let url;
+    let options;
+    [url, options] = preProcess(path, method, payload, query, user, version);
+
     let response;
     let content;
     let status;
@@ -88,50 +97,10 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
 };
 
 exports.fetchBuffer = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
-    user = user || starkbank.user;
+    let url;
+    let options;
+    [url, options] = preProcess(path, method, payload, query, user, version);
 
-    if (!user) {
-        throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
-    }
-
-    let hostname = {
-        'production': 'https://api.starkbank.com/' + version,
-        'sandbox': 'https://sandbox.api.starkbank.com/' + version
-    }[user.environment];
-
-    let options = {
-        method: method,
-    };
-
-    let url = hostname + path;
-    if (query) {
-        let queryString = '';
-        let separator = '?';
-        for (let key in query) {
-            if (query[key]) {
-                queryString += separator + key + '=' + query[key];
-                separator = '&';
-            }
-        }
-        url += queryString;
-    }
-    let accessTime = Math.round((new Date()).getTime() / 1000);
-    let message = user.accessId() + ':' + accessTime + ':';
-
-    if (payload && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-        let body = JSON.stringify(payload);
-        message += body;
-        options['body'] = body;
-    }
-    options['responseType'] = 'buffer';
-    options['headers'] = {
-        'Access-Id': user.accessId(),
-        'Access-Time': accessTime,
-        'Access-Signature': Ecdsa.sign(message, user.privateKey()).toBase64(),
-        'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
-        'Content-Type': 'application/json'
-    };
-    let response;
     let content;
     let status;
     try {

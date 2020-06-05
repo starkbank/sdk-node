@@ -58,11 +58,9 @@ exports.post = async function (resource, entities, user = null) {
     return newList;
 };
 
-exports.getPdf = async function (resource, id, user = null) {
-    let entity = new resource['class']({});
-    let name = entity.constructor.name;
+exports.getPdf = async function (resource, id, options = {}, user = null) {
     let endpoint = `${api.endpoint(resource['name'])}/${id}/pdf`;
-    let response = await fetchBuffer(`/${endpoint}`, 'GET', null, null, user);
+    let response = await fetchBuffer(`/${endpoint}`, 'GET', null, options, user);
     return response.content;
 };
 
