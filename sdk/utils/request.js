@@ -2,8 +2,8 @@ const starkbank = require('../../index.js');
 const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 const pjson = require('../../package.json');
 const error = require('../error.js');
-const got = require('got');
 const Check = require('./check.js');
+const axios = require('axios').default;
 
 
 class Response {
@@ -53,7 +53,7 @@ function preProcess(path, method, payload, query, user, version) {
     if (payload && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
         let body = JSON.stringify(payload);
         message += body;
-        options['body'] = body;
+        options['data'] = body;
     }
 
     options['headers'] = {
@@ -64,28 +64,30 @@ function preProcess(path, method, payload, query, user, version) {
         'Content-Type': 'application/json',
         'Accept-Language': language
     };
+    options['url'] = url
 
-    return [url, options]
+    return options
 }
 
 exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
     let url;
     let options;
-    [url, options] = preProcess(path, method, payload, query, user, version);
+    options = preProcess(path, method, payload, query, user, version);
 
     let response;
     let content;
     let status;
     try {
-        response = await got(url, options);
-        content = response.body;
-        status = response.statusCode;
+        response = await axios(options);
+        content = await response.data;
+        status = await response.status;
     } catch (e) {
         if (!e.response) {
             throw e;
         }
-        content = e.response.body;
-        status = e.response.statusCode;
+        response = await e.response;
+        content = await response.data;
+        status = await response.status;
         switch (status) {
             case 400:
             case 404:
@@ -102,21 +104,22 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
 exports.fetchBuffer = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
     let url;
     let options;
-    [url, options] = preProcess(path, method, payload, query, user, version);
-
+    options = preProcess(path, method, payload, query, user, version);
+    options['responseType'] = 'arraybuffer';
+    options['responseEncoding'] = 'binary'
     let content;
     let status;
     try {
-        const responsePromise = got(url, options);
-        const bufferPromise = responsePromise.buffer();
-        content = await bufferPromise;
-        status = 200;
+        response = await axios(options);
+        content = await Buffer.from(response.data, 'binary');
+        status = response.status;
     } catch (e) {
         if (!e.response) {
             throw e;
         }
-        content = e.response.body;
-        status = e.response.statusCode;
+        response = await e.response;
+        content = await response.data;
+        status = await response.status;
         switch (status) {
             case 400:
             case 404:

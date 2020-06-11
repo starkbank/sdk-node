@@ -27,7 +27,7 @@ exports.getList = async function* (resource, query, user = null) {
             'cursor': cursor,
         });
         response = await fetch(`/${endpoint}`, method = 'GET', null, query, user, 'v2');
-        json = JSON.parse(response.content);
+        json = response.content;
         list = json[api.lastName(names)];
         cursor = json['cursor'];
         if (limit) {
@@ -49,7 +49,7 @@ exports.post = async function (resource, entities, user = null) {
     let payload = {};
     payload[names] = entities;
     let response = await fetch(`/${endpoint}`, 'POST', payload, null, user);
-    let list = JSON.parse(response.content)[api.lastName(names)];
+    let list = response.content[api.lastName(names)];
     let newList = [];
     for (let entity of list) {
         let newResource = new resource['class'](entity);
@@ -69,13 +69,13 @@ exports.getId = async function (resource, id, user = null, callback) {
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
     let response = await fetch(`/${endpoint}`, 'GET', null, null, user);
-    let returnEntity = JSON.parse(response.content)[api.lastName(name)];
+    let returnEntity = response.content[api.lastName(name)];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
 exports.getPublicKey = async function (user) {
     let response = await fetch(path = '/public-key', 'GET', null, {'limit': 1}, user);
-    return JSON.parse(response.content)['publicKeys'][0]['content'];
+    return response.content['publicKeys'][0]['content'];
 };
 
 exports.deleteId = async function (resource, id, user = null) {
@@ -83,7 +83,7 @@ exports.deleteId = async function (resource, id, user = null) {
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
     let response = await fetch(`/${endpoint}`, 'DELETE', null, null, user);
-    let returnEntity = JSON.parse(response.content)[api.lastName(name)];
+    let returnEntity = response.content[api.lastName(name)];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
@@ -93,7 +93,7 @@ exports.postSingle = async function (resource, options, user = null) {
     let endpoint = `${api.endpoint(resource['name'])}`;
     let payload = Object.assign(entity, options);
     let response = await fetch(`/${endpoint}`, 'POST', payload, null, user);
-    let returnEntity = JSON.parse(response.content)[name];
+    let returnEntity = response.content[name];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
@@ -102,6 +102,6 @@ exports.patchId = async function (resource, id, payload, user = null) {
     let name = entity.constructor.name;
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
     let response = await fetch(`/${endpoint}`, 'PATCH', payload, null, user);
-    let returnEntity = JSON.parse(response.content)[api.lastName(name)];
+    let returnEntity = response.content[api.lastName(name)];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };

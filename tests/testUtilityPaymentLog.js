@@ -4,7 +4,8 @@ const starkbank = require('../index.js');
 starkbank.user = require('./utils/user').exampleProject;
 
 
-describe('TestUtilityPaymentLogGet', () => {
+describe('TestUtilityPaymentLogGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const logs = await starkbank.utilityPayment.log.query({limit: 5});
@@ -17,7 +18,8 @@ describe('TestUtilityPaymentLogGet', () => {
 });
 
 
-describe('TestUtilityPaymentLogInfoGet', () => {
+describe('TestUtilityPaymentLogInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let logs = await starkbank.utilityPayment.log.query({limit: 1});
         for await (let log of logs) {

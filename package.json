@@ -30,7 +30,7 @@
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
     "starkbank-ecdsa": "^1.0.0",
-    "got": "^10.7.0"
+    "axios": "^0.19.2"
   },
   "devDependencies": {
     "decamelize": "^4.0.0",
