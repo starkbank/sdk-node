@@ -4,7 +4,8 @@ const starkbank = require('../index.js');
 starkbank.user = require('./utils/user').exampleProject;
 
 
-describe('TestEventGet', () => {
+describe('TestEventGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const events = await starkbank.event.query({limit: 5});
@@ -16,7 +17,8 @@ describe('TestEventGet', () => {
 });
 
 
-describe('TestEventInfoGet', () => {
+describe('TestEventInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let events = await starkbank.event.query({limit: 1});
         for await (let event of events) {
@@ -27,7 +29,8 @@ describe('TestEventInfoGet', () => {
     });
 });
 
-describe('TestEventParse', () => {
+describe('TestEventParse', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         content = '{"event": {"log": {"transfer": {"status": "processing", "updated": "2020-04-03T13:20:33.485644+00:00", "fee": 160, "name": "Lawrence James", "accountNumber": "10000-0", "id": "5107489032896512", "tags": [], "taxId": "91.642.017/0001-06", "created": "2020-04-03T13:20:32.530367+00:00", "amount": 2, "transactionIds": ["6547649079541760"], "bankCode": "01", "branchCode": "0001"}, "errors": [], "type": "sending", "id": "5648419829841920", "created": "2020-04-03T13:20:33.164373+00:00"}, "subscription": "transfer", "id": "6234355449987072", "created": "2020-04-03T13:20:40.784479+00:00"}}';
         valid_signature = 'MEYCIQCmFCAn2Z+6qEHmf8paI08Ee5ZJ9+KvLWSS3ddp8+RF3AIhALlK7ltfRvMCXhjS7cy8SPlcSlpQtjBxmhN6ClFC0Tv6';

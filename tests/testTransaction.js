@@ -4,7 +4,8 @@ const generateExampleTransactionsJson = require('./utils/transaction.js').genera
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestTransactionPost', () => {
+describe('TestTransactionPost', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let transfers = generateExampleTransactionsJson(1);
         transfers = await starkbank.transaction.create(transfers);
@@ -14,7 +15,8 @@ describe('TestTransactionPost', () => {
     });
 });
 
-describe('TestTransactionGet', () => {
+describe('TestTransactionGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const transfers = await starkbank.transaction.query({limit: 150});
@@ -26,7 +28,8 @@ describe('TestTransactionGet', () => {
     });
 });
 
-describe('TestTransactionInfoGet', () => {
+describe('TestTransactionInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let transfers = await starkbank.transaction.query({limit: 1});
         for await (let transfer of transfers) {
