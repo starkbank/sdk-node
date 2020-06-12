@@ -32,7 +32,7 @@ class BoletoPayment extends Resource {
      * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ taxId, description, scheduled, line, barCode, tags, id, status, amount, fee, created }) {
+    constructor({taxId, description, scheduled, line, barCode, tags, id, status, amount, fee, created}) {
         super(id);
         this.taxId = taxId;
         this.description = description;
@@ -67,7 +67,7 @@ exports.create = async function (payments, {user} = {}) {
      * @returns list of BoletoPayment objects with updated attributes
      *
      */
-    return rest.post(resource, payments, user);
+    return rest.post({resource: resource, entities: payments, user: user});
 };
 
 exports.get = async function (id, {user} = {}) {
@@ -87,7 +87,7 @@ exports.get = async function (id, {user} = {}) {
      * @returns BoletoPayment object with updated attributes
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
 exports.pdf = async function (id, {user} = {}) {
@@ -108,7 +108,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns BoletoPayment pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf({resource, id, user});
 };
 
 exports.query = async function ({ limit, after, before, tags, ids, status, user} = {}) {
@@ -131,15 +131,14 @@ exports.query = async function ({ limit, after, before, tags, ids, status, user}
      * @returns generator of BoletoPayment objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
+    let params = {
         after: after,
         before: before,
         tags: tags,
         ids: ids,
         status: status,
     };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, limit, params, user});
 };
 
 exports.delete = async function (id, {user} = {}) {
@@ -159,5 +158,5 @@ exports.delete = async function (id, {user} = {}) {
      * @returns deleted BoletoPayment with updated attributes
      *
      */
-    return rest.deleteId(resource, id, user);
+    return rest.deleteId({resource, id, user});
 };

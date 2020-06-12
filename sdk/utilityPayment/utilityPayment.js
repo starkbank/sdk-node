@@ -32,10 +32,9 @@ class UtilityPayment extends Resource {
      *
      */
     constructor({
-                    description, scheduled, line, barCode,
-                    tags, amount, status, created,
-                    fee, id,
-                }) {
+        description, scheduled, line, barCode,
+        tags, amount, status, created, fee, id,
+    }) {
         super(id);
         this.barCode = barCode;
         this.line = line;
@@ -71,7 +70,7 @@ exports.create = async function (payments, {user} = {}) {
      * @returns list of UtilityPayment objects with updated attributes
      *
      */
-    return rest.post(resource, payments, user);
+    return rest.post({resource: resource, entities: payments, user: user});
 };
 
 exports.get = async function (id, {user} = {}) {
@@ -88,7 +87,7 @@ exports.get = async function (id, {user} = {}) {
      * @returns user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
 exports.pdf = async function (id, {user} = {}) {
@@ -109,10 +108,10 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns UtilityPayment pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf({resource, id, user});
 };
 
-exports.query = async function ({ limit, after, before, tags, ids, status, user} = {}) {
+exports.query = async function ({limit, after, before, tags, ids, status, user} = {}) {
     /**
      *
      * Retrieve UtilityPayments
@@ -132,15 +131,14 @@ exports.query = async function ({ limit, after, before, tags, ids, status, user}
      * @returns generator of UtilityPayment objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
+    let params = {
         after: after,
         before: before,
         tags: tags,
         ids: ids,
         status: status,
     };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, limit, user, params});
 };
 
 exports.delete = async function (id, {user} = {}) {
@@ -160,5 +158,5 @@ exports.delete = async function (id, {user} = {}) {
      * @returns deleted UtilityPayment with updated attributes
      *
      */
-    return rest.deleteId(resource, id, user);
+    return rest.deleteId({resource, id, user});
 };

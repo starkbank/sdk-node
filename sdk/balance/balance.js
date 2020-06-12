@@ -19,7 +19,7 @@ class Balance extends Resource {
      * @param updated [string, default null]: update datetime for the balance. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor(id, amount, currency, updated) {
+    constructor({amount, currency, updated, id}) {
         super(id);
         this.amount = amount;
         this.currency = currency;
@@ -45,6 +45,6 @@ exports.get = async function ({user} = {}) {
      * @returns Balance object with updated attributes
      *
      */
-    let balance = await rest.getList(resource, 100, user).next();
+    let balance = await rest.getList({resource, user}).next();
     return balance['value'];
 };

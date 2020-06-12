@@ -19,7 +19,7 @@ class Webhook extends Resource {
      * @param id [string, default null]: unique id returned when the webhook is created. ex: '5656565656565656'
      *
      */
-    constructor({url, subscriptions, id = null}) {
+    constructor({url, subscriptions, id}) {
         super(id);
         this.url = url;
         this.subscriptions = subscriptions;
@@ -29,7 +29,7 @@ class Webhook extends Resource {
 exports.Webhook = Webhook;
 let resource = {'class': exports.Webhook, 'name': 'Webhook'};
 
-exports.create = async function ({url, subscriptions, user = null} = {}) {
+exports.create = async function ({url, subscriptions, user} = {}) {
     /**
      *
      * Create Webhook subscription
@@ -47,11 +47,11 @@ exports.create = async function ({url, subscriptions, user = null} = {}) {
      * @returns Webhook object with updated attributes
      *
      */
-    let options = {
+    let entity = {
         url: url,
         subscriptions: subscriptions,
     };
-    return rest.postSingle(resource, options, user);
+    return rest.postSingle({resource, entity, user});
 };
 
 exports.get = async function (id, {user} = {}) {
@@ -71,10 +71,10 @@ exports.get = async function (id, {user} = {}) {
      * @returns Webhook object with updated attributes
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
-exports.query = async function ({limit = null, user = null} = {}) {
+exports.query = async function ({limit, user} = {}) {
     /**
      *
      * Retrieve Webhook subcriptions
@@ -89,10 +89,7 @@ exports.query = async function ({limit = null, user = null} = {}) {
      * @returns generator of Webhook objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
-    };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, limit, user});
 };
 
 exports.delete = async function (id, {user} = {}) {
@@ -112,5 +109,5 @@ exports.delete = async function (id, {user} = {}) {
      * @returns deleted Webhook with updated attributes
      *
      */
-    return rest.deleteId(resource, id, user);
+    return rest.deleteId({resource, id, user});
 };

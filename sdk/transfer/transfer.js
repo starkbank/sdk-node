@@ -33,10 +33,9 @@ class Transfer extends Resource {
      *
      */
     constructor({
-                    amount, name, taxId, bankCode, branchCode, accountNumber, tags,
-                    fee, status, created, updated,
-                    transactionIds, id
-                }) {
+        amount, name, taxId, bankCode, branchCode, accountNumber, tags,
+        fee, status, created, updated, transactionIds, id
+    }) {
         super(id);
         this.amount = amount;
         this.name = name;
@@ -73,7 +72,7 @@ exports.create = async function (transfers, {user} = {}) {
      * @returns list of Transfer objects with updated attributes
      *
      */
-    return rest.post(resource, transfers, user);
+    return rest.post({resource: resource, entities: transfers, user: user});
 };
 
 exports.get = async function (id, {user} = {}) {
@@ -93,7 +92,7 @@ exports.get = async function (id, {user} = {}) {
      * @returns Transfer object with updated attributes
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
 exports.pdf = async function (id, {user} = {}) {
@@ -114,10 +113,10 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Transfer pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf({resource, id, user});
 };
 
-exports.query = async function ({ limit, after, before, transactionIds, status, taxId, sort, tags, user} = {}) {
+exports.query = async function ({limit, after, before, transactionIds, status, taxId, sort, tags, user} = {}) {
     /**
      *
      * Retrieve Transfers
@@ -139,8 +138,7 @@ exports.query = async function ({ limit, after, before, transactionIds, status, 
      * @returns generator of Transfer objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
+    let params = {
         after: after,
         before: before,
         transactionIds: transactionIds,
@@ -149,5 +147,5 @@ exports.query = async function ({ limit, after, before, transactionIds, status, 
         sort: sort,
         tags: tags,
     };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, limit, user, params});
 };

@@ -34,10 +34,10 @@ class Event extends Resource {
 exports.Event = Event;
 let resource = {'class': exports.Event, 'name': 'Event'};
 
-async function verifySignature(content, signature, user = null, refresh = false) {
+async function verifySignature({content, signature, user = null, refresh = false}) {
     let publicKey = starkbank.cache['starkbank-public-key'];
     if (!publicKey || refresh) {
-        let pem = await rest.getPublicKey(user);
+        let pem = await rest.getPublicKey({user});
         publicKey = Ellipticcurve.PublicKey.fromPem(pem);
         starkbank.cache['starkbank-public-key'] = publicKey;
     }
@@ -61,7 +61,7 @@ exports.get = async function (id, {user} = {}) {
      * @returns Event object with updated attributes
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
 exports.query = async function ({limit, after, before, isDelivered, user} = {}) {
@@ -82,13 +82,12 @@ exports.query = async function ({limit, after, before, isDelivered, user} = {}) 
      * @returns generator of Event objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
+    let params = {
         after: after,
         before: before,
         isDelivered: isDelivered,
     };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, limit, params, user});
 };
 
 exports.delete = async function (id, {user} = {}) {
@@ -108,7 +107,7 @@ exports.delete = async function (id, {user} = {}) {
      * @returns deleted Event with updated attributes
      *
      */
-    return rest.deleteId(resource, id, user);
+    return rest.deleteId({resource, id, user});
 };
 
 exports.update = function (id, {isDelivered, user} = {}) {
@@ -132,7 +131,7 @@ exports.update = function (id, {isDelivered, user} = {}) {
     let payload = {
         isDelivered: isDelivered,
     };
-    return rest.patchId(resource, id, payload, user);
+    return rest.patchId({resource, id, payload, user});
 };
 
 exports.parse = async function ({content, signature, user} = {}) {
@@ -164,10 +163,10 @@ exports.parse = async function ({content, signature, user} = {}) {
         throw new error.InvalidSignatureError('The provided signature is not valid');
     }
 
-    if (await verifySignature(content, signature, user)) {
+    if (await verifySignature({content, signature, user})) {
         return event;
     }
-    if (await verifySignature(content, signature, user, true)) {
+    if (await verifySignature({content, signature, user, refresh: true})) {
         return event;
     }
     throw new error.InvalidSignatureError('Provided signature and content do not match Stark Bank public key');

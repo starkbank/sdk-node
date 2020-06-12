@@ -4,21 +4,22 @@ const pjson = require('../../package.json');
 const error = require('../error.js');
 const Check = require('./check.js');
 const axios = require('axios').default;
+const urlencode = require('./url.js').urlencode;
 
 
 class Response {
 
-    constructor(status, content) {
+    constructor({status, content}) {
         this.status = status;
         this.content = content;
     }
 
     json() {
-        return JSON.parse(self.content);
+        return JSON.parse(this.content);
     }
 }
 
-function preProcess(path, method, payload, query, user, version) {
+exports.fetch = async function ({method, path, payload = null, query = null, user = null, version = 'v2'}) {
     user = user || starkbank.user;
     language = Check.language(starkbank.language);
 
@@ -26,110 +27,55 @@ function preProcess(path, method, payload, query, user, version) {
         throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
     }
 
-    let hostname = {
-        'production': 'https://api.starkbank.com/' + version,
-        'sandbox': 'https://sandbox.api.starkbank.com/' + version
-    }[user.environment];
+    let baseUrl = {
+        'production': 'https://api.starkbank.com/',
+        'sandbox': 'https://sandbox.api.starkbank.com/'
+    }[user.environment] + version;
 
-    let options = {
-        method: method,
-    };
+    let queryString = urlencode(query)
 
-    let url = hostname + path;
-    if (query) {
-        let queryString = '';
-        let separator = '?';
-        for (let key in query) {
-            if (query[key]) {
-                queryString += separator + key + '=' + query[key];
-                separator = '&';
-            }
-        }
-        url += queryString;
-    }
+    url = `${baseUrl}/${path}${queryString}`
+
+    let agent = 'Node-' + process.versions['node'] + '-SDK-' + pjson.version;
     let accessTime = Math.round((new Date()).getTime() / 1000);
-    let message = user.accessId() + ':' + accessTime + ':';
+    let body = payload ? JSON.stringify(payload) : ""
+    let message = user.accessId() + ':' + accessTime + ':' + body;
+    let signature = Ecdsa.sign(message, user.privateKey()).toBase64();
 
-    if (payload && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-        let body = JSON.stringify(payload);
-        message += body;
-        options['data'] = body;
+    let request;
+    try {
+        request = await axios({
+            url: url,
+            method: method,
+            data: body,
+            transformResponse: res => res,
+            headers: {
+                'Access-Id': user.accessId(),
+                'Access-Time': accessTime,
+                'Access-Signature': signature,
+                'Content-Type': 'application/json',
+                'User-Agent': agent,
+                'Accept-Language': language
+            }
+        });
+    } catch (e) {
+        request = await e.response;
     }
 
-    options['headers'] = {
-        'Access-Id': user.accessId(),
-        'Access-Time': accessTime,
-        'Access-Signature': Ecdsa.sign(message, user.privateKey()).toBase64(),
-        'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
-        'Content-Type': 'application/json',
-        'Accept-Language': language
-    };
-    options['url'] = url
+    let response = new Response({
+        status: request.status,
+        content: request.data,
+    });
 
-    return options
+    if (response.status == 500) {
+        throw new error.InternalServerError(response.content);
+    }
+    if (response.status == 400) {
+        throw new error.InputErrors(response.json()["errors"]);
+    }
+    if (response.status != 200) {
+        throw new error.UnknownError(response.content, response.status);
+    }
+
+    return response
 }
-
-exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
-    let url;
-    let options;
-    options = preProcess(path, method, payload, query, user, version);
-
-    let response;
-    let content;
-    let status;
-    try {
-        response = await axios(options);
-        content = await response.data;
-        status = await response.status;
-    } catch (e) {
-        if (!e.response) {
-            throw e;
-        }
-        response = await e.response;
-        content = await response.data;
-        status = await response.status;
-        switch (status) {
-            case 400:
-            case 404:
-                throw new error.InputErrors(content, status);
-            case 500:
-                throw new error.InternalServerError(content, status);
-            default:
-                throw e;
-        }
-    }
-    return new Response(status, content);
-};
-
-exports.fetchBuffer = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
-    let url;
-    let options;
-    options = preProcess(path, method, payload, query, user, version);
-    options['responseType'] = 'arraybuffer';
-    options['responseEncoding'] = 'binary'
-    let content;
-    let status;
-    try {
-        response = await axios(options);
-        content = await Buffer.from(response.data, 'binary');
-        status = response.status;
-    } catch (e) {
-        if (!e.response) {
-            throw e;
-        }
-        response = await e.response;
-        content = await response.data;
-        status = await response.status;
-        switch (status) {
-            case 400:
-            case 404:
-                throw new error.InputErrors(content, status);
-            case 500:
-                throw new error.InternalServerError(content, status);
-            default:
-                throw e;
-        }
-    }
-    return new Response(status, content);
-};
-

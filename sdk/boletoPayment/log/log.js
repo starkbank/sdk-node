@@ -20,7 +20,7 @@ class Log extends Resource {
      * @param created [string]: creation datetime for the log. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ created, type, errors, payment, id }) {
+    constructor({created, type, errors, payment, id}) {
         super(id);
         this.created = created;
         this.type = type;
@@ -50,7 +50,7 @@ exports.get = async function (id, {user} = {}) {
      * @returns BoletoPayment Log object with updated attributes
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
 exports.query = async function ({ limit, after, before, types, paymentIds, user} = {}) {
@@ -72,12 +72,11 @@ exports.query = async function ({ limit, after, before, types, paymentIds, user}
      * @returns list of BoletoPayment Log objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
+    let params = {
         after: after,
         before: before,
         types: types,
         paymentIds: paymentIds,
     };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, limit, user, params});
 };

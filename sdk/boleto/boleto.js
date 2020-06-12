@@ -44,12 +44,11 @@ class Boleto extends Resource {
      *
      */
     constructor({
-                    amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
-                    due = null, fine = null, interest = null, overdueLimit = null, receiverName = null,
-                    receiverTaxId = null, tags = null, descriptions = null, discounts = null, id = null,
-                    fee = null, line = null, barCode = null, status = null,
-                    created = null
-                }) {
+        amount, name, taxId, streetLine1, streetLine2, district, city, stateCode, zipCode,
+        due = null, fine = null, interest = null, overdueLimit = null, receiverName = null,
+        receiverTaxId = null, tags = null, descriptions = null, discounts = null, id = null,
+        fee = null, line = null, barCode = null, status = null, created = null
+    }) {
         super(id);
         this.amount = amount;
         this.name = name;
@@ -97,7 +96,7 @@ exports.create = async function (boletos, {user} = {}) {
      * @returns list of Boleto objects with updated attributes
      *
      */
-    return rest.post(resource, boletos, user);
+    return rest.postMulti({resource: resource, entities: boletos, user: user});
 };
 
 exports.get = async function (id, {user} = {}) {
@@ -117,10 +116,10 @@ exports.get = async function (id, {user} = {}) {
      * @returns Boleto object with updated attributes
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
-exports.pdf = async function (id, { layout, user } = {}) {
+exports.pdf = async function (id, { user, layout } = {}) {
     /**
      *
      * Retrieve a specific Boleto pdf file
@@ -138,10 +137,10 @@ exports.pdf = async function (id, { layout, user } = {}) {
      * @returns Boleto pdf file
      *
      */
-    return rest.getPdf(resource, id, { layout: layout }, user);
+    return rest.getPdf({resource, id, user, params: {layout}});
 };
 
-exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {
+exports.query = async function ({limit, status, tags, ids, after, before, user} = {}) {
     /**
      *
      * Retrieve Boletos
@@ -161,15 +160,14 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user}
      * @returns generator of Boleto objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
+    let params = {
         after: after,
         before: before,
         status: status,
         tags: tags,
         ids: ids,
     };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, user, limit, params});
 };
 
 exports.delete = async function (id, {user} = {}) {
@@ -189,5 +187,5 @@ exports.delete = async function (id, {user} = {}) {
      * @returns deleted Boleto with updated attributes
      *
      */
-    return rest.deleteId(resource, id, user);
+    return rest.deleteId({resource, id, user});
 };

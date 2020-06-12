@@ -32,7 +32,7 @@ class Transaction extends Resource {
      * @param created [string, default null]: creation datetime for the transaction. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ amount, description, externalId, receiverId, tags, fee, created, source, id, balance }) {
+    constructor({amount, description, externalId, receiverId, tags, fee, created, source, id, balance}) {
         super(id);
         this.amount = amount;
         this.description = description;
@@ -66,7 +66,7 @@ exports.create = async function (transactions, {user} = {}) {
      * @returns list of Transaction objects with updated attributes
      *
      */
-    return rest.post(resource, transactions, user);
+    return rest.post({resource: resource, entities: transactions, user: user});
 };
 
 exports.get = async function (id, {user} = {}) {
@@ -86,7 +86,7 @@ exports.get = async function (id, {user} = {}) {
      * @returns Transaction object with updated attributes
      *
      */
-    return rest.getId(resource, id, user);
+    return rest.getId({resource, id, user});
 };
 
 exports.query = async function ({limit, after, before, externalIds, user} = {}) {
@@ -107,11 +107,10 @@ exports.query = async function ({limit, after, before, externalIds, user} = {}) 
      * @returns generator of Transaction objects with updated attributes
      *
      */
-    let query = {
-        limit: limit,
+    let params = {
         after: after,
         before: before,
         externalIds: externalIds,
     };
-    return rest.getList(resource, query, user);
+    return rest.getList({resource, limit, user, params});
 };
