@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Change
+- Change request library from Got to Axios for better compatibility
 
 ## [0.5.0] - 2020-06-05
 ### Added

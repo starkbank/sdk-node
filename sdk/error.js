@@ -10,10 +10,10 @@ class InputError extends Error {
 
 class InputErrors extends Error {
     constructor(content, status = 400) {
-        super(content);
+        super(JSON.stringify(content));
         this.status = status;
         this.errors = [];
-        let errors = JSON.parse(content)['errors'];
+        let errors = content['errors'];
         for (let error of errors) {
             this.errors.push(new InputError(error['code'], error['message'], status));
         }
@@ -22,7 +22,7 @@ class InputErrors extends Error {
 
 class InternalServerError extends Error {
     constructor(content, status = 500) {
-        super(content);
+        super(JSON.stringify(content));
         this.status = status;
     }
 }

@@ -4,7 +4,8 @@ const generateExampleUtilityPaymentsJson = require('./utils/utilityPayment.js').
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestUtilityPaymentPost', () => {
+describe('TestUtilityPaymentPost', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let payments = await generateExampleUtilityPaymentsJson(5);
         payments = await starkbank.utilityPayment.create(payments);
@@ -14,7 +15,8 @@ describe('TestUtilityPaymentPost', () => {
     });
 });
 
-describe('TestUtilityPaymentGet', () => {
+describe('TestUtilityPaymentGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const payments = await starkbank.utilityPayment.query({limit: 5});
@@ -26,7 +28,8 @@ describe('TestUtilityPaymentGet', () => {
     });
 });
 
-describe('TestUtilityPaymentPostAndDelete', () => {
+describe('TestUtilityPaymentPostAndDelete', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let payments = await generateExampleUtilityPaymentsJson(1);
         payments = await starkbank.utilityPayment.create(payments);
@@ -37,7 +40,8 @@ describe('TestUtilityPaymentPostAndDelete', () => {
     });
 });
 
-describe('TestUtilityPaymentInfoGet', () => {
+describe('TestUtilityPaymentInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let payments = await starkbank.utilityPayment.query({limit: 1});
         for await (let payment of payments) {
@@ -48,7 +52,8 @@ describe('TestUtilityPaymentInfoGet', () => {
     });
 });
 
-describe('TestUtilityPaymentPdfGet', () => {
+describe('TestUtilityPaymentPdfGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let payments = await starkbank.utilityPayment.query({limit: 1, status: 'processing'});
         for await (let payment of payments) {

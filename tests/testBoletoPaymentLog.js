@@ -5,7 +5,8 @@ const { futureDate } = require('./utils/random')
 starkbank.user = require('./utils/user').exampleProject;
 
 
-describe('TestBoletoPaymentLogGet', () => {
+describe('TestBoletoPaymentLogGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const logs = await starkbank.boletoPayment.log.query({limit: 5});
@@ -70,7 +71,8 @@ describe('TestBoletoPaymentLogGet', () => {
 });
 
 
-describe('TestBoletoPaymentLogInfoGet', () => {
+describe('TestBoletoPaymentLogInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let logs = await starkbank.boletoPayment.log.query({limit: 1});
         for await (let log of logs) {

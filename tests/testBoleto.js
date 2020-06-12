@@ -4,7 +4,8 @@ const generateExampleBoletosJson = require('./utils/boleto.js').generateExampleB
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestBoletoPost', () => {
+describe('TestBoletoPost', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let boletos = generateExampleBoletosJson(5);
         boletos = await starkbank.boleto.create(boletos);
@@ -14,7 +15,8 @@ describe('TestBoletoPost', () => {
     });
 });
 
-describe('TestBoletoGet', () => {
+describe('TestBoletoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const boletos = await starkbank.boleto.query({limit: 150});
@@ -26,7 +28,8 @@ describe('TestBoletoGet', () => {
     });
 });
 
-describe('TestBoletoPostAndDelete', () => {
+describe('TestBoletoPostAndDelete', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let boletos = generateExampleBoletosJson(1);
         boletos = await starkbank.boleto.create(boletos);
@@ -37,7 +40,8 @@ describe('TestBoletoPostAndDelete', () => {
     });
 });
 
-describe('TestBoletoInfoGet', () => {
+describe('TestBoletoInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let boletos = await starkbank.boleto.query({limit: 1});
         for await (let boleto of boletos) {
@@ -48,7 +52,8 @@ describe('TestBoletoInfoGet', () => {
     });
 });
 
-describe('TestBoletoPdfGet', () => {
+describe('TestBoletoPdfGet', function(){
+    this.timeout(30000);
     it('test_success', async () => {
         let boletos = await starkbank.boleto.query({limit: 1});
         for await (let boleto of boletos) {

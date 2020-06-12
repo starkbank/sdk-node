@@ -5,7 +5,8 @@ const generateExampleWebhook = require('./utils/webhook').generateExampleWebhook
 starkbank.user = require('./utils/user').exampleProject;
 
 
-describe('TestWebhookGet', () => {
+describe('TestWebhookGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const webhooks = await starkbank.webhook.query({limit: 5});
@@ -16,7 +17,8 @@ describe('TestWebhookGet', () => {
     });
 });
 
-describe('TestWebhookPostAndDelete', () => {
+describe('TestWebhookPostAndDelete', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let webhook = generateExampleWebhook(1);
         webhook = await starkbank.webhook.create({url: webhook.url, subscriptions: webhook.subscriptions});
@@ -26,7 +28,8 @@ describe('TestWebhookPostAndDelete', () => {
     });
 });
 
-describe('TestWebhookInfoGet', () => {
+describe('TestWebhookInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let webhooks = await starkbank.webhook.query({limit: 1});
         for await (let webhook of webhooks) {

@@ -4,7 +4,8 @@ const generateExampleTransfersJson = require('./utils/transfer.js').generateExam
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestTransferPost', () => {
+describe('TestTransferPost', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let transfers = generateExampleTransfersJson(5);
         transfers = await starkbank.transfer.create(transfers);
@@ -14,7 +15,8 @@ describe('TestTransferPost', () => {
     });
 });
 
-describe('TestTransferGet', () => {
+describe('TestTransferGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
         const transfers = await starkbank.transfer.query({limit: 150});
@@ -26,7 +28,8 @@ describe('TestTransferGet', () => {
     });
 });
 
-describe('TestTransferInfoGet', () => {
+describe('TestTransferInfoGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let transfers = await starkbank.transfer.query({limit: 1});
         for await (let transfer of transfers) {
@@ -37,7 +40,8 @@ describe('TestTransferInfoGet', () => {
     });
 });
 
-describe('TestTransferPdfGet', () => {
+describe('TestTransferPdfGet', function(){
+    this.timeout(10000);
     it('test_success', async () => {
         let transfers = await starkbank.transfer.query({limit: 1, status: 'processing'});
         for await (let transfer of transfers) {
