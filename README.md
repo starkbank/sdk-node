@@ -685,6 +685,254 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Create DAS payment
+
+Its also simple to pay DAS taxes in the SDK.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.dasPayment.create([
+        {
+            line: '83680000001 7 08430138003 0 71070987611 8 00041351685 7',
+            scheduled: '2020-03-13',
+            description: 'take my money',
+            tags: ['take', 'my', 'money'],
+        },
+        {
+            barCode: '83600000001522801380037107172881100021296561',
+            scheduled: '2020-03-14',
+            description: 'take my money one more time',
+            tags: ['again'],
+        },
+    ]);
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+### Query DAS payments
+
+To search for DAS payments using filters, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.dasPayment.query({
+        tags: ['tax', 'state'],
+    });
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+### Get DAS payment
+
+You can get a specific tax by its id:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.dasPayment.get('5155165527080960');
+    console.log(payment);
+})();
+```
+
+### Get DAS payment PDF
+
+After its creation, a DAS payment PDF may also be retrieved by passing its id. 
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let pdf = await starkbank.dasPayment.pdf('5155165527080960');
+    await fs.writeFile('das-payment.pdf', pdf);
+})();
+```
+
+Be careful not to accidentally enforce any encoding on the raw pdf content,
+as it may yield abnormal results in the final file, such as missing images
+and strange characters.
+
+### Delete DAS payment
+
+You can also cancel a DAS payment by its id.
+Note that this is not possible if it has been processed already.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.dasPayment.delete('5155165527080960');
+    console.log(payment);
+})();
+```
+
+### Query DAS tax payment logs
+
+You can search for payment logs by specifying filters. Use this to understand the
+taxes life cycles.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let logs = await starkbank.dasPayment.log.query({
+        paymentIds:['102893710982379182', '92837912873981273'],
+    });
+
+    for await (let log of logs) {
+        console.log(log);
+    }
+})();
+```
+
+### Get DAS tax payment log
+
+If you want to get a specific payment log by its id, just run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let log = await starkbank.dasPayment.log.get('5155165527080960');
+    console.log(log);
+})();
+```
+
+### Create ISS payment
+
+Its also simple to pay ISS taxes in the SDK.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.issPayment.create([
+        {
+            line: '83680000001 7 08430138003 0 71070987611 8 00041351685 7',
+            scheduled: '2020-03-13',
+            description: 'take my money',
+            tags: ['take', 'my', 'money'],
+        },
+        {
+            barCode: '83600000001522801380037107172881100021296561',
+            scheduled: '2020-03-14',
+            description: 'take my money one more time',
+            tags: ['again'],
+        },
+    ]);
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+### Query ISS payments
+
+To search for ISS payments using filters, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.issPayment.query({
+        tags: ['tax', 'state'],
+    });
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+### Get ISS payment
+
+You can get a specific tax by its id:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.issPayment.get('5155165527080960');
+    console.log(payment);
+})();
+```
+
+### Get ISS payment PDF
+
+After its creation, a ISS payment PDF may also be retrieved by passing its id. 
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let pdf = await starkbank.issPayment.pdf('5155165527080960');
+    await fs.writeFile('iss-payment.pdf', pdf);
+})();
+```
+
+Be careful not to accidentally enforce any encoding on the raw pdf content,
+as it may yield abnormal results in the final file, such as missing images
+and strange characters.
+
+### Delete ISS payment
+
+You can also cancel a ISS payment by its id.
+Note that this is not possible if it has been processed already.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.issPayment.delete('5155165527080960');
+    console.log(payment);
+})();
+```
+
+### Query ISS tax payment logs
+
+You can search for payment logs by specifying filters. Use this to understand the
+taxes life cycles.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let logs = await starkbank.issPayment.log.query({
+        paymentIds:['102893710982379182', '92837912873981273'],
+    });
+
+    for await (let log of logs) {
+        console.log(log);
+    }
+})();
+```
+
+### Get ISS tax payment log
+
+If you want to get a specific payment log by its id, just run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let log = await starkbank.issPayment.log.get('5155165527080960');
+    console.log(log);
+})();
+```
+
 ### Create transactions
 
 To send money between Stark Bank accounts, you can create transactions:

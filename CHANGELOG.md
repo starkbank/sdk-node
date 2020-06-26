@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- DasPayment resource
+- IssPayment resource
 
 ## [0.5.1] - 2020-06-12
 ### Change
