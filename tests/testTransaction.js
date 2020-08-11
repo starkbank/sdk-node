@@ -7,10 +7,10 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestTransactionPost', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let transfers = generateExampleTransactionsJson(1);
-        transfers = await starkbank.transaction.create(transfers);
-        for (let transfer of transfers) {
-            assert(typeof transfer.id == 'string');
+        let transactions = generateExampleTransactionsJson(1);
+        transactions = await starkbank.transaction.create(transactions);
+        for (let transaction of transactions) {
+            assert(typeof transaction.id == 'string');
         }
     });
 });
@@ -19,9 +19,9 @@ describe('TestTransactionGet', function(){
     this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
-        const transfers = await starkbank.transaction.query({limit: 150});
-        for await (let transfer of transfers) {
-            assert(typeof transfer.id == 'string');
+        const transactions = await starkbank.transaction.query({limit: 150});
+        for await (let transaction of transactions) {
+            assert(typeof transaction.id == 'string');
             i += 1;
         }
         assert(i === 150);
@@ -31,11 +31,11 @@ describe('TestTransactionGet', function(){
 describe('TestTransactionInfoGet', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let transfers = await starkbank.transaction.query({limit: 1});
-        for await (let transfer of transfers) {
-            assert(typeof transfer.id == 'string');
-            transfer = await starkbank.transaction.get(transfer.id);
-            assert(typeof transfer.id == 'string');
+        let transactions = await starkbank.transaction.query({limit: 1});
+        for await (let transaction of transactions) {
+            assert(typeof transaction.id == 'string');
+            transaction = await starkbank.transaction.get(transaction.id);
+            assert(typeof transaction.id == 'string');
         }
     });
 });
