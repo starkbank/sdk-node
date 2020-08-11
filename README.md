@@ -344,6 +344,7 @@ const starkbank = require('starkbank');
             accountNumber: '123456-7',
             taxId: '372.864.795-04',
             name: 'Jon Snow',
+            scheduled: '2021-09-08',
             tags: []
         }
     ])
@@ -382,6 +383,19 @@ const starkbank = require('starkbank');
 
 (async() => {
     let transfer = await starkbank.transfer.get('5155165527080960');
+    console.log(transfer);
+})();
+```
+
+### Cancel a scheduled transfer
+
+To cancel a single scheduled transfer by its id, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let transfer = await starkbank.transfer.delete('5155165527080960');
     console.log(transfer);
 })();
 ```
