@@ -89,7 +89,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit, after, before, externalIds, user} = {}) {
+exports.query = async function ({limit, after, before, tags, externalIds, user} = {}) {
     /**
      *
      * Retrieve Transactions
@@ -100,6 +100,7 @@ exports.query = async function ({limit, after, before, externalIds, user} = {}) 
      * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
      * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
      * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param tags [list of strings, default null]: tags to filter retrieved objects.ex: ['tony', 'stark']
      * @param externalIds [list of strings, default null]: list of external ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
@@ -111,6 +112,7 @@ exports.query = async function ({limit, after, before, externalIds, user} = {}) 
         limit: limit,
         after: after,
         before: before,
+        tags: tags,
         externalIds: externalIds,
     };
     return rest.getList(resource, query, user);

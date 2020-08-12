@@ -40,6 +40,17 @@ describe('TestTransferInfoGet', function(){
     });
 });
 
+describe('TestTransferDelete', function () {
+    this.timeout(10000);
+    it('test_success', async () => {
+        let transfers = generateExampleTransfersJson(1, null, true);
+        transfers = await starkbank.transfer.create(transfers);
+        transfer = await starkbank.transfer.delete(transfers[0].id);
+        console.log(transfer);
+        assert(transfer.status == 'canceled');
+    });
+});
+
 describe('TestTransferPdfGet', function(){
     this.timeout(10000);
     it('test_success', async () => {

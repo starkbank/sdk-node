@@ -105,7 +105,7 @@ exports.delete = async function (id, {user} = {}) {
      * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * @returns deleted Event with updated attributes
+     * @returns deleted Event object
      *
      */
     return rest.deleteId(resource, id, user);

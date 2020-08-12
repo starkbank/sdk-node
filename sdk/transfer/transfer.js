@@ -22,6 +22,7 @@ class Transfer extends Resource {
      *
      * Parameters (optional):
      * @param tags [list of strings]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
+     * @param scheduled [string, default now]: datetime when the transfer will be processed. May be pushed to next business day if necessary. ex: '2020-03-11 08:00:00.000'
      *
      * Attributes (return-only):
      * @param id [string, default null]: unique id returned when Transfer is created. ex: '5656565656565656'
@@ -33,9 +34,8 @@ class Transfer extends Resource {
      *
      */
     constructor({
-                    amount, name, taxId, bankCode, branchCode, accountNumber, tags,
-                    fee, status, created, updated,
-                    transactionIds, id
+                    amount, name, taxId, bankCode, branchCode, accountNumber, scheduled, tags, fee, status,
+                    created, updated, transactionIds, id
                 }) {
         super(id);
         this.amount = amount;
@@ -44,6 +44,7 @@ class Transfer extends Resource {
         this.bankCode = bankCode;
         this.branchCode = branchCode;
         this.accountNumber = accountNumber;
+        this.scheduled = scheduled;
         this.tags = tags;
         this.fee = fee;
         this.status = status;
@@ -94,6 +95,26 @@ exports.get = async function (id, {user} = {}) {
      *
      */
     return rest.getId(resource, id, user);
+};
+
+exports.delete = async function (id, { user } = {}) {
+    /**
+     *
+     * Delete a Transfer entity
+     *
+     * @description Delete a Transfer entity previously created in the Stark Bank API
+     *
+     * Parameters (required):
+     * @param id [string]: Transfer unique id. ex: '5656565656565656'
+     *
+     * Parameters (optional):
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns deleted Transfer object
+     *
+     */
+    return rest.deleteId(resource, id, user);
 };
 
 exports.pdf = async function (id, {user} = {}) {
