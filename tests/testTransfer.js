@@ -38,6 +38,27 @@ describe('TestTransferInfoGet', function(){
             assert(typeof transfer.id == 'string');
         }
     });
+
+    it('test_success_ids', async () => {
+        let transfers = await starkbank.transfer.query({limit: 10});
+        let transfersIdsExpected = [];
+        for await (let transfer of transfers) {
+            transfersIdsExpected.push(transfer.id);
+        }
+
+        let transfersResult = await starkbank.transfer.query({ids: transfersIdsExpected});
+        let transfersIdsResult = [];
+        for await (let transfer of transfersResult){
+            transfersIdsResult.push(transfer.id);
+        }
+        
+        transfersIdsExpected.sort();
+        transfersIdsResult.sort();
+        assert(transfersIdsExpected.length == transfersIdsResult.length);
+        for (let i=0; i<transfersIdsExpected.length; i++){
+            assert(transfersIdsExpected[i] === transfersIdsResult[i]);
+        }
+    });
 });
 
 describe('TestTransferDelete', function () {
