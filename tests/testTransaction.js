@@ -38,4 +38,25 @@ describe('TestTransactionInfoGet', function(){
             assert(typeof transaction.id == 'string');
         }
     });
+
+    it('test_success_ids', async () => {
+        let transactions = await starkbank.transaction.query({limit: 10});
+        let transactionsIdsExpected = [];
+        for await (let transaction of transactions) {
+            transactionsIdsExpected.push(transaction.id);
+        }
+
+        let transactionsResult = await starkbank.transaction.query({ids: transactionsIdsExpected});
+        let transactionsIdsResult = [];
+        for await (let transaction of transactionsResult){
+            transactionsIdsResult.push(transaction.id);
+        }
+        
+        transactionsIdsExpected.sort();
+        transactionsIdsResult.sort();
+        assert(transactionsIdsExpected.length == transactionsIdsResult.length);
+        for (let i=0; i<transactionsIdsExpected.length; i++){
+            assert(transactionsIdsExpected[i] === transactionsIdsResult[i]);
+        }
+    });
 });
