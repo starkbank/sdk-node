@@ -16,6 +16,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ### Added
 - ids parameter to transaction.query
 - ids parameter to transfer.query
+- hiddenFields parameter to boleto.pdf
 
 ## [0.6.0] - 2020-07-12
 ### Added

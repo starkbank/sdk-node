@@ -120,7 +120,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.pdf = async function (id, { layout, user } = {}) {
+exports.pdf = async function (id, { layout, hiddenFields, user } = {}) {
     /**
      *
      * Retrieve a specific Boleto pdf file
@@ -132,13 +132,14 @@ exports.pdf = async function (id, { layout, user } = {}) {
      *
      * Parameters (optional):
      * @param layout [string, default 'default']: Layout specification. Available options are 'default' and 'booklet'
+     * @param hiddenFields [list of strings, default null]: List of string fields to be hidden in Boleto pdf. ex: ["customerAddress"]
      * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Boleto pdf file
      *
      */
-    return rest.getPdf(resource, id, { layout: layout }, user);
+    return rest.getPdf(resource, id, { layout: layout, hiddenFields: hiddenFields }, user);
 };
 
 exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {
