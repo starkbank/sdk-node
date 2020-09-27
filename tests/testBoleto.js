@@ -58,7 +58,7 @@ describe('TestBoletoPdfGet', function(){
         let boletos = await starkbank.boleto.query({limit: 1});
         for await (let boleto of boletos) {
             assert(typeof boleto.id == 'string');
-            let pdf = await starkbank.boleto.pdf(boleto.id, { layout: 'booklet' });
+            let pdf = await starkbank.boleto.pdf(boleto.id, { layout: 'booklet', hiddenFields: ["customerAddress"] });
             assert(Buffer.isBuffer(pdf));
         }
     });

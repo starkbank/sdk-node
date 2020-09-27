@@ -41,6 +41,7 @@ class Boleto extends Resource {
      * @param barCode [string, default null]: generated Boleto bar-code for payment. ex: '34195819600000000621090063571277307144464000'
      * @param status [string, default null]: current Boleto status. ex: 'registered' or 'paid'
      * @param created [string, default null]: creation datetime for the Boleto. ex: '2020-03-10 10:30:00.000'
+     * @param ourNumber [string, default null]: Reference number registered at the settlement bank. ex:“10131474”
      *
      */
     constructor({
@@ -48,7 +49,7 @@ class Boleto extends Resource {
                     due = null, fine = null, interest = null, overdueLimit = null, receiverName = null,
                     receiverTaxId = null, tags = null, descriptions = null, discounts = null, id = null,
                     fee = null, line = null, barCode = null, status = null,
-                    created = null
+                    created = null, ourNumber = null
                 }) {
         super(id);
         this.amount = amount;
@@ -74,6 +75,7 @@ class Boleto extends Resource {
         this.barCode = barCode;
         this.status = status;
         this.created = created;
+        this.ourNumber = ourNumber;
     }
 }
 
@@ -120,7 +122,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.pdf = async function (id, { layout, user } = {}) {
+exports.pdf = async function (id, { layout, hiddenFields, user } = {}) {
     /**
      *
      * Retrieve a specific Boleto pdf file
@@ -132,13 +134,14 @@ exports.pdf = async function (id, { layout, user } = {}) {
      *
      * Parameters (optional):
      * @param layout [string, default 'default']: Layout specification. Available options are 'default' and 'booklet'
+     * @param hiddenFields [list of strings, default null]: List of string fields to be hidden in Boleto pdf. ex: ["customerAddress"]
      * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Boleto pdf file
      *
      */
-    return rest.getPdf(resource, id, { layout: layout }, user);
+    return rest.getPdf(resource, id, { layout: layout, hiddenFields: hiddenFields }, user);
 };
 
 exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {
