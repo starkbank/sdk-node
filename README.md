@@ -575,6 +575,96 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Investigate a boleto
+
+You can discover if a StarkBank boleto has been recently paid before we receive the response on the next day.
+This can be done by creating a BoletoHolmes object, which fetches the updated status of the corresponding
+Boleto object according to CIP to check, for example, whether it is still payable or not.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.boletoHolmes.create([
+        {
+            boletoId: '5656565656565656'
+        },
+        {
+            boletoId: '4848484848484848',
+            tags: ['test']
+        },
+    ])
+
+    for (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+### Get boleto holmes
+
+To get a single Holmes by its id, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let sherlock = await starkbank.boletoHolmes.get('5155165527080960');
+    console.log(sherlock);
+})();
+```
+
+### Query boleto holmes
+
+You can search for boleto Holmes using filters. 
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let holmes = await starkbank.boletoHolmes.query({
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let sherlock of holmes) {
+        console.log(sherlock);
+    }
+})();
+```
+
+### Query boleto holmes logs
+
+Searches are also possible with boleto holmes logs:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let logs = await starkbank.boletoHolmes.log.query({
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let log of logs) {
+        console.log(log);
+    }
+})();
+```
+
+### Get boleto holmes log
+
+You can also get a boleto holmes log by specifying its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let log = await starkbank.boletoHolmes.log.get('5155165527080960');
+    console.log(log);
+})();
+```
+
 ### Create utility payment
 
 Its also simple to pay utility bills (such electricity and water bills) in the SDK.

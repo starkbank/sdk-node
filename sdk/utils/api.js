@@ -22,7 +22,14 @@ exports.lastName = function (resource) {
 };
 
 exports.lastPlural = function (resource) {
-    return `${exports.lastName(resource, true)}s`;
+    lastName = exports.lastName(resource, true);
+    if (lastName.endsWith("s")) {
+        return lastName;
+    };
+    if (lastName.endsWith("y")) {
+        return `${lastName.slice(0, -1)}ies`;
+    };
+    return `${lastName}s`;
 };
 
 exports.removeNullKeys = function(dict) {

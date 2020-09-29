@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- BoletoHolmes to investigate boleto status according to CIP
+
 ## [2.0.1] - 2020-10-22
 ### Fixed
 - Fixed "decamelize" dependency
