@@ -19,6 +19,7 @@ exports.boletoPayment = require('./sdk/boletoPayment');
 exports.utilityPayment = require('./sdk/utilityPayment');
 exports.paymentRequest = require('./sdk/paymentRequest');
 exports.webhook = require('./sdk/webhook');
+exports.workspace = require('./sdk/workspace');
 exports.event = require('./sdk/event');
 exports.key = require('./sdk/key.js');
 exports.error = require('./sdk/error.js');
