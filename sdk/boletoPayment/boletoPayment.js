@@ -61,7 +61,7 @@ exports.create = async function (payments, {user} = {}) {
      * @param payments [list of BoletoPayment objects]: list of BoletoPayment objects to be created in the API
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns list of BoletoPayment objects with updated attributes
@@ -81,7 +81,7 @@ exports.get = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns BoletoPayment object with updated attributes
@@ -102,7 +102,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns BoletoPayment pdf file
@@ -153,7 +153,7 @@ exports.delete = async function (id, {user} = {}) {
      * @param id [string]: BoletoPayment unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns deleted BoletoPayment object
