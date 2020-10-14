@@ -11,10 +11,6 @@ class User extends Resource {
         this.environment = check.environment(environment);
     }
 
-    accessId() {
-        return this.constructor.name.toLowerCase() + '/' + this.id;
-    }
-
     privateKey() {
         return PrivateKey.fromPem(this.pem);
     }

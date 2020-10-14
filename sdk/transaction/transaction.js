@@ -60,7 +60,7 @@ exports.create = async function (transactions, {user} = {}) {
      * @param transactions [list of Transaction objects]: list of Transaction objects to be created in the API
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns list of Transaction objects with updated attributes
@@ -80,7 +80,7 @@ exports.get = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Transaction object with updated attributes

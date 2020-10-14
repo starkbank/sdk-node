@@ -26,6 +26,7 @@ exports.error = require('./sdk/error.js');
 
 // Classes
 exports.Project = require('./sdk/user').Project;
+exports.Organization = require('./sdk/user').Organization;
 exports.Transaction = exports.transaction.Transaction;
 exports.Balance = exports.balance.Balance;
 exports.Boleto = exports.boleto.Boleto;

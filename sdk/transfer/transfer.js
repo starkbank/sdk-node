@@ -68,7 +68,7 @@ exports.create = async function (transfers, {user} = {}) {
      * @param transfers [list of Transfer objects]: list of Transfer objects to be created in the API
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns list of Transfer objects with updated attributes
@@ -88,7 +88,7 @@ exports.get = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Transfer object with updated attributes
@@ -108,7 +108,7 @@ exports.delete = async function (id, { user } = {}) {
      * @param id [string]: Transfer unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns deleted Transfer object
@@ -129,7 +129,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Transfer pdf file
