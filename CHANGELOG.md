@@ -18,6 +18,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - ids parameter to transfer.query
 - hiddenFields parameter to boleto.pdf
 - ourNumber attribute to Boleto
+- PaymentRequest resource to pass payments through manual approval flow
 
 ## [0.6.0] - 2020-07-12
 ### Added

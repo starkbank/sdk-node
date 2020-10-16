@@ -764,6 +764,64 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Create payment requests to be approved by authorized people in a cost center 
+
+You can also request payments that must pass through a specific cost center approval flow to be executed.
+In certain structures, this allows double checks for cash-outs and also gives time to load your account
+with the required amount before the payments take place.
+The approvals can be granted at our website and must be performed according to the rules
+specified in the cost center.
+
+**Note**: The value of the centerId parameter can be consulted by logging into our website and going
+to the desired Cost Center page.
+
+```javascript
+const starkbank = require('starkbank');
+const random = require('./random.js');
+
+let transaction = new starkbank.Transaction({
+    amount: 100, 
+    receiverId: '4888651368497152',
+    description: 'this is my cashback',
+    externalId: '12345',
+    tags: ['provider']
+});
+
+let requests = [
+    new starkbank.PaymentRequest({
+        centerId: '5967314465849344',
+        payment: transaction,
+        due: random.futureDate(0)
+    })
+];
+
+(async() => {
+    requests = await starkbank.paymentRequest.create(requests);
+
+    for await (let request of requests){
+        console.log(request);
+    }
+})();
+```
+
+**Note**: Instead of using PaymentRequest objects, you can also pass each request element in dictionary format
+
+### Query payment requests
+
+To search for payment requests, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let requests = await starkbank.paymentRequest.query({centerId: '5967314465849344', limit: 10});
+
+    for await (let request of requests){
+        console.log(request);
+    }
+})();
+```
+
 ### Create webhook subscription
 
 To create a webhook subscription and be notified whenever an event occurs, run:
