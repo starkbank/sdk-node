@@ -11,15 +11,13 @@ defaultExampleTransaction = new starkbank.Transaction({
 
 
 exports.generateExampleTransactionsJson = function (n = 1) {
-
     let transactions = [];
     let exampleTransaction = JSON.parse(JSON.stringify(defaultExampleTransaction));
     for (let i = 0; i < n; i++) {
         exampleTransaction.receiverId = '5768064935133184';
         exampleTransaction.amount = random.randomInt(1, 10);
         exampleTransaction.externalId = random.randomInt(1, 1.e16).toString();
-        transactions.push(Object.assign(new starkbank.Transfer({}), JSON.parse(JSON.stringify(exampleTransaction))));
+        transactions.push(new starkbank.Transaction(exampleTransaction));
     }
     return transactions;
-
 };

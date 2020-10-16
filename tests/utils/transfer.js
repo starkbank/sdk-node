@@ -30,7 +30,7 @@ exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = fa
         exampleTransfer.amount = transferAmount;
         exampleTransfer.taxId = '012.345.678-90';
         exampleTransfer.scheduled = scheduled;
-        transfers.push(Object.assign(new starkbank.Transfer({}), JSON.parse(JSON.stringify(exampleTransfer))));
+        transfers.push(new starkbank.Transfer(exampleTransfer));
     }
     return transfers;
 };

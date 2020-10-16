@@ -67,7 +67,6 @@ describe('TestTransferDelete', function () {
         let transfers = generateExampleTransfersJson(1, null, true);
         transfers = await starkbank.transfer.create(transfers);
         transfer = await starkbank.transfer.delete(transfers[0].id);
-        console.log(transfer);
         assert(transfer.status == 'canceled');
     });
 });
