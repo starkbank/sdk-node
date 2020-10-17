@@ -3,16 +3,14 @@ const random = require('./random.js');
 const check = require('../../sdk/utils/check.js');
 const generateExampleBoletosJson = require('./boleto').generateExampleBoletosJson;
 
-starkbank.user = require('../utils/user').exampleProject;
-
-var defaultExampleBoletoPayment = {
-    taxId: '20.018.183/0001-80',
-    line: '34191.09008 61713.957308 71444.640008 2 83430000984732',
-    description: 'loading a random account',
-};
-
-
 exports.generateExampleBoletoPaymentsJson = async function (n, schedule = true) {
+    
+    let exampleBoletoPayment = {
+        taxId: '20.018.183/0001-80',
+        line: '34191.09008 61713.957308 71444.640008 2 83430000984732',
+        description: 'loading a random account',
+    };
+
     let boletos = generateExampleBoletosJson(n);
     let lines = [];
     let amounts = [];
@@ -23,7 +21,6 @@ exports.generateExampleBoletoPaymentsJson = async function (n, schedule = true) 
     }
 
     let payments = [];
-    let exampleBoletoPayment = JSON.parse(JSON.stringify(defaultExampleBoletoPayment));
     for (let i = 0; i < n; i++) {
         exampleBoletoPayment.line = lines[i];
         exampleBoletoPayment.description = `Pagamento ${amounts[i]}`;

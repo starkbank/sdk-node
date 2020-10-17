@@ -1,18 +1,16 @@
 const random = require('./random');
 const starkbank = require('../../index.js');
 
-defaultExampleTransaction = new starkbank.Transaction({
+exports.generateExampleTransactionsJson = function (n = 1) {
+    
+    let exampleTransaction = {
         amount: 50,
         receiverId: '12345',
         externalId: 'unique identifier',
-        description: 'Transferencia para Workspace aleatorio'
-    },
-);
-
-
-exports.generateExampleTransactionsJson = function (n = 1) {
+        description: 'Transaction to a random workspace'
+    };
+    
     let transactions = [];
-    let exampleTransaction = JSON.parse(JSON.stringify(defaultExampleTransaction));
     for (let i = 0; i < n; i++) {
         exampleTransaction.receiverId = '5768064935133184';
         exampleTransaction.amount = random.randomInt(1, 10);
