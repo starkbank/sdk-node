@@ -16,12 +16,13 @@ function formatDate(date) {
 }
 
 exports.date = function (input) {
+    if (!input) {
+        return null;
+    }
     if (typeof input === 'string') {
         return input;
     }
-    let date = new Date(input);
-
-    return formatDate(date);
+    return formatDate(new Date(input));
 };
 
 exports.key = function (key) {

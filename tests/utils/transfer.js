@@ -1,16 +1,17 @@
 const starkbank = require('../../index.js');
 const random = require('./random.js');
 
-var defaultExampleTransfer = new starkbank.Transfer({
-    amount: 10,
-    name: 'João da Silva',
-    taxId: '01234567890',
-    bankCode: '01',
-    branchCode: '0001',
-    accountNumber: '10000-0',
-});
-
 exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = false) {
+    
+    let exampleTransfer = {
+        amount: 10,
+        name: 'João da Silva',
+        taxId: '01234567890',
+        bankCode: '01',
+        branchCode: '0001',
+        accountNumber: '10000-0',
+    };
+
     let transfers = [];
     
     let scheduled = null;
@@ -20,7 +21,6 @@ exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = fa
         scheduled = scheduled.toISOString().substring(0, 10);
     }
 
-    let exampleTransfer = JSON.parse(JSON.stringify(defaultExampleTransfer));
     for (let i = 0; i < n; i++) {
         let transferAmount = Math.floor(amount);
         if (!amount) {
@@ -30,7 +30,7 @@ exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = fa
         exampleTransfer.amount = transferAmount;
         exampleTransfer.taxId = '012.345.678-90';
         exampleTransfer.scheduled = scheduled;
-        transfers.push(Object.assign(new starkbank.Transfer({}), JSON.parse(JSON.stringify(exampleTransfer))));
+        transfers.push(new starkbank.Transfer(exampleTransfer));
     }
     return transfers;
 };
