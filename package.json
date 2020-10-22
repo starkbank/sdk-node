@@ -29,11 +29,11 @@
   },
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
-    "starkbank-ecdsa": "^1.1.2",
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "decamelize": "^4.0.0",
+    "starkbank-ecdsa": "^1.1.2"
   },
   "devDependencies": {
-    "decamelize": "^4.0.0",
     "mocha": "^7.1.2"
   }
 }
