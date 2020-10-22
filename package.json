@@ -33,7 +33,6 @@
     "axios": "^0.19.2"
   },
   "devDependencies": {
-    "decamelize": "^4.0.0",
     "mocha": "^7.1.2"
   }
 }
