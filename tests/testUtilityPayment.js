@@ -4,17 +4,6 @@ const generateExampleUtilityPaymentsJson = require('./utils/utilityPayment.js').
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestUtilityPaymentPost', function(){
-    this.timeout(10000);
-    it('test_success', async () => {
-        let payments = await generateExampleUtilityPaymentsJson(5);
-        payments = await starkbank.utilityPayment.create(payments);
-        for (let payment of payments) {
-            assert(typeof payment.id == 'string');
-        }
-    });
-});
-
 describe('TestUtilityPaymentGet', function(){
     this.timeout(10000);
     it('test_success', async () => {
