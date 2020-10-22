@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+## [2.0.1] - 2020-10-22
+### Fixed
+- Fixed "decamelize" dependency
 
 ## [2.0.0] - 2020-10-19
 ### Added
