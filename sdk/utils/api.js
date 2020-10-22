@@ -1,9 +1,15 @@
-const decamelize = require('decamelize');
 const Resource = require('./resource.js').Resource
 
 
+function decamelize(str, separator="-") {
+    return str
+        .replace(/([a-z\d])([A-Z])/g, '$1' + separator + '$2')
+        .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, '$1' + separator + '$2')
+        .toLowerCase();
+}
+
 exports.endpoint = function (resource, keepDash = false) {
-    let decamelized = decamelize(resource, '-');
+    let decamelized = decamelize(resource);
     if (keepDash) {
         return decamelized;
     }
@@ -11,7 +17,7 @@ exports.endpoint = function (resource, keepDash = false) {
 };
 
 exports.lastName = function (resource) {
-    let splitString = decamelize(resource, '-').split('-');
+    let splitString = decamelize(resource).split('-');
     return splitString[splitString.length - 1];
 };
 
