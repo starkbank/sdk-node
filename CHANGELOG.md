@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.1.0] - 2020-10-28
 ### Added
 - BoletoHolmes to investigate boleto status according to CIP
 
