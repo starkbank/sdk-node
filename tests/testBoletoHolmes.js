@@ -17,7 +17,6 @@ describe('TestBoletoHolmesPost', function(){
         holmes = await starkbank.boletoHolmes.create(holmes);
         for (let sherlock of holmes) {
             assert(typeof sherlock.id == 'string');
-            console.log(sherlock);
         }
     });
 });
