@@ -1,17 +1,17 @@
 # Stark Bank Node SDK Beta
 
-Welcome to the Stark Bank Node SDK! This tool is made for Node 
+Welcome to the Stark Bank Node SDK! This tool is made for Node
 developers who want to easily integrate with our API.
 This SDK version is compatible with the Stark Bank API v2.
 
-If you have no idea what Stark Bank is, check out our [website](https://www.starkbank.com/) 
-and discover a world where receiving or making payments 
+If you have no idea what Stark Bank is, check out our [website](https://www.starkbank.com/)
+and discover a world where receiving or making payments
 is as easy as sending a text message to your client!
 
 ## Help and Feedback
 
-If you have any questions about our SDK, just email us your questions. 
-We will respond you quickly, pinky promise. We are here to help you integrate with us ASAP. 
+If you have any questions about our SDK, just email us your questions.
+We will respond you quickly, pinky promise. We are here to help you integrate with us ASAP.
 We also love feedback, so don't be shy about sharing your thoughts with us.
 
 Email: developers@starkbank.com
@@ -123,7 +123,7 @@ There are two kinds of users that can access our API: **Project** and **Member**
 - `Project` is designed for integrations and is the one meant for our SDK.
 
 There are two ways to inform the user to the SDK:
- 
+
 4.1 Passing the user as argument in all functions:
 
 ```javascript
@@ -163,7 +163,7 @@ Language options are 'en-US' for english and 'pt-BR' for brazilian portuguese. E
 ## Testing in Sandbox
 
 Your initial balance is zero. For many operations in Stark Bank, you'll need funds
-in your account, which can be added to your balance by creating a Boleto. 
+in your account, which can be added to your balance by creating a Boleto.
 
 In the Sandbox environment, 90% of the created Boletos will be automatically paid,
 so there's nothing else you need to do to add funds to your account. Just create
@@ -192,6 +192,183 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Create Invoices
+
+You can create dynamic QR Code invoices to charge customers or to receive money from accounts you have in other banks.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let invoices = await starkbank.invoice.create([
+        {
+            amount: 248,
+            descriptions: [
+                {
+                    'key': 'Arya',
+                    'value': 'Not today'
+                }
+            ],
+            discounts: [
+                {
+                    'percentage': 10,
+                    'due': '2020-11-25T17:59:26.249976+00:00'
+                }
+            ],
+            due: '2020-11-29T17:59:26.249976+00:00',
+            expiration: 123456789,
+            fine: 2.5,
+            interest: 1.3,
+            name: "Arya Stark",
+            tags: [
+                'New sword',
+                'Invoice #1234'
+            ],
+            taxId: "29.176.331/0001-69"
+        }
+    ]);
+
+    for (let invoice of invoices) {
+        console.log(invoice);
+    }
+})();
+```
+**Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Invoice object format
+
+### Get an Invoice
+
+After its creation, information on an invoice may be retrieved by its id.
+Its status indicates whether it's been paid.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let invoice = await starkbank.invoice.get('5400193516175360')
+    console.log(invoice);
+})();
+```
+
+### Get an Invoice QR Code
+
+After its creation, an invoice QR Code png file blob may be retrieved by its id.
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let png = await starkbank.invoice.qrcode('5400193516175360')
+
+    await fs.writeFile('invoice.png', png);
+})();
+```
+Be careful not to accidentally enforce any encoding on the raw png content,
+as it may yield abnormal results in the final file.
+
+### Get an Invoice PDF
+
+After its creation, an invoice PDF may be retrieved by its id.
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let pdf = await starkbank.invoice.pdf('5400193516175360')
+
+    await fs.writeFile('invoice.pdf', pdf);
+})();
+```
+Be careful not to accidentally enforce any encoding on the raw pdf content,
+as it may yield abnormal results in the final file, such as missing images
+and strange characters.
+
+### Cancel an invoice
+
+You can also cancel an invoice by its id.
+Note that this is not possible if it has been paid already.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let invoice = await starkbank.invoice.update('5047198572085248', {status: "canceled"});
+    console.log(invoice);
+})();
+```
+
+### Update an invoice
+
+You can update an invoice's amount, due date and expiration by its ID.
+Note that this is not possible if it has been paid already.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let invoice = await starkbank.invoice.update(
+        '5047198572085248',
+        {
+            amount: 1000,
+            due: '2020-12-25T17:59:26.249976+00:00',
+            expiration: 123456  // in seconds
+        }
+    );
+
+    console.log(invoice);
+})();
+```
+
+### Query invoices
+
+You can get a list of created invoices given some filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let invoices = await starkbank.invoice.query({
+        limit: 5,
+        after: '2020-04-01',
+        before: '2020-11-30',
+        status: 'paid'
+    });
+
+    for await (let invoice of invoices) {
+        console.log(invoice);
+    }
+})();
+```
+
+### Query invoice logs
+
+Logs are pretty important to understand the life cycle of an invoice.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let invoices = await starkbank.invoice.log.query({limit: 10});
+
+    for await (let invoice of invoices) {
+        console.log(invoice);
+    }
+})();
+```
+
+### Get an invoice log
+
+You can get a single log by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let invoice = await starkbank.invoice.log.get('5400193516175360')
+    console.log(invoice);
+})();
+```
 ### Create boletos
 
 You can create boletos to charge customers or to receive money from accounts
@@ -203,12 +380,12 @@ const starkbank = require('starkbank');
 (async() => {
     let boletos = await starkbank.boleto.create([
         {
-            amount: 23571,  // R$ 235,71 
+            amount: 23571,  // R$ 235,71
             name: 'Buzz Aldrin',
-            taxId: '012.345.678-90', 
-            streetLine1: 'Av. Paulista, 200', 
+            taxId: '012.345.678-90',
+            streetLine1: 'Av. Paulista, 200',
             streetLine2: '10 andar',
-            district: 'Bela Vista', 
+            district: 'Bela Vista',
             city: 'São Paulo',
             stateCode: 'SP',
             zipCode: '01310-000',
@@ -223,6 +400,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+**Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Boleto object format
 
 ### Query boletos
 
@@ -260,7 +438,7 @@ const starkbank = require('starkbank');
 
 ### Get boleto PDF
 
-After its creation, a boleto PDF may be retrieved by passing its id. 
+After its creation, a boleto PDF may be retrieved by passing its id.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -354,6 +532,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+**Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Transfer object format
 
 ### Query transfers
 
@@ -493,7 +672,7 @@ const starkbank = require('starkbank');
 
 ### Get boleto payment PDF
 
-After its creation, a boleto payment PDF may be retrieved by passing its id. 
+After its creation, a boleto payment PDF may be retrieved by passing its id.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -525,7 +704,7 @@ const starkbank = require('starkbank');
 
 ### Query boleto payments
 
-You can search for boleto payments using filters. 
+You can search for boleto payments using filters.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -693,6 +872,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+**Note**: Instead of using dictionary objects, you can also pass each invoice element in the native UtilityPayment object format
 
 ### Query utility payments
 
@@ -727,7 +907,7 @@ const starkbank = require('starkbank');
 
 ### Get utility payment PDF
 
-After its creation, a utility payment PDF may also be retrieved by passing its id. 
+After its creation, a utility payment PDF may also be retrieved by passing its id.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -819,6 +999,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+**Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Transaction object format
 
 ### Query transactions
 
@@ -854,7 +1035,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create payment requests to be approved by authorized people in a cost center 
+### Create payment requests to be approved by authorized people in a cost center
 
 You can also request payments that must pass through a specific cost center approval flow to be executed.
 In certain structures, this allows double checks for cash-outs and also gives time to load your account
@@ -870,7 +1051,7 @@ const starkbank = require('starkbank');
 const random = require('./random.js');
 
 let transaction = new starkbank.Transaction({
-    amount: 100, 
+    amount: 100,
     receiverId: '4888651368497152',
     description: 'this is my cashback',
     externalId: '12345',
@@ -1088,7 +1269,7 @@ const { InputErrors } = starkbank.errors;
     try{
         let transactions = await starkbank.transaction.create([
             {
-                amount: 100, 
+                amount: 100,
                 receiverId: '1029378109327810',
                 description: '.',
                 externalId: '12345',

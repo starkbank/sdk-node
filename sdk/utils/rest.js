@@ -63,6 +63,12 @@ exports.getPdf = async function (resource, id, options = {}, user = null) {
     return response.content;
 };
 
+exports.getQrcode = async function (resource, id, options = {}, user = null) {
+    let endpoint = `${api.endpoint(resource['name'])}/${id}/qrcode`;
+    let response = await fetchBuffer(`/${endpoint}`, 'GET', null, options, user);
+    return response.content;
+};
+
 exports.getId = async function (resource, id, user = null, callback) {
     let name = resource['name'];
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
