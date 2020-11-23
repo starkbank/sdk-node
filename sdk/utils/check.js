@@ -15,6 +15,10 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
+function formatDatetime(datetime) {
+    return datetime.toISOString().replace('Z', '+00:00');
+}
+
 exports.date = function (input) {
     if (!input) {
         return null;
@@ -23,6 +27,16 @@ exports.date = function (input) {
         return input;
     }
     return formatDate(new Date(input));
+};
+
+exports.datetime = function (input) {
+    if (!input) {
+        return null;
+    }
+    if (typeof input === 'string') {
+        return input;
+    }
+    return formatDatetime(new Date(input));
 };
 
 exports.key = function (key) {

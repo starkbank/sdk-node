@@ -1,0 +1,9 @@
+const brcodePayment = require('./brcodePayment.js');
+
+exports.log = require('./log');
+exports.create = brcodePayment.create;
+exports.get = brcodePayment.get;
+exports.query = brcodePayment.query;
+exports.pdf = brcodePayment.pdf;
+exports.update = brcodePayment.update;
+exports.BrcodePayment = brcodePayment.BrcodePayment;

@@ -1,6 +1,15 @@
 const starkbank = require('../../index.js');
 const random = require('./random.js');
 
+let choice = function (a, b) {
+    let rand = random.randomInt(0,1);
+    if (rand == 0) {
+        return a;
+    }
+    return b;
+}
+
+
 exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = false) {
     
     let exampleTransfer = {
@@ -18,7 +27,7 @@ exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = fa
     if (tomorrow) {
         scheduled = new Date();
         scheduled.setDate(scheduled.getDate() + 1);
-        scheduled = scheduled.toISOString().substring(0, 10);
+        scheduled = choice(scheduled.toISOString().substring(0, 10), scheduled.toISOString().replace('Z','+00:00'));
     }
 
     for (let i = 0; i < n; i++) {
