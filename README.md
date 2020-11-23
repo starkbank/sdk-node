@@ -722,6 +722,148 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Pay a BR Code
+
+Paying a BR Code is also simple.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.brcodePayment.create([
+        {
+            brcode: "00020126580014br.gov.bcb.pix0136a629532e-7693-4846-852d-1bbff817b5a8520400005303986540510.005802BR5908T'Challa6009Sao Paulo62090505123456304B14A",
+            taxId: '20.018.183/0001-80',
+            description: "Tony Stark's Suit",
+            amount: 7654321,
+            scheduled: '2020-02-29',
+            tags: ['Stark', 'Suit']
+        },
+    ]);
+
+    for (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+**Note**: Instead of using dictionary objects, you can also pass each invoice element in the native BrcodePayment object format
+
+### Get a BR Code payment
+
+To get a single BR Code payment by its id, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.brcodePayment.get('5155165527080960')
+    console.log(payment);
+})();
+```
+
+### Get a BR Code payment PDF
+
+After its creation, a BR Code payment PDF may be retrieved by its id. 
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let pdf = await starkbank.brcodePayment.pdf('5155165527080960', { layout: 'default' });
+    await fs.writeFile('brcode-payment.pdf', pdf);
+})();
+```
+
+Be careful not to accidentally enforce any encoding on the raw pdf content,
+as it may yield abnormal results in the final file, such as missing images
+and strange characters.
+
+### Cancel a BR Code payment
+
+You can cancel a BR Code payment by changing its status to "canceled".
+Note that this is not possible if it has been processed already.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.brcodePayment.update('5047198572085248', {status: 'canceled'});
+    console.log(payment);
+})();
+```
+
+### Query BR Code payments
+
+You can search for BR Code payments using filters. 
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.brcodePayment.query({
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+### Query BR Code payment logs
+
+Searches are also possible with BR Code payment logs:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let logs = await starkbank.brcodePayment.log.query({
+        after: '2020-03-01',
+        before: '2020-03-30',
+    });
+
+    for await (let log of logs) {
+        console.log(log);
+    }
+})();
+```
+
+### Get BR Code payment log
+
+You can also get a BR Code payment log by specifying its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let log = await starkbank.brcodePayment.log.get('5155165527080960');
+    console.log(log);
+})();
+```
+
+### Preview a BR Code payment
+
+You can confirm the information on the BR Code payment before creating it with this preview method:
+
+```javascript
+(async() => {
+    const previews = await starkbank.brcodePreview.query({
+        brcodes: [
+            "00020126580014br.gov.bcb.pix0136a629532e-7693-4846-852d-1bbff817b5a8520400005303986540510.005802BR5908T'Challa6009Sao Paulo62090505123456304B14A"
+        ]
+    });
+    
+    for await (let preview of previews) {
+        console.log(preview);
+    }
+})();
+```
+
+
 ### Pay a boleto
 
 Paying boletos is also simple.
