@@ -595,7 +595,7 @@ const starkbank = require('starkbank');
 
 ### Create transfers
 
-You can also create transfers in the SDK (TED/DOC).
+You can also create transfers in the SDK (TED/PIX).
 
 ```javascript
 const starkbank = require('starkbank');
@@ -604,7 +604,7 @@ const starkbank = require('starkbank');
     let transfers = await starkbank.transfer.create([
         {
             amount: 100,
-            bankCode: '033',
+            bankCode: '20018183',  // PIX
             branchCode: '0001',
             accountNumber: '10000-0',
             taxId: '276.685.415-00',
@@ -613,7 +613,7 @@ const starkbank = require('starkbank');
         },
         {
             amount: 200,
-            bankCode: '341',
+            bankCode: '341',  // TED
             branchCode: '1234',
             accountNumber: '123456-7',
             taxId: '372.864.795-04',

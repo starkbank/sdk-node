@@ -7,7 +7,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestTransferPost', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let transfers = generateExampleTransfersJson(5);
+        let transfers = generateExampleTransfersJson(5, null, true);
         transfers = await starkbank.transfer.create(transfers);
         for (let transfer of transfers) {
             assert(typeof transfer.id == 'string');
