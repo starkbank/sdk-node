@@ -369,6 +369,69 @@ const starkbank = require('starkbank');
     console.log(invoice);
 })();
 ```
+
+### Query deposits
+
+You can get a list of created deposits given some filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let deposits = await starkbank.deposit.query({
+        limit: 5,
+        after: '2020-04-01',
+        before: '2020-11-30',
+    });
+
+    for await (let deposit of deposits) {
+        console.log(deposit);
+    }
+})();
+```
+
+### Get a deposit
+
+After its creation, information on a deposit may be retrieved by its id. 
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let deposit = await starkbank.deposit.get('5400193516175360')
+    console.log(deposit);
+})();
+```
+
+### Query deposit logs
+
+Logs are pretty important to understand the life cycle of a deposit.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let deposits = await starkbank.deposit.log.query({limit: 10});
+
+    for await (let deposit of deposits) {
+        console.log(deposit);
+    }
+})();
+```
+
+### Get a deposit log
+
+You can get a single log by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let deposit = await starkbank.deposit.log.get('5400193516175360')
+    console.log(deposit);
+})();
+```
+
 ### Create boletos
 
 You can create boletos to charge customers or to receive money from accounts
