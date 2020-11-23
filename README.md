@@ -192,6 +192,39 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Get a DICT key
+
+You can get DICT (PIX) key's parameters by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+      let dictKey = await starkbank.dictKey.get('tony@starkbank.com');
+      console.log(dictKey);
+})();
+```
+
+### Query your DICT keys
+
+To take a look at the DICT keys linked to your workspace, just run the following:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let dictKeys = await starkbank.dictKey.query({
+        limit: 5,
+        status: 'registered',
+        type: 'evp'
+    });
+
+    for await (let dictKey of dictKeys) {
+        console.log(dictKey);
+    }
+})();
+```
+
 ### Create Invoices
 
 You can create dynamic QR Code invoices to charge customers or to receive money from accounts you have in other banks.
@@ -487,7 +520,7 @@ const starkbank = require('starkbank');
 
 ### Get boleto
 
-After its creation, information on a boleto may be retrieved by passing its id. 
+After its creation, information on a boleto may be retrieved by passing its id.
 Its status indicates whether it's been paid.
 
 ```javascript
@@ -644,7 +677,7 @@ const starkbank = require('starkbank');
 
 ### Get transfer PDF
 
-After its creation, a transfer PDF may also be retrieved by passing its id. 
+After its creation, a transfer PDF may also be retrieved by passing its id.
 
 ```javascript
 const starkbank = require('starkbank');

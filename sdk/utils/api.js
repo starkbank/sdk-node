@@ -26,7 +26,7 @@ exports.lastPlural = function (resource) {
     if (lastName.endsWith("s")) {
         return lastName;
     };
-    if (lastName.endsWith("y")) {
+    if (lastName.endsWith("y") && !lastName.endsWith("ey")) {
         return `${lastName.slice(0, -1)}ies`;
     };
     return `${lastName}s`;
