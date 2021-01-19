@@ -2,6 +2,7 @@ const { BoletoPayment } = require('../boletoPayment/boletoPayment.js');
 const { Transaction } = require('../transaction/transaction.js');
 const { Transfer } = require('../transfer/transfer.js');
 const { UtilityPayment } = require('../utilityPayment/utilityPayment.js');
+const { BrcodePayment } = require('../brcodePayment/brcodePayment.js');
 const rest = require('../utils/rest.js');
 const Resource = require('../utils/resource.js').Resource
 
@@ -19,7 +20,7 @@ class PaymentRequest extends Resource {
      * 
      * Parameters (required):
      * @param centerId [string]: target cost center ID. ex: '5656565656565656'
-     * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction or dictionary]: payment entity that should be approved and executed.
+     * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction, BrcodePayment or dictionary]: payment entity that should be approved and executed.
      * 
      * Parameters (conditionally required):
      * @param type [string]: payment type, inferred from the payment parameter if it is not a dictionary. ex: 'transfer', 'boleto-payment'
@@ -63,6 +64,7 @@ parsePayment = function (payment, type) {
             ' transfer' +
             ', transaction' +
             ', boleto-payment' +
+            ', brcode-payment' +
             'or utility-payment';
     }
 
@@ -72,6 +74,8 @@ parsePayment = function (payment, type) {
         type = 'transaction';
     if (payment instanceof BoletoPayment)
         type = 'boleto-payment';
+    if (payment instanceof BrcodePayment)
+        type = 'brcode-payment';
     if (payment instanceof UtilityPayment)
         type = 'utility-payment';
 
@@ -83,6 +87,7 @@ parsePayment = function (payment, type) {
         ', a starkbank.Transfer' +
         ', a starkbank.Transaction' +
         ', a starkbank.BoletoPayment' +
+        ', a starkbank.BrcodePayment' +
         ' or a starkbank.UtilityPayment' +
         ', but not a ' + typeof (payment)
     );

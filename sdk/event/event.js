@@ -16,7 +16,7 @@ class Event extends Resource {
      *
      * Attributes:
      * @param id [string]: unique id returned when the event is created. ex: '5656565656565656'
-     * @param log [Log]: a Log object from one the subscription services (Transfer Log, Boleto Log, BoletoPaymentlog or UtilityPayment Log)
+     * @param log [Log]: a Log object from one the subscription services (Transfer Log, Boleto Log, BoletoHolmes Log, BoletoPayment Log, BrcodePayment Log, Deposit Log, Invoice Log or UtilityPayment Log)
      * @param created [string]: creation datetime for the notification event. ex: '2020-03-10 10:30:00.000'
      * @param delivered [string]: delivery datetime when the notification was delivered to the user url. Will be null if no successful attempts to deliver the event occurred. ex: '2020-03-10 10:30:00.000'
      * @param subscription [string]: service that triggered this event. ex: 'transfer', 'utility-payment'

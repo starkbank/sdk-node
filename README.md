@@ -414,12 +414,12 @@ const starkbank = require('starkbank');
             expiration: 123456789,
             fine: 2.5,
             interest: 1.3,
-            name: "Arya Stark",
+            name: 'Arya Stark',
             tags: [
                 'New sword',
                 'Invoice #1234'
             ],
-            taxId: "29.176.331/0001-69"
+            taxId: '29.176.331/0001-69'
         }
     ]);
 
@@ -488,7 +488,7 @@ Note that this is not possible if it has been paid already.
 const starkbank = require('starkbank');
 
 (async() => {
-    let invoice = await starkbank.invoice.update('5047198572085248', {status: "canceled"});
+    let invoice = await starkbank.invoice.update('5047198572085248', {status: 'canceled'});
     console.log(invoice);
 })();
 ```
@@ -1305,7 +1305,7 @@ const starkbank = require('starkbank');
 (async() => {
     let webhook = await starkbank.webhook.create({
         url: 'https://webhook.site/dd784f26-1d6a-4ca6-81cb-fda0267761ec',
-        subscriptions: ['transfer', 'boleto', 'boleto-payment', 'utility-payment'],
+        subscriptions: ['transfer', 'boleto', 'boleto-payment', 'boleto-holmes', 'brcode-payment', 'utility-payment', 'deposit', 'invoice'],
     });
 
     console.log(webhook);
@@ -1382,6 +1382,14 @@ app.post('/', async (req, res) => {
         } else if (event.subscription === 'boleto-payment') {
             console.log(event.log.payment);
         } else if (event.subscription === 'utility-payment') {
+            console.log(event.log.payment);
+        } else if (event.subscription === 'boleto-holmes') {
+            console.log(event.log.payment);
+        } else if (event.subscription === 'brcode-payment') {
+            console.log(event.log.payment);
+        } else if (event.subscription === 'deposit') {
+            console.log(event.log.payment);
+        } else if (event.subscription === 'invoice') {
             console.log(event.log.payment);
         }
         res.end()
