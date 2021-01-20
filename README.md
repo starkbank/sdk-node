@@ -73,17 +73,25 @@ let privateKey, publicKey;
 
 ### 3. Create a Project
 
-You need a project for direct API integrations. To create one in Sandbox:
+You can interact directly with our API using two types of users: Projects and Organizations.
 
-3.1. Log into [Starkbank Sandbox](https://sandbox.web.starkbank.com)
+- **Projects** are workspace-specific users, that is, they are bound to the workspaces they are created in.
+One workspace can have multiple Projects.
+- **Organizations** are general users that control your entire organization.
+They can control all your Workspaces and even create new ones. The Organization is bound to your company's tax ID only.
+Since this user is unique in your entire organization, only one credential can be linked to it.
 
-3.2. Go to Menu > Usuários (Users) > Projetos (Projects)
+3.1 To create a Project in Sandbox:
 
-3.3. Create a Project: Give it a name and upload the public key you created in section 2.
+3.1.1. Log into [Starkbank Sandbox](https://sandbox.web.starkbank.com)
 
-3.4. After creating the Project, get its Project ID
+3.1.2. Go to Menu > Projects
 
-3.5. Use the Project ID and private key to create the object below:
+3.1.3. Create a Project: Give it a name and upload the public key you created in section 2.
+
+3.1.4. After creating the Project, get its Project ID
+
+3.1.5. Use the Project ID and private key to create the object below:
 
 ```javascript
 const starkbank = require('starkbank');
@@ -108,19 +116,55 @@ let project = new starkbank.Project({
 });
 ```
 
+3.2 To register your Organization's public key, a legal representative of your organization must send an e-mail with the desired public key to developers@starkbank.com. This flow will soon be integrated with our website, where you'll be able to do the entire process quicker and independently. Here is an example on how to handle your Organization in the SDK:
+
+```javascript
+const starkbank = require('starkbank');
+
+//  Get your private key from an environment variable or an encrypted database.
+//  This is only an example of a private key content. You should use your own key.
+let privateKeyContent = `
+-----BEGIN EC PARAMETERS-----
+BgUrgQQACg==
+-----END EC PARAMETERS-----
+-----BEGIN EC PRIVATE KEY-----
+MHQCAQEEIMCwW74H6egQkTiz87WDvLNm7fK/cA+ctA2vg/bbHx3woAcGBSuBBAAK
+oUQDQgAE0iaeEHEgr3oTbCfh8U2L+r7zoaeOX964xaAnND5jATGpD/tHec6Oe9U1
+IF16ZoTVt1FzZ8WkYQ3XomRD4HS13A==
+-----END EC PRIVATE KEY-----
+`;
+
+let organization = new starkbank.Organization({
+    id: '5656565656565656',
+    privateKey: privateKeyContent,
+    environment: 'sandbox',
+    workspaceId: null // You only need to set the workspaceId when you are operating a specific workspaceId
+});
+
+
+// To dynamically use your organization credentials in a specific workspaceId,
+// you can use the organization.replace() method:
+(async() => {
+    let balance = await starkbank.balance.get({
+        user: starkbank.organization.replace(organization, '4848484848484848')
+    });
+    console.log(balance);
+})();
+```
+
 NOTE 1: Never hard-code your private key. Get it from an environment variable or an encrypted database.
 
 NOTE 2: We support `'sandbox'` and `'production'` as environments.
 
-NOTE 3: The project you created in `sandbox` does not exist in `production` and vice versa.
+NOTE 3: The credentials you registered in `sandbox` do not exist in `production` and vice versa.
 
 
 ### 4. Setting up the user
 
-There are two kinds of users that can access our API: **Project** and **Member**.
+There are three kinds of users that can access our API: **Organization**, **Project** and **Member**.
 
+- `Project` and `Organization` are designed for integrations and are the ones meant for our SDKs.
 - `Member` is the one you use when you log into our webpage with your e-mail.
-- `Project` is designed for integrations and is the one meant for our SDK.
 
 There are two ways to inform the user to the SDK:
 
@@ -129,7 +173,7 @@ There are two ways to inform the user to the SDK:
 ```javascript
 const starkbank = require('starkbank');
 (async() => {
-    let balance = await starkbank.balance.get({user: project});
+    let balance = await starkbank.balance.get({user: project}); // or organization
 })();
 ```
 
@@ -138,14 +182,14 @@ const starkbank = require('starkbank');
 ```javascript
 const starkbank = require('starkbank');
 
-starkbank.user = project;
+starkbank.user = project; // or organization
 
 (async() => {
     let balance = await starkbank.balance.get();
 })();
 ```
 
-Just select the way of passing the project user that is more convenient to you.
+Just select the way of passing the user that is more convenient to you.
 On all following examples we will assume a default user has been set.
 
 ### 5. Setting up the error language
@@ -163,13 +207,13 @@ Language options are 'en-US' for english and 'pt-BR' for brazilian portuguese. E
 ## Testing in Sandbox
 
 Your initial balance is zero. For many operations in Stark Bank, you'll need funds
-in your account, which can be added to your balance by creating a Boleto.
+in your account, which can be added to your balance by creating an Invoice or a Boleto.
 
-In the Sandbox environment, 90% of the created Boletos will be automatically paid,
+In the Sandbox environment, most of the created Invoices and Boletos will be automatically paid,
 so there's nothing else you need to do to add funds to your account. Just create
-a few and wait around a bit.
+a few Invoices and wait around a bit.
 
-In Production, you (or one of your clients) will need to actually pay this Boleto
+In Production, you (or one of your clients) will need to actually pay this Invoice or Boleto
 for the value to be credited to your account.
 
 
@@ -232,7 +276,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get transaction
+### Get a transaction
 
 You can get a specific transaction by its id:
 
@@ -245,7 +289,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get balance
+### Get your balance
 
 To know how much money you have in your workspace, run:
 
@@ -260,7 +304,7 @@ const starkbank = require('starkbank');
 
 ### Create transfers
 
-You can also create transfers in the SDK (TED/PIX).
+You can also create transfers in the SDK (TED/Pix).
 
 ```javascript
 const starkbank = require('starkbank');
@@ -269,7 +313,7 @@ const starkbank = require('starkbank');
     let transfers = await starkbank.transfer.create([
         {
             amount: 100,
-            bankCode: '20018183',  // PIX
+            bankCode: '20018183',  // Pix
             branchCode: '0001',
             accountNumber: '10000-0',
             taxId: '276.685.415-00',
@@ -314,7 +358,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get transfer
+### Get a transfer
 
 To get a single transfer by its id, run:
 
@@ -340,7 +384,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get transfer PDF
+### Get a transfer PDF
 
 After its creation, a transfer PDF may also be retrieved by passing its id.
 
@@ -387,7 +431,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create Invoices
+### Create invoices
 
 You can create dynamic QR Code invoices to charge customers or to receive money from accounts you have in other banks.
 
@@ -430,7 +474,7 @@ const starkbank = require('starkbank');
 ```
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Invoice object format
 
-### Get an Invoice
+### Get an invoice
 
 After its creation, information on an invoice may be retrieved by its id.
 Its status indicates whether it's been paid.
@@ -444,7 +488,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get an Invoice QR Code
+### Get an invoice QR Code
 
 After its creation, an invoice QR Code png file blob may be retrieved by its id.
 
@@ -461,7 +505,7 @@ const fs = require('fs').promises;
 Be careful not to accidentally enforce any encoding on the raw png content,
 as it may yield abnormal results in the final file.
 
-### Get an Invoice PDF
+### Get an invoice PDF
 
 After its creation, an invoice PDF may be retrieved by its id.
 
@@ -680,7 +724,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get boleto
+### Get a boleto
 
 After its creation, information on a boleto may be retrieved by passing its id.
 Its status indicates whether it's been paid.
@@ -694,7 +738,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get boleto PDF
+### Get a boleto PDF
 
 After its creation, a boleto PDF may be retrieved by passing its id.
 
@@ -712,7 +756,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Delete boleto
+### Delete a boleto
 
 You can also cancel a boleto by its id.
 Note that this is not possible if it has been processed already.
@@ -781,7 +825,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get boleto holmes
+### Get a boleto holmes
 
 To get a single boleto holmes by its id, run:
 
@@ -832,7 +876,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get boleto holmes log
+### Get a boleto holmes log
 
 You can also get a boleto holmes log by specifying its id.
 
@@ -972,7 +1016,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get BR Code payment log
+### Get a BR Code payment log
 
 You can also get a BR Code payment log by specifying its id.
 
@@ -1016,7 +1060,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get boleto payment
+### Get a boleto payment
 
 To get a single boleto payment by its id, run:
 
@@ -1029,7 +1073,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get boleto payment PDF
+### Get a boleto payment PDF
 
 After its creation, a boleto payment PDF may be retrieved by passing its id.
 
@@ -1047,7 +1091,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Delete boleto payment
+### Delete a boleto payment
 
 You can also cancel a boleto payment by its id.
 Note that this is not possible if it has been processed already.
@@ -1099,7 +1143,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get boleto payment log
+### Get a boleto payment log
 
 You can also get a boleto payment log by specifying its id.
 
@@ -1112,7 +1156,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create utility payment
+### Create a utility payment
 
 Its also simple to pay utility bills (such electricity and water bills) in the SDK.
 
@@ -1160,7 +1204,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get utility payment
+### Get a utility payment
 
 You can get a specific bill by its id:
 
@@ -1173,7 +1217,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get utility payment PDF
+### Get a utility payment PDF
 
 After its creation, a utility payment PDF may also be retrieved by passing its id.
 
@@ -1191,7 +1235,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Delete utility payment
+### Delete a utility payment
 
 You can also cancel a utility payment by its id.
 Note that this is not possible if it has been processed already.
@@ -1224,7 +1268,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get utility payment log
+### Get a utility payment log
 
 If you want to get a specific payment log by its id, just run:
 
@@ -1295,7 +1339,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create webhook subscription
+### Create a webhook subscription
 
 To create a webhook subscription and be notified whenever an event occurs, run:
 
@@ -1312,7 +1356,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query webhooks
+### Query webhook subscriptions
 
 To search for registered webhooks, run:
 
@@ -1328,7 +1372,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get webhook
+### Get a webhook subscription
 
 You can get a specific webhook by its id.
 
@@ -1341,7 +1385,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Delete webhook
+### Delete a webhook subscription
 
 You can also delete a specific webhook by its id.
 
@@ -1384,13 +1428,13 @@ app.post('/', async (req, res) => {
         } else if (event.subscription === 'utility-payment') {
             console.log(event.log.payment);
         } else if (event.subscription === 'boleto-holmes') {
-            console.log(event.log.payment);
+            console.log(event.log.holmes);
         } else if (event.subscription === 'brcode-payment') {
             console.log(event.log.payment);
         } else if (event.subscription === 'deposit') {
-            console.log(event.log.payment);
+            console.log(event.log.deposit);
         } else if (event.subscription === 'invoice') {
-            console.log(event.log.payment);
+            console.log(event.log.invoice);
         }
         res.end()
     }
@@ -1421,7 +1465,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get webhook event
+### Get a webhook event
 
 You can get a specific webhook event by its id.
 
@@ -1434,7 +1478,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Delete webhook event
+### Delete a webhook event
 
 You can also delete a specific webhook event by its id.
 
@@ -1464,7 +1508,7 @@ const starkbank = require('starkbank');
 
 ### Get a DICT key
 
-You can get DICT (PIX) key's parameters by its id.
+You can get DICT (Pix) key's parameters by its id.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -1492,6 +1536,58 @@ const starkbank = require('starkbank');
     for await (let dictKey of dictKeys) {
         console.log(dictKey);
     }
+})();
+```
+
+### Create a new Workspace
+
+The Organization user allows you to create new Workspaces (bank accounts) under your organization.
+Workspaces have independent balances, statements, operations and users.
+The only link between your Workspaces is the Organization that controls them.
+
+**Note**: This route will only work if the Organization user is used with `workspaceId=null`.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let workspace = await starkbank.workspace.create(
+        username='iron-bank-workspace-1',
+        name='Iron Bank Workspace 1',
+        {user: organization},
+    );
+})();
+
+console.log(workspace);
+```
+
+### List your Workspaces
+
+This route lists Workspaces. If no parameter is passed, all the workspaces the user has access to will be listed, but
+you can also find other Workspaces by searching for their usernames or IDs directly.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let workspaces = await starkbank.workspace.query({limit=30});
+
+    for await (let workspace of workspaces) {
+        console.log(workspace);
+    }
+})();
+```
+
+### Get a Workspace
+
+You can get a specific Workspace by its id.
+
+```javascript
+const starkbank = require('starkbank');
+(async() => {
+    let workspace = await starkbank.workspace.get('10827361982368179');
+
+    console.log(workspace);
 })();
 ```
 

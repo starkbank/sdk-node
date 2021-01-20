@@ -93,7 +93,7 @@ exports.create = async function (boletos, {user} = {}) {
      * @param boletos [list of Boleto objects]: list of Boleto objects to be created in the API
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns list of Boleto objects with updated attributes
@@ -113,7 +113,7 @@ exports.get = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      * 
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      * 
      * Return:
      * @returns Boleto object with updated attributes
@@ -135,7 +135,7 @@ exports.pdf = async function (id, { layout, hiddenFields, user } = {}) {
      * Parameters (optional):
      * @param layout [string, default 'default']: Layout specification. Available options are 'default' and 'booklet'
      * @param hiddenFields [list of strings, default null]: List of string fields to be hidden in Boleto pdf. ex: ["customerAddress"]
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Boleto pdf file
@@ -186,7 +186,7 @@ exports.delete = async function (id, {user} = {}) {
      * @param id [string]: Boleto unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns deleted Boleto object

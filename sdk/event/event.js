@@ -55,7 +55,7 @@ exports.get = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Event object with updated attributes
@@ -102,7 +102,7 @@ exports.delete = async function (id, {user} = {}) {
      * @param id [string]: Event unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns deleted Event object
@@ -123,7 +123,7 @@ exports.update = function (id, {isDelivered, user} = {}) {
      * @param id [list of strings]: Event unique ids. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns target Event with updated attributes
@@ -149,7 +149,7 @@ exports.parse = async function ({content, signature, user} = {}) {
      * @param signature [string]: base-64 digital signature received at response header 'Digital-Signature'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Event object with updated attributes

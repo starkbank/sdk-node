@@ -7,11 +7,12 @@ class Project extends User {
      *
      * Project object
      *
-     * @description The Project object is the main authentication entity for the SDK.
-     * All requests to the Stark Bank API must be authenticated via a project,
+     * @description The Project object is an authentication entity for the SDK that is permanently
+     * linked to a specific Workspace.
+     * All requests to the Stark Bank API must be authenticated via an SDK user,
      * which must have been previously created at the Stark Bank website
      * [https://sandbox.web.starkbank.com] or [https://web.starkbank.com]
-     * before you can use it in this SDK. Projects may be passed as a parameter on
+     * before you can use it in this SDK. Projects may be passed as the user parameter on
      * each request or may be defined as the default user at the start (See README).
      *
      * Parameters (required):
@@ -29,6 +30,10 @@ class Project extends User {
         super({id, privateKey, environment});
         this.name = name;
         this.allowedIps = allowedIps;
+    }
+
+    accessId() {
+        return 'project/' + this.id;
     }
 }
 

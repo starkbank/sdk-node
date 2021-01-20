@@ -65,7 +65,7 @@ exports.create = async function (payments, {user} = {}) {
      * Parameters (required):
      * @param payments [list of UtilityPayment objects]: list of UtilityPayment objects to be created in the API
      * @param Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      * 
      * Return:
      * @returns list of UtilityPayment objects with updated attributes
@@ -103,7 +103,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns UtilityPayment pdf file
@@ -154,7 +154,7 @@ exports.delete = async function (id, {user} = {}) {
      * @param id [string]: UtilityPayment unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns deleted UtilityPayment object

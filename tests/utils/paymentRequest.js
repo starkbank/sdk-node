@@ -28,15 +28,15 @@ function chooseType() {
 async function createPayments(type, n) {
     switch (type) {
         case 'transfer':
-            return transfer.generateExampleTransfersJson(n, null, false, false);
+            return transfer.generateExampleTransfersJson(n, null, true);
         case 'transaction':
             return transaction.generateExampleTransactionsJson(n);
         case 'boleto-payment':
-            return await boleto.generateExampleBoletoPaymentsJson(n, false);
+            return await boleto.generateExampleBoletoPaymentsJson(n, true);
         case 'utility-payment':
-            return utilityPayment.generateExampleUtilityPaymentsJson(n, false);
+            return utilityPayment.generateExampleUtilityPaymentsJson(n, true);
         case 'brcode-payment':
-            return brcodePayment.generateExampleBrcodePaymentsJson(n, false);
+            return brcodePayment.generateExampleBrcodePaymentsJson(n, true);
         default:
             throw new Error('Bad type ' + type);
     }
