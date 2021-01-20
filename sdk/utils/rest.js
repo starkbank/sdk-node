@@ -97,6 +97,7 @@ exports.postSingle = async function (resource, options, user = null) {
     let name = api.lastName(resource['name']);
     let endpoint = `${api.endpoint(resource['name'])}`;
     let payload = Object.assign(new resource['class']({}), options);
+    api.removeNullKeys(payload);
     let response = await fetch(`/${endpoint}`, 'POST', payload, null, user);
     let json = response.json();
     let returnEntity = json[name];
@@ -106,6 +107,7 @@ exports.postSingle = async function (resource, options, user = null) {
 exports.patchId = async function (resource, id, payload, user = null) {
     let name = resource['name'];
     let endpoint = `${api.endpoint(resource['name'])}/${id}`;
+    api.removeNullKeys(payload);
     let response = await fetch(`/${endpoint}`, 'PATCH', payload, null, user);
     let json = response.json();
     let returnEntity = json[api.lastName(name)];

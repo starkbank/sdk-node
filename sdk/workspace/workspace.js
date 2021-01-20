@@ -28,7 +28,7 @@ class Workspace extends Resource {
 exports.Workspace = Workspace;
 let resource = {'class': exports.Workspace, 'name': 'Workspace'};
 
-exports.create = async function create(username, name, {user} = {}) {
+exports.create = async function create({ username, name, user = null }) {
     /**
      * 
      * Create Workspace
@@ -52,9 +52,9 @@ exports.create = async function create(username, name, {user} = {}) {
 exports.get = async function get(id, {user} = {}){
     /**
      * 
-     * Retrieve a specific Workspace subscription
+     * Retrieve a specific Workspace
      * 
-     * Receive a single Workspace subscription object previously created in the Stark Bank API by passing its id
+     * Receive a single Workspace object previously created in the Stark Bank API by passing its id
      * 
      * Parameters (required):
      * @param id [string]: object unique id. ex: '5656565656565656'
@@ -91,10 +91,7 @@ exports.query = async function query({limit, username, ids, user} = {}){
     let query = {
         limit: limit,
         username: username,
-        ids: ids,
-        user: user
+        ids: ids
     };
     return rest.getList(resource, query, user);
 };
-
-

@@ -43,17 +43,15 @@ class Organization extends User {
             return 'organization/' + this.id + '/workspace/' + this.workspaceId;
         return 'organization/' + this.id;
     }
-
-    withWorkspace(workspaceId) {
-        return new Organization({
-            id: this.id,
-            environment: this.environment,
-            privateKey: this.pem,
-            workspaceId: workspaceId
-        });
-    }
-
-
 }
 
 exports.Organization = Organization
+
+exports.replace = function (organization, workspaceId) {
+    return new Organization({
+        id: organization.id,
+        environment: organization.environment,
+        privateKey: organization.pem,
+        workspaceId: workspaceId
+    });
+};

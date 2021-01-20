@@ -23,6 +23,7 @@ exports.workspace = require('./sdk/workspace');
 exports.event = require('./sdk/event');
 exports.key = require('./sdk/key.js');
 exports.error = require('./sdk/error.js');
+exports.organization = require('./sdk/user/organization.js')
 
 
 // Classes
@@ -42,4 +43,5 @@ exports.UtilityPayment = exports.utilityPayment.UtilityPayment;
 exports.PaymentRequest = exports.paymentRequest.PaymentRequest;
 exports.Transfer = exports.transfer.Transfer;
 exports.Webhook = exports.webhook.Webhook;
+exports.Workspace = exports.workspace.Workspace;
 exports.Event = exports.event.Event;
