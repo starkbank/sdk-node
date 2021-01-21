@@ -316,6 +316,8 @@ const starkbank = require('starkbank');
             bankCode: '20018183',  // Pix
             branchCode: '0001',
             accountNumber: '10000-0',
+            accountType: "salary",
+            externalId: "my-internal-id-12345",
             taxId: '276.685.415-00',
             name: 'Tony Stark',
             tags: ['iron', 'suit']
