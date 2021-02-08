@@ -81,17 +81,19 @@ One workspace can have multiple Projects.
 They can control all your Workspaces and even create new ones. The Organization is bound to your company's tax ID only.
 Since this user is unique in your entire organization, only one credential can be linked to it.
 
-3.1 To create a Project in Sandbox:
+3.1. To create a Project in Sandbox:
 
-3.1.1. Log into [Starkbank Sandbox](https://sandbox.web.starkbank.com)
+3.1.1. Log into [Starkbank Sandbox](https://web.sandbox.starkbank.com)
 
-3.1.2. Go to Menu > Projects
+3.1.2. Go to Menu > Integrations
 
-3.1.3. Create a Project: Give it a name and upload the public key you created in section 2.
+3.1.3. Click on the "New Project" button
 
-3.1.4. After creating the Project, get its Project ID
+3.1.4. Create a Project: Give it a name and upload the public key you created in section 2
 
-3.1.5. Use the Project ID and private key to create the object below:
+3.1.5. After creating the Project, get its Project ID
+
+3.1.6. Use the Project ID and private key to create the object below:
 
 ```javascript
 const starkbank = require('starkbank');
@@ -116,7 +118,19 @@ let project = new starkbank.Project({
 });
 ```
 
-3.2 To register your Organization's public key, a legal representative of your organization must send an e-mail with the desired public key to developers@starkbank.com. This flow will soon be integrated with our website, where you'll be able to do the entire process quicker and independently. Here is an example on how to handle your Organization in the SDK:
+3.2. To create Organization credentials in Sandbox:
+
+3.2.1. Log into [Starkbank Sandbox](https://web.sandbox.starkbank.com)
+
+3.2.2. Go to Menu > Integrations
+
+3.2.3. Click on the "Organization public key" button
+
+3.2.4. Upload the public key you created in section 2 (only a legal representative of the organization can upload the public key)
+
+3.2.5. Click on your profile picture and then on the "Organization" menu to get the Organization ID
+
+3.2.6. Use the Organization ID and private key to create the object below:
 
 ```javascript
 const starkbank = require('starkbank');
