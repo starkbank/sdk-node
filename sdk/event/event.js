@@ -20,14 +20,16 @@ class Event extends Resource {
      * @param created [string]: creation datetime for the notification event. ex: '2020-03-10 10:30:00.000'
      * @param delivered [string]: delivery datetime when the notification was delivered to the user url. Will be null if no successful attempts to deliver the event occurred. ex: '2020-03-10 10:30:00.000'
      * @param subscription [string]: service that triggered this event. ex: 'transfer', 'utility-payment'
+     * @param workspaceId [string]: ID of the Workspace that generated this event. Mostly used when multiple Workspaces have Webhooks registered to the same endpoint. ex: '4545454545454545'
      *
      */
-    constructor({created, isDelivered, subscription, log, id} = {}) {
+    constructor({created, isDelivered, subscription, log, id, workspaceId} = {}) {
         super(id);
         this.log = log;
         this.created = created;
         this.isDelivered = isDelivered;
         this.subscription = subscription;
+        this.workspaceId = workspaceId;
     }
 }
 
