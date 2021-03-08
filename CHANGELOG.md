@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.5.1] - 2021-03-08
 ### Fixed
 - Bad "+" char URL encoding on BrcodePreview
 
