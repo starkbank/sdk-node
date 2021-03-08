@@ -3,6 +3,7 @@ const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 const pjson = require('../../package.json');
 const error = require('../error.js');
 const Check = require('./check.js');
+const Url = require('./url.js');
 const axios = require('axios').default;
 
 
@@ -35,18 +36,7 @@ function preProcess(path, method, payload, query, user, version) {
         method: method,
     };
 
-    let url = hostname + path;
-    if (query) {
-        let queryString = '';
-        let separator = '?';
-        for (let key in query) {
-            if (query[key]) {
-                queryString += separator + key + '=' + query[key];
-                separator = '&';
-            }
-        }
-        url += queryString;
-    }
+    let url = hostname + path + Url.encode(query);
     let accessTime = Math.round((new Date()).getTime() / 1000);
     let message = user.accessId() + ':' + accessTime + ':';
 
