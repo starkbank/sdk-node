@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.5.2] - 2021-04-23
 ### Fixed
 - PDF buffer fetch error treatment
 
