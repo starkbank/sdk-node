@@ -113,9 +113,9 @@ exports.fetchBuffer = async function (path, method = 'GET', payload = null, quer
         switch (status) {
             case 400:
             case 404:
-                throw new error.InputErrors(content, status);
+                throw new error.InputErrors(JSON.parse(content.toString()), status);
             case 500:
-                throw new error.InternalServerError(content, status);
+                throw new error.InternalServerError(content.toString(), status);
             default:
                 throw e;
         }

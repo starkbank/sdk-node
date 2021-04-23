@@ -1,6 +1,13 @@
 
 
-class InputError extends Error {
+
+class StarkBankError extends Error {
+    constructor(message) {
+        super(message);
+    }
+}
+
+class InputError extends StarkBankError {
     constructor(code, message, status = 400) {
         super(message);
         this.status = status;
@@ -8,7 +15,7 @@ class InputError extends Error {
     }
 }
 
-class InputErrors extends Error {
+class InputErrors extends StarkBankError {
     constructor(content, status = 400) {
         super(JSON.stringify(content));
         this.status = status;
@@ -20,14 +27,14 @@ class InputErrors extends Error {
     }
 }
 
-class InternalServerError extends Error {
+class InternalServerError extends StarkBankError {
     constructor(content, status = 500) {
         super(JSON.stringify(content));
         this.status = status;
     }
 }
 
-class InvalidSignatureError extends Error {
+class InvalidSignatureError extends StarkBankError {
     constructor(message) {
         super(message);
     }
