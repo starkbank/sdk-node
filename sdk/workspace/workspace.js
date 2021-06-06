@@ -95,3 +95,31 @@ exports.query = async function query({limit, username, ids, user} = {}){
     };
     return rest.getList(resource, query, user);
 };
+
+exports.update = async function update(id, {username, name, allowed_tax_ids, user} = {}){
+    /**
+     * 
+     * Update Workspace entity
+     * 
+     * @description Update a Workspace by passing its ID.
+     * 
+     * Parameters (required):
+     * @param id [string]: object unique id. ex: '5656565656565656'
+     * 
+     * Parameters (optional):
+     * @param name [string, default null]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: "Stark Bank Workspace"
+     * @param username [string]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: "starkbankworkspace"
+     * @param allowed_tax_ids [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ["012.345.678-90", "20.018.183/0001-80"]
+     * @param user [Project object, default null]: Organization or Project object. Not necessary if starkbank user was set before function call
+     * 
+     * Return:
+     * @returns generator of Workspace objects with updated attributes
+     * 
+     */
+    let payload = {
+        name:         name,
+        username:         username,
+        allowed_tax_ids:            allowed_tax_ids
+    };
+    return rest.patchId(resource, id, payload, user);
+};
