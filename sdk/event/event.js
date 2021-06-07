@@ -1,6 +1,7 @@
 const starkbank = require('../../index.js');
 const Ellipticcurve = require('starkbank-ecdsa');
 const Resource = require('../utils/resource.js').Resource;
+const check = require('../utils/check.js');
 const rest = require('../utils/rest.js');
 const error = require('../error.js');
 
@@ -88,7 +89,7 @@ exports.query = async function ({limit, after, before, isDelivered, user} = {}) 
         limit: limit,
         after: after,
         before: before,
-        isDelivered: isDelivered,
+        isDelivered: check.queryBool(isDelivered),
     };
     return rest.getList(resource, query, user);
 };
@@ -113,7 +114,7 @@ exports.delete = async function (id, {user} = {}) {
     return rest.deleteId(resource, id, user);
 };
 
-exports.update = function (id, {isDelivered, user} = {}) {
+exports.update = async function (id, {isDelivered, user} = {}) {
     /**
      *
      * Set notification Event entity as delivered

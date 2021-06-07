@@ -60,10 +60,7 @@ function preProcess(path, method, payload, query, user, version) {
 }
 
 exports.fetch = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
-    let url;
-    let options;
-    options = preProcess(path, method, payload, query, user, version);
-
+    let options = preProcess(path, method, payload, query, user, version);
     let response;
     let content;
     let status;
@@ -92,9 +89,7 @@ exports.fetch = async function (path, method = 'GET', payload = null, query = nu
 };
 
 exports.fetchBuffer = async function (path, method = 'GET', payload = null, query = null, user = null, version = 'v2') {
-    let url;
-    let options;
-    options = preProcess(path, method, payload, query, user, version);
+    let options = preProcess(path, method, payload, query, user, version);
     options['responseType'] = 'arraybuffer';
     options['responseEncoding'] = 'binary'
     let content;
