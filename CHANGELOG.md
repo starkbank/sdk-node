@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.6.0] - 2021-06-06
 ### Fixed
 - Event query by isDelivered
 - Event async update
