@@ -17,14 +17,17 @@ describe('TestEventGet', function(){
 });
 
 
-describe('TestEventInfoGet', function(){
+describe('TestEventInfoGetAndPatch', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let events = await starkbank.event.query({limit: 1});
+        let events = await starkbank.event.query({limit: 1, isDelivered: false});
         for await (let event of events) {
             assert(typeof event.id == 'string');
             event = await starkbank.event.get(event.id);
             assert(typeof event.id == 'string');
+            assert(!event.isDelivered);
+            event = await starkbank.event.update(event.id, { isDelivered: true });
+            assert(event.isDelivered);
         }
     });
 });

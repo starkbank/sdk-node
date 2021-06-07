@@ -1,4 +1,5 @@
 const PrivateKey = require('starkbank-ecdsa').PrivateKey;
+const check = require('../utils/check.js');
 
 
 function formatDate(date) {
@@ -62,4 +63,8 @@ exports.language = function (language) {
         return language;
     }
     throw Error(`Invalid language, please choose among ${acceptedLanguages}`);
+}
+
+exports.queryBool = function (bool) {
+    return typeof bool === 'undefined' ? null : bool.toString();
 }

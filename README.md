@@ -1607,6 +1607,26 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Update a Workspace
+
+You can update a specific Workspace by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let workspace = await starkbank.workspace.update('10827361982368179', {
+        username: 'new-username',
+        name: 'New Name',
+        allowedTaxIds: ['012.345.678-90'],
+    });
+    console.log(workspace);
+})();
+```
+
+**Note**: the Organization user can only update a workspace with the Workspace ID set.
+
+
 ## Handling errors
 
 The SDK may raise one of four types of errors: __InputErrors__, __InternalServerError__, __UnknownException__, __InvalidSignatureException__

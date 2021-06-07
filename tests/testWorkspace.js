@@ -4,12 +4,20 @@ const generateExampleWorkspace = require('./utils/workspace').generateExampleWor
 var exampleOrganization = require('./utils/user').exampleOrganization;
 
 
-describe('TestWorkspaceCreate', function(){
+describe('TestWorkspaceCreateAndPatch', function(){
     this.timeout(10000);
     it('test_success', async () => {
         let workspace = generateExampleWorkspace();
         workspace = await starkbank.workspace.create({ username: workspace.username, name: workspace.name, user: exampleOrganization });
         assert(typeof workspace.id == 'string');
+
+        update = generateExampleWorkspace();
+        workspace = await starkbank.workspace.update(workspace.id, {
+            name: update.name,
+            username: update.username,
+            allowedTaxIds: update.allowedTaxIds,
+            user: starkbank.organization.replace(exampleOrganization, workspace.id)
+        });
     });
 });
 
