@@ -28,7 +28,7 @@ class Workspace extends Resource {
 exports.Workspace = Workspace;
 let resource = {'class': exports.Workspace, 'name': 'Workspace'};
 
-exports.create = async function create({ username, name, user = null }) {
+exports.create = async function ({ username, name, user = null }) {
     /**
      * 
      * Create Workspace
@@ -49,7 +49,7 @@ exports.create = async function create({ username, name, user = null }) {
     return rest.postSingle(resource, new Workspace({username: username, name: name}), user);       
 };
 
-exports.get = async function get(id, {user} = {}){
+exports.get = async function (id, {user} = {}){
     /**
      * 
      * Retrieve a specific Workspace
@@ -69,7 +69,7 @@ exports.get = async function get(id, {user} = {}){
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function query({limit, username, ids, user} = {}){
+exports.query = async function ({limit, username, ids, user} = {}){
     /**
      * 
      * Retrieve Workspaces
@@ -96,10 +96,10 @@ exports.query = async function query({limit, username, ids, user} = {}){
     return rest.getList(resource, query, user);
 };
 
-exports.update = async function update(id, {username, name, allowed_tax_ids, user} = {}){
+exports.update = async function (id, {username, name, allowedTaxIds, user} = {}){
     /**
      * 
-     * Update Workspace entity
+     * Update a Workspace entity
      * 
      * @description Update a Workspace by passing its ID.
      * 
@@ -108,18 +108,18 @@ exports.update = async function update(id, {username, name, allowed_tax_ids, use
      * 
      * Parameters (optional):
      * @param name [string, default null]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: "Stark Bank Workspace"
-     * @param username [string]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: "starkbankworkspace"
-     * @param allowed_tax_ids [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ["012.345.678-90", "20.018.183/0001-80"]
-     * @param user [Project object, default null]: Organization or Project object. Not necessary if starkbank user was set before function call
+     * @param username [string]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: "starkbank-workspace"
+     * @param allowedTaxIds [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ["012.345.678-90", "20.018.183/0001-80"]
+     * @param user [Organization/Project object]: Organization or Project object.Not necessary if starkbank.user was set before function call
      * 
      * Return:
-     * @returns generator of Workspace objects with updated attributes
+     * @returns target Workspace with updated attributes
      * 
      */
     let payload = {
-        name:         name,
-        username:         username,
-        allowed_tax_ids:            allowed_tax_ids
+        name: name,
+        username: username,
+        allowedTaxIds: allowedTaxIds
     };
     return rest.patchId(resource, id, payload, user);
 };
