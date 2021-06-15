@@ -1,6 +1,7 @@
 const rest = require('../utils/rest.js');
 const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource
+const subResource = require('../invoice/payment.js').subResource
 
 
 class Invoice extends Resource {
@@ -218,4 +219,8 @@ exports.pdf = async function (id, {user} = {}) {
      *
      */
     return rest.getPdf(resource, id, {}, user);
+};
+
+exports.payment = async function (id, {user} = {}) {
+    return rest.getSubResource(resource, id, subResource, user);
 };

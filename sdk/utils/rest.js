@@ -113,3 +113,13 @@ exports.patchId = async function (resource, id, payload, user = null) {
     let returnEntity = json[api.lastName(name)];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
+
+exports.getSubResource = async function (resource, id, subResource, user = null ) {
+    let endpoint = `${api.endpoint(resource['name'])}`;
+    let subResourceEndpoint = `${api.endpoint(subResource['name'])}`;
+    let path = `${endpoint}/${id}/${subResourceEndpoint}`;
+    let response = await fetch(`/${path}`, 'GET', null, null, user);
+    let json = response.json();
+    let returnEntity = json[subResourceEndpoint];
+    return Object.assign(new subResource['class'].constructor(returnEntity), returnEntity);
+};
