@@ -21,7 +21,8 @@ exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = fa
         bankCode: '18236120',
         branchCode: '0001',
         accountNumber: '10000-0',
-        accountType: 'checking'
+        accountType: 'checking',
+        description: choice(null, 'Test description')
     };
 
     let transfers = [];

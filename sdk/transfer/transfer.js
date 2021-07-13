@@ -21,6 +21,7 @@ class Transfer extends Resource {
      * @param accountNumber [string]: Receiver Bank Account number. Use '-' before the verifier digit. ex: '876543-2'
      * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
      * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated external_ids will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
+     * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
      *
      * Parameters (optional):
      * @param tags [list of strings]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
@@ -37,7 +38,7 @@ class Transfer extends Resource {
      */
     constructor({
                     amount, name, taxId, bankCode, branchCode, accountNumber, accountType, externalId, scheduled,
-                    tags, fee, status, created, updated, transactionIds, id
+                    description, tags, fee, status, created, updated, transactionIds, id
                 }) {
         super(id);
         this.amount = amount;
@@ -49,6 +50,7 @@ class Transfer extends Resource {
         this.accountType = accountType;
         this.externalId = externalId;
         this.scheduled = scheduled;
+        this.description = description;
         this.tags = tags;
         this.fee = fee;
         this.status = status;
