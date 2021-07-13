@@ -16,7 +16,7 @@ class DictKey extends Resource {
      * Attributes (return-only):
      * @param type [string, default null]: PIX key type. ex: 'email', 'cpf', 'cnpj', 'phone' or 'evp'
      * @param accountCreated [string, default null]: creation datetime of the bank account associated with the PIX key. ex: '2020-11-05T14:55:08.812665+00:00'
-     * @param accountType [string, default null]: bank account type associated with the PIX key. ex: 'checking', 'saving' e 'salary'
+     * @param accountType [string, default null]: bank account type associated with the PIX key. ex: 'checking', 'saving', 'salary' or 'payment'
      * @param name [string, default null]: account owner full name. ex: 'Tony Stark'
      * @param taxId [string, default null]: tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
      * @param ownerType [string, default null]: PIX key owner type. ex 'naturalPerson' or 'legalPerson'
