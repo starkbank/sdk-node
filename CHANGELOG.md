@@ -16,6 +16,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ### Added
 - 'payment' account type for Pix related resources
 - Transfer.description property to allow control over corresponding Transaction descriptions
+- 'link' property to Invoice resource
 
 ## [2.6.0] - 2021-06-06
 ### Fixed
@@ -30,7 +31,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 ## [2.5.1] - 2021-03-08
 ### Fixed
-- Bad "+" char URL encoding on BrcodePreview
+- Bad '+' char URL encoding on BrcodePreview
 
 ## [2.5.0] - 2021-02-05
 ### Added
@@ -60,7 +61,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 ## [2.0.1] - 2020-10-22
 ### Fixed
-- Fixed "decamelize" dependency
+- Fixed 'decamelize' dependency
 
 ## [2.0.0] - 2020-10-19
 ### Added
@@ -90,7 +91,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 ## [0.4.0] - 2020-05-12
 ### Added
-- "receiver_name" & "receiver_tax_id" properties to Boleto entities
+- 'receiver_name' & 'receiver_tax_id' properties to Boleto entities
 
 ## [0.3.1] - 2020-05-05
 ### Fixed
@@ -98,11 +99,11 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 ## [0.3.0] - 2020-05-04
 ### Added
-- "balance" property to Transaction entities
+- 'balance' property to Transaction entities
 
 ## [0.2.0] - 2020-04-29
 ### Added
-- "discounts" property to Boleto entities
+- 'discounts' property to Boleto entities
 
 ## [0.1.0] - 2020-04-17
 ### Added
