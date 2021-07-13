@@ -29,6 +29,7 @@ class Invoice extends Resource {
      * Attributes (return-only):
      * @param fee               [integer, default null]: fee charged by this Invoice. ex: 65 (= R$ 0.65)
      * @param pdf               [string, default null]: public Invoice PDF URL. ex: 'https://invoice.starkbank.com/pdf/d454fa4e524441c1b0c1a729457ed9d8'
+     * @param link              [string, default null]: public Invoice webpage URL. ex: 'https://my-workspace.sandbox.starkbank.com/invoicelink/d454fa4e524441c1b0c1a729457ed9d8'
      * @param nominalAmount     [integer, default null]: Invoice emission value in cents (will change if invoice is updated, but not if it's paid). ex: 400000
      * @param fineAmount        [integer, default null]: Invoice fine value calculated over nominalAmount. ex: 20000
      * @param interestAmount    [integer, default null]: Invoice interest value calculated over nominalAmount. ex: 10000
@@ -42,8 +43,8 @@ class Invoice extends Resource {
      */
     constructor({
                     amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null,
-                    tags = null, descriptions = null, fee = null, pdf = null, nominalAmount = null, fineAmount = null, interestAmount = null,
-                    discountAmount = null, id = null, brcode = null, status = null, created = null, updated = null
+                    tags = null, descriptions = null, fee = null, pdf = null, link = null, nominalAmount = null, fineAmount = null, 
+                    interestAmount = null, discountAmount = null, id = null, brcode = null, status = null, created = null, updated = null
                 }) {
         super(id);
         this.amount = amount;
@@ -61,6 +62,7 @@ class Invoice extends Resource {
         this.descriptions = descriptions;
         this.fee = fee;
         this.pdf = pdf;
+        this.link = link;
         this.nominalAmount = nominalAmount;
         this.fineAmount = fineAmount;
         this.interestAmount = interestAmount;
