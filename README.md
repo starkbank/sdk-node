@@ -1297,6 +1297,132 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Create tax payments
+
+Its also simple to pay taxes (such as ISS and DAS) in the SDK.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.taxPayment.create([
+        {
+            line: '85800000003 0 28960328203 1 56072020190 5 22109674804 0',
+            scheduled: '2020-08-14',
+            description: 'build the hospital, hopefully',
+            tags: ['expensive'],
+        },
+        {
+            barCode: '83660000001084301380074119002551100010601813',
+            scheduled: '2020-08-13',
+            description: 'fix the road',
+            tags: ['take', 'my', 'money'],
+        },
+    ]);
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+**Note**: Instead of using TaxPayment objects, you can also pass each payment element in dictionary format
+
+### Query tax payments
+
+To search for tax payments using filters, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.taxPayment.query({
+        tags: ['das', 'july'],
+    });
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+### Get a tax payment
+
+You can get a specific bill by its id:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.taxPayment.get('5155165527080960');
+    console.log(payment);
+})();
+```
+
+### Get a tax payment PDF
+
+After its creation, a tax payment PDF may also be retrieved by its id. 
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let pdf = await starkbank.taxPayment.pdf('5155165527080960');
+    await fs.writeFile('tax-payment.pdf', pdf);
+})();
+```
+
+Be careful not to accidentally enforce any encoding on the raw pdf content,
+as it may yield abnormal results in the final file, such as missing images
+and strange characters.
+
+### Delete a tax payment
+
+You can also cancel a tax payment by its id.
+Note that this is not possible if it has been processed already.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.taxPayment.delete('5155165527080960');
+    console.log(payment);
+})();
+```
+
+### Query tax payment logs
+
+You can search for payments by specifying filters. Use this to understand the
+bills life cycles.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let logs = await starkbank.taxPayment.log.query({
+        paymentIds:['102893710982379182', '92837912873981273'],
+    });
+
+    for await (let log of logs) {
+        console.log(log);
+    }
+})();
+```
+
+### Get a tax payment log
+
+If you want to get a specific payment log by its id, just run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let log = await starkbank.taxPayment.log.get('5155165527080960');
+    console.log(log);
+})();
+```
+
 ### Create payment requests to be approved by authorized people in a cost center
 
 You can also request payments that must pass through a specific cost center approval flow to be executed.
