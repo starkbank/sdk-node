@@ -1570,6 +1570,7 @@ const starkbank = require('starkbank');
     let workspace = await starkbank.workspace.create(
         username='iron-bank-workspace-1',
         name='Iron Bank Workspace 1',
+        allowedTaxIds=['012.345.678-90', '20.018.183/0001-80'],
         {user: organization},
     );
 })();

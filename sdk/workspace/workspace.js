@@ -13,24 +13,25 @@ class Workspace extends Resource {
      * Parameters (required):
      * @param username [string]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: 'starkbankworkspace'
      * @param name [string]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: 'Stark Bank Workspace'
+     * @param allowedTaxIds [list of strings]: list of tax IDs that will be allowed to send Deposits to this Workspace. ex: ['012.345.678-90', '20.018.183/0001-80']
      * 
      * Attributes:
      * @param id [string, default null]: unique id returned when the workspace is created. ex: '5656565656565656'
      * 
      */
-    constructor({username, name, id=null}) {
+    constructor({username, name, allowedTaxIds = null, id=null}) {
         super(id);
         this.username = username;
         this.name = name;
+        this.allowedTaxIds = allowedTaxIds;
     }
 }
 
 exports.Workspace = Workspace;
 let resource = {'class': exports.Workspace, 'name': 'Workspace'};
 
-exports.create = async function ({ username, name, user = null }) {
+exports.create = async function ({ username, name, allowedTaxIds = null, user = null }) {
     /**
-     * 
      * Create Workspace
      * 
      * @description Send a Workspace for creation in the Stark Bank API
@@ -38,6 +39,7 @@ exports.create = async function ({ username, name, user = null }) {
      * Parameters (required):
      * @param username [string]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: 'starkbankworkspace'
      * @param name [string]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: 'Stark Bank Workspace'
+     * @param allowedTaxIds [list of strings]: list of tax IDs that will be allowed to send Deposits to this Workspace. ex: ['012.345.678-90', '20.018.183/0001-80']
      * 
      * Parameters (optional):
      * @param user [Organization object]: Organization object. Not necessary if starkbank.user was set before function call
@@ -46,7 +48,7 @@ exports.create = async function ({ username, name, user = null }) {
      * @returns Workspace object with updated attributes
      * 
      */
-    return rest.postSingle(resource, new Workspace({username: username, name: name}), user);       
+    return rest.postSingle(resource, new Workspace({username: username, name: name, allowedTaxIds: allowedTaxIds}), user);       
 };
 
 exports.get = async function (id, {user} = {}){
@@ -107,9 +109,9 @@ exports.update = async function (id, {username, name, allowedTaxIds, user} = {})
      * @param id [string]: object unique id. ex: '5656565656565656'
      * 
      * Parameters (optional):
-     * @param name [string, default null]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: "Stark Bank Workspace"
-     * @param username [string]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: "starkbank-workspace"
-     * @param allowedTaxIds [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ["012.345.678-90", "20.018.183/0001-80"]
+     * @param name [string, default null]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: 'Stark Bank Workspace'
+     * @param username [string, default null]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: 'starkbank-workspace'
+     * @param allowedTaxIds [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ['012.345.678-90', '20.018.183/0001-80']
      * @param user [Organization/Project object]: Organization or Project object.Not necessary if starkbank.user was set before function call
      * 
      * Return:
