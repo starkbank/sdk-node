@@ -90,7 +90,7 @@ exports.create = async function (Invoices, {user} = {}) {
      * @param Invoices [list of Invoice objects]: list of Invoice objects to be created in the API
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns list of Invoice objects with updated attributes
@@ -110,7 +110,7 @@ exports.get = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Invoice object with updated attributes
@@ -133,7 +133,7 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user}
      * @param status    [string, default null]: filter for status of retrieved objects. ex: 'created', 'paid', 'canceled' or 'overdue'
      * @param tags      [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
      * @param ids       [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
-     * @param user      [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user      [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns generator of Invoice objects with updated attributes
@@ -165,7 +165,7 @@ exports.update = function (id, {amount, status, due, expiration, user} = {}) {
      * @param amount        [integer]: If the Invoice hasn't been paid yet, you may update its amount by passing the desired amount integer. ex: 100 (R$1,00)
      * @param due           [string, default now + 2 days]: Invoice due date in UTC ISO format. ex: '2020-11-25T17:59:26.249976+00:00'
      * @param expiration    [integer, default null]: time interval in seconds between due date and expiration date. ex 123456789
-     * @param user          [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user          [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns target Invoice with updated attributes
@@ -192,7 +192,7 @@ exports.qrcode = function (id, {size=7, user} = {}) {
      *
      * Parameters (optional):
      * @param size  [integer, default 7.0]: number of pixels in each 'box' of the QR code. Minimum = 1, maximum = 50. ex: 12
-     * @param user  [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user  [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Invoice QR Code png blob
@@ -215,7 +215,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @param id [string]: object unique id. ex: '5656565656565656'
      *
      * Parameters (optional):
-     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
      * @returns Invoice pdf file

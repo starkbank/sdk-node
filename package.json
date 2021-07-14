@@ -33,6 +33,7 @@
     "axios": "^0.21.1"
   },
   "devDependencies": {
-    "mocha": "^7.1.2"
+    "mocha": "^7.1.2",
+    "utf8": "^3.0.0"
   }
 }
