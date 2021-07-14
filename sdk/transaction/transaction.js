@@ -25,6 +25,7 @@ class Transaction extends Resource {
      * @param tags [list of strings]: list of strings for reference when searching transactions (may be empty). ex: ['abc', 'test']
      * 
      * Attributes (return-only):
+     * @param senderId [string]: unique id of the sending workspace. ex: '5656565656565656'
      * @param id [string, default null]: unique id returned when Transaction is created. ex: '7656565656565656'
      * @param fee [integer, default null]: fee charged when the transaction is created. ex: 200 (= R$ 2.00)
      * @param source [string, default null]: unique locator of the related entity in the API reference
@@ -32,12 +33,13 @@ class Transaction extends Resource {
      * @param created [string, default null]: creation datetime for the transaction. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ amount, description, externalId, receiverId, tags, fee, created, source, id, balance }) {
+    constructor({ amount, description, externalId, receiverId, senderId, tags, fee, created, source, id, balance }) {
         super(id);
         this.amount = amount;
         this.description = description;
         this.externalId = externalId;
         this.receiverId = receiverId;
+        this.senderId = senderId;
         this.tags = tags;
         this.fee = fee;
         this.source = source;

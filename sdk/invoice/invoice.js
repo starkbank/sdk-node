@@ -37,14 +37,15 @@ class Invoice extends Resource {
      * @param id                [string, default null]: unique id returned when Invoice is created. ex: '5656565656565656'
      * @param brcode            [string, default null]: BR Code for the Invoice payment. ex: '00020101021226800014br.gov.bcb.pix2558invoice.starkbank.com/f5333103-3279-4db2-8389-5efe335ba93d5204000053039865802BR5913Arya Stark6009Sao Paulo6220051656565656565656566304A9A0'
      * @param status            [string, default null]: current Invoice status. ex: 'created', 'paid', 'canceled' or 'overdue'
+     * @param transactionIds    [list of strings]: ledger transaction ids linked to this Invoice (if there are more than one, all but the first are reversals or failed reversal chargebacks). ex: ['19827356981273']
      * @param created           [string, default null]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
      * @param updated           [string, default null]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
      *
      */
     constructor({
-                    amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null,
-                    tags = null, descriptions = null, fee = null, pdf = null, link = null, nominalAmount = null, fineAmount = null, 
-                    interestAmount = null, discountAmount = null, id = null, brcode = null, status = null, created = null, updated = null
+                    amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null, tags = null, 
+                    descriptions = null, fee = null, pdf = null, link = null, nominalAmount = null, fineAmount = null, interestAmount = null, 
+                    discountAmount = null, id = null, brcode = null, status = null, transactionIds = null, created = null, updated = null
                 }) {
         super(id);
         this.amount = amount;
@@ -69,6 +70,7 @@ class Invoice extends Resource {
         this.discountAmount = discountAmount;
         this.brcode = brcode;
         this.status = status;
+        this.transactionIds = transactionIds;
         this.created = check.date(created);
         this.updated = check.date(updated);
     }

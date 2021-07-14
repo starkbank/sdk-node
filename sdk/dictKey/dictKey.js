@@ -20,6 +20,7 @@ class DictKey extends Resource {
      * @param name [string, default null]: account owner full name. ex: 'Tony Stark'
      * @param taxId [string, default null]: tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
      * @param ownerType [string, default null]: PIX key owner type. ex 'naturalPerson' or 'legalPerson'
+     * @param bankName [string, null None]: bank name associated with the DICT key. ex: 'Stark Bank'
      * @param ispb [string, default null]: ISPB code used for transactions. ex: '20018183'
      * @param branchCode [string, default null]: bank account branch code associated with the PIX key. ex: '9585'
      * @param accountNumber [string, default null]: bank account number associated with the PIX key. ex: '9828282578010513'
@@ -30,8 +31,8 @@ class DictKey extends Resource {
      */
     constructor({
                     id, type = null, accountCreated = null, accountType = null, name = null, taxId = null,
-                    ownerType = null, ispb = null, branchCode = null, accountNumber = null, status = null,
-                    owned = null, created = null
+                    ownerType = null, bankName = null, ispb = null, branchCode = null, accountNumber = null, 
+                    status = null, owned = null, created = null
                 }) {
         super(id);
         this.type = type;
@@ -40,6 +41,7 @@ class DictKey extends Resource {
         this.name = name;
         this.taxId = taxId;
         this.ownerType = ownerType;
+        this.bankName = bankName;
         this.ispb = ispb;
         this.branchCode = branchCode;
         this.accountNumber = accountNumber;
