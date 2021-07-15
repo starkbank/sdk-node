@@ -107,3 +107,14 @@ describe('TestInvoicePdfGet', function(){
         }
     });
 });
+
+describe('TestInvoicePaymentGet', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let invoices = await starkbank.invoice.query({status: "paid", limit: 1});
+        for await (let invoice of invoices) {
+            let payment = await starkbank.invoice.payment(invoice.id);
+            assert(typeof payment == 'object');
+        }
+    })
+})

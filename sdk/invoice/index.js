@@ -7,4 +7,5 @@ exports.get = invoice.get;
 exports.update = invoice.update;
 exports.qrcode = invoice.qrcode;
 exports.pdf = invoice.pdf;
+exports.payment = invoice.payment;
 exports.Invoice = invoice.Invoice;

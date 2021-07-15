@@ -18,6 +18,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - Transfer.description property to allow control over corresponding Transaction descriptions
 - 'link' property to Invoice resource
 - missing parameters to Boleto, DictKey, Invoice, Transaction, UtilityPayment and Workspace resources
+- Invoice.Payment sub-resource to allow retrieval of invoice payment information
 
 ## [2.6.0] - 2021-06-06
 ### Fixed

@@ -1,6 +1,7 @@
 const rest = require('../utils/rest.js');
 const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource
+const subResource = require('../invoice/payment.js').subResource
 
 
 class Invoice extends Resource {
@@ -222,4 +223,24 @@ exports.pdf = async function (id, {user} = {}) {
      *
      */
     return rest.getPdf(resource, id, {}, user);
+};
+
+exports.payment = async function (id, {user} = {}) {
+    /**
+     *
+     * Retrieve a specific Invoice payment information
+     * 
+     * @description Receive the Invoice.Payment sub-resource associated with a paid Invoice.
+     *
+     * Parameters (required):
+     * @param id [string]: object unique id. ex: '5656565656565656'
+     *
+     * Parameters (optional):
+     * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns Invoice.Payment sub-resource
+     *
+     */
+    return rest.getSubResource(resource, id, subResource, user);
 };
