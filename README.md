@@ -625,6 +625,19 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Get an invoice payment information
+
+ Once an invoice has been paid, you can get the payment information using the Invoice.Payment sub-resource:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let paymentInformation = starkbank.invoice.payment("5155165527080960")
+    console.log(paymentInformation);
+})();
+```
+
 ### Query deposits
 
 You can get a list of created deposits given some filters.

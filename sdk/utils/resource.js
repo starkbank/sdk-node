@@ -1,8 +1,10 @@
+const SubResource = require('./subResource.js').SubResource
 
 
-class Resource {
+class Resource extends SubResource {
 
     constructor(id) {
+        super()
         this.id = id ? id.toString() : null;
     }
 }
