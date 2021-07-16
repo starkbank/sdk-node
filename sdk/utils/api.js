@@ -13,7 +13,8 @@ exports.endpoint = function (resource, keepDash = false) {
     if (keepDash) {
         return decamelized;
     }
-    return decamelized.replace('-log', '/log');
+    return decamelized.replace('-log', '/log')
+                      .replace('-attempt', '/attempt');
 };
 
 exports.lastName = function (resource) {

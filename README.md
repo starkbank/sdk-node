@@ -1680,6 +1680,36 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Query failed webhook event delivery attempts information
+
+You can also get information on failed webhook event delivery attempts.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let attempts = await starkbank.event.attempt.query(after="2020-03-20");
+
+    for await (let attempt of attempts) {
+        console.log(attempt.code);
+        console.log(attempt.message);
+    }
+})();
+```
+
+### Get a failed webhook event delivery attempt information
+
+To retrieve information on a single attempt, use the following function:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let attempt = await starkbank.event.attempt.get("1616161616161616")
+    console.log(attempt);
+})();
+```
+
 ### Get a DICT key
 
 You can get DICT (Pix) key's parameters by its id.

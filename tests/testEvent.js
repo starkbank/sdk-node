@@ -4,14 +4,17 @@ const starkbank = require('../index.js');
 starkbank.user = require('./utils/user').exampleProject;
 
 
-describe('TestEventGet', function(){
+describe('TestEventGetAndAttempt', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let i = 0;
-        const events = await starkbank.event.query({limit: 5});
+        const events = await starkbank.event.query({ limit: 5, isDelivered: false });
         for await (let event of events) {
             assert(typeof event.id == 'string');
-            i += 1;
+            const attempts = await starkbank.event.attempt.query({ eventIds: [event.id], limit: 1 });
+            for await (let attempt of attempts) {
+                attempt = await starkbank.event.attempt.get(attempt.id);
+                assert(typeof attempt == 'object');
+            }
         }
     });
 });

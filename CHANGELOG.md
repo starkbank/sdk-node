@@ -20,6 +20,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - missing parameters to Boleto, DictKey, Invoice, Transaction, UtilityPayment and Workspace resources
 - Invoice.Payment sub-resource to allow retrieval of invoice payment information
 - pdf method for retrieving PDF receipts from reversed invoice logs
+- Event.Attempt sub-resource to allow retrieval of information on failed webhook event delivery attempts
 
 ## [2.6.0] - 2021-06-06
 ### Fixed
