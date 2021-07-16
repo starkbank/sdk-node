@@ -29,3 +29,15 @@ describe('TestInvoiceLogInfoGet', function(){
         }
     });
 });
+
+describe('TestInvoiceLogPdfGet', function(){
+    this.timeout(30000);
+    it('test_success', async () => {
+        let logs = await starkbank.invoice.log.query({limit: 1, types: 'reversed'});
+        for await (let log of logs) {
+            assert(typeof log.id == 'string');
+            let pdf = await starkbank.invoice.log.pdf(log.id);
+            assert(Buffer.isBuffer(pdf));
+        }
+    });
+});
