@@ -19,6 +19,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - 'link' property to Invoice resource
 - missing parameters to Boleto, DictKey, Invoice, Transaction, UtilityPayment and Workspace resources
 - Invoice.Payment sub-resource to allow retrieval of invoice payment information
+- pdf method for retrieving PDF receipts from reversed invoice logs
 
 ## [2.6.0] - 2021-06-06
 ### Fixed
