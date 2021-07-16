@@ -1,5 +1,6 @@
 const event = require('./event.js');
 
+exports.attempt = require('./attempt');
 exports.get = event.get;
 exports.query = event.query;
 exports.delete = event.delete;

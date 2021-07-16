@@ -1,0 +1,67 @@
+const Resource = require('../../utils/resource.js').Resource;
+const rest = require('../../utils/rest.js');
+
+
+class Attempt extends Resource {
+
+    constructor({id, code, message, webhookId, eventId, created} = {}) {
+        super(id);
+        this.code = code;
+        this.message = message;
+        this.webhookId = webhookId;
+        this.eventId = eventId;
+        this.created = created;
+    }
+}
+
+exports.Attempt = Attempt;
+let resource = {'class': exports.Attempt, 'name': 'EventAttempt'};
+
+exports.get = async function (id, {user} = {}) {
+    /**
+     *
+     * Retrieve a specific notification Event.Attempt
+     *
+     * @description Receive a single notification Event.Attempt object previously created in the Stark Bank API by passing its id
+     *
+     * Parameters (required):
+     * @param id [string]: object unique id. ex: '5656565656565656'
+     *
+     * Parameters (optional):
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns Event.Attempt object with updated attributes
+     *
+     */
+    return rest.getId(resource, id, user);
+};
+
+exports.query = async function ({limit, after, before, eventIds, webhookIds, user} = {}) {
+    /**
+     *
+     * Retrieve notification Events.Attempt
+     *
+     * @description Receive a generator of notification Event.Attempt objects previously created in the Stark Bank API
+     *
+     * Parameters (optional):
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null]: date filter for objects created only after specified date. ex: '2020-03-10'
+     * @param before [string, default null]: date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param eventIds [list of strings, default null]: list of Event ids to filter attempts. ex: ['5656565656565656', '4545454545454545']
+     * @param webhookIds [list of strings, default null]: list of Webhook ids to filter attempts. ex: ['5656565656565656', '4545454545454545']
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns generator of Event.Attempt objects with updated attributes
+     *
+     */
+    let query = {
+        limit: limit,
+        after: after,
+        before: before,
+        eventIds: eventIds,
+        webhookIds: webhookIds
+    };
+    return rest.getList(resource, query, user);
+};
