@@ -142,6 +142,40 @@ exports.query = async function ({ limit, after, before, tags, ids, status, user}
     return rest.getList(resource, query, user);
 };
 
+exports.page = async function ({ cursor, limit, after, before, tags, ids, status, user} = {}) {
+    /**
+     *
+     * Retrieve paged BoletoPayments
+     *
+     * @description Receive a list of up to 100 BoletoPayment objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     *
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
+     * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
+     * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * @param status [string, default null]: filter for status of retrieved objects. ex: 'success'
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of BoletoPayment objects with updated attributes and cursor to retrieve the next page of BoletoPayment objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: after,
+        before: before,
+        tags: tags,
+        ids: ids,
+        status: status,
+    };
+    return rest.getPage(resource, query, user);
+};
+
 exports.delete = async function (id, {user} = {}) {
     /**
      *

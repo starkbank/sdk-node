@@ -4,4 +4,5 @@ exports.log = require('./log');
 exports.create = boletoHolmes.create;
 exports.query = boletoHolmes.query;
 exports.get = boletoHolmes.get;
+exports.page = boletoHolmes.page;
 exports.BoletoHolmes = boletoHolmes.BoletoHolmes;

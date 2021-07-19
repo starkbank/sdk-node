@@ -150,3 +150,45 @@ exports.query = async function ({ centerId, limit, after, before, sort, status, 
     };
     return rest.getList(resource, query, user);
 };
+
+exports.page = async function ({ cursor, centerId, limit, after, before, sort, status, type, tags, ids, user } = {}) {
+    /**
+     *
+     * Retrieve paged PaymentRequests
+     *
+     * @description Receive a list of up to 100 PaymentRequest objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     *
+     * Parameters (required):
+     * @param centerId [string]: target cost center ID. ex: '5656565656565656'
+     * 
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null] date filter for objects created/due only after specified date. ex: '2020-03-10'
+     * @param before [string, default null] date filter for objects created/due only before specified date. ex: '2020-03-10'
+     * @param sort [string, default '-created']: sort order considered in response.Valid options are '-created' or '-due'.
+     * @param status [string, default null]: filter for status of retrieved objects.ex: 'success' or 'failed'
+     * @param type [string, default null]: payment type , inferred from the payment parameter if it is not a dictionary.ex: 'transfer', 'boleto-payment'
+     * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
+     * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of PaymentRequests objects with updated attributes and cursor to retrieve the next page of PaymentRequests objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        centerId: centerId,
+        limit: limit,
+        after: after,
+        before: before,
+        sort: sort,
+        status: status,
+        type: type,
+        tags: tags,
+        ids: ids,
+    };
+    return rest.getPage(resource, query, user);
+};

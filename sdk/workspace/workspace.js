@@ -98,6 +98,34 @@ exports.query = async function ({limit, username, ids, user} = {}){
     return rest.getList(resource, query, user);
 };
 
+exports.page = async function ({ cursor, limit, username, ids, user } = {}){
+    /**
+     * 
+     * Retrieve paged Workspaces
+     * 
+     * @description Receive a list of up to 100 Workspace objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     * 
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param username [string]: page by the simplified name that defines the workspace URL. This name is always unique across all Stark Bank Workspaces. Ex: 'starkbankworkspace'
+     * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     * 
+     * Return:
+     * @returns list of Workspace objects with updated attributes and cursor to retrieve the next page of Workspace objects
+     * 
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        username: username,
+        ids: ids
+    };
+    return rest.getPage(resource, query, user);
+};
+
 exports.update = async function (id, {username, name, allowedTaxIds, user} = {}){
     /**
      * 

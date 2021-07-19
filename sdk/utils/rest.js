@@ -123,3 +123,17 @@ exports.getSubResource = async function (resource, id, subResource, user = null 
     let returnEntity = json[api.lastName(subResourceEndpoint)];
     return Object.assign(new subResource['class'].constructor(returnEntity), returnEntity);
 };
+
+exports.getPage = async function (resource, options = {}, user = null ) {
+    let endpoint = `${api.endpoint(resource['name'])}`;
+    let response = await fetch(`/${endpoint}`, 'GET', null, options, user);
+    let json = response.json();
+    let returnEntities = json[api.lastPlural(resource['name'])];
+    let entities = [];
+    let cursor = json['cursor'];
+    for (let entity of returnEntities) {
+        entities.push(Object.assign(new resource['class'](entity), entity));
+    }
+
+    return [entities, cursor];
+};

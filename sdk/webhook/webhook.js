@@ -95,6 +95,30 @@ exports.query = async function ({limit = null, user = null} = {}) {
     return rest.getList(resource, query, user);
 };
 
+exports.page = async function ({ cursor = null, limit = null, user = null } = {}) {
+    /**
+     *
+     * Retrieve paged Webhook subcriptions
+     *
+     * @description Receive a list of up to 100 Webhook objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     *
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of Webhook objects with updated attributes and cursor to retrieve the next page of Webhook objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+    };
+    return rest.getPage(resource, query, user);
+};
+
 exports.delete = async function (id, {user} = {}) {
     /**
      *

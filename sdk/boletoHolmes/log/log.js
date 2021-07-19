@@ -80,3 +80,34 @@ exports.query = async function ({ limit, after, before, types, holmesIds, user} 
     };
     return rest.getList(resource, query, user);
 };
+
+exports.page = async function ({ cursor, limit, after, before, types, holmesIds, user} = {}) {
+    /**
+     *
+     * Retrieve paged Boleto Logs
+     *
+     * @description Receive a list of BoletoHolmes.Log objects previously created in the Stark Bank API
+     *
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
+     * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param types [list of strings, default null]: filter for log event types. ex: 'paid' or 'registered'
+     * @param holmesIds [list of strings, default null]: list of BoletoHolmes ids to filter retrieved objects.ex: ["5656565656565656", "4545454545454545"]
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of Boleto Log objects with updated attributes and cursor to retrieve the next page of BoletoHolmes.Log objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: after,
+        before: before,
+        types: types,
+        holmesIds: holmesIds,
+    };
+    return rest.getPage(resource, query, user);
+};

@@ -39,3 +39,23 @@ describe('TestWebhookInfoGet', function(){
         }
     });
 });
+
+describe('TestWebhookGetPage', function () {
+    this.timeout(10000);
+    it('test_success', async () => {
+        let ids = [];
+        let cursor = null;
+        let page = null;
+        for (let i = 0; i < 2; i++) {
+            [page, cursor] = await starkbank.webhook.page({ limit: 2, cursor: cursor });
+            for (let entity of page) {
+                assert(!ids.includes(entity.id));
+                ids.push(entity.id);
+            }
+            if (cursor == null) {
+                break;
+            }
+        }
+        assert(ids.length <= 4);
+    });
+});

@@ -94,6 +94,36 @@ exports.query = async function ({limit, after, before, isDelivered, user} = {}) 
     return rest.getList(resource, query, user);
 };
 
+exports.page = async function ({ cursor, limit, after, before, isDelivered, user } = {} ) {
+    /**
+     *
+     * Retrieve notification Events
+     *
+     * @description Receive a list of up to 100 Event objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     *
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null]: date filter for objects created only after specified date. ex: '2020-03-10'
+     * @param before [string, default null]: date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param isDelivered [bool, default null]: bool to filter successfully delivered events. ex: true or false
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of Event objects with updated attributes and cursor to retrieve the next page of Event objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: after,
+        before: before,
+        isDelivered: check.queryBool(isDelivered),
+    };
+    return rest.getPage(resource, query, user);
+};
+
 exports.delete = async function (id, {user} = {}) {
     /**
      *

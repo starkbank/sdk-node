@@ -180,3 +180,43 @@ exports.query = async function ({ limit, after, before, transactionIds, status, 
     };
     return rest.getList(resource, query, user);
 };
+
+exports.page = async function ({ cursor, limit, after, before, transactionIds, status, taxId, sort, tags, ids, user} = {}) {
+    /**
+     *
+     * Retrieve paged Transfers
+     *
+     * @description Receive a list of up to 100 Transfer objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     *
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null]: date filter for objects created or updated only after specified date. ex: '2020-03-10'
+     * @param before [string, default null]: date filter for objects created or updated only before specified date. ex: '2020-03-10'
+     * @param transactionIds [list of strings, default null]: list of transaction IDs linked to the desired transfers. ex: ['5656565656565656', '4545454545454545']
+     * @param status [string, default null]: filter for status of retrieved objects. ex: 'success' or 'failed'
+     * @param taxId [string, default null]: filter for transfers sent to the specified tax ID.ex: '012.345.678-90'
+     * @param sort [string, default '-created']: sort order considered in response. Valid options are 'created', '-created', 'updated' or '-updated'.
+     * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
+     * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of Transfer objects with updated attributes and cursor to retrieve the next page of Transfer objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: after,
+        before: before,
+        transactionIds: transactionIds,
+        status: status,
+        taxId: taxId,
+        sort: sort,
+        tags: tags,
+        ids: ids
+    };
+    return rest.getPage(resource, query, user);
+};

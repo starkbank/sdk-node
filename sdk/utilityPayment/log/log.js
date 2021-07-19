@@ -80,3 +80,35 @@ exports.query = async function ({ limit = null, after = null, before = null, typ
     };
     return rest.getList(resource, query, user);
 };
+
+exports.page = async function ({ cursor = null, limit = null, after = null, before = null, types = null, paymentIds = null, user = null } = {}) {
+    /**
+     *
+     * Retrieve paged UtilityPayment Logs
+     *
+     * @description Receive a list of up to 100 UtilityPayment.Log objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     *
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
+     * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param types [list of strings, default null]: filter retrieved objects by event types. ex: 'paid' or 'registered'
+     * @param paymentIds [list of strings, default null]: list of UtilityPayment ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of UtilityPayment.Log objects with updated attributes and cursor to retrieve the next page of UtilityPayment.Log objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: after,
+        before: before,
+        types: types,
+        paymentIds: paymentIds,
+    };
+    return rest.getPage(resource, query, user);
+};

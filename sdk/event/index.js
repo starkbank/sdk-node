@@ -6,4 +6,5 @@ exports.query = event.query;
 exports.delete = event.delete;
 exports.parse = event.parse;
 exports.update = event.update;
+exports.page = event.page;
 exports.Event = event.Event;
