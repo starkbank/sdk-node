@@ -494,6 +494,21 @@ const starkbank = require('starkbank');
 })();
 ```
 
+### Query Bacen institutions
+
+You can query institutions registered by the Brazilian Central Bank for Pix and TED transactions.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let institutions = await starkbank.institution.query({ limit: 5, search: 'stark' });
+    for (let institution of institutions) {
+        console.log(institution);
+    }
+})();
+```
+
 ### Create invoices
 
 You can create dynamic QR Code invoices to charge customers or to receive money from accounts you have in other banks.
