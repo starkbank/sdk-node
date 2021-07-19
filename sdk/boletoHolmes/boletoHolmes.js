@@ -113,3 +113,39 @@ exports.query = async function ({limit, after, before, tags, ids, status, boleto
     };
     return rest.getList(resource, query, user);
 };
+
+exports.page = async function ({cursor, limit, after, before, tags, ids, status, boletoId, user} = {}) {
+    /**
+     *
+     * Retrieve paged BoletoHolmes
+     *
+     * @description Receive a list of up to 100 BoletoHolmes objects previously created in the Stark Bank API and the cursor to the next page.
+     * Use this function instead of query if you want to manually page your requests.
+     *
+     * Parameters (optional):
+     * @param cursor [string, default null]: cursor returned on the previous page function call
+     * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+     * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
+     * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+     * @param status [string, default null]: filter for status of retrieved objects. ex: 'solving' or 'solved'
+     * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
+     * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
+     * @param boletoId [string, default null]: filter for holmes that investigate a specific boleto by its ID.ex: '5656565656565656'
+     * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns list of Boleto objects with updated attributes and cursor to retrieve the next page of BoletoHolmes objects
+     *
+     */
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: after,
+        before: before,
+        status: status,
+        tags: tags,
+        ids: ids,
+        boletoId: boletoId,
+    };
+    return rest.getPage(resource, query, user);
+};

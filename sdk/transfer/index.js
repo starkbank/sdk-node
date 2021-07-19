@@ -6,4 +6,5 @@ exports.delete = transfer.delete;
 exports.query = transfer.query;
 exports.get = transfer.get;
 exports.pdf = transfer.pdf;
+exports.page = transfer.page;
 exports.Transfer = transfer.Transfer;

@@ -6,4 +6,5 @@ exports.get = brcodePayment.get;
 exports.query = brcodePayment.query;
 exports.pdf = brcodePayment.pdf;
 exports.update = brcodePayment.update;
+exports.page = brcodePayment.page;
 exports.BrcodePayment = brcodePayment.BrcodePayment;

@@ -8,4 +8,5 @@ exports.update = invoice.update;
 exports.qrcode = invoice.qrcode;
 exports.pdf = invoice.pdf;
 exports.payment = invoice.payment;
+exports.page = invoice.page;
 exports.Invoice = invoice.Invoice;
