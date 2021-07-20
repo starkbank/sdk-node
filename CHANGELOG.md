@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.7.0] - 2021-07-20
 ### Added
 - 'payment' account type for Pix related resources
 - Transfer.description property to allow control over corresponding Transaction descriptions
