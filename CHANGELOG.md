@@ -23,6 +23,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - Event.Attempt sub-resource to allow retrieval of information on failed webhook event delivery attempts
 - page functions as a manual-pagination alternative to queries 
 - Institution resource to allow query of institutions recognized by the Brazilian Central Bank for Pix and TED transactions
+- DarfPayment resource to allow DARF tax payment without bar code
 
 ## [2.6.0] - 2021-06-06
 ### Fixed
