@@ -1516,6 +1516,9 @@ const starkbank = require('starkbank');
     console.log(log);
 })();
 ```
+**Note**: Some taxes can't be payed with bar codes. Since they have specific parameters, each one of them has its own
+ resource and routes, which are all analogous to the TaxPayment resource. The ones we currently support are:
+ - DarfPayment, for DARFs
 
 ### Create payment requests to be approved by authorized people in a cost center
 
