@@ -6,6 +6,8 @@ class BrcodePreview extends Resource {
     /**
      *
      * BrcodePreview object
+     * 
+     * DEPRECATED: USE PaymentPreview INSTEAD
      *
      * @description A BrcodePreview is used to get information from a BRCode you received to check the informations before paying it.
      *
