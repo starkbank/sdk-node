@@ -999,23 +999,6 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Preview a BR Code payment
-
-You can confirm the information on the BR Code payment before creating it with this preview method:
-
-```javascript
-(async() => {
-    const previews = await starkbank.brcodePreview.query({
-        brcodes: [
-            "00020126580014br.gov.bcb.pix0136a629532e-7693-4846-852d-1bbff817b5a8520400005303986540510.005802BR5908T'Challa6009Sao Paulo62090505123456304B14A"
-        ]
-    });
-    
-    for await (let preview of previews) {
-        console.log(preview);
-    }
-})();
-```
 ### Pay a BR Code
 
 Paying a BR Code is also simple.
@@ -1519,6 +1502,36 @@ const starkbank = require('starkbank');
 **Note**: Some taxes can't be payed with bar codes. Since they have specific parameters, each one of them has its own
  resource and routes, which are all analogous to the TaxPayment resource. The ones we currently support are:
  - DarfPayment, for DARFs
+
+### Preview payment information before executing the payment
+
+You can preview multiple types of payment to confirm any information before actually paying.
+If the 'scheduled' parameter is not informed, today will be assumed as the intended payment date.
+Right now, the 'scheduled' parameter only has effect on BrcodePreviews.
+This resource is able to preview the following types of payment:
+'brcode-payment', 'boleto-payment', 'utility-payment' and 'tax-payment'
+
+```js
+const starkbank = require('starkbank');
+
+(async() => {
+    let previews = await starkbank.paymentPreview.create([
+        new starkbank.PaymentPreview({ 
+            id: "00020126580014br.gov.bcb.pix0136a629532e-7693-4846-852d-1bbff817b5a8520400005303986540510.005802BR5908T'Challa6009Sao Paulo62090505123456304B14A",
+            scheduled: '2021-08-30'
+        }),
+        new starkbank.PaymentPreview({ 
+            id: '34191.09008 61207.727308 71444.640008 5 81310001234321'
+        })
+    ]);
+
+    for (let preview of previews) {
+        console.log(preview);
+    }
+})();
+```
+
+**Note**: Instead of using PaymentPreview objects, you can also pass each request element in dictionary format
 
 ### Create payment requests to be approved by authorized people in a cost center
 
