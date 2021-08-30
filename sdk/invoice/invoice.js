@@ -12,6 +12,8 @@ class Invoice extends Resource {
      * @description When you initialize an Invoice, the entity will not be automatically
      * sent to the Stark Bank API. The 'create' function sends the objects
      * to the Stark Bank API and returns the list of created objects.
+     * To create scheduled Invoices, which will display the discount, interest, etc. on the final users banking interface,
+     * use dates instead of datetimes on the "due" and "discounts" fields.
      *
      * Parameters (required):
      * @param amount            [integer]: Invoice value in cents. Minimum = 0 (R$0,00). ex: 1234 (= R$ 12.34)
@@ -50,7 +52,7 @@ class Invoice extends Resource {
                 }) {
         super(id);
         this.amount = amount;
-        this.due = check.datetime(due);
+        this.due = check.datetimeOrDate(due);
         this.taxId = taxId;
         this.name = name;
         this.expiration = expiration;
@@ -59,7 +61,7 @@ class Invoice extends Resource {
         this.discounts = discounts;
         this.tags = tags;
         discounts.forEach(discount => {
-            discount.due = check.datetime(discount.due);
+            discount.due = check.datetimeOrDate(discount.due);
         });
         this.descriptions = descriptions;
         this.fee = fee;

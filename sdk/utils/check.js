@@ -40,6 +40,21 @@ exports.datetime = function (input) {
     return formatDatetime(new Date(input));
 };
 
+exports.datetimeOrDate = function (input) {
+    if (!input) {
+        return null;
+    }
+    if (typeof input === 'string') {
+        return input;
+    }
+    let date = new Date(input);
+    let time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    if (time == '0:0:0') {
+        return formatDate(date);
+    }
+    return formatDatetime(new Date(input));
+};
+
 exports.key = function (key) {
     try {
         PrivateKey.fromPem(key);
