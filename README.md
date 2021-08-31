@@ -511,7 +511,13 @@ const starkbank = require('starkbank');
 
 ### Create invoices
 
-You can create dynamic QR Code invoices to charge customers or to receive money from accounts you have in other banks.
+You can create dynamic QR Code invoices to charge customers or to receive money from accounts you have in other banks. 
+
+Since the banking system only understands value modifiers (discounts, fines and interest) when dealing with **dates** (instead of **datetimes**), these values will only show up in the end user banking interface if you use **dates** in the "due" and "discounts" fields. 
+
+If you use **datetimes** instead, our system will apply the value modifiers in the same manner, but the end user will only see the final value to be paid on his interface.
+
+Also, other banks will most likely only allow payment scheduling on invoices defined with **dates** instead of **datetimes**.
 
 ```javascript
 const starkbank = require('starkbank');
