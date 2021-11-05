@@ -1666,16 +1666,15 @@ the event.
 const starkbank = require('starkbank');
 const express = require('express')
 const app = express()
-const bodyParser = require('body-parser')
-app.use(bodyParser.text({type: '*/*'}));
 
-app.use(express.json())
+app.use(express.raw({type: "*/*"}));
+
 const port = 3000
 app.post('/', async (req, res) => {
     try {
         let event = await starkbank.event.parse({
-            content: req.body,
-            signature: req.headers['Digital-Signature']
+            content: req.body.toString(),
+            signature: req.headers['digital-signature']
         });
         if (event.subscription === 'transfer') {
             console.log(event.log.transfer);

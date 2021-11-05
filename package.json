@@ -1,6 +1,6 @@
 {
   "name": "starkbank",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "description": "SDK to facilitate Node integrations with Stark Bank",
   "main": "index.js",
   "directories": {
@@ -33,7 +33,7 @@
     "starkbank-ecdsa": "^1.1.3"
   },
   "devDependencies": {
-    "mocha": "^7.1.2",
+    "mocha": "^9.1.3",
     "utf8": "^3.0.0"
   }
 }
