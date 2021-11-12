@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- 'transactionIds' property to UtilityPayment resource
 
 ## [2.10.0] - 2021-11-12
 ### Added

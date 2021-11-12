@@ -28,12 +28,13 @@ class UtilityPayment extends Resource {
      * @param status [string, default null]: current payment status. ex: 'success' or 'failed'
      * @param amount [int, default null]: amount automatically calculated from line or bar_code. ex: 23456 (= R$ 234.56)
      * @param fee [integer, default null]: fee charged when the utility payment is created. ex: 200 (= R$ 2.00)
+     * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this UtilityPayment. ex: ['19827356981273']
      * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
     constructor({
                     description, scheduled, line, barCode,
-                    tags, amount, status, created,
+                    tags, amount, status, transactionIds, created,
                     fee, id,
                 }) {
         super(id);
@@ -44,8 +45,9 @@ class UtilityPayment extends Resource {
         this.tags = tags;
         this.amount = amount;
         this.status = status;
-        this.created = check.datetime(created);
         this.fee = fee;
+        this.transactionIds = transactionIds;
+        this.created = check.datetime(created);
     }
 }
 
