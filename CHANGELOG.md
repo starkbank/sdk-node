@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.10.0] - 2021-11-12
 ### Added
 - 'transactionIds' property to BoletoPayment and TaxPayment resources
 - 'fee', 'transactionIds', 'created' and 'updated' properties to DarfPayment resource
