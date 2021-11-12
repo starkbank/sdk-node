@@ -29,13 +29,14 @@ class TaxPayment extends Resource {
      * @param status [string, default null]: current payment status. ex: 'success' or 'failed'
      * @param amount [int, default null]: amount automatically calculated from line or bar_code. ex: 23456 (= R$ 234.56)
      * @param fee [integer, default null]: fee charged when the tax payment is created. ex: 200 (= R$ 2.00)
+     * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this TaxPayment. ex: ['19827356981273']
      * @param updated [string, default null]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
      * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
     constructor({
                     description, scheduled, line, barCode, tags, 
-                    amount, status, type, updated, created, fee, id,
+                    amount, status, type, transactionIds, updated, created, fee, id,
                 })  {
         super(id);
         this.barCode = barCode;
@@ -46,6 +47,7 @@ class TaxPayment extends Resource {
         this.amount = amount;
         this.status = status;
         this.type = type;
+        this.transactionIds = transactionIds;
         this.updated = updated;
         this.created = created;
         this.fee = fee;
