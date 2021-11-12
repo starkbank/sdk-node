@@ -58,8 +58,8 @@ class DarfPayment extends Resource {
         this.nominalAmount = nominalAmount;
         this.transactionIds = transactionIds;
         this.fee = fee;
-        this.updated = check.date(updated);
-        this.created = check.date(created);
+        this.updated = check.datetime(updated);
+        this.created = check.datetime(created);
     }
 }
 

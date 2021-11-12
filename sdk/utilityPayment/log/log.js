@@ -1,4 +1,5 @@
 const rest = require('../../utils/rest.js');
+const check = require('../../utils/check.js');
 const Resource = require('../../utils/resource.js').Resource
 
 
@@ -19,9 +20,9 @@ class Log extends Resource {
      * @param created [string]: creation datetime for the log. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor(created, type, errors, payment, id = null) {
+    constructor({ created, type, errors, payment, id = null }) {
         super(id);
-        this.created = created;
+        this.created = check.datetime(created);
         this.type = type;
         this.errors = errors;
         this.payment = payment;

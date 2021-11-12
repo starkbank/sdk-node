@@ -47,8 +47,8 @@ class BrcodePayment extends Resource {
       this.status = status;
       this.type = type;
       this.fee = fee;
-      this.updated = check.date(updated);
-      this.created = check.date(created);
+      this.updated = check.datetime(updated);
+      this.created = check.datetime(created);
     }
 }
 

@@ -48,8 +48,8 @@ class TaxPayment extends Resource {
         this.status = status;
         this.type = type;
         this.transactionIds = transactionIds;
-        this.updated = updated;
-        this.created = created;
+        this.updated = check.datetime(updated);
+        this.created = check.datetime(created);
         this.fee = fee;
     }
 }

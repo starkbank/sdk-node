@@ -45,7 +45,7 @@ class BoletoPayment extends Resource {
         this.amount = amount;
         this.transactionIds = transactionIds;
         this.fee = fee;
-        this.created = check.date(created);
+        this.created = check.datetime(created);
     }
 }
 

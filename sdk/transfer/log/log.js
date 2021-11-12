@@ -1,4 +1,5 @@
 const rest = require('../../utils/rest.js');
+const check = require('../../utils/check.js');
 const Resource = require('../../utils/resource.js').Resource
 
 
@@ -21,7 +22,7 @@ class Log extends Resource {
      */
     constructor({ created, type, errors, transfer, id }) {
         super(id);
-        this.created = created;
+        this.created = check.datetime(created);
         this.type = type;
         this.errors = errors;
         this.transfer = transfer;

@@ -74,8 +74,8 @@ class Invoice extends Resource {
         this.brcode = brcode;
         this.status = status;
         this.transactionIds = transactionIds;
-        this.created = check.date(created);
-        this.updated = check.date(updated);
+        this.created = check.datetime(created);
+        this.updated = check.datetime(updated);
     }
 }
 
