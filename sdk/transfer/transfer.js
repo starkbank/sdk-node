@@ -54,8 +54,8 @@ class Transfer extends Resource {
         this.tags = tags;
         this.fee = fee;
         this.status = status;
-        this.created = created;
-        this.updated = updated;
+        this.created = check.datetime(created);
+        this.updated = check.datetime(updated);
         this.transactionIds = transactionIds;
     }
 }

@@ -1,4 +1,5 @@
 const rest = require('../utils/rest.js');
+const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource
 
 
@@ -44,7 +45,7 @@ class Transaction extends Resource {
         this.fee = fee;
         this.source = source;
         this.balance = balance;
-        this.created = created;
+        this.created = check.datetime(created);
     }
 }
 

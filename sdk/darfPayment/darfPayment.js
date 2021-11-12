@@ -4,9 +4,43 @@ const Resource = require('../utils/resource').Resource;
 
 class DarfPayment extends Resource {
 
+        /**
+     *
+     * TaxPayment object
+     *
+     * @description When you initialize a DarfPayment, the entity will not be automatically
+     * created in the Stark Bank API. The 'create' function sends the objects
+     * to the Stark Bank API and returns the list of created objects.
+     * 
+     * Parameters (required):
+     * @param description [string]: Text to be displayed in your statement (min. 10 characters). ex: "payment ABC"
+     * @param revenueCode [string]: 4-digit tax code assigned by Federal Revenue. ex: "5948"
+     * @param taxId [string]: tax id (formatted or unformatted) of the payer. ex: "12.345.678/0001-95"
+     * @param competence [string]: competence month of the service. ex: ex: '2020-03-10'
+     * @param nominalAmount [int]: amount due in cents without fee or interest. ex: 23456 (= R$ 234.56)
+     * @param fineAmount [int]: fixed amount due in cents for fines. ex: 234 (= R$ 2.34)
+     * @param interestAmount [int]: amount due in cents for interest. ex: 456 (= R$ 4.56)
+     * @param due [string]: due date for payment. ex: ex: '2020-03-10'
+     *
+     * Parameters (optional):
+     * @param referenceNumber [string]: number assigned to the region of the tax. ex: "08.1.17.00-4"
+     * @param scheduled [string, default today]: payment scheduled date. ex: '2020-03-10'
+     * @param tags [list of strings]: list of strings for tagging
+     *
+     * Attributes (return-only):
+     * @param id [string, default null]: unique id returned when payment is created. ex: "5656565656565656"
+     * @param status [string, default null]: current payment status. ex: "success" or "failed"
+     * @param amount [int, default null]: Total amount due calculated from other amounts. ex: 24146 (= R$ 241.46)
+     * @param fee [integer, default null]: fee charged when the DarfPayment is processed. ex: 0 (= R$ 0.00)
+     * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this DarfPayment. ex: ['19827356981273']
+     * @param updated [string, default null]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
+     * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
+     *
+     */
     constructor({
         revenueCode, taxId, competence, referenceNumber, fineAmount, interestAmount,
-        due, description, tags, scheduled, status, amount, nominalAmount, id
+        due, description, tags, scheduled, status, amount, nominalAmount, fee, 
+        transactionIds, updated, created, id
     }) {
         super(id);
         this.revenueCode = revenueCode;
@@ -22,6 +56,10 @@ class DarfPayment extends Resource {
         this.status = status;
         this.amount = amount;
         this.nominalAmount = nominalAmount;
+        this.transactionIds = transactionIds;
+        this.fee = fee;
+        this.updated = check.datetime(updated);
+        this.created = check.datetime(created);
     }
 }
 

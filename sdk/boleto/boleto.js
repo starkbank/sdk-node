@@ -76,7 +76,7 @@ class Boleto extends Resource {
         this.barCode = barCode;
         this.status = status;
         this.transactionIds = transactionIds;
-        this.created = created;
+        this.created = check.datetime(created);
         this.ourNumber = ourNumber;
     }
 }

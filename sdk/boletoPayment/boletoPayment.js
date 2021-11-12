@@ -28,11 +28,12 @@ class BoletoPayment extends Resource {
      * Attributes (return-only):
      * @param id [string, default null]: unique id returned when payment is created. ex: '5656565656565656'
      * @param status [string, default null]: current payment status. ex: 'success' or 'failed'
+     * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this BoletoPayment. ex: ['19827356981273']
      * @param fee [integer, default null]: fee charged when boleto payment is created. ex: 200 (= R$ 2.00)
      * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ taxId, description, scheduled, line, barCode, tags, id, status, amount, fee, created }) {
+    constructor({ taxId, description, scheduled, line, barCode, tags, id, status, amount, transactionIds, fee, created }) {
         super(id);
         this.taxId = taxId;
         this.description = description;
@@ -42,8 +43,9 @@ class BoletoPayment extends Resource {
         this.tags = tags;
         this.status = status;
         this.amount = amount;
+        this.transactionIds = transactionIds;
         this.fee = fee;
-        this.created = created;
+        this.created = check.datetime(created);
     }
 }
 

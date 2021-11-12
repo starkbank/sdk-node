@@ -1,4 +1,5 @@
 const Resource = require('../../utils/resource.js').Resource;
+const check = require('../../utils/check.js');
 const rest = require('../../utils/rest.js');
 
 
@@ -10,7 +11,7 @@ class Attempt extends Resource {
         this.message = message;
         this.webhookId = webhookId;
         this.eventId = eventId;
-        this.created = created;
+        this.created = check.datetime(created);
     }
 }
 

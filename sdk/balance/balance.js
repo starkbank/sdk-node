@@ -1,4 +1,5 @@
 const rest = require('../utils/rest.js');
+const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource
 
 
@@ -23,7 +24,7 @@ class Balance extends Resource {
         super(id);
         this.amount = amount;
         this.currency = currency;
-        this.updated = updated;
+        this.updated = check.datetime(updated);
     }
 }
 

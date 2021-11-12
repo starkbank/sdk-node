@@ -23,7 +23,7 @@ class Log extends Resource {
      */
     constructor({ created, type, errors, payment, id }) {
         super(id);
-        this.created = check.date(created);
+        this.created = check.datetime(created);
         this.type = type;
         this.errors = errors;
         this.payment = payment;

@@ -44,7 +44,7 @@ class UtilityPayment extends Resource {
         this.tags = tags;
         this.amount = amount;
         this.status = status;
-        this.created = created;
+        this.created = check.datetime(created);
         this.fee = fee;
     }
 }

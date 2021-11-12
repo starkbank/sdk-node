@@ -1,4 +1,5 @@
 const rest = require('../utils/rest.js');
+const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource;
 
 
@@ -43,8 +44,8 @@ class Deposit extends Resource {
         this.tags = tags;
         this.fee = fee;
         this.transactionIds = transactionIds;
-        this.created = created;
-        this.updated = updated;
+        this.created = check.datetime(created);
+        this.updated = check.datetime(updated);
     }
 }
 

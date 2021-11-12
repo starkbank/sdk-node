@@ -13,6 +13,10 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- 'transactionIds' property to BoletoPayment and TaxPayment resources
+- 'fee', 'transactionIds', 'created' and 'updated' properties to DarfPayment resource
+- datetime validation to 'created' and 'updated' fields
 
 ## [2.9.2] - 2021-11-10
 ### Changed

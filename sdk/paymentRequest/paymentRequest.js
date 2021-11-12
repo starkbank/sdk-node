@@ -4,12 +4,13 @@ const { Transfer } = require('../transfer/transfer.js');
 const { UtilityPayment } = require('../utilityPayment/utilityPayment.js');
 const { BrcodePayment } = require('../brcodePayment/brcodePayment.js');
 const rest = require('../utils/rest.js');
+const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource
 
 
 class PaymentRequest extends Resource {
 
-     /**
+    /**
      * PaymentRequest constructor
      *
      * A PaymentRequest is an indirect request to access a specific cash-out service
@@ -48,8 +49,8 @@ class PaymentRequest extends Resource {
         this.amount = amount;
         this.status = status;
         this.actions = actions;
-        this.updated = updated;
-        this.created = created;
+        this.updated = check.datetime(updated);
+        this.created = check.datetime(created);
         let parsePaymentObject = parsePayment(payment, type);
         this.payment = parsePaymentObject['payment'];
         this.type = parsePaymentObject['type'];

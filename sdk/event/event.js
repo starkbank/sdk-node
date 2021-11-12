@@ -27,7 +27,7 @@ class Event extends Resource {
     constructor({created, isDelivered, subscription, log, id, workspaceId} = {}) {
         super(id);
         this.log = log;
-        this.created = created;
+        this.created = check.datetime(created);
         this.isDelivered = isDelivered;
         this.subscription = subscription;
         this.workspaceId = workspaceId;
