@@ -1,4 +1,4 @@
-# Stark Bank Node SDK Beta
+# Stark Bank Node SDK
 
 Welcome to the Stark Bank Node SDK! This tool is made for Node
 developers who want to easily integrate with our API.
@@ -8,15 +8,45 @@ If you have no idea what Stark Bank is, check out our [website](https://www.star
 and discover a world where receiving or making payments
 is as easy as sending a text message to your client!
 
-## Help and Feedback
+# Introduction
 
-If you have any questions about our SDK, just email us your questions.
-We will respond you quickly, pinky promise. We are here to help you integrate with us ASAP.
-We also love feedback, so don't be shy about sharing your thoughts with us.
+# Index
 
-Email: developers@starkbank.com
+- [Introduction](#introduction)
+    - [Supported Node versions](#supported-node-versions)
+    - [API documentation](#stark-bank-api-documentation)
+    - [Versioning](#versioning)
+- [Setup](#setup)
+    - [Install our SDK](#1-install-our-sdk)
+    - [Create your Private and Public Keys](#2-create-your-private-and-public-keys)
+    - [Register your user credentials](#3-register-your-user-credentials)
+    - [Setting up the user](#4-setting-up-the-user)
+    - [Setting up the error language](#5-setting-up-the-error-language)
+    - [Resource listing and manual pagination](#6-resource-listing-and-manual-pagination)
+- [Testing in Sandbox](#testing-in-sandbox) 
+- [Usage](#usage)
+    - [Transactions](#create-transactions): Account statement entries
+    - [Balance](#get-balance): Account balance
+    - [Transfers](#create-transfers): Wire transfers (TED and manual Pix)
+    - [DictKeys](#get-dict-key): Pix Key queries to use with Transfers
+    - [Institutions](#query-bacen-institutions): Instutitions recognized by the Central Bank
+    - [Invoices](#create-invoices): Reconciled receivables (dynamic PIX QR Codes)
+    - [Deposits](#query-deposits): Other cash-ins (static PIX QR Codes, manual PIX, etc)
+    - [Boletos](#create-boletos): Boleto receivables
+    - [BoletoHolmes](#investigate-a-boleto): Boleto receivables investigator
+    - [BrcodePayments](#pay-a-br-code): Pay Pix QR Codes
+    - [BoletoPayments](#pay-a-boleto): Pay Boletos
+    - [UtilityPayments](#create-utility-payments): Pay Utility bills (water, light, etc.)
+    - [TaxPayments](#create-tax-payment): Pay taxes
+    - [PaymentPreviews](#preview-payment-information-before-executing-the-payment): Preview all sorts of payments
+    - [Webhooks](#create-a-webhook-subscription): Configure your webhook endpoints and subscriptions
+    - [WebhookEvents](#process-webhook-events): Manage webhook events
+    - [WebhookEventAttempts](#query-failed-webhook-event-delivery-attempts-information): Query failed webhook event deliveries
+    - [Workspaces](#create-a-new-workspace): Manage your accounts
+- [Handling errors](#handling-errors)
+- [Help and Feedback](#help-and-feedback)
 
-## Supported Node Versions
+# Supported Node Versions
 
 This library supports the following Node versions:
 
@@ -24,11 +54,11 @@ This library supports the following Node versions:
 
 If you have specific version demands for your projects, feel free to contact us.
 
-## Stark Bank API Reference
+# Stark Bank API documentation
 
 Feel free to take a look at our [API docs](https://www.starkbank.com/docs/api).
 
-## Versioning
+# Versioning
 
 This project adheres to the following versioning pattern:
 
@@ -38,9 +68,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - MINOR version when **breaking changes** are introduced OR **new functionalities** are added in a backwards compatible manner;
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
-## Setup
+# Setup
 
-### 1. Install our SDK
+## 1. Install our SDK
 
 1.1 To install the package with npm, run:
 
@@ -48,7 +78,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 npm install starkbank
 ```
 
-### 2. Create your Private and Public Keys
+## 2. Create your Private and Public Keys
 
 We use ECDSA. That means you need to generate a secp256k1 private
 key to sign your requests to our API, and register your public key
@@ -71,7 +101,7 @@ let privateKey, publicKey;
 [privateKey, publicKey] = starkbank.key.create('file/keys/');
 ```
 
-### 3. Create a Project
+## 3. Register your user credentials
 
 You can interact directly with our API using two types of users: Projects and Organizations.
 
@@ -173,7 +203,7 @@ NOTE 2: We support `'sandbox'` and `'production'` as environments.
 NOTE 3: The credentials you registered in `sandbox` do not exist in `production` and vice versa.
 
 
-### 4. Setting up the user
+## 4. Setting up the user
 
 There are three kinds of users that can access our API: **Organization**, **Project** and **Member**.
 
@@ -206,7 +236,7 @@ starkbank.user = project; // or organization
 Just select the way of passing the user that is more convenient to you.
 On all following examples we will assume a default user has been set.
 
-### 5. Setting up the error language
+## 5. Setting up the error language
 
 The error language can also be set in the same way as the default user:
 
@@ -218,7 +248,7 @@ starkbank.language = 'en-US';
 
 Language options are 'en-US' for english and 'pt-BR' for brazilian portuguese. English is default.
 
-### 6. Resource listing and manual pagination
+## 6. Resource listing and manual pagination
 
 Almost all SDK resources provide a `query` and a `page` function.
 
@@ -265,7 +295,7 @@ const starkbank = require('starkbank');
 
 To simplify the following SDK examples, we will only use the `query` function, but feel free to use `page` instead.
 
-## Testing in Sandbox
+# Testing in Sandbox
 
 Your initial balance is zero. For many operations in Stark Bank, you'll need funds
 in your account, which can be added to your balance by creating an Invoice or a Boleto.
@@ -278,13 +308,13 @@ In Production, you (or one of your clients) will need to actually pay this Invoi
 for the value to be credited to your account.
 
 
-## Usage
+# Usage
 
 Here are a few examples on how to use the SDK. If you have any doubts, use the built-in
 `help()` function to get more info on the desired functionality
 (for example: `help(starkbank.boleto.create)`)
 
-### Create transactions
+## Create transactions
 
 To send money between Stark Bank accounts, you can create transactions:
 
@@ -316,7 +346,7 @@ const starkbank = require('starkbank');
 ```
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Transaction object format
 
-### Query transactions
+## Query transactions
 
 To understand your balance changes (bank statement), you can query
 transactions. Note that our system creates transactions for you when
@@ -337,7 +367,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a transaction
+## Get a transaction
 
 You can get a specific transaction by its id:
 
@@ -350,7 +380,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get your balance
+## Get balance
 
 To know how much money you have in your workspace, run:
 
@@ -363,7 +393,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create transfers
+## Create transfers
 
 You can also create transfers in the SDK (TED/Pix).
 
@@ -402,7 +432,7 @@ const starkbank = require('starkbank');
 ```
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Transfer object format
 
-### Query transfers
+## Query transfers
 
 You can query multiple transfers according to filters.
 
@@ -421,7 +451,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a transfer
+## Get a transfer
 
 To get a single transfer by its id, run:
 
@@ -434,7 +464,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Cancel a scheduled transfer
+## Cancel a scheduled transfer
 
 To cancel a single scheduled transfer by its id, run:
 
@@ -447,7 +477,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a transfer PDF
+## Get a transfer PDF
 
 After its creation, a transfer PDF may also be retrieved by passing its id.
 
@@ -465,7 +495,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Query transfer logs
+## Query transfer logs
 
 You can query transfer logs to better understand transfer life cycles.
 
@@ -481,7 +511,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a transfer log
+## Get a transfer log
 
 You can also get a specific log by its id.
 
@@ -494,7 +524,40 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query Bacen institutions
+## Get DICT key
+
+You can get DICT (Pix) key's parameters by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+      let dictKey = await starkbank.dictKey.get('tony@starkbank.com');
+      console.log(dictKey);
+})();
+```
+
+## Query your DICT keys
+
+To take a look at the DICT keys linked to your workspace, just run the following:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let dictKeys = await starkbank.dictKey.query({
+        limit: 5,
+        status: 'registered',
+        type: 'evp'
+    });
+
+    for await (let dictKey of dictKeys) {
+        console.log(dictKey);
+    }
+})();
+```
+
+## Query Bacen institutions
 
 You can query institutions registered by the Brazilian Central Bank for Pix and TED transactions.
 
@@ -509,7 +572,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create invoices
+## Create invoices
 
 You can create dynamic QR Code invoices to charge customers or to receive money from accounts you have in other banks. 
 
@@ -558,7 +621,7 @@ const starkbank = require('starkbank');
 ```
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Invoice object format
 
-### Get an invoice
+## Get an invoice
 
 After its creation, information on an invoice may be retrieved by its id.
 Its status indicates whether it's been paid.
@@ -572,7 +635,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get an invoice QR Code
+## Get an invoice QR Code
 
 After its creation, an invoice QR Code png file blob may be retrieved by its id.
 
@@ -589,7 +652,7 @@ const fs = require('fs').promises;
 Be careful not to accidentally enforce any encoding on the raw png content,
 as it may yield abnormal results in the final file.
 
-### Get an invoice PDF
+## Get an invoice PDF
 
 After its creation, an invoice PDF may be retrieved by its id.
 
@@ -607,7 +670,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Cancel an invoice
+## Cancel an invoice
 
 You can also cancel an invoice by its id.
 Note that this is not possible if it has been paid already.
@@ -621,7 +684,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Update an invoice
+## Update an invoice
 
 You can update an invoice's amount, due date and expiration by its ID.
 Note that this is not possible if it has been paid already.
@@ -643,7 +706,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query invoices
+## Query invoices
 
 You can get a list of created invoices given some filters.
 
@@ -664,7 +727,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query invoice logs
+## Query invoice logs
 
 Logs are pretty important to understand the life cycle of an invoice.
 
@@ -680,7 +743,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get an invoice log
+## Get an invoice log
 
 You can get a single log by its id.
 
@@ -693,7 +756,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a reversed invoice log PDF
+## Get a reversed invoice log PDF
 
  Whenever an Invoice is successfully reversed, a reversed log will be created.
  To retrieve a specific reversal receipt, you can request the corresponding log PDF:
@@ -712,7 +775,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Get an invoice payment information
+## Get an invoice payment information
 
  Once an invoice has been paid, you can get the payment information using the Invoice.Payment sub-resource:
 
@@ -725,7 +788,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query deposits
+## Query deposits
 
 You can get a list of created deposits given some filters.
 
@@ -745,7 +808,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a deposit
+## Get a deposit
 
 After its creation, information on a deposit may be retrieved by its id. 
 
@@ -758,7 +821,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query deposit logs
+## Query deposit logs
 
 Logs are pretty important to understand the life cycle of a deposit.
 
@@ -774,7 +837,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a deposit log
+## Get a deposit log
 
 You can get a single log by its id.
 
@@ -787,7 +850,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create boletos
+## Create boletos
 
 You can create boletos to charge customers or to receive money from accounts
 you have in other banks.
@@ -820,7 +883,7 @@ const starkbank = require('starkbank');
 ```
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Boleto object format
 
-### Query boletos
+## Query boletos
 
 You can get a list of created boletos given some filters.
 
@@ -840,7 +903,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto
+## Get a boleto
 
 After its creation, information on a boleto may be retrieved by passing its id.
 Its status indicates whether it's been paid.
@@ -854,7 +917,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto PDF
+## Get a boleto PDF
 
 After its creation, a boleto PDF may be retrieved by passing its id.
 
@@ -872,7 +935,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Delete a boleto
+## Delete a boleto
 
 You can also cancel a boleto by its id.
 Note that this is not possible if it has been processed already.
@@ -886,7 +949,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query boleto logs
+## Query boleto logs
 
 Logs are pretty important to understand the life cycle of a boleto.
 
@@ -902,7 +965,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto log
+## Get a boleto log
 
 You can get a single log by its id.
 
@@ -915,7 +978,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Investigate a boleto
+## Investigate a boleto
 
 You can discover if a StarkBank boleto has been recently paid before we receive the response on the next day.
 This can be done by creating a BoletoHolmes object, which fetches the updated status of the corresponding
@@ -941,7 +1004,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto holmes
+## Get a boleto holmes
 
 To get a single boleto holmes by its id, run:
 
@@ -954,7 +1017,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query boleto holmes
+## Query boleto holmes
 
 You can search for boleto holmes using filters. 
 
@@ -973,7 +1036,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query boleto holmes logs
+## Query boleto holmes logs
 
 Searches are also possible with boleto holmes logs:
 
@@ -992,7 +1055,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto holmes log
+## Get a boleto holmes log
 
 You can also get a boleto holmes log by specifying its id.
 
@@ -1005,7 +1068,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Pay a BR Code
+## Pay a BR Code
 
 Paying a BR Code is also simple.
 
@@ -1032,7 +1095,7 @@ const starkbank = require('starkbank');
 
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native BrcodePayment object format
 
-### Get a BR Code payment
+## Get a BR Code payment
 
 To get a single BR Code payment by its id, run:
 
@@ -1045,7 +1108,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a BR Code payment PDF
+## Get a BR Code payment PDF
 
 After its creation, a BR Code payment PDF may be retrieved by its id. 
 
@@ -1063,7 +1126,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Cancel a BR Code payment
+## Cancel a BR Code payment
 
 You can cancel a BR Code payment by changing its status to "canceled".
 Note that this is not possible if it has been processed already.
@@ -1077,7 +1140,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query BR Code payments
+## Query BR Code payments
 
 You can search for BR Code payments using filters. 
 
@@ -1096,7 +1159,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query BR Code payment logs
+## Query BR Code payment logs
 
 Searches are also possible with BR Code payment logs:
 
@@ -1115,7 +1178,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a BR Code payment log
+## Get a BR Code payment log
 
 You can also get a BR Code payment log by specifying its id.
 
@@ -1128,7 +1191,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Pay a boleto
+## Pay a boleto
 
 Paying boletos is also simple.
 
@@ -1159,7 +1222,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto payment
+## Get a boleto payment
 
 To get a single boleto payment by its id, run:
 
@@ -1172,7 +1235,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto payment PDF
+## Get a boleto payment PDF
 
 After its creation, a boleto payment PDF may be retrieved by passing its id.
 
@@ -1190,7 +1253,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Delete a boleto payment
+## Delete a boleto payment
 
 You can also cancel a boleto payment by its id.
 Note that this is not possible if it has been processed already.
@@ -1204,7 +1267,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query boleto payments
+## Query boleto payments
 
 You can search for boleto payments using filters.
 
@@ -1223,7 +1286,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query boleto payment logs
+## Query boleto payment logs
 
 Searches are also possible with boleto payment logs:
 
@@ -1242,7 +1305,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a boleto payment log
+## Get a boleto payment log
 
 You can also get a boleto payment log by specifying its id.
 
@@ -1255,7 +1318,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create a utility payment
+## Create utility payments
 
 Its also simple to pay utility bills (such electricity and water bills) in the SDK.
 
@@ -1285,7 +1348,7 @@ const starkbank = require('starkbank');
 ```
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native UtilityPayment object format
 
-### Query utility payments
+## Query utility payments
 
 To search for utility payments using filters, run:
 
@@ -1303,7 +1366,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a utility payment
+## Get a utility payment
 
 You can get a specific bill by its id:
 
@@ -1316,7 +1379,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a utility payment PDF
+## Get a utility payment PDF
 
 After its creation, a utility payment PDF may also be retrieved by passing its id.
 
@@ -1334,7 +1397,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Delete a utility payment
+## Delete a utility payment
 
 You can also cancel a utility payment by its id.
 Note that this is not possible if it has been processed already.
@@ -1348,7 +1411,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query utility payment logs
+## Query utility payment logs
 
 You can search for payment logs by specifying filters. Use this to understand the
 bills life cycles.
@@ -1367,7 +1430,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a utility payment log
+## Get a utility payment log
 
 If you want to get a specific payment log by its id, just run:
 
@@ -1380,7 +1443,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create tax payments
+## Create tax payment
 
 Its also simple to pay taxes (such as ISS and DAS) in the SDK.
 
@@ -1411,7 +1474,7 @@ const starkbank = require('starkbank');
 
 **Note**: Instead of using TaxPayment objects, you can also pass each payment element in dictionary format
 
-### Query tax payments
+## Query tax payments
 
 To search for tax payments using filters, run:
 
@@ -1429,7 +1492,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a tax payment
+## Get a tax payment
 
 You can get a specific bill by its id:
 
@@ -1442,7 +1505,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a tax payment PDF
+## Get a tax payment PDF
 
 After its creation, a tax payment PDF may also be retrieved by its id. 
 
@@ -1460,7 +1523,7 @@ Be careful not to accidentally enforce any encoding on the raw pdf content,
 as it may yield abnormal results in the final file, such as missing images
 and strange characters.
 
-### Delete a tax payment
+## Delete a tax payment
 
 You can also cancel a tax payment by its id.
 Note that this is not possible if it has been processed already.
@@ -1474,7 +1537,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query tax payment logs
+## Query tax payment logs
 
 You can search for payments by specifying filters. Use this to understand the
 bills life cycles.
@@ -1493,7 +1556,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a tax payment log
+## Get a tax payment log
 
 If you want to get a specific payment log by its id, just run:
 
@@ -1509,7 +1572,7 @@ const starkbank = require('starkbank');
  resource and routes, which are all analogous to the TaxPayment resource. The ones we currently support are:
  - DarfPayment, for DARFs
 
-### Preview payment information before executing the payment
+## Preview payment information before executing the payment
 
 You can preview multiple types of payment to confirm any information before actually paying.
 If the 'scheduled' parameter is not informed, today will be assumed as the intended payment date.
@@ -1539,7 +1602,7 @@ const starkbank = require('starkbank');
 
 **Note**: Instead of using PaymentPreview objects, you can also pass each request element in dictionary format
 
-### Create payment requests to be approved by authorized people in a cost center
+## Create payment requests to be approved by authorized people in a cost center
 
 You can also request payments that must pass through a specific cost center approval flow to be executed.
 In certain structures, this allows double checks for cash-outs and also gives time to load your account
@@ -1581,7 +1644,7 @@ let requests = [
 
 **Note**: Instead of using PaymentRequest objects, you can also pass each request element in dictionary format
 
-### Query payment requests
+## Query payment requests
 
 To search for payment requests, run:
 
@@ -1597,7 +1660,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Create a webhook subscription
+## Create a webhook subscription
 
 To create a webhook subscription and be notified whenever an event occurs, run:
 
@@ -1614,7 +1677,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query webhook subscriptions
+## Query webhook subscriptions
 
 To search for registered webhooks, run:
 
@@ -1630,7 +1693,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a webhook subscription
+## Get a webhook subscription
 
 You can get a specific webhook by its id.
 
@@ -1643,7 +1706,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Delete a webhook subscription
+## Delete a webhook subscription
 
 You can also delete a specific webhook by its id.
 
@@ -1656,7 +1719,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Process webhook events
+## Process webhook events
 
 Its easy to process events that arrived in your webhook. Remember to pass the
 signature header so the SDK can make sure its really StarkBank that sent you
@@ -1703,7 +1766,7 @@ app.post('/', async (req, res) => {
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 ```
 
-### Query webhook events
+## Query webhook events
 
 To search for webhooks events, run:
 
@@ -1722,7 +1785,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a webhook event
+## Get a webhook event
 
 You can get a specific webhook event by its id.
 
@@ -1735,7 +1798,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Delete a webhook event
+## Delete a webhook event
 
 You can also delete a specific webhook event by its id.
 
@@ -1748,7 +1811,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Set webhook events as delivered
+## Set webhook events as delivered
 
 This can be used in case you've lost events.
 With this function, you can manually set events retrieved from the API as
@@ -1763,7 +1826,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query failed webhook event delivery attempts information
+## Query failed webhook event delivery attempts information
 
 You can also get information on failed webhook event delivery attempts.
 
@@ -1780,7 +1843,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a failed webhook event delivery attempt information
+## Get a failed webhook event delivery attempt information
 
 To retrieve information on a single attempt, use the following function:
 
@@ -1793,40 +1856,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a DICT key
-
-You can get DICT (Pix) key's parameters by its id.
-
-```javascript
-const starkbank = require('starkbank');
-
-(async() => {
-      let dictKey = await starkbank.dictKey.get('tony@starkbank.com');
-      console.log(dictKey);
-})();
-```
-
-### Query your DICT keys
-
-To take a look at the DICT keys linked to your workspace, just run the following:
-
-```javascript
-const starkbank = require('starkbank');
-
-(async() => {
-    let dictKeys = await starkbank.dictKey.query({
-        limit: 5,
-        status: 'registered',
-        type: 'evp'
-    });
-
-    for await (let dictKey of dictKeys) {
-        console.log(dictKey);
-    }
-})();
-```
-
-### Create a new Workspace
+## Create a new Workspace
 
 The Organization user allows you to create new Workspaces (bank accounts) under your organization.
 Workspaces have independent balances, statements, operations and users.
@@ -1849,7 +1879,7 @@ const starkbank = require('starkbank');
 console.log(workspace);
 ```
 
-### List your Workspaces
+## List your Workspaces
 
 This route lists Workspaces. If no parameter is passed, all the workspaces the user has access to will be listed, but
 you can also find other Workspaces by searching for their usernames or IDs directly.
@@ -1866,7 +1896,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a Workspace
+## Get a Workspace
 
 You can get a specific Workspace by its id.
 
@@ -1879,7 +1909,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Update a Workspace
+## Update a Workspace
 
 You can update a specific Workspace by its id.
 
@@ -1899,7 +1929,7 @@ const starkbank = require('starkbank');
 **Note**: the Organization user can only update a workspace with the Workspace ID set.
 
 
-## Handling errors
+# Handling errors
 
 The SDK may raise one of four types of errors: __InputErrors__, __InternalServerError__, __UnknownException__, __InvalidSignatureException__
 
@@ -1945,3 +1975,11 @@ neither __InputErrors__ nor an __InternalServerError__, such as connectivity pro
 __InvalidSignatureException__ will be raised specifically by starkbank.event.parse()
 when the provided content and signature do not check out with the Stark Bank public
 key.
+
+# Help and Feedback
+
+If you have any questions about our SDK, just send us an email.
+We will respond you quickly, pinky promise. We are here to help you integrate with us ASAP.
+We also love feedback, so don't be shy about sharing your thoughts with us.
+
+Email: developers@starkbank.com
