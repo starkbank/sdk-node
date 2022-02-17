@@ -487,7 +487,7 @@ const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.transfer.pdf('5155165527080960');
-    await fs.writeFile('transfer.pdf', pdf);
+    await fs.writeFileSync('transfer.pdf', pdf);
 })();
 ```
 
@@ -646,7 +646,7 @@ const fs = require('fs').promises;
 (async() => {
     let png = await starkbank.invoice.qrcode('5400193516175360')
 
-    await fs.writeFile('invoice.png', png);
+    await fs.writeFileSync('invoice.png', png);
 })();
 ```
 Be careful not to accidentally enforce any encoding on the raw png content,
@@ -663,7 +663,7 @@ const fs = require('fs').promises;
 (async() => {
     let pdf = await starkbank.invoice.pdf('5400193516175360')
 
-    await fs.writeFile('invoice.pdf', pdf);
+    await fs.writeFileSync('invoice.pdf', pdf);
 })();
 ```
 Be careful not to accidentally enforce any encoding on the raw pdf content,
@@ -767,7 +767,7 @@ const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.invoice.log.pdf('5400193516175360')
-    await fs.writeFile('invoice-log.pdf', pdf);
+    await fs.writeFileSync('invoice-log.pdf', pdf);
 })();
 ```
 
@@ -927,7 +927,7 @@ const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.boleto.pdf('5155165527080960', { layout: 'default' });
-    await fs.writeFile('boleto.pdf', pdf);
+    await fs.writeFileSync('boleto.pdf', pdf);
 })();
 ```
 
@@ -1118,7 +1118,7 @@ const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.brcodePayment.pdf('5155165527080960', { layout: 'default' });
-    await fs.writeFile('brcode-payment.pdf', pdf);
+    await fs.writeFileSync('brcode-payment.pdf', pdf);
 })();
 ```
 
@@ -1245,7 +1245,7 @@ const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.boletoPayment.pdf('5155165527080960');
-    await fs.writeFile('boleto-payment.pdf', pdf);
+    await fs.writeFileSync('boleto-payment.pdf', pdf);
 })();
 ```
 
@@ -1389,7 +1389,7 @@ const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.utilityPayment.pdf('5155165527080960');
-    await fs.writeFile('utility-payment.pdf', pdf);
+    await fs.writeFileSync('utility-payment.pdf', pdf);
 })();
 ```
 
@@ -1515,7 +1515,7 @@ const fs = require('fs').promises;
 
 (async() => {
     let pdf = await starkbank.taxPayment.pdf('5155165527080960');
-    await fs.writeFile('tax-payment.pdf', pdf);
+    await fs.writeFileSync('tax-payment.pdf', pdf);
 })();
 ```
 
