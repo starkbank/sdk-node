@@ -2,7 +2,7 @@ const rest = require('../utils/rest.js');
 const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource
 const boletoPreviewSubResource = require('./boletoPreview.js').subResource
-const brcodePreviewSubResource = require('./boletoPreview.js').subResource
+const brcodePreviewSubResource = require('./brcodePreview.js').subResource
 const taxPreviewSubResource = require('./taxPreview.js').subResource
 const utilityPreviewSubResource = require('./utilityPreview.js').subResource
 
