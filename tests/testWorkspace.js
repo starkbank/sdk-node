@@ -22,7 +22,8 @@ describe('TestWorkspaceCreateAndPatch', function(){
     });
 });
 
-describe("PatchWorkspace", function(){
+
+describe("TestUpdateWorkspacePicture", function(){
     this.timeout(10000);
     it("test_success", async () => {
         const [workspaces, next] = await starkbank.workspace.page({limit: 1, user: exampleOrganization });
