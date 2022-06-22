@@ -686,8 +686,10 @@ const starkbank = require('starkbank');
 
 ## Update an invoice
 
-You can update an invoice's amount, due date and expiration by its ID.
-Note that this is not possible if it has been paid already.
+You can update an invoice's amount, due date and expiration by its id.
+If the invoice has already been paid, only the amount can be
+decreased, which will result in a payment reversal. To fully reverse 
+the invoice, pass amount: 0.
 
 ```javascript
 const starkbank = require('starkbank');
