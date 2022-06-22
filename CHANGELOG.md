@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.11.0] - 2022-06-22
 ### Added
 - picture and pictureType parameters to Workspace.update method
 
