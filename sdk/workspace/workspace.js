@@ -128,7 +128,7 @@ exports.page = async function ({ cursor, limit, username, ids, user } = {}){
     return rest.getPage(resource, query, user);
 };
 
-exports.update = async function (id, {username, name, allowedTaxIds, user} = {}){
+exports.update = async function (id, {username, name, allowedTaxIds, picture, pictureType, user} = {}){
     /**
      * 
      * Update a Workspace entity
@@ -138,11 +138,15 @@ exports.update = async function (id, {username, name, allowedTaxIds, user} = {})
      * Parameters (required):
      * @param id [string]: object unique id. ex: '5656565656565656'
      * 
+     * Parameters (conditionally required):
+     * @param pictureType [string]: picture mime type. This parameter will be required if the picture parameter is informed ex: ‘image/png’ or ‘image/jpeg’
+     * 
      * Parameters (optional):
      * @param name [string, default null]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: 'Stark Bank Workspace'
      * @param username [string, default null]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: 'starkbank-workspace'
      * @param allowedTaxIds [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ['012.345.678-90', '20.018.183/0001-80']
-     * @param user [Organization/Project object]: Organization or Project object.Not necessary if starkbank.user was set before function call
+     * @param picture [Buffer, default null]: Binary buffer of the picture. ex: fs.readFileSync("/path/to/file.png")
+     * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      * 
      * Return:
      * @returns target Workspace with updated attributes
@@ -151,7 +155,8 @@ exports.update = async function (id, {username, name, allowedTaxIds, user} = {})
     let payload = {
         name: name,
         username: username,
-        allowedTaxIds: allowedTaxIds
+        allowedTaxIds: allowedTaxIds,
+        picture: picture ? `data:${pictureType};base64,${picture.toString('base64')}` : null,
     };
     return rest.patchId(resource, id, payload, user);
 };
