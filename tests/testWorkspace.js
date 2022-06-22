@@ -1,6 +1,7 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
 const generateExampleWorkspace = require('./utils/workspace').generateExampleWorkspace;
+const readFile = require('./utils/file').readFile;
 var exampleOrganization = require('./utils/user').exampleOrganization;
 
 
@@ -17,6 +18,21 @@ describe('TestWorkspaceCreateAndPatch', function(){
             username: update.username,
             allowedTaxIds: update.allowedTaxIds,
             user: starkbank.organization.replace(exampleOrganization, workspace.id)
+        });
+    });
+});
+
+
+describe("TestUpdateWorkspacePicture", function(){
+    this.timeout(10000);
+    it("test_success", async () => {
+        const [workspaces, next] = await starkbank.workspace.page({limit: 1, user: exampleOrganization });
+        picture = readFile('./tests/utils/logo.png');
+
+        workspace = await starkbank.workspace.update(workspaces[0].id, {
+            picture: picture,
+            pictureType: 'image/png',
+            user: starkbank.organization.replace(exampleOrganization, workspaces[0].id)
         });
     });
 });

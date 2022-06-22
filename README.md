@@ -1903,7 +1903,7 @@ You can get a specific Workspace by its id.
 ```javascript
 const starkbank = require('starkbank');
 (async() => {
-    let workspace = await starkbank.workspace.get('10827361982368179');
+    let workspace = await starkbank.workspace.get('1082736198236817');
 
     console.log(workspace);
 })();
@@ -1915,11 +1915,16 @@ You can update a specific Workspace by its id.
 
 ```javascript
 const starkbank = require('starkbank');
+const fs = require('fs');
 
 (async() => {
-    let workspace = await starkbank.workspace.update('10827361982368179', {
+    let file = fs.readFileSync('/path/to/file.png');
+
+    let workspace = await starkbank.workspace.update('1082736198236817', {
         username: 'new-username',
         name: 'New Name',
+        picture: file,
+        pictureType: 'image/png',
         allowedTaxIds: ['012.345.678-90'],
     });
     console.log(workspace);
