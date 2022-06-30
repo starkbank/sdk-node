@@ -1,0 +1,23 @@
+[
+    {
+        "code": "5701",
+        "segment": "1",
+        "name": "PREFEITURA DA CIDADE DE SÃO PAULO",
+        "time": "24H",
+        "type": "iss"
+    },
+    {
+        "code": "328",
+        "segment": "5",
+        "name": "SIMPLES NACIONAL",
+        "time": "24H",
+        "type": "das"
+    },
+    {
+        "code": "64",
+        "segment": "5",
+        "name": "SECRETARIA DA RECEITA FEDERAL DO BRASIL",
+        "time": "24H",
+        "type": "darf"
+    }
+]

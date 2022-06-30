@@ -6,7 +6,7 @@ class DarfPayment extends Resource {
 
         /**
      *
-     * TaxPayment object
+     * DarfPayment object
      *
      * @description When you initialize a DarfPayment, the entity will not be automatically
      * created in the Stark Bank API. The 'create' function sends the objects
