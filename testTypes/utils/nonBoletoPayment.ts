@@ -1,6 +1,6 @@
 const starkbank = require('starkbank');
 const random = require('./random.js');
-const check = require('../../../sdk/utils/check.js');
+const check = require('../../sdk/utils/check.js');
 const sha256 = require('js-sha256');
 const utf8 = require('utf8');
 const businesses = require('../utils/businesses');
@@ -24,12 +24,12 @@ const exampleTaxPayment = new starkbank.TaxPayment({
     tags: ["test1", "test2", "test3"]
 });
 
-const replaceBarcode = (barcode, replacement, position) => {
+const replaceBarcode = (barcode: string, replacement: string, position: number) => {
     let length = replacement.length;
     return barcode.substring(0,position) + replacement + barcode.substring(position + length);
 };
 
-const zeroPad = (num, places) => String(num).padStart(places, '0');
+const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
 
 const generateExampleNonBoletoPaymentsJson = (n=1, amount=null, nextDay=false, isTax=null) => {
     const examplePayment = isTax ? exampleTaxPayment : exampleUtilityPayment;
@@ -51,24 +51,24 @@ const generateExampleNonBoletoPaymentsJson = (n=1, amount=null, nextDay=false, i
             randomTags.push(choice(examplePayment.tags));
         
         barCode = replaceBarcode(
-            barCode = barCode,
-            replacement = randomSegment,
-            position = 1,
+            barCode,
+            randomSegment,
+            1,
         );
         barCode = replaceBarcode(
-            barCode = barCode,
-            replacement = randomAmount,
-            position = 4,
+            barCode,
+            randomAmount,
+            4,
         );
         barCode = replaceBarcode(
-            barCode = barCode,
-            replacement = randomCode,
-            position = 15,
+            barCode,
+            randomCode,
+            15,
         );
         let payment = Object.assign({},examplePayment);
         payment.barCode = barCode;
         payment.scheduled = nextDay ? check.date(random.futureDate(1)) : check.date(random.futureDate(0));
-        payment.description = utf8.encode(sha256(randomAmount.toString(16)))
+        payment.description = utf8.encode(sha256(randomAmount.toString()))
         payment.tags = randomTags;
         payments.push(payment);
     }

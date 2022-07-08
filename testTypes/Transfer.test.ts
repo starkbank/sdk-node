@@ -1,7 +1,7 @@
 ///<reference types="../types/" />
 import starkbank from "starkbank";
 import assert from 'assert';
-const generateExampleTransfersJson = require('./utils/transfer.js').generateExampleTransfersJson;
+const generateExampleTransfersJson = require('./utils/transfer').generateExampleTransfersJson;
 
 starkbank.user = require('./utils/user').exampleProject;
 

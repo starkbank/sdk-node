@@ -1,7 +1,7 @@
 const random = require('./random.js') ;
-const transfer = require('./transfer.js');
-const transaction = require('./transaction.js');
-const boleto = require('./boletoPayment.js');
+const transfer = require('./transfer');
+const transaction = require('./transaction');
+const boleto = require('./boletoPayment');
 const utilityPayment = require('./utilityPayment');
 const brcodePayment = require('./brcodePayment');
 import starkbank,{ Transaction } from 'starkbank';

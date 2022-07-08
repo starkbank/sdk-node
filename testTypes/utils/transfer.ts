@@ -1,9 +1,9 @@
-const starkbank = require('starkbank');
+import starkbank from 'starkbank';
 const random = require('./random.js');
 const uniqueId = require('./uniqueId.js').uniqueId;
 
 
-let choice = function (a, b) {
+let choice = function (a: number | null | string, b: string) {
     let rand = random.randomInt(0,1);
     if (rand == 0) {
         return a;
@@ -12,7 +12,7 @@ let choice = function (a, b) {
 }
 
 
-exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = false) {
+exports.generateExampleTransfersJson = function (n: number, amount = null, tomorrow = false) {
     
     let exampleTransfer = {
         amount: 10,
@@ -22,27 +22,20 @@ exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = fa
         branchCode: '0001',
         accountNumber: '10000-0',
         accountType: 'checking',
-        description: choice(null, 'Test description')
+        description: choice(null, 'Test description') as string,
+        externalId: ""
     };
 
-    let transfers = [];
-    
-    let scheduled = null;
-    if (tomorrow) {
-        scheduled = new Date();
-        scheduled.setDate(scheduled.getDate() + 1);
-        scheduled = choice(scheduled.toISOString().substring(0, 10), scheduled.toISOString().replace('Z','+00:00'));
-    }
+    let transfers: starkbank.Transfer[] = [];
 
     for (let i = 0; i < n; i++) {
-        let transferAmount = Math.floor(amount);
+        let transferAmount = Math.floor(amount as unknown as number);
         if (!amount) {
             transferAmount = random.randomInt(5, 1000);
         }
         exampleTransfer.name = 'Jon Snow';
         exampleTransfer.amount = transferAmount;
         exampleTransfer.taxId = '012.345.678-90';
-        exampleTransfer.scheduled = scheduled;
         exampleTransfer.externalId = 'node-' + uniqueId();
         transfers.push(new starkbank.Transfer(exampleTransfer));
     }

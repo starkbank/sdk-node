@@ -5,7 +5,7 @@ import assert from 'assert';
 import { generateExampleBrcodePaymentsJson } from './utils/brcodePayment'
 import { generateExampleTaxPaymentsJson } from './utils/taxPayment'
 import { generateExampleUtilityPaymentsJson } from './utils/utilityPayment'
-const check = require('../../sdk/utils/check.js');
+const check = require('../sdk/utils/check.js');
 
 
 starkbank.user = require('./utils/user').exampleProject;

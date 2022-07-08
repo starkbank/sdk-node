@@ -5,12 +5,10 @@ const random = require('./random.js');
 export async function generateExampleBrcodePaymentsJson(n: number, nextDay = false) {
 
     let exampleBrcodePayment = {
-        brcode: "00020126580014br.gov.bcb.pix0136a629532e-7693-4846-852d-1bbff817b5a8520400005303986540510.005802BR5908T'Challa6009Sao Paulo62090505123456304B14A",
-        taxId: '20.018.183/0001-80',
+        brcode: "00020101021226890014br.gov.bcb.pix2567invoice-h.sandbox.starkbank.com/v2/db86835d61274c7799a1f637b2b6f8b652040000530398654040.005802BR5915Stark Bank S.A.6009Sao Paulo62070503***6304FCCE",
+        taxId: '22.653.392/0001-20',
         description: "Tony Stark's Suit",
-        amount: 7654321,
-        scheduled: '2020-02-29',
-        tags: ['Stark', 'Suit']
+        amount: 7654321
     };
 
     let payments = [];
@@ -29,7 +27,6 @@ export async function generateExampleBrcodePaymentsJson(n: number, nextDay = fal
         let nextDayDateTime = nextDay ? random.futureDateTime(1) : random.futureDateTime(300);
         let invoiceDueDateTime: string | Date = new Date(invoice.due);
         invoiceDueDateTime = new Date(invoiceDueDateTime.setHours(invoiceDueDateTime.getHours() - 3)).toISOString().replace('Z','+00:00');
-        exampleBrcodePayment.scheduled = nextDayDateTime < invoiceDueDateTime ? nextDayDateTime : invoiceDueDateTime;
 
         payments.push(new starkbank.BrcodePayment(exampleBrcodePayment));
     }

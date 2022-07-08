@@ -1,4 +1,4 @@
-const starkbank = require('../../../index');
+const starkbank = require('../../index');
 const random = require('./random.js');
 
 exports.generateExampleBoletosJson = function (n, amount = null) {

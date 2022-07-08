@@ -10,10 +10,10 @@ exports.create = function (path = null) {
     let newPublicPem = newPublicKey.toPem();
 
     if (!path) {
-        fs.writeFile('private-key.pem', newPrivatePem, function (err) {
+        fs.writeFile('privateKey.pem', newPrivatePem, function (err) {
             if (err) return console.log(err);
         });
-        fs.writeFile('public-key.pem', newPublicPem, function (err) {
+        fs.writeFile('publicKey.pem', newPublicPem, function (err) {
             if (err) return console.log(err);
         });
     }

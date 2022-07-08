@@ -1,5 +1,5 @@
 const random = require('./random');
-const starkbank = require('starkbank');
+import starkbank from 'starkbank';
 
 exports.generateExampleTransactionsJson = function (n = 1) {
     
@@ -10,7 +10,7 @@ exports.generateExampleTransactionsJson = function (n = 1) {
         description: 'Transaction to a random workspace'
     };
     
-    let transactions = [];
+    let transactions: starkbank.Transaction[] = [];
     for (let i = 0; i < n; i++) {
         exampleTransaction.receiverId = '5768064935133184';
         exampleTransaction.amount = random.randomInt(1, 10);
