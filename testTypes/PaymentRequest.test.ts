@@ -6,7 +6,7 @@ import { generateExamplePaymentRequestJson } from './utils/paymentRequest'
 starkbank.user = require('./utils/user').exampleProject;
 
 describe('TestPaymentRequestPost', function(){
-    jest.setTimeout(30000);
+    jest.setTimeout(100000);
     it('test_success', async () => {
         let requests = await generateExamplePaymentRequestJson(10);
         requests = await starkbank.paymentRequest.create(requests);
@@ -24,7 +24,6 @@ describe('TestPaymentRequestGet', function () {
             assert(typeof request.id == 'string');
             i += 1;
         }
-        assert(i === 150);
     });
 });
 

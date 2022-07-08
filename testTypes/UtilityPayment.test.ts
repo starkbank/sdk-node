@@ -25,9 +25,11 @@ describe('TestUtilityPaymentPostAndDelete', function(){
         payments = await starkbank.utilityPayment.create(payments);
         let payment = payments[0];
         assert(typeof payment.id == 'string');
-        payment = await starkbank.utilityPayment.query({status: 'success'});
-        payment = await starkbank.utilityPayment.delete(payment.id);
-        assert(typeof payment.id == 'string');
+        payments = await starkbank.utilityPayment.query({status: 'success', limit: 1});
+        for await (let payment of payments) {
+            payment = await starkbank.utilityPayment.delete(payment.id);
+            assert(typeof payment.id == 'string');
+        }
     });
 });
 

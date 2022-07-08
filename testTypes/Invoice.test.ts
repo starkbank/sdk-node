@@ -90,15 +90,15 @@ describe('TestInvoiceQrcodeGet', function(){
         for await (let invoice of invoices) {
             let invoiceId = invoice.id;
             let qrcode = await starkbank.invoice.qrcode(invoiceId);
-            assert(qrcode.length == 1000);
+            assert(qrcode.length >= 1000);
             let bigQrcode = await starkbank.invoice.qrcode(invoiceId, {size: 25});
-            assert(bigQrcode.length == 1000);
+            assert(bigQrcode.length >= 1000);
         }
     });
 });
 
 describe('TestInvoicePdfGet', function(){
-    jest.setTimeout(30000);
+    jest.setTimeout(150000);
     it('test_success', async () => {
         let invoices = await starkbank.invoice.query({limit: 1});
         for await (let invoice of invoices) {

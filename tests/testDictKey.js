@@ -6,7 +6,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestDictKeyInfoGet', function () {
    this.timeout(10000);
    it('test_success', async () => {
-      let pixKey = 'tony@starkbank.com';
+      let pixKey = 'valid@sandbox.com';
       let dictKey = await starkbank.dictKey.get(pixKey);
       assert(typeof dictKey.id === 'string');
       assert(dictKey.id === pixKey);

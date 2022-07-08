@@ -1,7 +1,7 @@
 ///<reference types="../types/" />
 import starkbank from "starkbank";
 import assert from 'assert';
-const generateExampleTransactionsJson = require('./utils/transaction.js').generateExampleTransactionsJson;
+const generateExampleTransactionsJson = require('./utils/transaction').generateExampleTransactionsJson;
 
 starkbank.user = require('./utils/user').exampleProject;
 

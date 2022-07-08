@@ -6,7 +6,7 @@ import { generateExampleBrcodePaymentsJson } from './utils/brcodePayment';
 starkbank.user = require('./utils/user').exampleProject;
 
 describe('TestBrcodePaymentPost', function () {
-	jest.setTimeout(10000);
+	jest.setTimeout(150000);
 	it('test_success', async () => {
 		let payments = await generateExampleBrcodePaymentsJson(5);
 		payments = await starkbank.brcodePayment.create(payments);

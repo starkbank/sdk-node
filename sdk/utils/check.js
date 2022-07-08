@@ -1,5 +1,4 @@
 const PrivateKey = require('starkbank-ecdsa').PrivateKey;
-const check = require('../utils/check.js');
 
 
 function formatDate(date) {

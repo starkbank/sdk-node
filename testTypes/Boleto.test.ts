@@ -54,7 +54,7 @@ describe('TestBoletoInfoGet', function () {
 });
 
 describe('TestBoletoPdfGet', function () {
-    jest.setTimeout(30000);
+    jest.setTimeout(150000);
     it('test_success', async () => {
         let boletos = await starkbank.boleto.query({ limit: 1 });
         for await (let boleto of boletos) {

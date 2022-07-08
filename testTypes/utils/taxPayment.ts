@@ -23,11 +23,12 @@ const exampleDarfPayment = new starkbank.DarfPayment({
     description: 'description test',
 });
 
-export const generateExampleTaxPaymentsJson = (n = 1, amount = null, nextDay = false) => {
+export const generateExampleTaxPaymentsJson = (n = 1, amount = null, nextDay = false, isTax = false) => {
     return generateExampleNonBoletoPaymentsJson(
         n = n,
         amount = amount,
         nextDay = nextDay,
+        isTax = isTax
     );
 };
 
@@ -43,7 +44,6 @@ const generateExampleDarfPaymentsJson = (n = 1, randomSchedule = false) => {
         payment.fineAmount = randomInt(10, 100);
         payment.interestAmount = randomInt(10, 100);
         payment.referenceNumber = String(randomInt(1, 1000));
-        payment.competence = competenceDate.getFullYear() + '-' + String(competenceDate.getMonth()).padStart(2, '0') + '-' + String(competenceDate.getDate()).padStart(2, '0');
         payment.taxId = '012.345.678-90';
         if (randomSchedule) {
             payment.scheduled = futureDate(randomInt(5, 10));

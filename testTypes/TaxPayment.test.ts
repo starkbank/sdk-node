@@ -2,6 +2,8 @@
 import starkbank from "starkbank";
 import assert from 'assert';
 import { generateExampleTaxPaymentsJson } from './utils/taxPayment';
+const futureDate = require('./utils/random.js').futureDate;
+const randomInt = require('./utils/random.js').randomInt;
 
 starkbank.user = require('./utils/user').exampleProject;
 
@@ -9,7 +11,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestTaxPaymentPost', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let payments = await generateExampleTaxPaymentsJson(5) as starkbank.TaxPayment[];
+        let payments = await generateExampleTaxPaymentsJson(1, null ,true, true) as starkbank.TaxPayment[];
         payments = await starkbank.taxPayment.create(payments);
         for (let payment of payments) {
             assert(typeof payment.id == 'string');
@@ -33,7 +35,7 @@ describe('TestTaxPaymentGet', function(){
 describe('TestTaxPaymentPostAndDelete', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let payments = await generateExampleTaxPaymentsJson(1) as starkbank.TaxPayment[];
+        let payments = await generateExampleTaxPaymentsJson(1, null, true, true) as starkbank.TaxPayment[];
         payments = await starkbank.taxPayment.create(payments);
         let payment = payments[0];
         assert(typeof payment.id == 'string');
