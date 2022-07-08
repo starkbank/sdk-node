@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+## [2.12.0] - 2022-07-04
+### Added
+- type files to support TypeScript
 
 ## [2.11.0] - 2022-06-22
 ### Added
