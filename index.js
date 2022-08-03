@@ -1,7 +1,12 @@
-exports.version = '2.12.0';
+exports.version = '2.13.0';
+
+let user = null;
+exports.setUser = function (newUser) {
+    user = newUser;
+}
 
 exports.cache = {};
-exports.user = null
+exports.user = user;
 exports.language = "en-US"
 
 // Modules

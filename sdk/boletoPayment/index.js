@@ -1,4 +1,4 @@
-boletoPayment = require('./boletoPayment.js');
+const boletoPayment = require('./boletoPayment.js');
 
 exports.log = require('./log');
 exports.create = boletoPayment.create;

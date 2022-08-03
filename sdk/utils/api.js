@@ -23,7 +23,7 @@ exports.lastName = function (resource) {
 };
 
 exports.lastPlural = function (resource) {
-    lastName = exports.lastName(resource, true);
+    let lastName = exports.lastName(resource, true);
     if (lastName.endsWith("s")) {
         return lastName;
     };
