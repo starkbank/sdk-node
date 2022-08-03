@@ -1,6 +1,6 @@
 {
   "name": "mecanizou-sb-node-sdk",
-  "version": "2.13.1",
+  "version": "2.13.2",
   "description": "SDK to facilitate Node integrations with Stark Bank",
   "main": "index.js",
   "types": "types/index.d.ts",
