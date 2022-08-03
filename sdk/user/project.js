@@ -1,4 +1,4 @@
-const Ecdsa = require('starkbank-ecdsa');
+const Ecdsa = require('mecanizou-sb-ecdsa');
 const User = require('./user').User;
 
 

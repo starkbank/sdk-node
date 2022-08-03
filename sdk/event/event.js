@@ -1,5 +1,5 @@
 const starkbank = require('../../index.js');
-const Ellipticcurve = require('starkbank-ecdsa');
+const Ellipticcurve = require('mecanizou-sb-ecdsa');
 const Resource = require('../utils/resource.js').Resource;
 const check = require('../utils/check.js');
 const rest = require('../utils/rest.js');

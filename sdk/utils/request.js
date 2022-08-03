@@ -1,5 +1,5 @@
 const starkbank = require('../../index.js');
-const Ecdsa = require('starkbank-ecdsa').Ecdsa;
+const Ecdsa = require('mecanizou-sb-ecdsa').Ecdsa;
 const pjson = require('../../package.json');
 const error = require('../error.js');
 const Check = require('./check.js');

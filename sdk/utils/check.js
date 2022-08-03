@@ -1,4 +1,4 @@
-const PrivateKey = require('starkbank-ecdsa').PrivateKey;
+const PrivateKey = require('mecanizou-sb-ecdsa').PrivateKey;
 
 
 function formatDate(date) {

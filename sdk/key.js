@@ -1,5 +1,5 @@
 const fs = require('fs');
-const PrivateKey = require('starkbank-ecdsa').PrivateKey;
+const PrivateKey = require('mecanizou-sb-ecdsa').PrivateKey;
 
 
 exports.create = function (path = null) {
