@@ -1,4 +1,4 @@
-transfer = require('./transfer.js');
+const transfer = require('./transfer.js');
 
 exports.log = require('./log');
 exports.create = transfer.create;
