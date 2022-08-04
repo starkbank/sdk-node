@@ -1,6 +1,6 @@
 {
-  "name": "mecanizou-sb-node-sdk",
-  "version": "2.14.0",
+  "name": "starkbank",
+  "version": "2.13.0",
   "description": "SDK to facilitate Node integrations with Stark Bank",
   "main": "index.js",
   "types": "types/index.d.ts",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mecanizou-eco/starkbank-sdk-node.git"
+    "url": "git+https://github.com/starkbank/sdk-node.git"
   },
   "keywords": [
     "ecdsa",
@@ -32,7 +32,7 @@
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
     "axios": "^0.21.4",
-    "mecanizou-sb-ecdsa": "^1.2.1"
+    "starkbank-ecdsa": "^1.1.5"
   },
   "devDependencies": {
     "@types/jest": "^28.1.3",

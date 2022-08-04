@@ -1,4 +1,4 @@
-const PrivateKey = require('mecanizou-sb-ecdsa').PrivateKey;
+const PrivateKey = require('starkbank-ecdsa').PrivateKey;
 const Resource = require('../utils/resource.js').Resource
 const check = require('../utils/check.js')
 
