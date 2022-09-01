@@ -57,7 +57,7 @@ class PaymentRequest extends Resource {
     }
 }
 
-parsePayment = function (payment, type) {
+const parsePayment = function (payment, type) {
     if (payment.constructor == Object) {
         if (type)
             return { 'payment': payment, 'type': type };

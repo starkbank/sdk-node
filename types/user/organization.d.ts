@@ -31,6 +31,13 @@ declare module 'starkbank' {
         * @param pem [string]: private key in pem format. ex: '-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEyTIHK6jYuik6ktM9FIF3yCEYzpLjO5X/\ntqDioGM+R2RyW0QEo+1DG8BrUf4UXHSvCjtQ0yLppygz23z0yPZYfw==\n-----END PUBLIC KEY-----'
         * 
         */
+
+        id: string;
+        privateKey: string;
+        environment: string;
+        workspaceId: string;
+        readonly pem: string;
+
         constructor(params?: {id: string, privateKey: string, environment: string, workspaceId?: string});
 
         accessId(): void;

@@ -13,6 +13,12 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- unset variables for Typescript compatibility
+### Added
+- setUser, getUser, setLanguage and getLanguage functions
+- types for Organization and Project parameters
+
 ## [2.12.0] - 2022-07-04
 ### Added
 - type files to support TypeScript

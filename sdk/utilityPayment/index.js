@@ -1,4 +1,4 @@
-utilityPayment = require('./utilityPayment.js');
+const utilityPayment = require('./utilityPayment.js');
 
 exports.log = require('./log');
 exports.create = utilityPayment.create;
