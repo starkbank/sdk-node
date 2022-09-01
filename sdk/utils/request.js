@@ -21,7 +21,7 @@ class Response {
 
 function preProcess(path, method, payload, query, user, version) {
     user = user || starkbank.user;
-    language = Check.language(starkbank.language);
+    let language = Check.language(starkbank.language);
 
     if (!user) {
         throw Error('A user is required to access our API. Check our docs: https://github.com/starkbank/sdk-node/');
@@ -94,6 +94,7 @@ exports.fetchBuffer = async function (path, method = 'GET', payload = null, quer
     options['responseEncoding'] = 'binary'
     let content;
     let status;
+    let response;
     try {
         response = await axios(options);
         content = await Buffer.from(response.data, 'binary');

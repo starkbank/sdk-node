@@ -26,6 +26,14 @@ declare module 'starkbank' {
     
     export var user: Project | Organization | null
 
+    export function setUser(user: Project | Organization): void;
+
+    export function getUser(): Project | Organization;
+
+    export function setLanguage(language: 'pt-BR' | 'en-US'): void;
+
+    export function getLanguage(): 'pt-BR' | 'en-US';
+
     export namespace key {
         function create(): [newPrivatePem: string, newPublicPem: string];
         function create(path: string): [newPrivatePem: string, newPublicPem: string];

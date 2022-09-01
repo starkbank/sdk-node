@@ -233,6 +233,18 @@ starkbank.user = project; // or organization
 })();
 ```
 
+And now you can use module import with setUser:
+
+```javascript
+import * as starkbank from 'starkbank';
+
+starkbank.setUser(project); // or organization
+
+(async() => {
+    let balance = await starkbank.balance.get();
+})();
+```
+
 Just select the way of passing the user that is more convenient to you.
 On all following examples we will assume a default user has been set.
 
@@ -1989,4 +2001,4 @@ If you have any questions about our SDK, just send us an email.
 We will respond you quickly, pinky promise. We are here to help you integrate with us ASAP.
 We also love feedback, so don't be shy about sharing your thoughts with us.
 
-Email: developers@starkbank.com
+Email: help@starkbank.com

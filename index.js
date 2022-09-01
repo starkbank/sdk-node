@@ -1,8 +1,28 @@
 exports.version = '2.12.0';
 
 exports.cache = {};
-exports.user = null
-exports.language = "en-US"
+exports.user = null;
+exports.language = "en-US";
+
+exports.setUser = function (user) {
+    exports.user = user;
+}
+
+exports.getUser = function () {
+    return exports.user;
+}
+
+exports.setLanguage = function (language) {
+    let acceptedLanguages = ["en-US", "pt-BR"];
+    if (!acceptedLanguages.includes(language)) {
+        throw new Exception("language must be one of " . join(", ", acceptedLanguages));
+    }
+    exports.language = language;
+}
+
+exports.getLanguage = function () {
+    return exports.language
+}
 
 // Modules
 exports.transaction = require('./sdk/transaction');
