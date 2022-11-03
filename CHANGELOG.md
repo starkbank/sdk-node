@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- missing "types" folder in the final package
 
 ## [2.13.0] - 2022-09-02
 ### Fixed
