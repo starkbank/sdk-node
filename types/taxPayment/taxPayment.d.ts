@@ -46,14 +46,14 @@ declare module 'starkbank' {
         readonly status : string
         readonly amount : number
         readonly fee : number
-        readonly transactionids : string[]
+        readonly transactionIds : string[]
         readonly updated : string
         readonly created : string
 
         constructor(params: {
             description: string, line?: string, barCode?: string, scheduled?: string, tags?: string[], 
             id?: string | null, type?: string | null, status?: string | null, amount?: number | null, 
-            fee?: number | null, transactionids?: string[] | null, updated?: string | null, 
+            fee?: number | null, transactionIds?: string[] | null, updated?: string | null, 
             created?: string | null
         })
     }

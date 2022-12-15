@@ -71,7 +71,7 @@ declare module 'starkbank' {
         readonly id : string
         readonly brcode : string
         readonly status : string
-        readonly transactionids : string[]
+        readonly transactionIds : string[]
         readonly created : string
         readonly updated : string
 
@@ -80,7 +80,7 @@ declare module 'starkbank' {
             interest?: number, discounts?: {percentage: number, due: string}[], tags?: string[], 
             descriptions?: {key: string, value?: string}[], fee?: number | null, pdf?: string | null, link?: string | null, 
             nominalAmount?: number | null, fineAmount?: number | null, interestAmount?: number | null, 
-            discountAmount?: number | null, id?: string, brcode?: string | null, status?: string | null, transactionids?: string[] | null, created?: string | null, 
+            discountAmount?: number | null, id?: string, brcode?: string | null, status?: string | null, transactionIds?: string[] | null, created?: string | null, 
             updated?: string | null, 
         })
     }
