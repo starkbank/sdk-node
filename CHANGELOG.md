@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.13.2] - 2022-12-15
 ### Fixed
 - Invoice.Discount error when an empty list was received
 
