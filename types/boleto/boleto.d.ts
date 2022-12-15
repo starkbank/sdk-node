@@ -82,8 +82,8 @@ declare module 'starkbank' {
         constructor(params: {
             amount: number, name: string, taxId: string, streetLine1: string, streetLine2: string, district: string, 
             city: string, stateCode: string, zipCode: string, due? : string | null, fine? : number | null, 
-            interest? : number | null, overdueLimit? : string | null, receiverName? : string | null, receiverTaxId? : string | null, 
-            tags? : string | null, descriptions? : {text : string, amount? : number}[] | null, 
+            interest? : number | null, overdueLimit? : number | null, receiverName? : string | null, receiverTaxId? : string | null, 
+            tags? : string[] | null, descriptions? : {text : string, amount? : number}[] | null, 
             discounts? : {percentage : number, date : string}[] | null, id?: string | null, fee? : string | null, 
             line? : string | null, barCode? : string | null, status? : string | null, transactionIds? : string | null, 
             created? : string | null, ourNumber? : string | null

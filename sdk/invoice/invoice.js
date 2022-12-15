@@ -60,9 +60,11 @@ class Invoice extends Resource {
         this.interest = interest;
         this.discounts = discounts;
         this.tags = tags;
-        discounts.forEach(discount => {
-            discount.due = check.datetimeOrDate(discount.due);
-        });
+        if (discounts != null) {
+            discounts.forEach(discount => {
+                discount.due = check.datetimeOrDate(discount.due);
+            });
+        }
         this.descriptions = descriptions;
         this.fee = fee;
         this.pdf = pdf;
