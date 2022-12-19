@@ -407,7 +407,7 @@ const starkbank = require('starkbank');
 
 ## Create transfers
 
-You can also create transfers in the SDK (TED/Pix).
+You can also create transfers in the SDK (TED/Pix) and configure transfer behavior according to its rules.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -433,7 +433,13 @@ const starkbank = require('starkbank');
             taxId: '372.864.795-04',
             name: 'Jon Snow',
             scheduled: '2021-09-08',
-            tags: []
+            tags: [],
+            rules: [
+                new starkbank.transfer.Rule({
+                    key: "resendingLimit",  // Set maximum number of retries if Transfer fails due to systemic issues at the receiver bank
+                    value: 5                // Our resending limit is 10 by default
+                }) 
+            ] 
         }
     ])
 

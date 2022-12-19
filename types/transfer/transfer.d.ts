@@ -17,13 +17,14 @@ declare module 'starkbank' {
          * @param bankCode [string]: code of the receiver bank institution in Brazil. If an ISPB (8 digits) is informed, a PIX transfer will be created, else a TED will be issued. ex: '20018183' or '341'
          * @param branchCode [string]: receiver bank account branch. Use '-' in case there is a verifier digit. ex: '1357-9'
          * @param accountNumber [string]: Receiver Bank Account number. Use '-' before the verifier digit. ex: '876543-2'
-         * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
-         * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated external_ids will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
          * 
          * Parameters (optional):
-         * @param tags [list of strings]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
+         * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
+         * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated external_ids will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
          * @param scheduled [string, default now]: date or datetime when the transfer will be processed. May be pushed to next business day if necessary. ex: '2020-11-12T00:14:22.806+00:00' or '2020-11-30'
          * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
+         * @param tags [list of strings, default []]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
+         * @param rules [list of Transfer.Rules, default []]: list of Transfer.Rule objects for modifying transfer behavior. ex: [Transfer.Rule(key="resendingLimit", value=5)]
          *
          * Attributes (return-only):
          * @param id [string, default null]: unique id returned when Transfer is created. ex: '5656565656565656'
@@ -41,12 +42,13 @@ declare module 'starkbank' {
         bankCode: string
         branchCode: string
         accountNumber: string
-        accountType: string
-        externalId: string
 
-        tags: string[]
-        scheduled: string
+        accountType: string | null
+        externalId: string | null
+        scheduled: string | null
         description: string | null
+        tags: string | null
+        rules: transfer.Rule[] | null
 
         readonly id : string
         readonly fee : number
@@ -58,9 +60,9 @@ declare module 'starkbank' {
 
         constructor(params: {
             amount: number, name: string, taxId: string, bankCode: string, branchCode: string, accountNumber: string, 
-            accountType?: string, externalId?: string, tags?: string[], scheduled?: string, description?: string | null, 
-            id?: string | null, fee?: number | null, status?: string | null, transactionIds?: string[] | null, 
-            created?: string | null, updated?: string | null, 
+            accountType?: string, externalId?: string, tags?: string[], rules?: transfer.Rule[], scheduled?: string, 
+            description?: string | null, id?: string | null, fee?: number | null, status?: string | null, 
+            transactionIds?: string[] | null, created?: string | null, updated?: string | null, 
         })
     }
 
@@ -213,6 +215,26 @@ declare module 'starkbank' {
         function _delete(id: string, user?: Project | Organization): Promise<Transfer>;
         export { _delete as delete }
         
+        export class Rule {
+            /**
+             *
+             * Transfer.Rule object
+             *
+             * @description The Transfer.Rule object modify the behavior of Transfer objects created in your Workspace.
+             *
+             * Parameters (required):
+             * @param key [string]: Rule to be customized, describes what Transfer behavior will be altered. ex: "resendingLimit"
+             * @param value [integer]: Value of the rule. ex: 5
+             * 
+             */
+            key: string
+            value: number
+
+            constructor(params: {
+                key: string,
+                value: number 
+            })
+        }
 
         export class Log {
             /**
