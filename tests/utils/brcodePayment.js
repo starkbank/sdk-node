@@ -1,16 +1,23 @@
 const starkbank = require('../../index.js');
+const { Rule } = require('../../sdk/brcodePayment/index.js');
 const generateExampleInvoicesJson = require('./invoice.js').generateExampleInvoicesJson;
 const random = require('./random.js');
 
 exports.generateExampleBrcodePaymentsJson = async function (n, nextDay = false) {
 
     let exampleBrcodePayment = {
-      brcode: "00020126580014br.gov.bcb.pix0136a629532e-7693-4846-852d-1bbff817b5a8520400005303986540510.005802BR5908T'Challa6009Sao Paulo62090505123456304B14A",
-      taxId: '20.018.183/0001-80',
-      description: "Tony Stark's Suit",
-      amount: 7654321,
-      scheduled: '2020-02-29',
-      tags: ['Stark', 'Suit']
+        brcode: "00020126580014br.gov.bcb.pix0136a629532e-7693-4846-852d-1bbff817b5a8520400005303986540510.005802BR5908T'Challa6009Sao Paulo62090505123456304B14A",
+        taxId: '20.018.183/0001-80',
+        description: "Tony Stark's Suit",
+        amount: 7654321,
+        scheduled: '2020-02-29',
+        tags: ['Stark', 'Suit'],
+        rules: [
+            new Rule({
+                key: "resendingLimit",
+                value: 2
+            })
+        ]
     };
 
     let payments = [];

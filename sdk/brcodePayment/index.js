@@ -1,6 +1,8 @@
 const brcodePayment = require('./brcodePayment.js');
 
 exports.log = require('./log');
+exports.Rule = require('./rule/rule.js').Rule;
+exports.rule = require('./rule');
 exports.create = brcodePayment.create;
 exports.get = brcodePayment.get;
 exports.query = brcodePayment.query;

@@ -1,6 +1,9 @@
 const rest = require('../utils/rest.js');
 const check = require('../utils/check.js');
+const parseObjects = require('../utils/parse.js').parseObjects;
 const Resource = require('../utils/resource.js').Resource
+const { Rule } = require('./rule/rule.js');
+const ruleResource = require('./rule/rule.js').subResource;
 
 
 class Transfer extends Resource {
@@ -19,13 +22,14 @@ class Transfer extends Resource {
      * @param bankCode [string]: code of the receiver bank institution in Brazil. If an ISPB (8 digits) is informed, a PIX transfer will be created, else a TED will be issued. ex: '20018183' or '341'
      * @param branchCode [string]: receiver bank account branch. Use '-' in case there is a verifier digit. ex: '1357-9'
      * @param accountNumber [string]: Receiver Bank Account number. Use '-' before the verifier digit. ex: '876543-2'
-     * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
-     * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated external_ids will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
-     * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
      *
      * Parameters (optional):
-     * @param tags [list of strings]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
+     * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
+     * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated external_ids will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
      * @param scheduled [string, default now]: date or datetime when the transfer will be processed. May be pushed to next business day if necessary. ex: '2020-11-12T00:14:22.806+00:00' or '2020-11-30'
+     * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
+     * @param tags [list of strings, default []]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
+     * @param rules [list of Transfer.Rules, default []]: list of Transfer.Rule objects for modifying transfer behaviour. ex: [Transfer.Rule(key="resendingLimit", value=5)]
      *
      * Attributes (return-only):
      * @param id [string, default null]: unique id returned when Transfer is created. ex: '5656565656565656'
@@ -37,8 +41,9 @@ class Transfer extends Resource {
      *
      */
     constructor({
-                    amount, name, taxId, bankCode, branchCode, accountNumber, accountType, externalId, scheduled,
-                    description, tags, fee, status, created, updated, transactionIds, id
+                    amount, name, taxId, bankCode, branchCode, accountNumber, accountType, 
+                    externalId, scheduled, description, tags, rules, id, fee, status, 
+                    transactionIds, created, updated
                 }) {
         super(id);
         this.amount = amount;
@@ -52,6 +57,7 @@ class Transfer extends Resource {
         this.scheduled = scheduled;
         this.description = description;
         this.tags = tags;
+        this.rules = parseObjects(rules, ruleResource, Rule);
         this.fee = fee;
         this.status = status;
         this.created = check.datetime(created);

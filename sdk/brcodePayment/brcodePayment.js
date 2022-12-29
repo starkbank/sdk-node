@@ -1,6 +1,9 @@
 const rest = require('../utils/rest.js');
 const check = require('../utils/check.js');
-const Resource = require('../utils/resource.js').Resource;
+const parseObjects = require('../utils/parse.js').parseObjects;
+const Resource = require('../utils/resource.js').Resource
+const { Rule } = require('./rule/rule.js');
+const ruleResource = require('./rule/rule.js').subResource;
 
 class BrcodePayment extends Resource {
     /**
@@ -20,6 +23,7 @@ class BrcodePayment extends Resource {
      * @param amount [int, default null]: amount automatically calculated from line or barCode. ex: 23456 (= R$ 234.56)
      * @param scheduled [string, default now]: payment scheduled date or datetime. ex: '2020-11-25T17:59:26.249976+00:00'
      * @param tags [list of strings, default null]: list of strings for tagging
+     * @param rule [list of BrcodePayment.Rules, default []]: list of BrcodePayment.Rule objects for modifying transfer behavior. ex: [BrcodePayment.Rule(key="resendingLimit", value=5)]
      * 
      * ## Attributes (return-only):
      * @param id [string, default null]: unique id returned when payment is created. ex: '5656565656565656'
@@ -32,7 +36,7 @@ class BrcodePayment extends Resource {
      *
      */
     constructor({
-                  brcode, taxId, description, amount = null, scheduled = null, tags = null,
+                  brcode, taxId, description, amount = null, scheduled = null, tags = null, rules = null,
                   id = null, name = null, status = null, type = null, fee = null, updated = null, created = null
     }) {
       super(id);
@@ -43,6 +47,7 @@ class BrcodePayment extends Resource {
       this.amount = amount;
       this.scheduled = check.datetime(scheduled);
       this.tags = tags;
+      this.rules = parseObjects(rules, ruleResource, Rule);
       this.id = id;
       this.status = status;
       this.type = type;
@@ -200,7 +205,7 @@ exports.update = function (id, {status, user} = {}) {
    *
    */
   let payload = {
-      status:         status,
+      status: status,
   };
   return rest.patchId(resource, id, payload, user);
 };

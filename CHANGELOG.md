@@ -13,6 +13,11 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- rules attribute to Transfer resource
+- Transfer.Rule sub-resource
+- rules attribute to BrcodePayment resource
+- BrcodePayment.Rule sub-resource
 
 ## [2.13.2] - 2022-12-15
 ### Fixed
