@@ -407,7 +407,7 @@ const starkbank = require('starkbank');
 
 ## Create transfers
 
-You can also create transfers in the SDK (TED/Pix).
+You can also create transfers in the SDK (TED/Pix) and configure transfer behavior according to its rules.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -433,7 +433,13 @@ const starkbank = require('starkbank');
             taxId: '372.864.795-04',
             name: 'Jon Snow',
             scheduled: '2021-09-08',
-            tags: []
+            tags: [],
+            rules: [
+                new starkbank.transfer.Rule({
+                    key: "resendingLimit",  // Set maximum number of retries if Transfer fails due to systemic issues at the receiver bank
+                    value: 5                // Our resending limit is 10 by default
+                }) 
+            ] 
         }
     ])
 
@@ -1097,7 +1103,13 @@ const starkbank = require('starkbank');
             description: "Tony Stark's Suit",
             amount: 7654321,
             scheduled: '2020-02-29',
-            tags: ['Stark', 'Suit']
+            tags: ['Stark', 'Suit'],
+            rules: [
+                new starkbank.brcodePayment.Rule({
+                    key: "resendingLimit",  // Set maximum number of retries if Payment fails due to systemic issues at the receiver bank
+                    value: 5                // Our resending limit is 10 by default
+                })
+            ]
         },
     ]);
 
@@ -1107,6 +1119,7 @@ const starkbank = require('starkbank');
 })();
 ```
 
+**Note**: You can also configure payment behavior according to its rules
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native BrcodePayment object format
 
 ## Get a BR Code payment

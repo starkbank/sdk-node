@@ -22,7 +22,13 @@ exports.generateExampleTransfersJson = function (n, amount = null, tomorrow = fa
         branchCode: '0001',
         accountNumber: '10000-0',
         accountType: 'checking',
-        description: choice(null, 'Test description')
+        description: choice(null, 'Test description'),
+        rules: [
+            new starkbank.transfer.Rule({
+                key: 'resendingLimit', 
+                value: 5
+            }),
+        ]
     };
 
     let transfers = [];

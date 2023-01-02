@@ -19,6 +19,7 @@ declare module 'starkbank' {
          * @param amount [int, default null]: amount automatically calculated from line or barCode. ex: 23456 (= R$ 234.56)
          * @param scheduled [string, default now]: payment scheduled date or datetime. ex: '2020-11-25T17:59:26.249976+00:00'
          * @param tags [list of strings, default null]: list of strings for tagging
+         * @param rule [list of BrcodePayment.Rules, default []]: list of BrcodePayment.Rule objects for modifying transfer behavior. ex: [BrcodePayment.Rule(key="resendingLimit", value=5)]
          * 
          * ## Attributes (return-only):
          * @param id [string, default null]: unique id returned when payment is created. ex: '5656565656565656'
@@ -38,6 +39,7 @@ declare module 'starkbank' {
         amount : number | null
         scheduled : string | null
         tags : string[] | null
+        rule : Rule[] | null
 
         readonly id : string
         readonly name : string
@@ -49,8 +51,8 @@ declare module 'starkbank' {
 
         constructor(params: {
             brcode: string, taxId: string, description: string, amount?: number | null, scheduled?: string | null, 
-            tags?: string[] | null, name?: string | null, status?: string | null, type?: string | null, fee?: number | null, updated?: string | null, 
-            created?: string | null, 
+            tags?: string[] | null, rules?: Rule[] | null, name?: string | null, status?: string | null, type?: string | null, 
+            fee?: number | null, updated?: string | null, created?: string | null, 
         })
     }
 
@@ -187,6 +189,27 @@ declare module 'starkbank' {
          *
          */
         function update(id: string, params?: {status: string, user?: Project | Organization | null}): Promise<BrcodePayment>;
+
+        export class Rule {
+            /**
+             *
+             * BrcodePayment.Rule object
+             *
+             * @description The BrcodePayment.Rule object modifies the behavior of BrcodePayment objects when passed as an argument upon their creation.
+             *
+             * Parameters (required):
+             * @param key [string]: Rule to be customized, describes what BrcodePayment behavior will be altered. ex: "resendingLimit"
+             * @param value [integer]: Value of the rule. ex: 5
+             * 
+             */
+            key: string
+            value: number
+
+            constructor(params: {
+                key: string,
+                value: number 
+            })
+        }
 
         export class Log {
             /**

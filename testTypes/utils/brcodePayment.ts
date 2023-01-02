@@ -8,7 +8,13 @@ export async function generateExampleBrcodePaymentsJson(n: number, nextDay = fal
         brcode: "00020101021226890014br.gov.bcb.pix2567invoice-h.sandbox.starkbank.com/v2/db86835d61274c7799a1f637b2b6f8b652040000530398654040.005802BR5915Stark Bank S.A.6009Sao Paulo62070503***6304FCCE",
         taxId: '22.653.392/0001-20',
         description: "Tony Stark's Suit",
-        amount: 7654321
+        amount: 7654321,
+        rules: [
+            new starkbank.brcodePayment.Rule({
+                key: "resendingLimit",
+                value: 2
+            })
+        ]
     };
 
     let payments = [];

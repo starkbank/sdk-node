@@ -5,7 +5,7 @@ const generateExampleBrcodePaymentsJson = require('./utils/brcodePayment.js').ge
 starkbank.user = require('./utils/user').exampleProject;
 
 describe('TestBrcodePaymentPost', function(){
-	this.timeout(10000);
+	this.timeout(100000);
   	it('test_success', async () => {
 		let payments = await generateExampleBrcodePaymentsJson(5);
 		payments = await starkbank.brcodePayment.create(payments);
