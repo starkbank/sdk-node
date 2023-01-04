@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.14.0] - 2023-01-04
 ### Added
 - rules attribute to Transfer resource
 - Transfer.Rule sub-resource
