@@ -84,8 +84,8 @@ declare module 'starkbank' {
             city: string, stateCode: string, zipCode: string, due? : string | null, fine? : number | null, 
             interest? : number | null, overdueLimit? : number | null, receiverName? : string | null, receiverTaxId? : string | null, 
             tags? : string[] | null, descriptions? : {text : string, amount? : number}[] | null, 
-            discounts? : {percentage : number, date : string}[] | null, id?: string | null, fee? : string | null, 
-            line? : string | null, barCode? : string | null, status? : string | null, transactionIds? : string | null, 
+            discounts? : {percentage : number, date : string}[] | null, id?: string | null, fee? : number | null, 
+            line? : string | null, barCode? : string | null, status? : string | null, transactionIds? : string[] | null, 
             created? : string | null, ourNumber? : string | null
         })
     }

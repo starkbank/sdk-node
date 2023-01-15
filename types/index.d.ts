@@ -6,6 +6,7 @@
 ///<reference path='./brcodePreview/brcodePreview.d.ts' />
 ///<reference path='./darfPayment/darfPayment.d.ts' />
 ///<reference path='./deposit/deposit.d.ts' />
+///<reference path='./dynamicBrcode/dynamicBrcode.d.ts' />
 ///<reference path='./dictKey/dictKey.d.ts' />
 ///<reference path='./event/event.d.ts' />
 ///<reference path='./institution/institution.d.ts' />
