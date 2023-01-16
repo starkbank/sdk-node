@@ -30,8 +30,9 @@ is as easy as sending a text message to your client!
     - [Transfers](#create-transfers): Wire transfers (TED and manual Pix)
     - [DictKeys](#get-dict-key): Pix Key queries to use with Transfers
     - [Institutions](#query-bacen-institutions): Instutitions recognized by the Central Bank
-    - [Invoices](#create-invoices): Reconciled receivables (dynamic PIX QR Codes)
-    - [Deposits](#query-deposits): Other cash-ins (static PIX QR Codes, manual PIX, etc)
+    - [Invoices](#create-invoices): Reconciled receivables (dynamic Pix QR Codes)
+    - [DynamicBrcode](#create-dynamicbrcodes): Simplified reconciled receivables (dynamic Pix QR Codes)
+    - [Deposits](#query-deposits): Other cash-ins (static Pix QR Codes, DynamicBrcodes, manual Pix, etc)
     - [Boletos](#create-boletos): Boleto receivables
     - [BoletoHolmes](#investigate-a-boleto): Boleto receivables investigator
     - [BrcodePayments](#pay-a-br-code): Pay Pix QR Codes
@@ -805,6 +806,79 @@ const starkbank = require('starkbank');
 (async() => {
     let paymentInformation = starkbank.invoice.payment("5155165527080960")
     console.log(paymentInformation);
+})();
+```
+
+## Create DynamicBrcodes
+
+You can create simplified dynamic QR Codes to receive money using Pix transactions.
+When a DynamicBrcode is paid, a Deposit is created with the tags parameter containing the character “dynamic-brcode/” followed by the DynamicBrcode’s uuid "dynamic-brcode/{uuid}" for conciliation.
+
+The differences between an Invoice and the DynamicBrcode are the following:
+
+|                   | Invoice | DynamicBrcode |
+|-------------------|:-------:|:-------------:|
+| Expiration        |    ✓    |       ✓       | 
+| Due, fine and fee |    ✓    |       X       | 
+| Discount          |    ✓    |       X       | 
+| Description       |    ✓    |       X       |
+| Can be updated    |    ✓    |       X       |
+
+**Note:** In order to check if a BR code has expired, you must first calculate its expiration date (add the expiration to the creation date).
+**Note:** To know if the BR code has been paid, you need to query your Deposits by the tag "dynamic-brcode/{uuid}" to check if it has been paid.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    const brcodes = await starkbank.dynamicBrcode.create([
+        {
+            amount: 23571,      // R$ 235,71 
+            expiration: 3 * 3600
+        },
+        {
+            amount: 23571,      // R$ 235,71 
+            expiration: 3 * 3600
+        }
+    ])
+    
+    for await (let brcode of brcodes) {
+        console.log(brcode);
+    }
+})();
+```
+
+**Note**: Instead of using DynamicBrcode objects, you can also pass each brcode element in dictionary format
+
+## Get a DynamicBrcode
+
+After its creation, information on a DynamicBrcode may be retrieved by its uuid.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let brcode = await starkbank.dynamicBrcode.get('bb9cd43ea6f4403391bf7ef6aa876600')
+    console.log(brcode);
+})();
+```
+
+## Query DynamicBrcodes
+
+You can get a list of created DynamicBrcodes given some filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let brcodes = await starkbank.dynamicBrcode.query({
+        after: '2023-01-01',
+        before: '2023-03-01',
+    });
+
+    for await (let brcode of brcodes) {
+        console.log(brcode);
+    }
 })();
 ```
 

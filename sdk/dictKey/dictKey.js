@@ -8,25 +8,25 @@ class DictKey extends Resource {
      *
      * DictKey object
      *
-     * @description DictKey represents a PIX key registered in Bacen's DICT system.
+     * @description DictKey represents a Pix key registered in Bacen's DICT system.
      *
      * Parameters (required):
-     * @param id [string]: DictKey object unique id and PIX key itself. ex: 'tony@starkbank.com', '722.461.430-04', '20.018.183/0001-80', '+5511988887777', 'b6295ee1-f054-47d1-9e90-ee57b74f60d9'
+     * @param id [string]: DictKey object unique id and Pix key itself. ex: 'tony@starkbank.com', '722.461.430-04', '20.018.183/0001-80', '+5511988887777', 'b6295ee1-f054-47d1-9e90-ee57b74f60d9'
      *
      * Attributes (return-only):
-     * @param type [string, default null]: PIX key type. ex: 'email', 'cpf', 'cnpj', 'phone' or 'evp'
-     * @param accountCreated [string, default null]: creation datetime of the bank account associated with the PIX key. ex: '2020-11-05T14:55:08.812665+00:00'
-     * @param accountType [string, default null]: bank account type associated with the PIX key. ex: 'checking', 'saving', 'salary' or 'payment'
+     * @param type [string, default null]: Pix key type. ex: 'email', 'cpf', 'cnpj', 'phone' or 'evp'
+     * @param accountCreated [string, default null]: creation datetime of the bank account associated with the Pix key. ex: '2020-11-05T14:55:08.812665+00:00'
+     * @param accountType [string, default null]: bank account type associated with the Pix key. ex: 'checking', 'saving', 'salary' or 'payment'
      * @param name [string, default null]: account owner full name. ex: 'Tony Stark'
      * @param taxId [string, default null]: tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
-     * @param ownerType [string, default null]: PIX key owner type. ex 'naturalPerson' or 'legalPerson'
+     * @param ownerType [string, default null]: Pix key owner type. ex 'naturalPerson' or 'legalPerson'
      * @param bankName [string, null None]: bank name associated with the DICT key. ex: 'Stark Bank'
      * @param ispb [string, default null]: ISPB code used for transactions. ex: '20018183'
-     * @param branchCode [string, default null]: bank account branch code associated with the PIX key. ex: '9585'
-     * @param accountNumber [string, default null]: bank account number associated with the PIX key. ex: '9828282578010513'
-     * @param status [string, default null]: current PIX key status. ex: 'created', 'registered', 'canceled' or 'failed'
-     * @param owned [string, default null]: datetime since when the current owner hold this PIX key. ex : '2020-11-05T14:55:08.812665+00:00'     
-     * @param created [string, default null]: creation datetime for the PIX key. ex: '2020-11-05T14:55:08.812665+00:00'
+     * @param branchCode [string, default null]: bank account branch code associated with the Pix key. ex: '9585'
+     * @param accountNumber [string, default null]: bank account number associated with the Pix key. ex: '9828282578010513'
+     * @param status [string, default null]: current Pix key status. ex: 'created', 'registered', 'canceled' or 'failed'
+     * @param owned [string, default null]: datetime since when the current owner hold this Pix key. ex : '2020-11-05T14:55:08.812665+00:00'     
+     * @param created [string, default null]: creation datetime for the Pix key. ex: '2020-11-05T14:55:08.812665+00:00'
      *
      */
     constructor({
@@ -62,7 +62,7 @@ exports.get = async function (id, {user} = {}) {
      * @description Receive a single DictKey object by passing its id
      *
      * Parameters (required):
-     * @param id [string]: DictKey object unique id and PIX key itself. ex: 'tony@starkbank.com', '722.461.430-04', '20.018.183/0001-80', '+5511988887777', 'b6295ee1-f054-47d1-9e90-ee57b74f60d9'
+     * @param id [string]: DictKey object unique id and Pix key itself. ex: 'tony@starkbank.com', '722.461.430-04', '20.018.183/0001-80', '+5511988887777', 'b6295ee1-f054-47d1-9e90-ee57b74f60d9'
      * 
      * Parameters (optional):
      * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call

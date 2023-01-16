@@ -19,7 +19,7 @@ class Transfer extends Resource {
      * @param amount [integer]: amount in cents to be transferred. ex: 1234 (= R$ 12.34)
      * @param name [string]: receiver full name. ex: 'Anthony Edward Stark'
      * @param taxId [string]: receiver tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
-     * @param bankCode [string]: code of the receiver bank institution in Brazil. If an ISPB (8 digits) is informed, a PIX transfer will be created, else a TED will be issued. ex: '20018183' or '341'
+     * @param bankCode [string]: code of the receiver bank institution in Brazil. If an ISPB (8 digits) is informed, a Pix transfer will be created, else a TED will be issued. ex: '20018183' or '341'
      * @param branchCode [string]: receiver bank account branch. Use '-' in case there is a verifier digit. ex: '1357-9'
      * @param accountNumber [string]: Receiver Bank Account number. Use '-' before the verifier digit. ex: '876543-2'
      *

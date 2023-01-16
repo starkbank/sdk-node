@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- DynamicBrcode resource
 
 ## [2.14.0] - 2023-01-04
 ### Added
@@ -116,9 +118,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ### Added
 - Invoice resource to load your account with dynamic QR Codes
 - Deposit resource to receive transfers passively
-- DictKey resource to get PIX key's parameters
-- PIX support in Transfer resource
-- BrcodePayment and BrcodePreview support to pay static and dynamic PIX QR Codes
+- DictKey resource to get Pix key's parameters
+- Pix support in Transfer resource
+- BrcodePayment and BrcodePreview support to pay static and dynamic Pix QR Codes
 - TaxPayment object and function calls to allow payment of DAS, DARF and ISS taxes
 
 ## [2.1.0] - 2020-10-28
