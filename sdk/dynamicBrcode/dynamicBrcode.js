@@ -26,17 +26,19 @@ class DynamicBrcode extends Resource {
      * Attributes (return-only):
      * @param id [string]: id returned on creation, this is the BR code. ex: "00020126360014br.gov.bcb.pix0114+552840092118152040000530398654040.095802BR5915Jamie Lannister6009Sao Paulo620705038566304FC6C"
      * @param uuid [string]: unique uuid returned when the DynamicBrcode is created. ex: "4e2eab725ddd495f9c98ffd97440702d"
+     * @param pictureUrl [string]: public QR Code (png image) URL. "https://sandbox.api.starkbank.com/v2/dynamic-brcode/d3ebb1bd92024df1ab6e5a353ee799a4.png"
      * @param updated [string, default null]: update datetime for the DynamicBrcode. ex: '2020-03-10 10:30:00.000'
      * @param created [string, default null]: creation datetime for the DynamicBrcode. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ amount,  expiration,  tags,  id,  uuid,  updated,  created }) {
+    constructor({ amount, expiration, tags, id, uuid, pictureUrl, updated, created }) {
         super(id);
         this.amount = amount;
         this.expiration = expiration;
         this.tags = tags;
         this.id = id;
         this.uuid = uuid;
+        this.pictureUrl = pictureUrl;
         this.updated = check.datetime(updated);
         this.created = check.datetime(created);
     }
@@ -142,6 +144,6 @@ exports.page = async function ({ cursor, limit, after, before, tags, uuids, user
         before: before,
         tags: tags,
         uuids: uuids,
-    }
+    };
     return rest.getPage(resource, query, user);
-}
+};
