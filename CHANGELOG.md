@@ -15,6 +15,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ## [Unreleased]
 ### Added
 - pictureUrl attribute to DynamicBrcode resource
+### Fixed
+- BrcodePayment.Rule type on BrcodePayment resource
 
 ## [2.15.0] - 2023-01-16
 ### Added

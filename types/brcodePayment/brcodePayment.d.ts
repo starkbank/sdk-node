@@ -39,7 +39,7 @@ declare module 'starkbank' {
         amount : number | null
         scheduled : string | null
         tags : string[] | null
-        rule : Rule[] | null
+        rule : brcodePayment.Rule[] | null
 
         readonly id : string
         readonly name : string
@@ -51,7 +51,7 @@ declare module 'starkbank' {
 
         constructor(params: {
             brcode: string, taxId: string, description: string, amount?: number | null, scheduled?: string | null, 
-            tags?: string[] | null, rules?: Rule[] | null, name?: string | null, status?: string | null, type?: string | null, 
+            tags?: string[] | null, rules?: brcodePayment.Rule[] | null, name?: string | null, status?: string | null, type?: string | null, 
             fee?: number | null, updated?: string | null, created?: string | null, 
         })
     }
