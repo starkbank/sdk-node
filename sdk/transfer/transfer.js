@@ -147,7 +147,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Transfer pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf(resource, id, {}, user);
 };
 
 exports.query = async function ({ limit, after, before, transactionIds, status, taxId, sort, tags, ids, user} = {}) {
