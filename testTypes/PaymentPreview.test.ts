@@ -21,7 +21,7 @@ describe('TestPaymentPreviewCreate', function () {
 
         let previews: starkbank.PaymentPreview[] = [
             new starkbank.PaymentPreview({ id: brcodePayments[0].brcode }),
-            new starkbank.PaymentPreview({ id: utilityPayments[0].barCode }),
+            new starkbank.PaymentPreview({ id: utilityPayments[0].barCode as string }),
             new starkbank.PaymentPreview({ id: taxPayments[0].barCode })
         ]
 

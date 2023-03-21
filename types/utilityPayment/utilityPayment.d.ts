@@ -11,7 +11,7 @@ declare module 'starkbank' {
          * to the Stark Bank API and returns the list of created objects.
          *
          * Parameters (conditionally required):
-         * @param line [string, default null]: Number sequence that describes the payment. Either 'line' or 'bar_code' parameters are required. If both are sent, they must match. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
+         * @param line [string, default null]: Number sequence that describes the payment. Either 'line' or 'barCode' parameters are required. If both are sent, they must match. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
          * @param barCode [string, default null]: Bar code number that describes the payment. Either 'line' or 'barCode' parameters are required. If both are sent, they must match. ex: '34195819600000000621090063571277307144464000'
          *
          * Parameters (required):
@@ -22,34 +22,39 @@ declare module 'starkbank' {
          * @param tags [list of strings]: list of strings for tagging
          *
          * Attributes (return-only):
-         * @param id [string, default null]: unique id returned when payment is created. ex: '5656565656565656'
-         * @param status [string, default null]: current payment status. ex: 'success' or 'failed'
-         * @param amount [int, default null]: amount automatically calculated from line or bar_code. ex: 23456 (= R$ 234.56)
-         * @param fee [integer, default null]: fee charged when the utility payment is created. ex: 200 (= R$ 2.00)
-         * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this UtilityPayment. ex: ['19827356981273']
-         * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
+         * @param id [string]: unique id returned when payment is created. ex: '5656565656565656'
+         * @param status [string]: current payment status. ex: 'success' or 'failed'
+         * @param amount [int]: amount automatically calculated from line or barCode. ex: 23456 (= R$ 234.56)
+         * @param fee [integer]: fee charged when the utility payment is created. ex: 200 (= R$ 2.00)
+         * @param type [string]: payment type. ex: "utility"
+         * @param transactionIds [list of strings]: ledger transaction ids linked to this UtilityPayment. ex: ['19827356981273']
+         * @param created [string]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
+         * @param updated [string]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
          *
          */
 
-        description: string
+        description?: string | null
 
-        scheduled: string
-        tags: string[]
+        scheduled?: string | null
+        tags?: string[] | null
 
-        line: string
-        barCode: string
+        line?: string | null
+        barCode?: string | null
 
-        readonly id: string
-        readonly status: string
-        readonly amount: number
-        readonly fee: number
-        readonly transactionIds: string[]
-        readonly created: string
+        readonly id?: string | null
+        readonly status?: string | null
+        readonly amount?: number | null
+        readonly fee?: number | null
+        readonly type?: string | null
+        readonly transactionIds?: string[] | null
+        readonly created?: string | null
+        readonly updated?: string | null
 
         constructor(params: {
             description: string, scheduled?: string, line?: string, barCode?: string, 
-            tags?: string[], id?: string | null, status?: string | null, amount?: number | null, fee?: number | null, 
-            transactionIds?: string[] | null, created?: string | null
+            tags?: string[], id?: string | null, status?: string | null, amount?: number | null,
+            fee?: number | null, type?: string | null, transactionIds?: string[] | null, 
+            created?: string | null, updated?: string | null
         })
     }
 

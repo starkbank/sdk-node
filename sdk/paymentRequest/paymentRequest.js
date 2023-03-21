@@ -14,10 +14,10 @@ class PaymentRequest extends Resource {
      * PaymentRequest constructor
      *
      * A PaymentRequest is an indirect request to access a specific cash-out service
-     *     (such as Transfer, BoletoPayments, etc.) which goes through the cost center
-     *     approval flow on our website. To emit a PaymentRequest, you must direct it to
-     *     a specific cost center by its ID, which can be retrieved on our website at the
-     *     cost center page.
+     * (such as Transfer, BoletoPayments, etc.) which goes through the cost center
+     * approval flow on our website. To emit a PaymentRequest, you must direct it to
+     * a specific cost center by its ID, which can be retrieved on our website at the
+     * cost center page.
      * 
      * Parameters (required):
      * @param centerId [string]: target cost center ID. ex: '5656565656565656'
@@ -27,26 +27,28 @@ class PaymentRequest extends Resource {
      * @param type [string]: payment type, inferred from the payment parameter if it is not a dictionary. ex: 'transfer', 'boleto-payment'
      * 
      * Parameters (optional):
-     * @param due [string]: PaymentRequest target date in ISO format.
-     * @param tags [string]: list of strings for tagging
+     * @param due [string, default null]: PaymentRequest target date in ISO format.
+     * @param tags [string, default null]: list of strings for tagging
      * 
      * Attributes (return-only):
-     * @param id [string, default null]: Object's id
-     * @param amount [integer, default null]: PaymentRequest amount. ex: 100000 = R$1.000,00
-     * @param status [string, default null]: current PaymentRequest status.ex: 'pending' or 'approved'
-     * @param actions [list of dictionaries, default null]: list of actions that are affecting this PaymentRequest. ex: [{'type': 'member', 'id': '56565656565656, 'action': 'requested'}]
-     * @param updated [datetime string, default null]: latest update datetime for the PaymentRequest. ex: 2020-12-31
-     * @param created [datetime string, default null]: creation datetime for the PaymentRequest. ex: 2020-12-31
+     * @param id [string]: Object's id
+     * @param amount [integer]: PaymentRequest amount. ex: 100000 = R$1.000,00
+     * @param description [string]: payment request description. ex: "Tony Stark's Suit"
+     * @param status [string]: current PaymentRequest status.ex: 'pending' or 'approved'
+     * @param actions [list of dictionaries]: list of actions that are affecting this PaymentRequest. ex: [{'type': 'member', 'id': '56565656565656, 'action': 'requested'}]
+     * @param updated [datetime string]: latest update datetime for the PaymentRequest. ex: 2020-12-31
+     * @param created [datetime string]: creation datetime for the PaymentRequest. ex: 2020-12-31
      */
     constructor({ 
         centerId, payment, type, due = null, tags = null, id = null, amount = null,
-        status = null, actions = null, updated = null, created = null
+        description = null, status = null, actions = null, updated = null, created = null
     }) {
         super(id);
         this.centerId = centerId;
         this.due = due;
         this.tags = tags;
         this.amount = amount;
+        this.description = description;
         this.status = status;
         this.actions = actions;
         this.updated = check.datetime(updated);

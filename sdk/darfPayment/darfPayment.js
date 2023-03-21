@@ -23,18 +23,18 @@ class DarfPayment extends Resource {
      * @param due [string]: due date for payment. ex: ex: '2020-03-10'
      *
      * Parameters (optional):
-     * @param referenceNumber [string]: number assigned to the region of the tax. ex: "08.1.17.00-4"
+     * @param referenceNumber [string, default null]: number assigned to the region of the tax. ex: "08.1.17.00-4"
      * @param scheduled [string, default today]: payment scheduled date. ex: '2020-03-10'
-     * @param tags [list of strings]: list of strings for tagging
+     * @param tags [list of strings, default null]: list of strings for tagging
      *
      * Attributes (return-only):
-     * @param id [string, default null]: unique id returned when payment is created. ex: "5656565656565656"
-     * @param status [string, default null]: current payment status. ex: "success" or "failed"
-     * @param amount [int, default null]: Total amount due calculated from other amounts. ex: 24146 (= R$ 241.46)
-     * @param fee [integer, default null]: fee charged when the DarfPayment is processed. ex: 0 (= R$ 0.00)
-     * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this DarfPayment. ex: ['19827356981273']
-     * @param updated [string, default null]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
-     * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
+     * @param id [string]: unique id returned when payment is created. ex: "5656565656565656"
+     * @param status [string]: current payment status. ex: "success" or "failed"
+     * @param amount [int]: Total amount due calculated from other amounts. ex: 24146 (= R$ 241.46)
+     * @param fee [integer]: fee charged when the DarfPayment is processed. ex: 0 (= R$ 0.00)
+     * @param transactionIds [list of strings]: ledger transaction ids linked to this DarfPayment. ex: ['19827356981273']
+     * @param updated [string]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
+     * @param created [string]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
      *
      */
     constructor({
@@ -43,21 +43,21 @@ class DarfPayment extends Resource {
         transactionIds, updated, created, id
     }) {
         super(id);
+        this.description = description;
         this.revenueCode = revenueCode;
         this.taxId = taxId;
         this.competence = check.date(competence);
-        this.referenceNumber = referenceNumber;
+        this.nominalAmount = nominalAmount;
         this.fineAmount = fineAmount;
         this.interestAmount = interestAmount;
         this.due = check.date(due);
-        this.description = description;
-        this.tags = tags;
+        this.referenceNumber = referenceNumber;
         this.scheduled = check.date(scheduled);
+        this.tags = tags;
         this.status = status;
         this.amount = amount;
-        this.nominalAmount = nominalAmount;
-        this.transactionIds = transactionIds;
         this.fee = fee;
+        this.transactionIds = transactionIds;
         this.updated = check.datetime(updated);
         this.created = check.datetime(created);
     }
@@ -122,7 +122,7 @@ exports.pdf = async function (id, { user } = {}) {
      * @returns DarfPayment pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf(resource, id, null, user);
 };
 
 exports.query = async function ({ limit, after, before, tags, ids, status, user } = {}) {

@@ -33,14 +33,15 @@ declare module 'starkbank' {
          * @param tags [list of strings]: list of strings for tagging
          *
          * Attributes (return-only):
-         * @param id [string, default null]: unique id returned when Boleto is created. ex: '5656565656565656'
-         * @param fee [integer, default null]: fee charged when Boleto is paid. ex: 200 (= R$ 2.00)
-         * @param line [string, default null]: generated Boleto line for payment. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
-         * @param barCode [string, default null]: generated Boleto bar-code for payment. ex: '34195819600000000621090063571277307144464000'
-         * @param status [string, default null]: current Boleto status. ex: 'registered' or 'paid'
+         * @param id [string]: unique id returned when Boleto is created. ex: '5656565656565656'
+         * @param fee [integer]: fee charged when Boleto is paid. ex: 200 (= R$ 2.00)
+         * @param line [string]: generated Boleto line for payment. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
+         * @param barCode [string]: generated Boleto bar-code for payment. ex: '34195819600000000621090063571277307144464000'
+         * @param status [string]: current Boleto status. ex: 'registered' or 'paid'
          * @param transactionIds [list of strings]: ledger transaction ids linked to this Invoice (if there are more than one, all but the first are reversals or failed reversal chargebacks). ex: ['19827356981273']
-         * @param created [string, default null]: creation datetime for the Boleto. ex: '2020-03-10 10:30:00.000'
-         * @param ourNumber [string, default null]: Reference number registered at the settlement bank. ex:“10131474”
+         * @param workspaceId [string]: ID of the Workspace where this Boleto was generated. ex: "4545454545454545"
+         * @param created [string]: creation datetime for the Boleto. ex: '2020-03-10 10:30:00.000'
+         * @param ourNumber [string]: Reference number registered at the settlement bank. ex:“10131474”
          *
          */
 
@@ -76,6 +77,7 @@ declare module 'starkbank' {
         readonly barCode : string
         readonly status : string
         readonly transactionIds : string[]
+        readonly workspaceId : string
         readonly created : string
         readonly ourNumber : string
 
@@ -86,7 +88,7 @@ declare module 'starkbank' {
             tags? : string[] | null, descriptions? : {text : string, amount? : number}[] | null, 
             discounts? : {percentage : number, date : string}[] | null, id?: string | null, fee? : number | null, 
             line? : string | null, barCode? : string | null, status? : string | null, transactionIds? : string[] | null, 
-            created? : string | null, ourNumber? : string | null
+            workspaceId? : string | null, created? : string | null, ourNumber? : string | null
         })
     }
 

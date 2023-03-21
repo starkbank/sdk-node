@@ -17,15 +17,22 @@ class Workspace extends Resource {
      * Parameters (optional):
      * @param allowedTaxIds [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ['012.345.678-90', '20.018.183/0001-80']
      * 
-     * Attributes:
-     * @param id [string, default null]: unique id returned when the workspace is created. ex: '5656565656565656'
-     * 
+     * Attributes (return-only):
+     * @param id [string]: unique id returned when the workspace is created. ex: '5656565656565656'
+     * @param status [string]: current Workspace status. Options: "active", "closed", "frozen" or "blocked"
+     * @param organizationId [string]: unique organization id returned when the organization is created. ex: "5656565656565656"
+     * @param pictureUrl [string]: public workspace image (png) URL. ex: "https://storage.googleapis.com/api-ms-workspace-sbx.appspot.com/pictures/workspace/6284441752174592.png?20230208220551"
+     * @param created [string]: creation datetime for the workspace. ex: '2020-03-10 10:30:00.000'
      */
-    constructor({username, name, allowedTaxIds = null, id=null}) {
+    constructor({username, name, allowedTaxIds = null, id = null, status = null, organizationId = null, pictureUrl = null, created = null}) {
         super(id);
         this.username = username;
         this.name = name;
         this.allowedTaxIds = allowedTaxIds;
+        this.status = status;
+        this.organizationId = organizationId;
+        this.pictureUrl = pictureUrl;
+        this.created = created;
     }
 }
 
@@ -128,7 +135,7 @@ exports.page = async function ({ cursor, limit, username, ids, user } = {}){
     return rest.getPage(resource, query, user);
 };
 
-exports.update = async function (id, {username, name, allowedTaxIds, picture, pictureType, user} = {}){
+exports.update = async function (id, {username, name, allowedTaxIds, status, picture, pictureType, user} = {}){
     /**
      * 
      * Update a Workspace entity
@@ -145,6 +152,7 @@ exports.update = async function (id, {username, name, allowedTaxIds, picture, pi
      * @param name [string, default null]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: 'Stark Bank Workspace'
      * @param username [string, default null]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: 'starkbank-workspace'
      * @param allowedTaxIds [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ['012.345.678-90', '20.018.183/0001-80']
+     * @param status [string, default null]: current Workspace status. ex: 'active' or 'blocked'
      * @param picture [Buffer, default null]: Binary buffer of the picture. ex: fs.readFileSync("/path/to/file.png")
      * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      * 
@@ -156,6 +164,7 @@ exports.update = async function (id, {username, name, allowedTaxIds, picture, pi
         name: name,
         username: username,
         allowedTaxIds: allowedTaxIds,
+        status: status,
         picture: picture ? `data:${pictureType};base64,${picture.toString('base64')}` : null,
     };
     return rest.patchId(resource, id, payload, user);

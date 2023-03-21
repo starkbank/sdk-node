@@ -16,33 +16,33 @@ class Invoice extends Resource {
      * use dates instead of datetimes on the "due" and "discounts" fields.
      *
      * Parameters (required):
-     * @param amount            [integer]: Invoice value in cents. Minimum = 0 (R$0,00). ex: 1234 (= R$ 12.34)
-     * @param taxId             [string]: payer tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
-     * @param name              [string]: payer name. ex: 'Iron Bank S.A.'
+     * @param amount [integer]: Invoice value in cents. Minimum = 0 (R$0,00). ex: 1234 (= R$ 12.34)
+     * @param taxId [string]: payer tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
+     * @param name [string]: payer name. ex: 'Iron Bank S.A.'
      *
      * Parameters (optional):
-     * @param due               [string, default now + 2 days]: Invoice due date in UTC ISO format. ex: '2020-11-25T17:59:26.249976+00:00'
-     * @param expiration        [integer, default 59 days]: time interval in seconds between due date and expiration date. ex 123456789
-     * @param fine              [float, default 2.0]: Invoice fine for overdue payment in %. ex: 2.5
-     * @param interest          [float, default 1.0]: Invoice monthly interest for overdue payment in %. ex: 5.2
-     * @param discounts         [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'due':string pairs
-     * @param tags              [list of strings, default null]: list of strings for tagging
-     * @param descriptions      [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
+     * @param due [string, default now + 2 days]: Invoice due date in UTC ISO format. ex: '2020-11-25T17:59:26.249976+00:00'
+     * @param expiration [integer, default 59 days]: time interval in seconds between due date and expiration date. ex 123456789
+     * @param fine [float, default 2.0]: Invoice fine for overdue payment in %. ex: 2.5
+     * @param interest [float, default 1.0]: Invoice monthly interest for overdue payment in %. ex: 5.2
+     * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'due':string pairs
+     * @param tags [list of strings, default null]: list of strings for tagging
+     * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
      *
      * Attributes (return-only):
-     * @param fee               [integer, default null]: fee charged by this Invoice. ex: 65 (= R$ 0.65)
-     * @param pdf               [string, default null]: public Invoice PDF URL. ex: 'https://invoice.starkbank.com/pdf/d454fa4e524441c1b0c1a729457ed9d8'
-     * @param link              [string, default null]: public Invoice webpage URL. ex: 'https://my-workspace.sandbox.starkbank.com/invoicelink/d454fa4e524441c1b0c1a729457ed9d8'
-     * @param nominalAmount     [integer, default null]: Invoice emission value in cents (will change if invoice is updated, but not if it's paid). ex: 400000
-     * @param fineAmount        [integer, default null]: Invoice fine value calculated over nominalAmount. ex: 20000
-     * @param interestAmount    [integer, default null]: Invoice interest value calculated over nominalAmount. ex: 10000
-     * @param discountAmount    [integer, default null]: Invoice discount value calculated over nominalAmount. ex: 3000
-     * @param id                [string, default null]: unique id returned when Invoice is created. ex: '5656565656565656'
-     * @param brcode            [string, default null]: BR Code for the Invoice payment. ex: '00020101021226800014br.gov.bcb.pix2558invoice.starkbank.com/f5333103-3279-4db2-8389-5efe335ba93d5204000053039865802BR5913Arya Stark6009Sao Paulo6220051656565656565656566304A9A0'
-     * @param status            [string, default null]: current Invoice status. ex: 'created', 'paid', 'canceled' or 'overdue'
-     * @param transactionIds    [list of strings]: ledger transaction ids linked to this Invoice (if there are more than one, all but the first are reversals or failed reversal chargebacks). ex: ['19827356981273']
-     * @param created           [string, default null]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
-     * @param updated           [string, default null]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
+     * @param pdf [string]: public Invoice PDF URL. ex: 'https://invoice.starkbank.com/pdf/d454fa4e524441c1b0c1a729457ed9d8'
+     * @param link [string]: public Invoice webpage URL. ex: 'https://my-workspace.sandbox.starkbank.com/invoicelink/d454fa4e524441c1b0c1a729457ed9d8'
+     * @param nominalAmount [integer]: Invoice emission value in cents (will change if invoice is updated, but not if it's paid). ex: 400000
+     * @param fineAmount [integer]: Invoice fine value calculated over nominalAmount. ex: 20000
+     * @param interestAmount [integer]: Invoice interest value calculated over nominalAmount. ex: 10000
+     * @param discountAmount [integer]: Invoice discount value calculated over nominalAmount. ex: 3000
+     * @param id [string]: unique id returned when Invoice is created. ex: '5656565656565656'
+     * @param brcode [string]: BR Code for the Invoice payment. ex: '00020101021226800014br.gov.bcb.pix2558invoice.starkbank.com/f5333103-3279-4db2-8389-5efe335ba93d5204000053039865802BR5913Arya Stark6009Sao Paulo6220051656565656565656566304A9A0'
+     * @param status [string]: current Invoice status. ex: 'created', 'paid', 'canceled' or 'overdue'
+     * @param fee [integer]: fee charged by this Invoice. ex: 65 (= R$ 0.65)
+     * @param transactionIds [list of strings]: ledger transaction ids linked to this Invoice (if there are more than one, all but the first are reversals or failed reversal chargebacks). ex ['19827356981273']
+     * @param created [string]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
+     * @param updated [string]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
      *
      */
     constructor({
@@ -260,7 +260,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Invoice pdf file
      *
      */
-    return rest.getPdf(resource, id, {}, user);
+    return rest.getPdf(resource, id, null, user);
 };
 
 exports.payment = async function (id, {user} = {}) {

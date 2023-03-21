@@ -3,7 +3,6 @@
 ///<reference path='./boletoPayment/boletoPayment.d.ts' />
 ///<reference path='./boletoHolmes/boletoHolmes.d.ts' />
 ///<reference path='./brcodePayment/brcodePayment.d.ts' />
-///<reference path='./brcodePreview/brcodePreview.d.ts' />
 ///<reference path='./darfPayment/darfPayment.d.ts' />
 ///<reference path='./deposit/deposit.d.ts' />
 ///<reference path='./dynamicBrcode/dynamicBrcode.d.ts' />

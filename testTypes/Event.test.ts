@@ -15,7 +15,7 @@ describe('TestEventGetAndAttempt', function(){
             assert(typeof event.id == 'string');
             const attempts = await starkbank.event.attempt.query({ eventIds: [event.id], limit: 1 });
             for await (let attempt of attempts) {
-                attempt = await starkbank.event.attempt.get(attempt.id);
+                attempt = await starkbank.event.attempt.get(attempt.id as string);
                 assert(typeof attempt == 'object');
             }
         }

@@ -66,8 +66,8 @@ describe('TestUtilityPaymentGetPage', function () {
         for (let i = 0; i < 2; i++) {
             [page, cursor] = await starkbank.utilityPayment.page({ limit: 5, cursor: cursor });
             for (let entity of page) {
-                assert(!ids.includes(entity.id));
-                ids.push(entity.id);
+                assert(!ids.includes(entity.id as string));
+                ids.push(entity.id as string);
             }
             if (cursor == null) {
                 break;

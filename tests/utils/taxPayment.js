@@ -8,7 +8,7 @@ const randomInt = require('./random.js').randomInt;
 const examplePayment = new TaxPayment({
     barCode: '83660000001084301380074119002551100010601813',
     scheduled: '2020-03-29',
-    description: 'pagando a conta'
+    description: 'paying taxes'
 });
 
 const exampleDarfPayment = new DarfPayment({

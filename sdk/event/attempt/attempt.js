@@ -4,8 +4,22 @@ const rest = require('../../utils/rest.js');
 
 
 class Attempt extends Resource {
-
-    constructor({id, code, message, webhookId, eventId, created} = {}) {
+    /**
+     * Event.Attempt object
+     * 
+     * @description When an Event delivery fails, an event attempt will be registered.
+     * It carries information meant to help you debug event reception issues.
+     * 
+     * Attributes (return-only):
+     * @param id [string]: unique id that identifies the delivery attempt. ex: '5656565656565656'
+     * @param code [string]: delivery error code. ex: badHttpStatus, badConnection, timeout
+     * @param message [string]: delivery error full description. ex: 'HTTP POST request returned status 404'
+     * @param eventId [string]: ID of the Event whose delivery failed. ex: '4848484848484848'
+     * @param webhookId [string]: ID of the Webhook that triggered this event. ex: '5656565656565656'
+     * @param created [string]: datetime representing the moment when the attempt was made. ex: '2020-03-10 10:30:00.000'
+     * 
+     */
+    constructor({ id, code, message, webhookId, eventId, created } = {}) {
         super(id);
         this.code = code;
         this.message = message;

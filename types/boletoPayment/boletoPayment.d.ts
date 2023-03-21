@@ -19,16 +19,16 @@ declare module 'starkbank' {
          * @param description [string]: Text to be displayed in your statement (min. 10 characters). ex: 'payment ABC'
          *
          * Parameters (optional):
-         * @param amount [int, default null]: amount to be paid. If none is informed, the current boleto value will be used. ex: 23456 (= R$ 234.56)
+         * @param amount [int, default null]: amount to be paid. If null is informed, the current boleto value will be used. ex: 23456 (= R$ 234.56)
          * @param scheduled [string, default today]: payment scheduled date. ex: '2020-03-10'
-         * @param tags [list of strings]: list of strings for tagging
+         * @param tags [list of strings, default null]: list of strings for tagging
          *
          * Attributes (return-only):
-         * @param id [string, default null]: unique id returned when payment is created. ex: '5656565656565656'
-         * @param status [string, default null]: current payment status. ex: 'success' or 'failed'
-         * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this BoletoPayment. ex: ['19827356981273']
-         * @param fee [integer, default null]: fee charged when boleto payment is created. ex: 200 (= R$ 2.00)
-         * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
+         * @param id [string]: unique id returned when payment is created. ex: '5656565656565656'
+         * @param status [string]: current payment status. ex: 'success' or 'failed'
+         * @param transactionIds [list of strings]: ledger transaction ids linked to this BoletoPayment. ex: ['19827356981273']
+         * @param fee [integer]: fee charged when boleto payment is created. ex: 200 (= R$ 2.00)
+         * @param created [string]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
          *
          */
 

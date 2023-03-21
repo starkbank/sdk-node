@@ -14,8 +14,8 @@ declare module 'starkbank' {
          * @param url [string]: Url that will be notified when an event occurs.
          * @param subscriptions [list of strings]: list of any non-empty combination of the available services. ex: ['transfer', 'deposit']
          * 
-         * Attributes:
-         * @param id [string, default null]: unique id returned when the webhook is created. ex: '5656565656565656'
+         * Attributes (return-only):
+         * @param id [string]: unique id returned when the webhook is created. ex: '5656565656565656'
          *
          */
 

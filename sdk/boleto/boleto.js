@@ -25,8 +25,8 @@ class Boleto extends Resource {
      *
      * Parameters (optional):
      * @param due [string, default today + 2 days]: Boleto due date in ISO format. ex: 2020-04-30
-     * @param fine [float, default 0.0]: Boleto fine for overdue payment in %. ex: 2.5
-     * @param interest [float, default 0.0]: Boleto monthly interest for overdue payment in %. ex: 5.2
+     * @param fine [float, default 2.0]: Boleto fine for overdue payment in %. ex: 2.5
+     * @param interest [float, default 1.0]: Boleto monthly interest for overdue payment in %. ex: 5.2
      * @param overdueLimit [integer, default 59]: limit in days for payment after due date. ex: 7 (max: 59)
      * @param receiverName [string]: receiver (Sacador Avalista) full name. ex: 'Anthony Edward Stark'
      * @param receiverTaxId [string]: receiver (Sacador Avalista) tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
@@ -35,14 +35,15 @@ class Boleto extends Resource {
      * @param tags [list of strings]: list of strings for tagging
      *
      * Attributes (return-only):
-     * @param id [string, default null]: unique id returned when Boleto is created. ex: '5656565656565656'
-     * @param fee [integer, default null]: fee charged when Boleto is paid. ex: 200 (= R$ 2.00)
-     * @param line [string, default null]: generated Boleto line for payment. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
-     * @param barCode [string, default null]: generated Boleto bar-code for payment. ex: '34195819600000000621090063571277307144464000'
-     * @param status [string, default null]: current Boleto status. ex: 'registered' or 'paid'
+     * @param id [string]: unique id returned when Boleto is created. ex: '5656565656565656'
+     * @param fee [integer]: fee charged when Boleto is paid. ex: 200 (= R$ 2.00)
+     * @param line [string]: generated Boleto line for payment. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
+     * @param barCode [string]: generated Boleto bar-code for payment. ex: '34195819600000000621090063571277307144464000'
+     * @param status [string]: current Boleto status. ex: 'registered' or 'paid'
      * @param transactionIds [list of strings]: ledger transaction ids linked to this Invoice (if there are more than one, all but the first are reversals or failed reversal chargebacks). ex: ['19827356981273']
-     * @param created [string, default null]: creation datetime for the Boleto. ex: '2020-03-10 10:30:00.000'
-     * @param ourNumber [string, default null]: Reference number registered at the settlement bank. ex:“10131474”
+     * @param workspaceId [string]: ID of the Workspace where this Boleto was generated. ex: "4545454545454545"
+     * @param created [string]: creation datetime for the Boleto. ex: '2020-03-10 10:30:00.000'
+     * @param ourNumber [string]: Reference number registered at the settlement bank. ex:“10131474”
      *
      */
     constructor({
@@ -50,7 +51,7 @@ class Boleto extends Resource {
                     due = null, fine = null, interest = null, overdueLimit = null, receiverName = null,
                     receiverTaxId = null, tags = null, descriptions = null, discounts = null, id = null,
                     fee = null, line = null, barCode = null, status = null,
-                    transactionIds = null, created = null, ourNumber = null
+                    transactionIds = null, workspaceId = null, created = null, ourNumber = null
                 }) {
         super(id);
         this.amount = amount;
@@ -76,6 +77,7 @@ class Boleto extends Resource {
         this.barCode = barCode;
         this.status = status;
         this.transactionIds = transactionIds;
+        this.workspaceId = workspaceId;
         this.created = check.datetime(created);
         this.ourNumber = ourNumber;
     }

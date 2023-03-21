@@ -132,5 +132,5 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Invoice.Log pdf file
      *
      */
-    return rest.getPdf(resource, id, {}, user);
+    return rest.getPdf(resource, id, null, user);
 };

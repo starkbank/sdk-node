@@ -8,7 +8,7 @@ class BrcodePreview extends SubResource {
      * 
      * @description A BrcodePreview is used to get information from a BR Code you received to check the information before the payment.
      * 
-     * Attributes:
+     * Attributes (return-only):
      * @param status [string]: Payment status. ex: 'active', 'paid', 'canceled' or 'unknown'
      * @param name [string]: Payment receiver name. ex: 'Tony Stark'
      * @param taxId [string]: Payment receiver tax ID. ex: '012.345.678-90'

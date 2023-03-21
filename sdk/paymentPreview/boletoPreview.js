@@ -9,7 +9,7 @@ class BoletoPreview extends SubResource {
      * 
      * @description A BoletoPreview is used to get information from a Boleto Payment you received to check the information before the payment.
      * 
-     * Attributes:
+     * Attributes (return-only):
      * @param status [string]: current boleto status. ex: 'active', 'expired' or 'inactive'
      * @param amount [int]: amount final to be paid. ex: 23456 (= R$ 234.56)
      * @param discountAmount [int]: discount amount to be paid. ex: 23456 (= R$ 234.56)

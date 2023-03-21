@@ -28,7 +28,9 @@ exports.generateExampleBrcodePaymentsJson = async function (n, nextDay = false) 
     for await (let invoice of invoices) {
         exampleBrcodePayment.brcode = invoice.brcode;
 
-        let previews = await starkbank.brcodePreview.query({brcodes: [invoice.brcode]});
+        let previews = await starkbank.paymentPreview.create([{
+            id: invoice.brcode
+        }]);
         for await (let preview of previews) {
             exampleBrcodePayment.amount = preview.amount;
         }

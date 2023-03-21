@@ -13,7 +13,7 @@ class UtilityPayment extends Resource {
      * to the Stark Bank API and returns the list of created objects.
      *
      * Parameters (conditionally required):
-     * @param line [string, default null]: Number sequence that describes the payment. Either 'line' or 'bar_code' parameters are required. If both are sent, they must match. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
+     * @param line [string, default null]: Number sequence that describes the payment. Either 'line' or 'barCode' parameters are required. If both are sent, they must match. ex: '34191.09008 63571.277308 71444.640008 5 81960000000062'
      * @param barCode [string, default null]: Bar code number that describes the payment. Either 'line' or 'barCode' parameters are required. If both are sent, they must match. ex: '34195819600000000621090063571277307144464000'
      *
      * Parameters (required):
@@ -21,33 +21,36 @@ class UtilityPayment extends Resource {
      *
      * Parameters (optional):
      * @param scheduled [string, default today]: payment scheduled date. ex: '2020-03-10'
-     * @param tags [list of strings]: list of strings for tagging
+     * @param tags [list of strings, default null]: list of strings for tagging
      *
      * Attributes (return-only):
-     * @param id [string, default null]: unique id returned when payment is created. ex: '5656565656565656'
-     * @param status [string, default null]: current payment status. ex: 'success' or 'failed'
-     * @param amount [int, default null]: amount automatically calculated from line or bar_code. ex: 23456 (= R$ 234.56)
-     * @param fee [integer, default null]: fee charged when the utility payment is created. ex: 200 (= R$ 2.00)
-     * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this UtilityPayment. ex: ['19827356981273']
-     * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
-     *
+     * @param id [string]: unique id returned when payment is created. ex: '5656565656565656'
+     * @param status [string]: current payment status. ex: 'success' or 'failed'
+     * @param amount [int]: amount automatically calculated from line or barCode. ex: 23456 (= R$ 234.56)
+     * @param fee [integer]: fee charged when the utility payment is created. ex: 200 (= R$ 2.00)
+     * @param type [string]: payment type. ex: "utility"
+     * @param transactionIds [list of strings]: ledger transaction ids linked to this UtilityPayment. ex: ['19827356981273']
+     * @param created [string]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
+     * @param updated [string]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
      */
     constructor({
                     description, scheduled, line, barCode,
                     tags, amount, status, transactionIds, created,
-                    fee, id,
+                    fee, type, id, updated
                 }) {
         super(id);
-        this.barCode = barCode;
         this.line = line;
+        this.barCode = barCode;
         this.description = description;
         this.scheduled = check.date(scheduled);
         this.tags = tags;
-        this.amount = amount;
         this.status = status;
+        this.amount = amount;
         this.fee = fee;
+        this.type = type;
         this.transactionIds = transactionIds;
         this.created = check.datetime(created);
+        this.updated = check.datetime(updated);
     }
 }
 
@@ -109,7 +112,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns UtilityPayment pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf(resource, id, null, user);
 };
 
 exports.query = async function ({ limit, after, before, tags, ids, status, user} = {}) {

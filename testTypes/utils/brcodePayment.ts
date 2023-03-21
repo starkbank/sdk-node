@@ -4,7 +4,13 @@ const random = require('./random.js');
 
 export async function generateExampleBrcodePaymentsJson(n: number, nextDay = false) {
 
-    let exampleBrcodePayment = {
+    let exampleBrcodePayment: {
+        brcode: string;
+        taxId: string;
+        description: string;
+        amount?: number;
+        rules: starkbank.brcodePayment.Rule[];
+    } = {
         brcode: "00020101021226890014br.gov.bcb.pix2567invoice-h.sandbox.starkbank.com/v2/db86835d61274c7799a1f637b2b6f8b652040000530398654040.005802BR5915Stark Bank S.A.6009Sao Paulo62070503***6304FCCE",
         taxId: '22.653.392/0001-20',
         description: "Tony Stark's Suit",
@@ -25,9 +31,13 @@ export async function generateExampleBrcodePaymentsJson(n: number, nextDay = fal
     for await (let invoice of invoices) {
         exampleBrcodePayment.brcode = invoice.brcode;
 
-        let previews = await starkbank.brcodePreview.query({brcodes: [invoice.brcode]});
+        let previews = await starkbank.paymentPreview.create(
+            [new starkbank.PaymentPreview({
+                id: invoice.brcode
+            })]
+        );
         for await (let preview of previews) {
-            exampleBrcodePayment.amount = preview.amount;
+            exampleBrcodePayment.amount = preview.payment?.amount;
         }
 
         let nextDayDateTime = nextDay ? random.futureDateTime(1) : random.futureDateTime(300);
