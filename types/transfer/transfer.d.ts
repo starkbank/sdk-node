@@ -31,7 +31,7 @@ declare module 'starkbank' {
          * @param fee [integer]: fee charged when transfer is created. ex: 200 (= R$ 2.00)
          * @param status [string]: current transfer status. ex: 'processing' or 'success'
          * @param transactionIds [list of strings]: ledger transaction ids linked to this transfer (if there are two, second is the chargeback). ex: ['19827356981273']
-         * @param metadata [Transfer.Metadata object]: object used to store additional information about the Transfer object.
+         * @param metadata [dictionary object]: dictionary object used to store additional information about the Transfer object.
          * @param created [string]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
          * @param updated [string]: latest update datetime for the transfer. ex: '2020-03-10 10:30:00.000'
          *
@@ -55,7 +55,7 @@ declare module 'starkbank' {
         readonly fee : number
         readonly status : string
         readonly transactionIds : string[]
-        readonly metadata : transfer.Metadata
+        readonly metadata : {}
         readonly created : string
         readonly updated : string
         
@@ -64,7 +64,7 @@ declare module 'starkbank' {
             amount: number, name: string, taxId: string, bankCode: string, branchCode: string, accountNumber: string, 
             accountType?: string, externalId?: string, tags?: string[], rules?: transfer.Rule[], scheduled?: string, 
             description?: string | null, id?: string | null, fee?: number | null, status?: string | null, 
-            transactionIds?: string[] | null, metadata?: Metadata, created?: string | null, updated?: string | null, 
+            transactionIds?: string[] | null, metadata?: {}, created?: string | null, updated?: string | null, 
         })
     }
 
@@ -235,25 +235,6 @@ declare module 'starkbank' {
             constructor(params: {
                 key: string,
                 value: number 
-            })
-        }
-
-        export class Metadata {
-            /**
-             *
-             * Transfer.Metadata object
-             *
-             * @description The Transfer.Metadata object contains additional information about the Transfer object.
-             *
-             * Parameters (required):
-             * @param authentication [string]: Central Bank's unique ID for Pix transactions (EndToEndID). ex: "E200181832023031715008Scr7tD63TS"
-             * 
-             */
-
-            authentication : string
-
-            constructor(params: { 
-                authentication: string
             })
         }
 
