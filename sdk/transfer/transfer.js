@@ -3,6 +3,7 @@ const check = require('../utils/check.js');
 const parseObjects = require('../utils/parse.js').parseObjects;
 const Resource = require('../utils/resource.js').Resource
 const { Rule } = require('./rule/rule.js');
+const { Metadata } = require('./metadata/metadata.js');
 const ruleResource = require('./rule/rule.js').subResource;
 
 
@@ -22,28 +23,29 @@ class Transfer extends Resource {
      * @param bankCode [string]: code of the receiver bank institution in Brazil. If an ISPB (8 digits) is informed, a Pix transfer will be created, else a TED will be issued. ex: '20018183' or '341'
      * @param branchCode [string]: receiver bank account branch. Use '-' in case there is a verifier digit. ex: '1357-9'
      * @param accountNumber [string]: Receiver Bank Account number. Use '-' before the verifier digit. ex: '876543-2'
-     *
+     * 
      * Parameters (optional):
      * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
-     * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated external_ids will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
+     * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated externalIds will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
      * @param scheduled [string, default now]: date or datetime when the transfer will be processed. May be pushed to next business day if necessary. ex: '2020-11-12T00:14:22.806+00:00' or '2020-11-30'
      * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
      * @param tags [list of strings, default []]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
      * @param rules [list of Transfer.Rules, default []]: list of Transfer.Rule objects for modifying transfer behaviour. ex: [Transfer.Rule(key="resendingLimit", value=5)]
      *
      * Attributes (return-only):
-     * @param id [string, default null]: unique id returned when Transfer is created. ex: '5656565656565656'
-     * @param fee [integer, default null]: fee charged when transfer is created. ex: 200 (= R$ 2.00)
-     * @param status [string, default null]: current transfer status. ex: 'processing' or 'success'
-     * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this transfer (if there are two, second is the chargeback). ex: ['19827356981273']
-     * @param created [string, default null]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
-     * @param updated [string, default null]: latest update datetime for the transfer. ex: '2020-03-10 10:30:00.000'
+     * @param id [string]: unique id returned when Transfer is created. ex: '5656565656565656'
+     * @param fee [integer]: fee charged when transfer is created. ex: 200 (= R$ 2.00)
+     * @param status [string]: current transfer status. ex: 'processing' or 'success'
+     * @param transactionIds [list of strings]: ledger transaction ids linked to this transfer (if there are two, second is the chargeback). ex: ['19827356981273']
+     * @param metadata [Transfer.Metadata object]: object used to store additional information about the Transfer object.
+     * @param created [string]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
+     * @param updated [string]: latest update datetime for the transfer. ex: '2020-03-10 10:30:00.000'
      *
      */
     constructor({
                     amount, name, taxId, bankCode, branchCode, accountNumber, accountType, 
                     externalId, scheduled, description, tags, rules, id, fee, status, 
-                    transactionIds, created, updated
+                    transactionIds, metadata, created, updated
                 }) {
         super(id);
         this.amount = amount;
@@ -60,9 +62,10 @@ class Transfer extends Resource {
         this.rules = parseObjects(rules, ruleResource, Rule);
         this.fee = fee;
         this.status = status;
+        this.transactionIds = transactionIds;
+        this.metadata = metadata ? new Metadata(metadata) : null;
         this.created = check.datetime(created);
         this.updated = check.datetime(updated);
-        this.transactionIds = transactionIds;
     }
 }
 
@@ -147,7 +150,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Transfer pdf file
      *
      */
-    return rest.getPdf(resource, id, user);
+    return rest.getPdf(resource, id, null, user);
 };
 
 exports.query = async function ({ limit, after, before, transactionIds, status, taxId, sort, tags, ids, user} = {}) {

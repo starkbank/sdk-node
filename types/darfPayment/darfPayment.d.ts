@@ -21,18 +21,18 @@ declare module 'starkbank' {
          * @param due [string]: due date for payment. ex: ex: '2020-03-10'
          *
          * Parameters (optional):
-         * @param referenceNumber [string]: number assigned to the region of the tax. ex: "08.1.17.00-4"
+         * @param referenceNumber [string, default null]: number assigned to the region of the tax. ex: "08.1.17.00-4"
          * @param scheduled [string, default today]: payment scheduled date. ex: '2020-03-10'
-         * @param tags [list of strings]: list of strings for tagging
+         * @param tags [list of strings, default null]: list of strings for tagging
          *
          * Attributes (return-only):
-         * @param id [string, default null]: unique id returned when payment is created. ex: "5656565656565656"
-         * @param status [string, default null]: current payment status. ex: "success" or "failed"
-         * @param amount [int, default null]: Total amount due calculated from other amounts. ex: 24146 (= R$ 241.46)
-         * @param fee [integer, default null]: fee charged when the DarfPayment is processed. ex: 0 (= R$ 0.00)
-         * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this DarfPayment. ex: ['19827356981273']
-         * @param updated [string, default null]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
-         * @param created [string, default null]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
+         * @param id [string]: unique id returned when payment is created. ex: "5656565656565656"
+         * @param status [string]: current payment status. ex: "success" or "failed"
+         * @param amount [int]: Total amount due calculated from other amounts. ex: 24146 (= R$ 241.46)
+         * @param fee [integer]: fee charged when the DarfPayment is processed. ex: 0 (= R$ 0.00)
+         * @param transactionIds [list of strings]: ledger transaction ids linked to this DarfPayment. ex: ['19827356981273']
+         * @param updated [string]: latest update datetime for the payment. ex: '2020-03-10 10:30:00.000'
+         * @param created [string]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000'
          *
          */
 

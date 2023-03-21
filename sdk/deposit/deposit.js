@@ -10,7 +10,7 @@ class Deposit extends Resource {
      * 
      * @description Deposits represent passive cash-in received by your account from external transfers
      * 
-     * Parameters (required):
+     * Parameters (return-only):
      * @param id [string]: unique id associated with a Deposit when it is created. ex: '5656565656565656'
      * @param name [string]: payer name. ex: 'Iron Bank S.A.'
      * @param taxId [string]: payer tax ID (CPF or CNPJ). ex: '012.345.678-90' or '20.018.183/0001-80'

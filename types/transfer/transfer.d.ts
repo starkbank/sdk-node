@@ -20,19 +20,20 @@ declare module 'starkbank' {
          * 
          * Parameters (optional):
          * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
-         * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated external_ids will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
+         * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated externalIds will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
          * @param scheduled [string, default now]: date or datetime when the transfer will be processed. May be pushed to next business day if necessary. ex: '2020-11-12T00:14:22.806+00:00' or '2020-11-30'
          * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
          * @param tags [list of strings, default []]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
          * @param rules [list of Transfer.Rules, default []]: list of Transfer.Rule objects for modifying transfer behavior. ex: [Transfer.Rule(key="resendingLimit", value=5)]
          *
          * Attributes (return-only):
-         * @param id [string, default null]: unique id returned when Transfer is created. ex: '5656565656565656'
-         * @param fee [integer, default null]: fee charged when transfer is created. ex: 200 (= R$ 2.00)
-         * @param status [string, default null]: current transfer status. ex: 'processing' or 'success'
-         * @param transactionIds [list of strings, default null]: ledger transaction ids linked to this transfer (if there are two, second is the chargeback). ex: ['19827356981273']
-         * @param created [string, default null]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
-         * @param updated [string, default null]: latest update datetime for the transfer. ex: '2020-03-10 10:30:00.000'
+         * @param id [string]: unique id returned when Transfer is created. ex: '5656565656565656'
+         * @param fee [integer]: fee charged when transfer is created. ex: 200 (= R$ 2.00)
+         * @param status [string]: current transfer status. ex: 'processing' or 'success'
+         * @param transactionIds [list of strings]: ledger transaction ids linked to this transfer (if there are two, second is the chargeback). ex: ['19827356981273']
+         * @param metadata [Transfer.Metadata object]: object used to store additional information about the Transfer object.
+         * @param created [string]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
+         * @param updated [string]: latest update datetime for the transfer. ex: '2020-03-10 10:30:00.000'
          *
          */
 
@@ -54,6 +55,7 @@ declare module 'starkbank' {
         readonly fee : number
         readonly status : string
         readonly transactionIds : string[]
+        readonly metadata : transfer.Metadata
         readonly created : string
         readonly updated : string
         
@@ -62,7 +64,7 @@ declare module 'starkbank' {
             amount: number, name: string, taxId: string, bankCode: string, branchCode: string, accountNumber: string, 
             accountType?: string, externalId?: string, tags?: string[], rules?: transfer.Rule[], scheduled?: string, 
             description?: string | null, id?: string | null, fee?: number | null, status?: string | null, 
-            transactionIds?: string[] | null, created?: string | null, updated?: string | null, 
+            transactionIds?: string[] | null, metadata?: Metadata, created?: string | null, updated?: string | null, 
         })
     }
 
@@ -233,6 +235,25 @@ declare module 'starkbank' {
             constructor(params: {
                 key: string,
                 value: number 
+            })
+        }
+
+        export class Metadata {
+            /**
+             *
+             * Transfer.Metadata object
+             *
+             * @description The Transfer.Metadata object contains additional information about the Transfer object.
+             *
+             * Parameters (required):
+             * @param authentication [string]: Central Bank's unique ID for Pix transactions (EndToEndID). ex: "E200181832023031715008Scr7tD63TS"
+             * 
+             */
+
+            authentication : string
+
+            constructor(params: { 
+                authentication: string
             })
         }
 

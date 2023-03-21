@@ -15,18 +15,18 @@ class Log extends Resource {
      *
      * Attributes:
      * @param id [string]: unique id returned when the log is created. ex: '5656565656565656'
-     * @param boleto [Deposit]: Deposit entity to which the log refers to.
+     * @param deposit [Deposit]: Deposit entity to which the log refers to.
      * @param errors [list of strings]: list of errors linked to this Deposit event
      * @param type [string]: type of the Deposit event which triggered the log creation. ex: 'created'
      * @param created [string]: creation datetime for the log. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ created, type, errors, boleto, id }) {
+    constructor({ created, type, errors, deposit, id }) {
         super(id);
         this.created = check.datetime(created);
         this.type = type;
         this.errors = errors;
-        this.boleto = boleto;
+        this.deposit = deposit;
     }
 }
 

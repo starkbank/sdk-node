@@ -8,7 +8,7 @@ class TaxPreview extends SubResource {
      * 
      * @description A TaxPreview is used to get information from a Tax Payment you received to check the information before the payment.
      * 
-     * Attributes:
+     * Attributes (return-only):
      * @param amount [int]: final amount to be paid. ex: 23456 (= R$ 234.56)
      * @param name [string]: beneficiary full name. ex: 'Iron Throne'
      * @param description [string]: tax payment description. ex: 'ISS Payment - Iron Throne'

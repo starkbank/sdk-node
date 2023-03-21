@@ -10,7 +10,7 @@ declare module 'starkbank' {
          * Events cannot be created, but may be retrieved from the Stark Bank API to
          * list all generated updates on entities.
          *
-         * Attributes:
+         * Attributes (return-only):
          * @param id [string]: unique id returned when the event is created. ex: '5656565656565656'
          * @param log [Log]: a Log object from one the subscription services (Transfer Log, Boleto Log, BoletoHolmes Log, BoletoPayment Log, BrcodePayment Log, Deposit Log, Invoice Log or UtilityPayment Log)
          * @param created [string]: creation datetime for the notification event. ex: '2020-03-10 10:30:00.000'
@@ -168,15 +168,31 @@ declare module 'starkbank' {
         export { _delete as delete }
 
         export class Attempt {
-            id: string
-            code: string
-            message: string
-            webhookId: string
-            eventId: string
-            created: string
+            /**
+             * Event.Attempt object
+             * 
+             * @description When an Event delivery fails, an event attempt will be registered.
+             * It carries information meant to help you debug event reception issues.
+             * 
+             * Attributes (return-only):
+             * @param id [string]: unique id that identifies the delivery attempt. ex: '5656565656565656'
+             * @param code [string]: delivery error code. ex: badHttpStatus, badConnection, timeout
+             * @param message [string]: delivery error full description. ex: 'HTTP POST request returned status 404'
+             * @param eventId [string]: ID of the Event whose delivery failed. ex: '4848484848484848'
+             * @param webhookId [string]: ID of the Webhook that triggered this event. ex: '5656565656565656'
+             * @param created [string]: datetime representing the moment when the attempt was made. ex: '2020-03-10 10:30:00.000'
+             * 
+             */
+            readonly id?: string | null
+            readonly code?: string | null
+            readonly message?: string | null
+            readonly webhookId?: string | null
+            readonly eventId?: string | null
+            readonly created?: string | null
 
             constructor(
-                id: string, code: string, message: string, webhookId: string, eventId: string, created: string
+                id?: string | null, code?: string | null, message?: string | null, webhookId?: string | null, 
+                eventId?: string | null, created?: string | null
             )
             
         }

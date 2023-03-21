@@ -13,6 +13,19 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- pdf function on boletoPayment, darfPayment, invoice, invoice.Log, taxPayment, transfer and utilityPayment
+### Added
+- metadata attribute to Transfer resource
+- missing parameters to the SDK resources
+- status, organizationId, created and pictureUrl attribute to Workspace resource
+- status parameter to update method on Workspace resource
+- workspaceId attribute to Boleto resource
+- description attribute to PaymentRequest resource
+- updated attribute to BoletoHolmes.Log resource
+- updated and type attribute to UtilityPayment resource
+### Removed
+- deprecated BrcodePreview resource
 
 ## [2.16.0] - 2023-01-31
 ### Added

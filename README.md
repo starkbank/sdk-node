@@ -29,7 +29,7 @@ is as easy as sending a text message to your client!
     - [Balance](#get-balance): Account balance
     - [Transfers](#create-transfers): Wire transfers (TED and manual Pix)
     - [DictKeys](#get-dict-key): Pix Key queries to use with Transfers
-    - [Institutions](#query-bacen-institutions): Instutitions recognized by the Central Bank
+    - [Institutions](#query-bacen-institutions): Institutions recognized by the Central Bank
     - [Invoices](#create-invoices): Reconciled receivables (dynamic Pix QR Codes)
     - [DynamicBrcode](#create-dynamicbrcodes): Simplified reconciled receivables (dynamic Pix QR Codes)
     - [Deposits](#query-deposits): Other cash-ins (static Pix QR Codes, DynamicBrcodes, manual Pix, etc)
@@ -39,7 +39,9 @@ is as easy as sending a text message to your client!
     - [BoletoPayments](#pay-a-boleto): Pay Boletos
     - [UtilityPayments](#create-utility-payments): Pay Utility bills (water, light, etc.)
     - [TaxPayments](#create-tax-payment): Pay taxes
+    - [DarfPayments](#create-darf-payment): Pay DARFs
     - [PaymentPreviews](#preview-payment-information-before-executing-the-payment): Preview all sorts of payments
+    - [PaymentRequest](#create-payment-requests-to-be-approved-by-authorized-people-in-a-cost-center): Request a payment approval to a cost center
     - [Webhooks](#create-a-webhook-subscription): Configure your webhook endpoints and subscriptions
     - [WebhookEvents](#process-webhook-events): Manage webhook events
     - [WebhookEventAttempts](#query-failed-webhook-event-delivery-attempts-information): Query failed webhook event deliveries
@@ -286,7 +288,7 @@ const starkbank = require('starkbank');
 
 - The `page` function gives you full control over the API pagination. With each function call, you receive up to
 100 results and the cursor to retrieve the next batch of elements. This allows you to stop your queries and
-pick up from where you left off whenever it is convenient. When there are no more elements to be retrieved, the returned cursor will be `None`.
+pick up from where you left off whenever it is convenient. When there are no more elements to be retrieved, the returned cursor will be `null`.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -357,6 +359,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Transaction object format
 
 ## Query transactions
@@ -449,6 +452,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Transfer object format
 
 ## Query transfers
@@ -638,6 +642,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Invoice object format
 
 ## Get an invoice
@@ -816,13 +821,14 @@ When a DynamicBrcode is paid, a Deposit is created with the tags parameter conta
 
 The differences between an Invoice and the DynamicBrcode are the following:
 
-|                   | Invoice | DynamicBrcode |
-|-------------------|:-------:|:-------------:|
-| Expiration        |    ✓    |       ✓       | 
-| Due, fine and fee |    ✓    |       X       | 
-| Discount          |    ✓    |       X       | 
-| Description       |    ✓    |       X       |
-| Can be updated    |    ✓    |       X       |
+|                       | Invoice | DynamicBrcode |
+|-----------------------|:-------:|:-------------:|
+| Expiration            |    ✓    |       ✓       |
+| Can only be paid once |    ✓    |       ✓       |
+| Due, fine and fee     |    ✓    |       X       |
+| Discount              |    ✓    |       X       |
+| Description           |    ✓    |       X       |
+| Can be updated        |    ✓    |       X       |
 
 **Note:** In order to check if a BR code has expired, you must first calculate its expiration date (add the expiration to the creation date).
 **Note:** To know if the BR code has been paid, you need to query your Deposits by the tag "dynamic-brcode/{uuid}" to check if it has been paid.
@@ -975,6 +981,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native Boleto object format
 
 ## Query boletos
@@ -1447,6 +1454,7 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+
 **Note**: Instead of using dictionary objects, you can also pass each invoice element in the native UtilityPayment object format
 
 ## Query utility payments
@@ -1669,9 +1677,136 @@ const starkbank = require('starkbank');
     console.log(log);
 })();
 ```
+
 **Note**: Some taxes can't be payed with bar codes. Since they have specific parameters, each one of them has its own
  resource and routes, which are all analogous to the TaxPayment resource. The ones we currently support are:
  - DarfPayment, for DARFs
+
+## Create DARF payment
+
+If you want to manually pay DARFs without barcodes, you may create DarfPayments:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.darfPayment.create([
+        {
+            revenueCode: "1240",
+            taxId: "012.345.678-90",
+            competence: "2023-09-01",
+            referenceNumber: "2340978970",
+            nominalAmount: 1234,
+            fineAmount: 12,
+            interestAmount: 34,
+            due: "2023-03-10",
+            scheduled: "2023-03-10",
+            tags: ["DARF", "making money"],
+            description: "take my money",
+        }
+    ]);
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+**Note**: Instead of using DarfPayment objects, you can also pass each payment element in dictionary format
+
+## Query DARF payments
+
+To search for DARF payments using filters, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payments = await starkbank.darfPayment.query({
+        tags: ["darf", "july"]
+    });
+
+    for await (let payment of payments) {
+        console.log(payment);
+    }
+})();
+```
+
+## Get DARF payment
+
+You can get a specific DARF payment by its id:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.darfPayment.get('5155165527080960');
+    console.log(payment);
+})();
+```
+
+## Get DARF payment PDF
+
+After its creation, a DARF payment PDF may also be retrieved by its id. 
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let pdf = await starkbank.darfPayment.pdf('5155165527080960');
+    await fs.writeFile('tax-payment.pdf', pdf);
+})();
+```
+
+Be careful not to accidentally enforce any encoding on the raw pdf content,
+as it may yield abnormal results in the final file, such as missing images
+and strange characters.
+
+## Delete DARF payment
+
+You can also cancel a DARF payment by its id.
+Note that this is not possible if it has been processed already.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let payment = await starkbank.darfPayment.delete('5155165527080960');
+    console.log(payment);
+})();
+```
+
+## Query DARF payment logs
+
+You can search for payment logs by specifying filters. Use this to understand each payment life cycle.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let logs = await starkbank.darfPayment.log.query({
+        limit: 10
+    });
+
+    for await (let log of logs) {
+        console.log(log);
+    }
+})();
+```
+
+## Get DARF payment log
+
+If you want to get a specific payment log by its id, just run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let log = await starkbank.darfPayment.log.get('1902837198237992');
+    console.log(log);
+})();
+```
 
 ## Preview payment information before executing the payment
 
@@ -1916,7 +2051,7 @@ const starkbank = require('starkbank');
 
 This can be used in case you've lost events.
 With this function, you can manually set events retrieved from the API as
-'delivered' to help future event queries with `isDelivered=false`.
+'delivered' to help future event queries with `isDelivered = false`.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -1963,17 +2098,19 @@ The Organization user allows you to create new Workspaces (bank accounts) under 
 Workspaces have independent balances, statements, operations and users.
 The only link between your Workspaces is the Organization that controls them.
 
-**Note**: This route will only work if the Organization user is used with `workspaceId=null`.
+**Note**: This route will only work if the Organization user is used with `workspaceId = null`.
 
 ```javascript
 const starkbank = require('starkbank');
 
 (async() => {
     let workspace = await starkbank.workspace.create(
-        username='iron-bank-workspace-1',
-        name='Iron Bank Workspace 1',
-        allowedTaxIds=['012.345.678-90', '20.018.183/0001-80'],
-        {user: organization},
+        {
+            username: 'iron-bank-workspace-1',
+            name: 'Iron Bank Workspace 1',
+            allowedTaxIds: ['012.345.678-90', '20.018.183/0001-80'],
+            user: organization,
+        }
     );
 })();
 
@@ -1989,7 +2126,7 @@ you can also find other Workspaces by searching for their usernames or IDs direc
 const starkbank = require('starkbank');
 
 (async() => {
-    let workspaces = await starkbank.workspace.query({limit=30});
+    let workspaces = await starkbank.workspace.query({limit = 30});
 
     for await (let workspace of workspaces) {
         console.log(workspace);
@@ -2027,6 +2164,24 @@ const fs = require('fs');
         picture: file,
         pictureType: 'image/png',
         allowedTaxIds: ['012.345.678-90'],
+        user: starkbank.organization.replace(exampleOrganization, workspaces[0].id)
+    });
+    console.log(workspace);
+})();
+```
+
+You can also block a specific Workspace by its id.
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs');
+
+(async() => {
+    let file = fs.readFileSync('/path/to/file.png');
+
+    let workspace = await starkbank.workspace.update('1082736198236817', {
+        status: "blocked",
+        user: starkbank.organization.replace(exampleOrganization, workspaces[0].id)
     });
     console.log(workspace);
 })();

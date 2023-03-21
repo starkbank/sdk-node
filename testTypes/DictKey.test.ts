@@ -20,7 +20,7 @@ describe('TestDictKeyGet', function () {
    jest.setTimeout(10000);
    it('test_success', async () => {
       let i = 0;
-      const dictKeys = await starkbank.dictKey.query({ limit: 1, status: 'registered'});
+      const dictKeys = await starkbank.dictKey.query({ limit: 1, status: 'registered', type: 'evp'});
       for await (let dictKey of dictKeys) {
          assert(typeof dictKey.id == 'string');
          i += 1;

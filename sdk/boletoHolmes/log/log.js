@@ -18,13 +18,15 @@ class Log extends Resource {
      * @param holmes [BoletoHolmes]: BoletoHolmes entity to which the log refers to.
      * @param type [string]: type of the BoletoHolmes event which triggered the log creation. ex: "solving" or "solved"
      * @param created [string]: creation datetime for the log. ex: '2020-03-10 10:30:00.000'
+     * @param updated [string]: latest update datetime for the log. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ created, type, holmes, id }) {
+    constructor({ id, holmes, type, created, updated }) {
         super(id);
-        this.created = check.datetime(created);
-        this.type = type;
         this.holmes = holmes;
+        this.type = type;
+        this.created = check.datetime(created);
+        this.updated = check.datetime(updated);
     }
 }
 

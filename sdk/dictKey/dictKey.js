@@ -15,16 +15,16 @@ class DictKey extends Resource {
      *
      * Attributes (return-only):
      * @param type [string, default null]: Pix key type. ex: 'email', 'cpf', 'cnpj', 'phone' or 'evp'
-     * @param accountCreated [string, default null]: creation datetime of the bank account associated with the Pix key. ex: '2020-11-05T14:55:08.812665+00:00'
-     * @param accountType [string, default null]: bank account type associated with the Pix key. ex: 'checking', 'saving', 'salary' or 'payment'
      * @param name [string, default null]: account owner full name. ex: 'Tony Stark'
      * @param taxId [string, default null]: tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
      * @param ownerType [string, default null]: Pix key owner type. ex 'naturalPerson' or 'legalPerson'
-     * @param bankName [string, null None]: bank name associated with the DICT key. ex: 'Stark Bank'
+     * @param bankName [string, null null]: bank name associated with the DICT key. ex: 'Stark Bank'
      * @param ispb [string, default null]: ISPB code used for transactions. ex: '20018183'
      * @param branchCode [string, default null]: bank account branch code associated with the Pix key. ex: '9585'
      * @param accountNumber [string, default null]: bank account number associated with the Pix key. ex: '9828282578010513'
+     * @param accountType [string, default null]: bank account type associated with the Pix key. ex: 'checking', 'saving', 'salary' or 'payment'
      * @param status [string, default null]: current Pix key status. ex: 'created', 'registered', 'canceled' or 'failed'
+     * @param accountCreated [string, default null]: creation datetime of the bank account associated with the Pix key. ex: '2020-11-05T14:55:08.812665+00:00'
      * @param owned [string, default null]: datetime since when the current owner hold this Pix key. ex : '2020-11-05T14:55:08.812665+00:00'     
      * @param created [string, default null]: creation datetime for the Pix key. ex: '2020-11-05T14:55:08.812665+00:00'
      *
@@ -74,7 +74,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {
+exports.query = async function ({ limit, after, before, status, type, ids, user} = {}) {
     /**
      *
      * Retrieve DictKeys
@@ -86,7 +86,7 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user}
      * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
      * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
      * @param status [string, default null]: filter for status of retrieved objects. ex: 'success'
-     * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
+     * @param type [string, default null]: DictKey type. ex: "cpf", "cnpj", "phone", "email" or "evp"
      * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
@@ -99,13 +99,13 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user}
         after: after,
         before: before,
         status: status,
-        tags: tags,
+        type: type,
         ids: ids,
     };
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({ cursor, limit, after, before, status, tags, ids, user} = {}) {
+exports.page = async function ({ cursor, limit, after, before, status, type, ids, user} = {}) {
     /**
      *
      * Retrieve paged DictKeys
@@ -119,7 +119,7 @@ exports.page = async function ({ cursor, limit, after, before, status, tags, ids
      * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
      * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
      * @param status [string, default null]: filter for status of retrieved objects. ex: 'success'
-     * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
+     * @param type [string, default null]: DictKey type. ex: "cpf", "cnpj", "phone", "email" or "evp"
      * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
@@ -133,7 +133,7 @@ exports.page = async function ({ cursor, limit, after, before, status, tags, ids
         after: after,
         before: before,
         status: status,
-        tags: tags,
+        type: type,
         ids: ids,
     };
     return rest.getPage(resource, query, user);

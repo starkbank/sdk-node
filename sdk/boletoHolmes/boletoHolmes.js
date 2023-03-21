@@ -19,11 +19,11 @@ class BoletoHolmes extends Resource {
      * @param tags [list of strings]: list of strings for tagging
      *
      * Attributes (return-only):
-     * @param id [string, default null]: unique id returned when holmes is created. ex: '5656565656565656'
-     * @param status [string, default null]: current holmes status. ex: 'solving' or 'solved'
-     * @param result [string, default null]: result of boleto status investigation. ex: 'paid' or 'cancelled'
-     * @param created [datetime.datetime, default null]: creation datetime for the holmes. ex: datetime.datetime(2020, 3, 10, 10, 30, 0, 0)
-     * @param updated [datetime.datetime, default null]: latest update datetime for the holmes. ex: datetime.datetime(2020, 3, 10, 10, 30, 0, 0)
+     * @param id [string]: unique id returned when holmes is created. ex: '5656565656565656'
+     * @param status [string]: current holmes status. ex: 'solving' or 'solved'
+     * @param result [string]: result of boleto status investigation. ex: 'paid' or 'cancelled'
+     * @param created [string]: creation datetime for the holmes. ex: '2020-03-10 10:30:00.000'
+     * @param updated [string]: latest update datetime for the holmes. ex: '2020-03-10 10:30:00.000'
      *
      */
     constructor({

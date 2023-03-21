@@ -8,7 +8,7 @@ declare module 'starkbank' {
          * 
          * @description Deposits represent passive cash-in received by your account from external transfers
          * 
-         * Parameters (required):
+         * Parameters (return-only):
          * @param id [string]: unique id associated with a Deposit when it is created. ex: '5656565656565656'
          * @param name [string]: payer name. ex: 'Iron Bank S.A.'
          * @param taxId [string]: payer tax ID (CPF or CNPJ). ex: '012.345.678-90' or '20.018.183/0001-80'
@@ -144,7 +144,7 @@ declare module 'starkbank' {
              *
              * Attributes:
              * @param id [string]: unique id returned when the log is created. ex: '5656565656565656'
-             * @param boleto [Deposit]: Deposit entity to which the log refers to.
+             * @param deposit [Deposit]: Deposit entity to which the log refers to.
              * @param errors [list of strings]: list of errors linked to this Deposit event
              * @param type [string]: type of the Deposit event which triggered the log creation. ex: 'created'
              * @param created [string]: creation datetime for the log. ex: '2020-03-10 10:30:00.000'
@@ -152,12 +152,12 @@ declare module 'starkbank' {
              */
 
             readonly id : string
-            readonly boleto : Deposit
+            readonly deposit : Deposit
             readonly errors: string[]
             readonly type : string
             readonly created : string
 
-            constructor(id: string, boleto: Deposit, errors: string[], type: string, created: string)
+            constructor(id: string, deposit: Deposit, errors: string[], type: string, created: string)
         }
 
         namespace log {

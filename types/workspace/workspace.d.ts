@@ -19,17 +19,27 @@ declare module 'starkbank' {
          * 
          * Attributes:
          * @param id [string, default null]: unique id returned when the workspace is created. ex: '5656565656565656'
-         * 
+         * @param status [string]: current Workspace status. Options: "active", "closed", "frozen" or "blocked"
+         * @param organizationId [string]: unique organization id returned when the organization is created. ex: "5656565656565656"
+         * @param pictureUrl [string]: public workspace image (png) URL. ex: "https://storage.googleapis.com/api-ms-workspace-sbx.appspot.com/pictures/workspace/6284441752174592.png?20230208220551"
+         * @param created [string]: creation datetime for the workspace. ex: '2020-03-10 10:30:00.000'
          */
 
         username: string
         name: string
 
         allowedTaxIds: string[]
+
         id: string
+        status: string
+        organizationId: string
+        pictureUrl: string
+        created: string
 
         constructor(params: {
-            username: string, name: string, allowedTaxIds?: string[], id?: string | null,
+            username: string, name: string, allowedTaxIds?: string[], id?: string | null, 
+            status?: string | null, organizationId?: string | null, pictureUrl?: string | null, 
+            created?: string | null
         })
 
     }
@@ -132,10 +142,14 @@ declare module 'starkbank' {
          * Parameters (required):
          * @param id [string]: object unique id. ex: '5656565656565656'
          * 
+         * Parameters (conditionally required):
+         * @param pictureType [string]: picture mime type. This parameter will be required if the picture parameter is informed ex: ‘image/png’ or ‘image/jpeg’
+         * 
          * Parameters (optional):
          * @param name [string, default null]: Full name that identifies the Workspace. This name will appear when people access the Workspace on our platform, for example. Ex: 'Stark Bank Workspace'
          * @param username [string, default null]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: 'starkbank-workspace'
          * @param allowedTaxIds [list of strings, default null]: list of tax IDs that will be allowed to send Deposits to this Workspace. If empty, all are allowed. ex: ['012.345.678-90', '20.018.183/0001-80']
+         * @param status [string, default null]: current Workspace status. ex: 'active' or 'blocked'
          * @param picture [Buffer, default null]: Binary buffer of the picture. ex: fs.readFileSync("/path/to/file.png")
          * @param user [Organization/Project object]: Organization or Project object.Not necessary if starkbank.user was set before function call
          * 
@@ -147,6 +161,7 @@ declare module 'starkbank' {
             username?: string, 
             name?: string, 
             allowedTaxIds?: string[], 
+            status?: string,
             picture?: Buffer[],
             pictureType?: string,
             user?: Project | Organization | null

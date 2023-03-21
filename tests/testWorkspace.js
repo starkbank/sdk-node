@@ -37,6 +37,20 @@ describe("TestUpdateWorkspacePicture", function(){
     });
 });
 
+describe("TestUpdateWorkspaceStatus", function(){
+    this.timeout(10000);
+    it("test_success", async () => {
+        const [workspaces, next] = await starkbank.workspace.page({limit: 1, user: exampleOrganization });
+
+        const workspace = await starkbank.workspace.update(workspaces[0].id, {
+            status: 'blocked',
+            user: starkbank.organization.replace(exampleOrganization, workspaces[0].id)
+        });
+
+        assert(workspace.status == 'blocked');
+    });
+});
+
 describe('TestWorkspaceInfoGet', function(){
     this.timeout(10000);
     it('test_success', async () => {

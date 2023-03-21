@@ -6,10 +6,10 @@ declare module 'starkbank' {
          * PaymentRequest constructor
          *
          * A PaymentRequest is an indirect request to access a specific cash-out service
-         *     (such as Transfer, BoletoPayments, etc.) which goes through the cost center
-         *     approval flow on our website. To emit a PaymentRequest, you must direct it to
-         *     a specific cost center by its ID, which can be retrieved on our website at the
-         *     cost center page.
+         * (such as Transfer, BoletoPayments, etc.) which goes through the cost center
+         * approval flow on our website. To emit a PaymentRequest, you must direct it to
+         * a specific cost center by its ID, which can be retrieved on our website at the
+         * cost center page.
          * 
          * Parameters (required):
          * @param centerId [string]: target cost center ID. ex: '5656565656565656'
@@ -23,12 +23,13 @@ declare module 'starkbank' {
          * @param tags [string]: list of strings for tagging
          * 
          * Attributes (return-only):
-         * @param id [string, default null]: Object's id
-         * @param amount [integer, default null]: PaymentRequest amount. ex: 100000 = R$1.000,00
-         * @param status [string, default null]: current PaymentRequest status.ex: 'pending' or 'approved'
-         * @param actions [list of dictionaries, default null]: list of actions that are affecting this PaymentRequest. ex: [{'type': 'member', 'id': '56565656565656, 'action': 'requested'}]
-         * @param updated [datetime string, default null]: latest update datetime for the PaymentRequest. ex: 2020-12-31
-         * @param created [datetime string, default null]: creation datetime for the PaymentRequest. ex: 2020-12-31
+         * @param id [string]: Object's id
+         * @param amount [integer]: PaymentRequest amount. ex: 100000 = R$1.000,00
+         * @param description [string]: payment request description. ex: "Tony Stark's Suit"
+         * @param status [string]: current PaymentRequest status.ex: 'pending' or 'approved'
+         * @param actions [list of dictionaries]: list of actions that are affecting this PaymentRequest. ex: [{'type': 'member', 'id': '56565656565656, 'action': 'requested'}]
+         * @param updated [datetime string]: latest update datetime for the PaymentRequest. ex: 2020-12-31
+         * @param created [datetime string]: creation datetime for the PaymentRequest. ex: 2020-12-31
          */
 
         centerId: string
@@ -39,22 +40,23 @@ declare module 'starkbank' {
         due: string
         tags: string[]
 
-        id: string
-        amount: number | null
-        status: string | null
-        actions: {
+        readonly id: string
+        readonly amount: number | null
+        readonly description: string | null
+        readonly status: string | null
+        readonly actions: {
             type: string
             id: string
             action: string
         }[] | null
-        updated: string | null
-        created: string | null
+        readonly updated: string | null
+        readonly created: string | null
 
         constructor(params: {
             centerId: string, payment: Transfer | BoletoPayment | UtilityPayment | Transaction | BrcodePayment | {}, 
             type?: string, due?: string, tags?: string[], id?: string | null | null, amount?: number | null, 
-            status?: string | null, actions?: {type: string, id: string, action: string}[] | null, updated?: string | null, 
-            created?: string | null
+            status?: string | null, description?: string | null, actions?: {type: string, id: string, 
+            action: string}[] | null, updated?: string | null, created?: string | null
         })
     }
 

@@ -21,15 +21,15 @@ declare module 'starkbank' {
          * @param receivedId [string]: unique id of the receiving workspace. ex: '5656565656565656'
          *
          * Parameters (optional):
-         * @param tags [list of strings]: list of strings for reference when searching transactions (may be empty). ex: ['abc', 'test']
+         * @param tags [list of strings, default null]: list of strings for reference when searching transactions (may be empty). ex: ['abc', 'test']
          * 
          * Attributes (return-only):
          * @param senderId [string]: unique id of the sending workspace. ex: '5656565656565656'
-         * @param id [string, default null]: unique id returned when Transaction is created. ex: '7656565656565656'
-         * @param fee [integer, default null]: fee charged when the transaction is created. ex: 200 (= R$ 2.00)
-         * @param source [string, default null]: unique locator of the related entity in the API reference
-         * @param balance [integer, default null]: account balance after transaction was processed. ex: 100000000 (= R$ 1,000,000.00)
-         * @param created [string, default null]: creation datetime for the transaction. ex: '2020-03-10 10:30:00.000'
+         * @param source [string]: unique locator of the related entity in the API reference
+         * @param id [string]: unique id returned when Transaction is created. ex: '7656565656565656'
+         * @param fee [integer]: fee charged when the transaction is created. ex: 200 (= R$ 2.00)
+         * @param balance [integer]: account balance after transaction was processed. ex: 100000000 (= R$ 1,000,000.00)
+         * @param created [string]: creation datetime for the transaction. ex: '2020-03-10 10:30:00.000'
          *
          */
 
