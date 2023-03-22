@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.17.0] - 2023-03-22
 ### Fixed
 - pdf function on boletoPayment, darfPayment, invoice, invoice.Log, taxPayment, transfer and utilityPayment
 ### Added
