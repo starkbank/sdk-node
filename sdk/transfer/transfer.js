@@ -3,7 +3,6 @@ const check = require('../utils/check.js');
 const parseObjects = require('../utils/parse.js').parseObjects;
 const Resource = require('../utils/resource.js').Resource
 const { Rule } = require('./rule/rule.js');
-const { Metadata } = require('./metadata/metadata.js');
 const ruleResource = require('./rule/rule.js').subResource;
 
 
@@ -37,7 +36,7 @@ class Transfer extends Resource {
      * @param fee [integer]: fee charged when transfer is created. ex: 200 (= R$ 2.00)
      * @param status [string]: current transfer status. ex: 'processing' or 'success'
      * @param transactionIds [list of strings]: ledger transaction ids linked to this transfer (if there are two, second is the chargeback). ex: ['19827356981273']
-     * @param metadata [Transfer.Metadata object]: object used to store additional information about the Transfer object.
+     * @param metadata [dictionary object]: dictionary object used to store additional information about the Transfer object.
      * @param created [string]: creation datetime for the transfer. ex: '2020-03-10 10:30:00.000'
      * @param updated [string]: latest update datetime for the transfer. ex: '2020-03-10 10:30:00.000'
      *
@@ -63,7 +62,7 @@ class Transfer extends Resource {
         this.fee = fee;
         this.status = status;
         this.transactionIds = transactionIds;
-        this.metadata = metadata ? new Metadata(metadata) : null;
+        this.metadata = metadata;
         this.created = check.datetime(created);
         this.updated = check.datetime(updated);
     }
