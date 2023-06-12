@@ -52,7 +52,7 @@ function preProcess(path, method, payload, query, user, version) {
         'Access-Signature': Ecdsa.sign(message, user.privateKey()).toBase64(),
         'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + pjson.version,
         'Content-Type': 'application/json',
-        'Accept-Language': language
+        'Accept-Language': language,
     };
     options['url'] = url
 
@@ -118,4 +118,3 @@ exports.fetchBuffer = async function (path, method = 'GET', payload = null, quer
     }
     return new Response(status, content);
 };
-

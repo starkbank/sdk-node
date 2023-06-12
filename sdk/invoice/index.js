@@ -1,4 +1,5 @@
 const invoice = require('./invoice.js');
+const rule = require('./rule/rule.js')
 
 exports.log = require('./log');
 exports.create = invoice.create;
@@ -10,3 +11,4 @@ exports.pdf = invoice.pdf;
 exports.payment = invoice.payment;
 exports.page = invoice.page;
 exports.Invoice = invoice.Invoice;
+exports.Rule = rule.Rule;
