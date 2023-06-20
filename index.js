@@ -25,8 +25,19 @@ exports.getLanguage = function () {
 }
 
 // Modules
+exports.corporateCard = require('./sdk/corporateCard')
+exports.corporateWithdrawal = require('./sdk/corporateWithdrawal')
+exports.corporateTransaction = require('./sdk/corporateTransaction')
+exports.corporatePurchase = require('./sdk/corporatePurchase');
+exports.corporateInvoice = require('./sdk/corporateInvoice');
+exports.corporateHolder = require('./sdk/corporateHolder'); 
+exports.corporateRule = require('./sdk/corporateRule');
+exports.cardMethod = require('./sdk/cardMethod');
+exports.merchantCategory = require('./sdk/merchantCategory')
+exports.merchantCountry = require('./sdk/merchantCountry')
 exports.transaction = require('./sdk/transaction');
 exports.balance = require('./sdk/balance');
+exports.corporateBalance = require('./sdk/corporateBalance')
 exports.boleto = require('./sdk/boleto');
 exports.boletoHolmes = require('./sdk/boletoHolmes');
 exports.invoice = require('./sdk/invoice');
@@ -51,10 +62,22 @@ exports.organization = require('./sdk/user/organization.js')
 
 
 // Classes
+exports.CorporateCard = exports.corporateCard.CorporateCard;
+exports.CorporateWithdrawal = exports.corporateWithdrawal.CorporateWithdrawal;
+exports.CorporateTransaction = exports.corporateTransaction.CorporateTransaction;
+exports.CorporatePurchase = exports.corporatePurchase.CorporatePurchase;
+exports.CorporateInvoice = exports.corporateInvoice.CorporateInvoice;
+exports.Permission = exports.corporateHolder.Permission;
+exports.CorporateHolder = exports.corporateHolder.CorporateHolder;
+exports.CorporateRule = exports.corporateRule.CorporateRule;
+exports.CardMethod = exports.cardMethod.CardMethod;
+exports.MerchantCategory = exports.merchantCategory.MerchantCategory;
+exports.MerchantCountry = exports.merchantCountry.MerchantCountry;
 exports.Project = require('./sdk/user').Project;
 exports.Organization = require('./sdk/user').Organization;
 exports.Transaction = exports.transaction.Transaction;
 exports.Balance = exports.balance.Balance;
+exports.CorporateBalance = exports.corporateBalance.CorporateBalance
 exports.Boleto = exports.boleto.Boleto;
 exports.BoletoHolmes = exports.boletoHolmes.BoletoHolmes;
 exports.Invoice = exports.invoice.Invoice;

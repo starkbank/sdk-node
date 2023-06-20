@@ -42,6 +42,13 @@ is as easy as sending a text message to your client!
     - [DarfPayments](#create-darf-payment): Pay DARFs
     - [PaymentPreviews](#preview-payment-information-before-executing-the-payment): Preview all sorts of payments
     - [PaymentRequest](#create-payment-requests-to-be-approved-by-authorized-people-in-a-cost-center): Request a payment approval to a cost center
+    - [CorporateHolders](#create-corporateholders): Manage cardholders
+    - [CorporateCards](#create-corporatecards): Create virtual and/or physical cards
+    - [CorporateInvoices](#create-corporateinvoices): Add money to your corporate balance
+    - [CorporateWithdrawals](#create-corporatewithdrawals): Send money back to your Workspace from your corporate balance
+    - [CorporateBalance](#get-your-corporatebalance): View your corporate balance
+    - [CorporateTransactions](#query-corporatetransactions): View the transactions that have affected your corporate balance
+    - [CorporateEnums](#corporate-enums): Query enums related to the corporate purchases, such as merchant categories, countries and card purchase methods
     - [Webhooks](#create-a-webhook-subscription): Configure your webhook endpoints and subscriptions
     - [WebhookEvents](#process-webhook-events): Manage webhook events
     - [WebhookEventAttempts](#query-failed-webhook-event-delivery-attempts-information): Query failed webhook event deliveries
@@ -1895,6 +1902,422 @@ const starkbank = require('starkbank');
     }
 })();
 ```
+
+## Corporate
+
+## Create CorporateHolders
+
+You can create card holders to which your cards will be bound.
+They support spending rules that will apply to all underlying cards.
+
+```javascript
+const starkbank = require('starkbank');
+
+let holders = await starkbank.corporateHolder.create(
+    [
+        new starkbank.CorporateHolder({
+            name: "Iron Bank S.A.",
+            tags: ["Traveler Employee"],
+            rules: [
+                {
+                    "name": "General USD",
+                    "interval": "day",
+                    "amount": 100000,
+                    "currencyCode": "USD",
+                    "categories": [
+                        starkbank.MerchantCategory("services"),
+                        starkbank.MerchantCategory("fastFoodRestaurants")
+                    ],
+                    "countries": [
+                        starkbank.MerchantCountry("USA")
+                    ],
+                    "methods": [
+                        starkbank.CardMethod(code="token")
+                    ]
+                }
+                    ]
+            permissions: [
+                new starkbank.corporateHolder.Permission('6253551860842496', 'project')
+            ]
+        })
+    ]
+);
+```
+
+**Note**: Instead of using CorporateHolder objects, you can also pass each element in dictionary format
+
+## Query CorporateHolders
+
+You can query multiple holders according to filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+let holders = await starkbank.corporateHolder.query();
+for await (let holder of holders) {
+    console.log(holder);
+};
+```
+
+# Cancel a CorporateHolder
+
+To cancel a single Corporate Holder by its id, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+let holder = await starkbank.corporateHolder.cancel("5155165527080960");
+console.log(holder);
+```
+
+## Get a CorporateHolder
+
+To get a single Corporate Holder by its id, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+let holder = await starkbank.corporateHolder.get("5155165527080960");
+console.log(holder);
+```
+
+## Query CorporateHolder logs
+
+You can query holder logs to better understand holder life cycles.
+
+
+```javascript
+const starkbank = require('starkbank');
+
+let logs = await starkbank.corporateHolder.log.query({"limit": 50});
+
+for await (log of logs) {
+    console.log(log);
+};
+```
+
+## Get a CorporateHolder log
+
+You can also get a specific log by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let log = await starkbank.corporateHolder.log.get("5155165527080960");
+console.log(log);
+```
+
+## Create CorporateCard
+
+You can issue cards with specific spending rules.
+
+```javascript
+const starkbank = require('starkbank');
+
+let card = await starkbank.corporateCard.create(
+    new starkbank.CorporateCard({
+        "holderId": "5155165527080960",
+        }
+    ), 
+    {"expand": ["rules", "securityCode", "number", "expiration"]}
+);
+
+console.log(card);
+```
+
+## Query CorporateCards
+
+You can get a list of created cards given some filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+let cards = await starkbank.corporateCard.query({limit: 5});
+
+for await (let card of cards) {
+    console.log(card);
+}
+
+```
+
+## Get a CorporateCard
+
+After its creation, information on a card may be retrieved by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let card = await starkbank.corporateCard.get("5155165527080960");
+console.log(card);
+```
+
+## Update a CorporateCard
+
+You can update aspecific card by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let card = await starkbank.corporateCard.update(holderId, {"status": "blocked"});
+console.log(card);
+```
+
+## Cancel a CorporateCard
+
+You can also cancel a card by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let card = await starkbank.corporateCard.cancel("5155165527080960");
+console.log(card);
+```
+
+## Query CorporateCard logs
+
+Logs are pretty important to understand the life cycle of a card.
+
+```javascript
+const starkbank = require('starkbank');
+
+let logs = await starkbank.corporateCard.log.query({ "limit": 100 });
+
+for await (let log in logs) {
+    console.log(log);
+}
+```
+
+## Get a CorporateCard log
+
+You can get a single log by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let log = await starkbank.corporateCard.log.get("5155165527080960");
+console.log(log);
+```
+
+
+## Query CorporatePurchases
+
+You can get a list of created purchases given some filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+let purchases = await starkbank.corporatePurchase.query({"limit": 5});
+
+for await (let purchase of purchases) {
+    console.log(purchase);
+}
+```
+
+
+## Get a CorporatePurchase
+
+After its creation, information on a purchase may be retrieved by its id. 
+
+```javascript
+const starkbank = require('starkbank');
+
+let purchase = await starkbank.corporatePurchase.get("5155165527080960");
+console.log(purchase);
+```
+
+## Query CorporatePurchase logs
+
+Logs are pretty important to understand the life cycle of a purchase.
+
+```javascript
+const starkbank = require('starkbank');
+
+let logs = await starkbank.corporatePurchase.log.query({"limit": 5});
+
+for await (let log of logs) {
+    console.log(log);
+}
+```
+
+## Get a CorporatePurchase log
+
+You can get a single log by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let log = await starkbank.corporatePurchase.log.get("5155165527080960");
+console.log(log);
+```
+
+## Create CorporateInvoices
+
+You can create Pix invoices to transfer money from accounts you have in any bank to your Corporate balance,
+allowing you to run your corporate operation.
+
+```javascript
+const starkbank = require('starkbank');
+
+let invoice = await starkbank.corporateInvoice.create(
+        new starkbank.CorporateInvoice({
+        "amount": 1000   
+    })
+);
+console.log(invoice);
+```
+
+**Note**: Instead of using CorporateInvoice objects, you can also pass each element in dictionary format
+
+
+## Query CorporateInvoices
+
+You can get a list of created invoices given some filters.
+
+
+```javascript
+const starkbank = require('starkbank');
+
+let invoices = await starkbank.corporateInvoice.query({"limit": 5});
+
+for await (let invoice of invoices) {
+    console.log(invoice);
+} 
+```
+
+## Create CorporateWithdrawals
+
+You can create withdrawals to send cash back from your Corporate balance to your Banking balance
+by using the Withdrawal resource.
+
+```javascript
+const starkbank = require('starkbank');
+
+let withdrawal = await starkbank.corporateWithdrawal.create(
+    new starkbank.CorporateWithDrawal ({
+            amount: 10000,
+            externalId: "123"
+            description: "Sending back"
+            }
+        )
+)
+
+console.log(withdrawal)
+```
+
+**Note**: Instead of using CorporateWithdrawal objects, you can also pass each element in dictionary format
+
+## Get a CorporateWithdrawal
+
+After its creation, information on a withdrawal may be retrieved by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let withdrawal = await starkbank.corporateWithdrawal.get("5155165527080960");
+console.log(withdrawal);
+```
+
+## Query CorporateWithdrawals
+
+You can get a list of created withdrawals given some filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+let withdrawals = await starkbank.corporateWithdrawal.query("limit": 5);
+
+for await (let withdrawal of withdrawals) {
+    console.log(withdrawal);
+}
+```
+
+## Get your CorporateBalance
+
+To know how much money you have available to run authorizations, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+let balance = await starkbank.corporateBalance.get();
+console.log(balance);
+```
+
+## Query CorporateTransactions
+
+To understand your balance changes (corporate statement), you can query
+transactions. Note that our system creates transactions for you when
+you make purchases, withdrawals, receive corporate invoice payments, for example.
+
+```javascript
+const starkbank = require('starkbank');
+
+let transactions = await starkbank.corporateTransaction.query({"limit": 5});
+
+for await (let transaction of transactions) {
+    console.log(transaction);
+}
+```
+
+## Get a CorporateTransaction
+
+You can get a specific transaction by its id:
+
+```javascript
+const starkbank = require('starkbank');
+
+let transaction = await starkbank.corporateTransaction.get("5155165527080960");
+console.log(transaction);
+```
+
+## Corporate Enums
+
+### Query MerchantCategories
+
+You can query any merchant categories using this resource.
+You may also use MerchantCategories to define specific category filters in CorporateRules.
+Either codes (which represents specific MCCs) or types (code groups) will be accepted as filters.
+
+```javascript
+const starkbank = require('starkbank');
+
+let categories = await starkbank.merchantcategory.query({"search": "food"});
+
+for await (let category of categories) {
+    console.log(categorie);
+}
+```
+
+
+### Query MerchantCountries
+
+You can query any merchant countries using this resource.
+You may also use MerchantCountries to define specific country filters in CorporateRules.
+
+```javascript
+const starkbank = require('starkbank');
+
+let countries = await starbank.merchantcountry.query({"search": "brazil"});
+
+for await (let country of countries) {
+    console.log(country);
+}
+```
+
+### Query CardMethods
+
+You can query available card methods using this resource.
+You may also use CardMethods to define specific purchase method filters in CorporateRules.
+
+```javascript
+const starkbank = require('starkbank');
+
+let methods = await starkbank.cardMethod.query({"search": "token"});
+
+for await (let method of methods) {
+    console.log(method);
+}
+```
+
 
 ## Create a webhook subscription
 

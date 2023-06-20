@@ -13,7 +13,7 @@ class Rule extends SubResource {
      * @param value [integer]: Value of the rule. ex: 5
      * 
      */
-    constructor({key, value}) {
+    constructor({ key, value }) {
         super();
         this.key = key;
         this.value = value;

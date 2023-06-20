@@ -17,7 +17,7 @@ class Balance extends Resource {
      * @param id [string]: unique id returned when Balance is created. ex: '5656565656565656'
      * @param amount [integer]: current balance amount of the workspace in cents. ex: 200 (= R$ 2.00)
      * @param currency [string]: currency of the current workspace. Expect others to be added eventually. ex: 'BRL'
-     * @param updated [string]: update datetime for the balance. ex: '2020-03-10 10:30:00.000'
+     * @param updated [string]: latest update datetime for the balance. ex: '2020-03-10 10:30:00.000'
      *
      */
     constructor(id, amount, currency, updated) {

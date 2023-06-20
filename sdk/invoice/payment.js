@@ -21,7 +21,9 @@ class Payment extends SubResource {
      * @param method [string]: payment method that was used. ex: 'pix'
      * 
      */
-    constructor(name=null, taxId=null, bankCode=null, branchCode=null, accountNumber=null, accountType=null, amount=null, endToEndId=null, method=null) {
+    constructor(
+                    name=null, taxId=null, bankCode=null, branchCode=null, accountNumber=null, accountType=null, amount=null, endToEndId=null, method=null
+                ) {
         super();
         this.amount = amount;
         this.name = name;

@@ -2,6 +2,9 @@ const rest = require('../utils/rest.js');
 const check = require('../utils/check.js');
 const Resource = require('../utils/resource.js').Resource
 const subResource = require('../invoice/payment.js').subResource
+const { Rule } = require('./rule/rule.js');
+const rulesResource = require('./rule/rule.js').resource;
+const parseObjects = require('../utils/parse.js').parseObjects;
 
 
 class Invoice extends Resource {
@@ -26,6 +29,7 @@ class Invoice extends Resource {
      * @param fine [float, default 2.0]: Invoice fine for overdue payment in %. ex: 2.5
      * @param interest [float, default 1.0]: Invoice monthly interest for overdue payment in %. ex: 5.2
      * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'due':string pairs
+     * @param rules [list of Invoice.Rules, default []]: list of Invoice.Rule objects for modifying invoice behavior. ex: [Invoice.Rule({key: "allowedTaxIds", value: [ "012.345.678-90", "45.059.493/0001-73" ]})]
      * @param tags [list of strings, default null]: list of strings for tagging
      * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
      *
@@ -46,7 +50,7 @@ class Invoice extends Resource {
      *
      */
     constructor({
-                    amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null, tags = null, 
+                    amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null, rules = null, tags = null, 
                     descriptions = null, fee = null, pdf = null, link = null, nominalAmount = null, fineAmount = null, interestAmount = null, 
                     discountAmount = null, id = null, brcode = null, status = null, transactionIds = null, created = null, updated = null
                 }) {
@@ -59,6 +63,7 @@ class Invoice extends Resource {
         this.fine = fine;
         this.interest = interest;
         this.discounts = discounts;
+        this.rules = parseObjects(rules, rulesResource, Rule);
         this.tags = tags;
         if (discounts != null) {
             discounts.forEach(discount => {
