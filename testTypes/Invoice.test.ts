@@ -139,3 +139,15 @@ describe('TestInvoiceGetPage', function () {
         assert(ids.length == 10);
     });
 });
+
+describe('TestInvoiceRule', function(){
+    jest.setTimeout(10000);
+    it('test_success', async () => {
+        const rule = new starkbank.invoice.Rule({
+            key: "allowedTaxIds",
+            value: [ "012.345.678-90", "45.059.493/0001-73" ],
+        })
+        assert(rule.key != null);
+        assert(rule.value != null);
+    });
+});

@@ -23,6 +23,7 @@ declare module 'starkbank' {
          * @param fine [float, default 2.0]: Invoice fine for overdue payment in %. ex: 2.5
          * @param interest [float, default 1.0]: Invoice monthly interest for overdue payment in %. ex: 5.2
          * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'due':string pairs
+         * @param rules [list of Invoice.Rules, default []]: list of Invoice.Rule objects for modifying invoice behavior. ex: [Invoice.Rule({key: "allowedTaxIds", value: [ "012.345.678-90", "45.059.493/0001-73" ]})]
          * @param tags [list of strings, default null]: list of strings for tagging
          * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
          *
@@ -55,6 +56,7 @@ declare module 'starkbank' {
             percentage: number
             due: string
         }[]
+        rules : invoice.Rule[] | null
         tags: string[]
         descriptions: {
             key: string
@@ -262,6 +264,26 @@ declare module 'starkbank' {
         function update(id: string, params?: {
             amount?: number, status?: string, due?: string, expiration?: number, user?: Project | Organization | null
         }): Promise<Invoice>;
+
+        export class Rule {
+        /**
+          * Invoice.Rule object
+          * 
+          * @description The Invoice.Rule object modifies the behavior of Invoice objects when passed as an argument upon their creation.
+          * 
+          * Parameters (required):
+          * @param key [string]: Rule to be customized, describes what Invoice behavior will be altered. ex: "allowedTaxIds"
+          * @param value [list of string]: Value of the rule. ex: ["012.345.678-90", "45.059.493/0001-73"]
+          * 
+          */
+            key: string
+            value: string[]
+
+            constructor(params: {
+                key: string,
+                value: string[]
+            })
+        }
 
         export class Log {
             /**
