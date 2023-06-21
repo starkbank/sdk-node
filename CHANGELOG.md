@@ -13,10 +13,11 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.19.0] - 2023-06-21
 ### Added
 - rules types to Invoice resource
 - Rule object types
-
 
 ## [2.18.0] - 2023-06-20
 ### Added
