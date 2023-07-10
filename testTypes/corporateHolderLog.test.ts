@@ -9,7 +9,6 @@ describe('TestcorporateHolderGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let holders = await starkbank.corporateHolder.log.query({"limit": 1});
-
         for await (let holder of holders) {
             holder = await starkbank.corporateHolder.log.get(holder.id)
             assert(typeof holder.id == 'string')
@@ -22,7 +21,6 @@ describe('TestcorporateHolderQuery', function(){
     it('test_success', async () => {
         let i = 0;
         let holders = await starkbank.corporateHolder.log.query({limit: 5});
-
         for await (let holder of holders) {
             assert(typeof holder.id == 'string');
             i += 1;    

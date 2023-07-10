@@ -1,5 +1,5 @@
 declare module 'starkbank' {
-    export class corporateTransaction {
+    export class CorporateTransaction {
     /**
     * 
     * CorporateTransaction object
@@ -25,7 +25,7 @@ declare module 'starkbank' {
     readonly tags : string
     readonly created : string
 
-    constructor(id? : string | null, amount? : string | null, balance? : string | null, description? : string | null, source? : string | null, tags? : string | null, created)
+    constructor(params?: {id? : string | null, amount? : string | null, balance? : string | null, description? : string | null, source? : string | null, tags? : string | null, created})
 
     }
 
@@ -47,7 +47,7 @@ declare module 'starkbank' {
     * 
     */
 
-    function get(id: string, params?: { user?: Project | Organization | null }): Promise<corporateTransaction>
+    function get(id: string, params?: { user?: Project | Organization | null }): Promise<CorporateTransaction>
 
     /**
     * 
@@ -70,7 +70,7 @@ declare module 'starkbank' {
     * 
     */
 
-    function query(params?: {tags?: string[] | null, externalIds?: string[] | null, after?: string | null, before?: string | null, status?: string | null, ids?: string[] | null, limit?: number | null, user?: Project | Organization | null}): Promise<corporateTransaction[]>
+    function query(params?: {tags?: string[] | null, externalIds?: string[] | null, after?: string | null, before?: string | null, status?: string | null, ids?: string[] | null, limit?: number | null, user?: Project | Organization | null}): Promise<CorporateTransaction[]>
 
     /**
     * 
@@ -96,6 +96,6 @@ declare module 'starkbank' {
     * 
     */
 
-    function page(params?: {cursor?: string | null, limit?: number | null, tags?: string[] | null, externalIds?: string[] | null, after?: string | null, before?: string | null, status?: string | null, ids?: string[] | null, user?: Project | Organization | null}): Promise<[corporateTransaction[], string | null]>;
+    function page(params?: {cursor?: string | null, limit?: number | null, tags?: string[] | null, externalIds?: string[] | null, after?: string | null, before?: string | null, status?: string | null, ids?: string[] | null, user?: Project | Organization | null}): Promise<[CorporateTransaction[], string | null]>;
     }
 }

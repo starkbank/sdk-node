@@ -35,7 +35,6 @@ describe('TestCorporateCardQuery', function(){
     it('test_success', async () => {
         let i = 0;
         let cards = await starkbank.corporateCard.query({limit: 5});
-
         for await (let card of cards) {
             assert(typeof card.id == 'string');
             i += 1;    

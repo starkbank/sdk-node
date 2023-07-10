@@ -1,5 +1,5 @@
 declare module 'starkbank' {
-    export class corporateWithdrawal {
+    export class CorporateWithdrawal {
     /**
     * 
     * CorporateWithdrawal object
@@ -34,7 +34,7 @@ declare module 'starkbank' {
     readonly updated : string
     readonly created : string
 
-    constructor(amount?: number | null, externalId?: string | null, tags?: string[] | null, id?: string | null, transactionId?: string | null, corporateTransactionId?: string | null, updated?: string | null, created?: string | null)
+    constructor(params?: {amount?: number | null, externalId?: string | null, tags?: string[] | null, id?: string | null, transactionId?: string | null, corporateTransactionId?: string | null, updated?: string | null, created?: string | null})
 
     }
 
@@ -56,7 +56,7 @@ declare module 'starkbank' {
     * 
     */
 
-    function create(withdrawal: corporateWithdrawal, params?: { user?: Project | Organization | null }): Promise<corporateWithdrawal>
+    function create(withdrawal: CorporateWithdrawal, params?: { user?: Project | Organization | null }): Promise<CorporateWithdrawal>
 
     /**
     *
@@ -75,7 +75,7 @@ declare module 'starkbank' {
     * 
     */
 
-    function get(id: string, params?: { user?: Project | Organization | null }): Promise<corporateWithdrawal>
+    function get(id: string, params?: { user?: Project | Organization | null }): Promise<CorporateWithdrawal>
 
     /**
     * 
@@ -103,7 +103,7 @@ declare module 'starkbank' {
         before?: string,
         tags?: string[],
         user?: Project | Organization | null
-    }): Promise<corporateWithdrawal[]>
+    }): Promise<CorporateWithdrawal[]>
 
     /**
     * 
@@ -133,6 +133,6 @@ declare module 'starkbank' {
         before?: string,
         tags?: string[],
         externalIds?: string[],
-        user?: Project | Organization | null}): Promise<[corporateWithdrawal[], string | null]>;
+        user?: Project | Organization | null}): Promise<[CorporateWithdrawal[], string | null]>;
     }
 }

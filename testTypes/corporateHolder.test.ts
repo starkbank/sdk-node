@@ -17,20 +17,15 @@ describe('TestCorporateHolderCreateAndUpdate', function(){
         ]);
         
         let holderId = holder[0].id
-
         assert(typeof holderId == 'string');
-
         holder = await starkbank.corporateHolder.update(holderId, {status: "blocked"});
-
         assert(typeof holder.id == 'string');
-
     });
 });
 
 describe('TestCorporateHolderGet', function(){
     it('test_success', async () => {
         let holder = await starkbank.corporateHolder.get("5276031183224832");
-
         assert(typeof holder.id == 'string');
     });
 });
@@ -38,7 +33,6 @@ describe('TestCorporateHolderGet', function(){
 describe('TestCorporateHolderQuery', function(){
     it('test_success', async () => {
         let holders = await starkbank.corporateHolder.query({limit: 3});
-
         for await (let holder of holders) {
             assert(typeof holder.id == 'string');    
         }
@@ -48,7 +42,6 @@ describe('TestCorporateHolderQuery', function(){
 describe('TestCorporateHolderPage', function(){
     it('test_success', async () => {
         let [page, cursor] = await starkbank.corporateHolder.page();
-
         for await (let entity of page) {
             assert(typeof entity.id == 'string');    
         }

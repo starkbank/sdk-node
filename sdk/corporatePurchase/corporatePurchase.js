@@ -118,9 +118,9 @@ exports.query = async function ({ids, limit, after, before, merchantCategoryType
     * @param limit [integer, default None]: maximum number of objects to be retrieved. Unlimited if None. ex: 35
     * @param after [datetime.date or string, default None] date filter for objects created only after specified date. ex: datetime.date(2020, 3, 10)
     * @param before [datetime.date or string, default None] date filter for objects created only before specified date. ex: datetime.date(2020, 3, 10)
-    * @param merchant_category_types [list of strings, default None]: merchant category type. ex: "health"
-    * @param holder_ids [list of strings, default None]: card holder IDs. ex: ["5656565656565656", "4545454545454545"]
-    * @param card_ids [list of strings, default None]: card  IDs. ex: ["5656565656565656", "4545454545454545"]
+    * @param merchantCategoryTypes [list of strings, default None]: merchant category type. ex: "health"
+    * @param holderIds [list of strings, default None]: card holder IDs. ex: ["5656565656565656", "4545454545454545"]
+    * @param cardIds [list of strings, default None]: card  IDs. ex: ["5656565656565656", "4545454545454545"]
     * @param status [list of strings, default None]: filter for status of retrieved objects. ex: ["approved", "canceled", "denied", "confirmed", "voided"],
     * @param user [Organization/Project object, default None]: Organization or Project object. Not necessary if starkbank.user was set before function call
     * 

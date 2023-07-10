@@ -66,7 +66,7 @@ declare module 'starkbank' {
     readonly updated : string
     readonly created  : string
 
-    constructor(id?: string | null,  holderId?: string | null,  holderName?: string | null,  centerId?: string | null,  cardId?: string | null,  cardEnding?: string | null,  description?: string | null,  amount?: number | null,  tax?: number | null,  issuerAmount?: number | null,  issuerCurrencyCode?: number | null,  issuerCurrencySymbol?: number | null,  merchantAmount?: number | null,  merchantCurrencyCode?: string | null,  merchantCurrencySymbol?: string | null,  merchantCategoryCode?: string | null,  merchantCategoryType?: string | null,  merchantCountryCode?: string | null,  merchantName?: string | null,  merchantDisplayName?: string | null,  merchantDisplayUrl?: string | null,  merchantFee?: number | null,  methodCode?: string | null,  tags?: string[] | null,  corporateTransactionIds?: string[] | null,  status?: string | null,  updated?: string | null,  created)
+    constructor(params?: {id?: string | null,  holderId?: string | null,  holderName?: string | null,  centerId?: string | null,  cardId?: string | null,  cardEnding?: string | null,  description?: string | null,  amount?: number | null,  tax?: number | null,  issuerAmount?: number | null,  issuerCurrencyCode?: number | null,  issuerCurrencySymbol?: number | null,  merchantAmount?: number | null,  merchantCurrencyCode?: string | null,  merchantCurrencySymbol?: string | null,  merchantCategoryCode?: string | null,  merchantCategoryType?: string | null,  merchantCountryCode?: string | null,  merchantName?: string | null,  merchantDisplayName?: string | null,  merchantDisplayUrl?: string | null,  merchantFee?: number | null,  methodCode?: string | null,  tags?: string[] | null,  corporateTransactionIds?: string[] | null,  status?: string | null,  updated?: string | null,  created})
 
     }
 
@@ -88,7 +88,7 @@ declare module 'starkbank' {
     * 
     */
 
-    function get(id: string, params?: { user?: Project | Organization | null }): Promise<corporatePurchse>
+    function get(id: string, params?: { user?: Project | Organization | null }): Promise<CorporatePurchse>
 
     /**
     * Retrieve CorporatePurchases
@@ -119,7 +119,7 @@ declare module 'starkbank' {
         holderIds?: string[] | null,
         cardIds?: string[] | null,
         status?: string[] | null,
-        user?: Project | Organization | null }): Promise<corporatePurchase[]>
+        user?: Project | Organization | null }): Promise<CorporatePurchase[]>
 
     /**
     * 
@@ -156,7 +156,7 @@ declare module 'starkbank' {
         holderIds?: string[] | null,
         cardIds?: string[] | null,
         status?: string[] | null,
-        user?: Project | Organization | null }): Promise<[corporatePurchse[], string | null]>;
+        user?: Project | Organization | null }): Promise<[CorporatePurchse[], string | null]>;
 
     /**
     * 
@@ -179,7 +179,7 @@ declare module 'starkbank' {
     * 
     */
 
-    export function parse(params?: {content: string, signature: string, user?: Project | Organization}): Promise<corporatePurchase>;
+    export function parse(params?: {content: string, signature: string, user?: Project | Organization}): Promise<CorporatePurchase>;
 
     /**
     * 
@@ -200,7 +200,7 @@ declare module 'starkbank' {
     * 
     */
 
-    function response(status: string, params?: {amount: string | null, reason: number | null, tags: string[] | null}): Promise<corporatePurchse>
+    function response(status: string, params?: {amount: string | null, reason: string | null, tags: string[] | null}): Promise<CorporatePurchse>
 
     export class Log {
     /**

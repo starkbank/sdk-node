@@ -9,7 +9,6 @@ describe('TestCorporateBalanceGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let balance = await starkbank.corporateBalance.get();
-        
         assert(typeof balance.amount == 'number');
     });
 });
