@@ -57,7 +57,9 @@ declare module 'starkbank' {
 
         constructor(params?: {
             holderId: string, id? : string | null, holderName? : string | null, displayName? : string | null, rules? : invoice.Rule[] | null,
-            tags? : string[] | null, streetLine1? : string | null, streetLine2? : string | null, district? : string | null, city? : string | null, stateCode? : string | null, zipCode? : string | null, type? : string | null, status? : string | null, number? : string | null, securityCode? : string | null, expiration? : string | null, updated? : string | null, created?: string | null
+            tags? : string[] | null, streetLine1? : string | null, streetLine2? : string | null, district? : string | null, city? : string | null,
+            stateCode? : string | null, zipCode? : string | null, type? : string | null, status? : string | null, number? : string | null, securityCode? : string | null,
+            expiration? : string | null, updated? : string | null, created?: string | null
         })
     }
 
@@ -353,9 +355,6 @@ declare module 'starkbank' {
                 expand?: string[] | null,
                 user?: Project | Organization | null
             }): Promise<[CorporateCard.Log[], string | null]>;
-
         }
-
     }
-
 }

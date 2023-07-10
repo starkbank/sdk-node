@@ -313,6 +313,8 @@ declare module 'starkbank' {
             constructor(id: string, invoice: Invoice, errors: string[], type: string, created: string)
         }
 
+        
+
         namespace log {
             /**
              *

@@ -97,7 +97,5 @@ declare module 'starkbank' {
     */
 
     function page(params?: {cursor?: string | null, limit?: number | null, tags?: string[] | null, externalIds?: string[] | null, after?: string | null, before?: string | null, status?: string | null, ids?: string[] | null, user?: Project | Organization | null}): Promise<[corporateTransaction[], string | null]>;
-
     }
-
 }

@@ -127,7 +127,5 @@ declare module 'starkbank' {
         status?: string[] | null, 
         tags?: string[] | null, 
         user?: Project | Organization | null): Promise<[corporateInvoice[], string | null]>;
-
     }
-
 }

@@ -29,11 +29,8 @@ describe('TestCorporateWithdrawalPage', function(){
         let [page, cursor] = await starkbank.corporateWithdrawal.page();
 
         for await (let entity of page) {
-            console.log(entity)
             assert(typeof entity.id == 'string');
         }
-
-        console.log(cursor)
         assert(typeof cursor == 'string');
     });
 });

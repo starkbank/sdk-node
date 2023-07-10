@@ -35,4 +35,3 @@ describe('TestCorporatePurchasePage', function(){
         assert(typeof cursor == 'string');
     });
 });
-

@@ -9,7 +9,12 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestCorporateHolderCreateAndUpdate', function(){
     it('test_success', async () => {
         let holder = await starkbank.corporateHolder.create(
-            [new starkbank.CorporateHolder({name: "Test - " + 1025423, permissions: [new starkbank.corporateHolder.Permission({ownerType: "project", ownerId: "6253551860842496"})], rules: [new starkbank.CorporateRule({name: "Travel", amount: 200000})]})]);
+            [new starkbank.CorporateHolder({
+                name: "Test - " + 1025425,
+                permissions: [new starkbank.corporateHolder.Permission({ownerType: "project", ownerId: "6253551860842496"})],
+                rules: [new starkbank.CorporateRule({name: "Travel", amount: 200000})]
+            })
+        ]);
         
         let holderId = holder[0].id
 

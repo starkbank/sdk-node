@@ -296,8 +296,6 @@ declare module 'starkbank' {
         */
 
         function page (params?: {cursor?: string | null, limit?: number | null, after?: string | null, before?: string | null, types?: string[] | null, holderids?: string[] | null, ids?: string[] | null, user?: Project | Organization | null}): Promise<corporateHolder.Log[], string | null>
-
         }
-
     }
 }

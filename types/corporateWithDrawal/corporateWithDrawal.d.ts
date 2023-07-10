@@ -135,5 +135,4 @@ declare module 'starkbank' {
         externalIds?: string[],
         user?: Project | Organization | null}): Promise<[corporateWithdrawal[], string | null]>;
     }
-
 }
