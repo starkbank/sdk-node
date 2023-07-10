@@ -1,14 +1,5 @@
-const Resource = require('../utils/resource.js').Resource
-const {CardMethod} = require('../cardMethod/cardMethod.js');
-const {MerchantCategory} = require('../merchantCategory/merchantCategory.js')
-const {MerchantCountry} = require('../merchantCountry/merchantCountry.js')
-const cardMethodResource = require('../cardMethod/cardMethod.js').resource;
-const merchantCountryResource = require('../merchantCountry/merchantCountry.js').resource;
-const merchantCategoryResource = require('../merchantCountry/merchantCountry.js').resource;
-const parseObjects = require('../utils/parse.js').parseObjects;
-
-
-class CorporateRule extends Resource {
+declare module 'starkbank' {
+    export class CorporateRule {
     /**
     * 
     * CorporateRule object
@@ -27,7 +18,7 @@ class CorporateRule extends Resource {
     * @param categories [list of MerchantCategories, default []]: merchant categories accepted by the rule. ex: [MerchantCategory(code="fastFoodRestaurants")]
     * @param countries [list of MerchantCountries, default []]: countries accepted by the rule. ex: [MerchantCountry(code="BRA")]
     * @param methods [list of CardMethods, default []]: card purchase methods accepted by the rule. ex: [CardMethod(code="magstripe")]
-    *
+    * 
     * Attributes (expanded return-only):
     * @param id [string]: unique id returned when a CorporateRule is created, used to update a specific CorporateRule. ex: "5656565656565656"
     * @param counterAmount [integer]: current rule spent amount. ex: 1000
@@ -35,27 +26,21 @@ class CorporateRule extends Resource {
     * @param currencyName [string]: currency name. ex: "Brazilian Real"
     */
 
-    constructor({
-                    name, amount, id = null, interval = null, schedule = null, purposes = null, currencyCode = null,
-                    categories = null, countries = null, methods= null, counterAmount = null, currencySymbol = null,
-                    currencyName = null 
-                }) {
-        super(id);
+    name: string
+    amount: number
 
-        this.name = name;
-        this.amount = amount;
-        this.interval = interval;
-        this.schedule = schedule;
-        this.purposes = purposes;
-        this.currencyCode = currencyCode;
-        this.categories = parseObjects(categories, merchantCategoryResource, MerchantCategory);
-        this.countries = parseObjects(countries, merchantCountryResource, MerchantCountry);
-        this.methods = parseObjects(methods, cardMethodResource, CardMethod);
-        this.counterAmount = counterAmount;
-        this.currencySymbol = currencySymbol;
-        this.currencyName = currencyName;
+    readonly interval : string
+    readonly schedule : string
+    readonly purposes : string[] 
+    readonly currencyCode : string[] 
+    readonly categories : merchantCategories[]
+    readonly countries : merchantCountry[]
+    readonly methods : cardMethods[]
+    readonly id : string
+    readonly counterAmount : number
+    readonly currencySymbol : string
+    readonly currencyName  : string
+
+    constructor(params?: {name: string | null, amount: number | null, interval?: string | null, schedule?: string | null, purposes?: string[] | null, currencyCode?: string[] | null, categories?: merchantCategories[] | null, countries?: merchantCountry[] | null, methods?: cardMethods[] | null, id?: string | null, counterAmount?: number | null, currencySymbol?: string | null, currencyName?: string | null})
     }
 }
-
-exports.CorporateRule = CorporateRule;
-exports.resource = {'class': exports.CorporateRule, 'name': 'CorporateRule'};

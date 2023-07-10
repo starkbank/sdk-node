@@ -6,8 +6,10 @@ import assert from 'assert';
 starkbank.user = require('./utils/user').exampleProject;
 
 describe('TestCorporateBalanceGet', function(){
+    jest.setTimeout(10000);
     it('test_success', async () => {
-        let corporateBalance = await starkbank.corporateBalance.get();
-        assert(typeof corporateBalance.amount == 'number');
+        let balance = await starkbank.corporateBalance.get();
+        
+        assert(typeof balance.amount == 'number');
     });
 });

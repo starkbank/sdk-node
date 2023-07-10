@@ -49,7 +49,7 @@ exports.get = async function (id, {user} = {}) {
     * 
     */
 
-    return rest.deleteId(resource, id, user);
+    return rest.getId(resource, id, user);
 }
 
 exports.query = async function ({limit, after, before, types, holderIds, ids, user} = {}) {

@@ -3,6 +3,14 @@
 ///<reference path='./boletoPayment/boletoPayment.d.ts' />
 ///<reference path='./boletoHolmes/boletoHolmes.d.ts' />
 ///<reference path='./brcodePayment/brcodePayment.d.ts' />
+///<reference path='./corporateBalance/corporateBalance.d.ts' />
+///<reference path='./corporateCard/corporateCard.d.ts' />
+///<reference path='./corporateHolder/corporateHolder.d.ts' />
+///<reference path='./corporateInvoice/corporateInvoice.d.ts' />
+///<reference path='./corporatePurchase/corporatePurchase.d.ts' />
+///<reference path='./corporateRule/corporateRule.d.ts' />
+///<reference path='./corporateTransaction/corporateTransaction.d.ts' />
+///<reference path='./corporateWithdrawal/corporateWithdrawal.d.ts' />
 ///<reference path='./darfPayment/darfPayment.d.ts' />
 ///<reference path='./deposit/deposit.d.ts' />
 ///<reference path='./dynamicBrcode/dynamicBrcode.d.ts' />
