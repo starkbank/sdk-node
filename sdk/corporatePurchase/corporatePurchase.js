@@ -110,19 +110,19 @@ exports.get = async function (id, {user} = {}) {
 exports.query = async function ({ids, limit, after, before, merchantCategoryTypes, holderIds, cardIds, status, user} = {}) {
     /**
     * Retrieve CorporatePurchases
-
+    *
     * @description Receive a generator of CorporatePurchase objects previously created in the Stark Bank API
-
+    *
     * Parameters (optional):
-    * @param ids [list of strings, default None]: purchase IDs
-    * @param limit [integer, default None]: maximum number of objects to be retrieved. Unlimited if None. ex: 35
-    * @param after [datetime.date or string, default None] date filter for objects created only after specified date. ex: datetime.date(2020, 3, 10)
-    * @param before [datetime.date or string, default None] date filter for objects created only before specified date. ex: datetime.date(2020, 3, 10)
-    * @param merchantCategoryTypes [list of strings, default None]: merchant category type. ex: "health"
-    * @param holderIds [list of strings, default None]: card holder IDs. ex: ["5656565656565656", "4545454545454545"]
-    * @param cardIds [list of strings, default None]: card  IDs. ex: ["5656565656565656", "4545454545454545"]
-    * @param status [list of strings, default None]: filter for status of retrieved objects. ex: ["approved", "canceled", "denied", "confirmed", "voided"],
-    * @param user [Organization/Project object, default None]: Organization or Project object. Not necessary if starkbank.user was set before function call
+    * @param ids [list of strings, default null]: purchase IDs
+    * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+    * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
+    * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+    * @param merchantCategoryTypes [list of strings, default null]: merchant category type. ex: "health"
+    * @param holderIds [list of strings, default null]: card holder IDs. ex: ["5656565656565656", "4545454545454545"]
+    * @param cardIds [list of strings, default null]: card  IDs. ex: ["5656565656565656", "4545454545454545"]
+    * @param status [list of strings, default null]: filter for status of retrieved objects. ex: ["approved", "canceled", "denied", "confirmed", "voided"],
+    * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
     * 
     * Return:
     * @return generator of CorporatePurchase objects with updated attributes

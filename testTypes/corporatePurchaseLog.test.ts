@@ -8,7 +8,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestcorporatePurchaseGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let purchases = await starkbank.corporatePurchase.log.query({"limit": 1});
+        let purchases = await starkbank.corporatePurchase.log.query({ limit: 1 });
         for await (let purchase of purchases) {
             purchase = await starkbank.corporatePurchase.log.get(purchase.id)
             assert(typeof purchase.id == 'string')
@@ -20,7 +20,7 @@ describe('TestcorporatePurchaseQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        let purchases = await starkbank.corporatePurchase.log.query({limit: 5});
+        let purchases = await starkbank.corporatePurchase.log.query({ limit: 5 });
         for await (let purchase of purchases) {
             assert(typeof purchase.id == 'string');
             i += 1;    

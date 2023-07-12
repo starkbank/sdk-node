@@ -1,4 +1,5 @@
 declare module 'starkbank' {
+    
     export class CorporateTransaction {
     /**
     * 
@@ -70,7 +71,16 @@ declare module 'starkbank' {
     * 
     */
 
-    function query(params?: {tags?: string[] | null, externalIds?: string[] | null, after?: string | null, before?: string | null, status?: string | null, ids?: string[] | null, limit?: number | null, user?: Project | Organization | null}): Promise<CorporateTransaction[]>
+    function query(params?: {
+        tags?: string[] | null, 
+        externalIds?: string[] | null, 
+        after?: string | null, 
+        before?: string | null, 
+        status?: string | null, 
+        ids?: string[] | null, 
+        limit?: number | null, 
+        user?: Project | Organization | null
+    }): Promise<CorporateTransaction[]>
 
     /**
     * 
@@ -96,6 +106,16 @@ declare module 'starkbank' {
     * 
     */
 
-    function page(params?: {cursor?: string | null, limit?: number | null, tags?: string[] | null, externalIds?: string[] | null, after?: string | null, before?: string | null, status?: string | null, ids?: string[] | null, user?: Project | Organization | null}): Promise<[CorporateTransaction[], string | null]>;
+    function page(params?: {
+        cursor?: string | null, 
+        limit?: number | null, 
+        tags?: string[] | null, 
+        externalIds?: string[] | null, 
+        after?: string | null, 
+        before?: string | null, 
+        status?: string | null, 
+        ids?: string[] | null, 
+        user?: Project | Organization | null
+    }): Promise<[CorporateTransaction[], string | null]>;
     }
 }

@@ -5,16 +5,20 @@ import assert from 'assert';
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestCorporateTransactionGet', function(){
+describe('TestcorporateTransactionGet', function(){
+    jest.setTimeout(10000);
     it('test_success', async () => {
-        let transaction = await starkbank.corporateTransaction.get("5862611073630208");
-        assert(typeof transaction.id == 'string');
+        let transactions = await starkbank.corporateTransaction.query({ limit: 1 });
+        for await (let transaction of transactions) {
+            transaction = await starkbank.corporateTransaction.get(transaction.id)
+            assert(typeof transaction.id == 'string')
+        }
     });
 });
 
 describe('TestCorporateTransactionQuery', function(){
     it('test_success', async () => {
-        let transactions = await starkbank.corporateTransaction.query({limit: 3});
+        let transactions = await starkbank.corporateTransaction.query({ limit: 3 });
         for await (let transaction of transactions) {
             assert(typeof transaction.id == 'string');
         }

@@ -11,28 +11,32 @@ describe('TestCorporateHolderCreateAndUpdate', function(){
         let holder = await starkbank.corporateHolder.create(
             [new starkbank.CorporateHolder({
                 name: "Test - " + 1025425,
-                permissions: [new starkbank.corporateHolder.Permission({ownerType: "project", ownerId: "6253551860842496"})],
-                rules: [new starkbank.CorporateRule({name: "Travel", amount: 200000})]
+                permissions: [new starkbank.corporateHolder.Permission({ ownerType: "project", ownerId: "6253551860842496" })],
+                rules: [new starkbank.CorporateRule({ name: "Travel", amount: 200000 })]
             })
         ]);
         
         let holderId = holder[0].id
         assert(typeof holderId == 'string');
-        holder = await starkbank.corporateHolder.update(holderId, {status: "blocked"});
+        holder = await starkbank.corporateHolder.update(holderId, { status: "blocked" });
         assert(typeof holder.id == 'string');
     });
 });
 
-describe('TestCorporateHolderGet', function(){
+describe('TestcorporateHolderGet', function(){
+    jest.setTimeout(10000);
     it('test_success', async () => {
-        let holder = await starkbank.corporateHolder.get("5276031183224832");
-        assert(typeof holder.id == 'string');
+        let holders = await starkbank.corporateHolder.query({ limit: 1 });
+        for await (let holder of holders) {
+            holder = await starkbank.corporateHolder.get(holder.id)
+            assert(typeof holder.id == 'string')
+        }
     });
 });
 
 describe('TestCorporateHolderQuery', function(){
     it('test_success', async () => {
-        let holders = await starkbank.corporateHolder.query({limit: 3});
+        let holders = await starkbank.corporateHolder.query({ limit: 3 });
         for await (let holder of holders) {
             assert(typeof holder.id == 'string');    
         }

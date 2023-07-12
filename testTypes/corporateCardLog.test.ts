@@ -8,7 +8,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestCorporateCardGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let cards = await starkbank.corporateCard.log.query({"limit": 1});
+        let cards = await starkbank.corporateCard.log.query({ limit: 1 });
         for await (let card of cards) {
             card = await starkbank.corporateCard.log.get(card.id)
             assert(typeof card.id == 'string')
@@ -20,7 +20,7 @@ describe('TestCorporateCardQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        let cards = await starkbank.corporateCard.log.query({limit: 5});
+        let cards = await starkbank.corporateCard.log.query({ limit: 5 });
         for await (let card of cards) {
             assert(typeof card.id == 'string');
             i += 1;    

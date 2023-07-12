@@ -1,4 +1,5 @@
 declare module 'starkbank' {
+    
     export class CorporateRule {
     /**
     * 
@@ -41,6 +42,12 @@ declare module 'starkbank' {
     readonly currencySymbol : string
     readonly currencyName  : string
 
-    constructor(params?: {name: string | null, amount: number | null, interval?: string | null, schedule?: string | null, purposes?: string[] | null, currencyCode?: string[] | null, categories?: merchantCategories[] | null, countries?: merchantCountry[] | null, methods?: cardMethods[] | null, id?: string | null, counterAmount?: number | null, currencySymbol?: string | null, currencyName?: string | null})
+    constructor(params?: {
+        name: string | null, amount: number | null, 
+        interval?: string | null, schedule?: string | null, 
+        purposes?: string[] | null, currencyCode?: string[] | null, 
+        categories?: merchantCategories[] | null, countries?: merchantCountry[] | null, 
+        methods?: cardMethods[] | null, id?: string | null, counterAmount?: number | null, 
+        currencySymbol?: string | null, currencyName?: string | null})
     }
 }

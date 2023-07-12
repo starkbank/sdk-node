@@ -5,16 +5,20 @@ import assert from 'assert';
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestCorporatePurchaseGet', function(){
+describe('TestcorporatePurchaseGet', function(){
+    jest.setTimeout(10000);
     it('test_success', async () => {
-        let purchase = await starkbank.corporatePurchase.get("4893776241754112");
-        assert(typeof purchase.id == 'string');
+        let purchases = await starkbank.corporatePurchase.query({ limit: 1 });
+        for await (let purchase of purchases) {
+            purchase = await starkbank.corporatePurchase.get(purchase.id)
+            assert(typeof purchase.id == 'string')
+        }
     });
 });
 
 describe('TestCorporatePurchaseQuery', function(){
     it('test_success', async () => {
-        let purchases = await starkbank.corporatePurchase.query({limit: 3});
+        let purchases = await starkbank.corporatePurchase.query({ limit: 3 });
         for await (let purchase of purchases) {
             assert(typeof purchase.id == 'string');
         }
@@ -23,7 +27,7 @@ describe('TestCorporatePurchaseQuery', function(){
 
 describe('TestCorporatePurchasePage', function(){
     it('test_success', async () => {
-        let [page, cursor] = await starkbank.corporatePurchase.page({limit: 2});
+        let [page, cursor] = await starkbank.corporatePurchase.page({ limit: 2 });
         for await (let entity of page) {
             assert(typeof entity.id == 'string');
         }

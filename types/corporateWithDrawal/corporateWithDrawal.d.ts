@@ -1,4 +1,5 @@
 declare module 'starkbank' {
+
     export class CorporateWithdrawal {
     /**
     * 
@@ -34,12 +35,16 @@ declare module 'starkbank' {
     readonly updated : string
     readonly created : string
 
-    constructor(params?: {amount?: number | null, externalId?: string | null, tags?: string[] | null, id?: string | null, transactionId?: string | null, corporateTransactionId?: string | null, updated?: string | null, created?: string | null})
+    constructor(params?: {
+        amount?: number | null, externalId?: string | null,
+        tags?: string[] | null, id?: string | null,
+        transactionId?: string | null, corporateTransactionId?: string | null,
+        updated?: string | null, created?: string | null})
 
     }
 
     export namespace corporateWithdrawal {
-            /**
+    /**
     *
     * Create a CorporateWithdrawal
     * 
@@ -133,6 +138,7 @@ declare module 'starkbank' {
         before?: string,
         tags?: string[],
         externalIds?: string[],
-        user?: Project | Organization | null}): Promise<[CorporateWithdrawal[], string | null]>;
+        user?: Project | Organization | null
+    }): Promise<[CorporateWithdrawal[], string | null]>;
     }
 }

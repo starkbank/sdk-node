@@ -8,21 +8,25 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestCorporateCardCreate', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let card = await starkbank.corporateCard.create(
-            new starkbank.CorporateCard(
-                {
-                    holderId: "5764677799772160"
-                }
-            ), {"expand": ["rules", "securityCode", "number", "expiration"]}
-        );
-        assert(card.securityCode != '***');
+
+        let holders = await starkbank.corporateHolder.query({ limit: 1 });
+        for await (let holder of holders) {
+            let card = await starkbank.corporateCard.create(
+                new starkbank.CorporateCard(
+                    {
+                        holderId: holder.id
+                    }
+                ), {"expand": ["rules", "securityCode", "number", "expiration"]}
+            );
+            assert(card.securityCode != '***');
+        }
     });
 });
 
 describe('TestCorporateCardGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let cards = await starkbank.corporateCard.query({"limit": 1});
+        let cards = await starkbank.corporateCard.query({ limit: 1 });
         for await (let card of cards) {
             card = await starkbank.corporateCard.get(card.id)
             assert(typeof card.id == 'string')
@@ -34,7 +38,7 @@ describe('TestCorporateCardQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        let cards = await starkbank.corporateCard.query({limit: 5});
+        let cards = await starkbank.corporateCard.query({ limit: 5 });
         for await (let card of cards) {
             assert(typeof card.id == 'string');
             i += 1;    

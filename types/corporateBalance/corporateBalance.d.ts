@@ -27,7 +27,8 @@ declare module 'starkbank' {
         readonly currency : string
         readonly updated : string
 
-        constructor(id?: string | null, amount?: number | null, limit?: number | null, maxLimit?: number | null,  currency?: string | null, updated?: string | null);
+        constructor(id?: string | null, amount?: number | null, limit?: number | null,
+                    maxLimit?: number | null,  currency?: string | null, updated?: string | null);
 
     }
 
@@ -46,6 +47,6 @@ declare module 'starkbank' {
          * @returns Balance object with updated attributes
          *
          */
-        export function get(params?: { user?: Project | Organization | null}): Promise<corporateBalance>;
+        export function get(params?: { user?: Project | Organization | null }): Promise<corporateBalance>;
     }
 }

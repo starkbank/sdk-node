@@ -1,4 +1,5 @@
 declare module 'starkbank' {
+    
     export class CorporateCard {
         /**
         *  
@@ -56,10 +57,15 @@ declare module 'starkbank' {
         readonly created : string 
 
         constructor(params?: {
-            holderId: string, id? : string | null, holderName? : string | null, displayName? : string | null, rules? : invoice.Rule[] | null,
-            tags? : string[] | null, streetLine1? : string | null, streetLine2? : string | null, district? : string | null, city? : string | null,
-            stateCode? : string | null, zipCode? : string | null, type? : string | null, status? : string | null, number? : string | null, securityCode? : string | null,
-            expiration? : string | null, updated? : string | null, created?: string | null
+            holderId: string, id? : string | null, holderName? : string | null,
+            displayName? : string | null, rules? : invoice.Rule[] | null,
+            tags? : string[] | null, streetLine1? : string | null,
+            streetLine2? : string | null, district? : string | null,
+            city? : string | null, stateCode? : string | null,
+            zipCode? : string | null, type? : string | null,
+            status? : string | null, number? : string | null,
+            securityCode? : string | null, expiration? : string | null,
+            updated? : string | null, created?: string | null
         })
     }
 
@@ -92,6 +98,7 @@ declare module 'starkbank' {
         * @description Receive a generator of CorporateCard objects previously created in the Stark Bank API
         * 
         * Parameters (optional):
+        * @param cursor [string, default null]: cursor returned on the previous page function call
         * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
         * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
         * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
@@ -224,8 +231,7 @@ declare module 'starkbank' {
 
         function cancel(id: string, params?: {user?: Project | Organization | null})
 
-
-            export class Rule {
+        export class Rule {
             /**
             * Invoice.Rule object
             * 
@@ -266,7 +272,8 @@ declare module 'starkbank' {
             readonly type : string
             readonly created : string
 
-            constructor(params?: {id?: string | null, card?: corporateCard | null, type?: string | null, created?: string | null})
+            constructor(params?: {id?: string | null, card?: corporateCard | null,
+                        type?: string | null, created?: string | null})
         }
 
         export namespace log {

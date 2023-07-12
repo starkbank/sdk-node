@@ -1,4 +1,5 @@
 declare module 'starkbank' {
+    
     export class CorporateHolder {
     /**
     * 
@@ -37,142 +38,148 @@ declare module 'starkbank' {
     readonly updated : string
     readonly created : string
 
-    constructor(params?: {name: string, centerId?: string | null, permissions?: Permission[] | null, rules?: rules[] | null, tags?: string | null, id?: string | null, status?: string | null, updated?: string | null, created?: string | null})
+    constructor(params?: {name: string, centerId?: string | null, permissions?: Permission[] | null,
+                rules?: rules[] | null, tags?: string | null, id?: string | null,
+                status?: string | null, updated?: string | null, created?: string | null})
 
     }
 
     export namespace corporateHolder {
-    /**
-    * 
-    * @description Send a list of CorporateHolder objects for creation at the Stark Bank API
-    * 
-    * Parameters (required):
-    * @param holders [list of CorporateHolder objects]: list of CorporateHolder objects to be created in the API
-    * 
-    * Parameters (optional):
-    * @param expand [list of strings, default null]: fields to expand information. Options: ["rules"]
-    * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
-    * 
-    * Return:
-    * @return list of CorporateHolder objects with updated attributes
-    * 
-    */
+        /**
+        * 
+        * @description Send a list of CorporateHolder objects for creation at the Stark Bank API
+        * 
+        * Parameters (required):
+        * @param holders [list of CorporateHolder objects]: list of CorporateHolder objects to be created in the API
+        * 
+        * Parameters (optional):
+        * @param expand [list of strings, default null]: fields to expand information. Options: ["rules"]
+        * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
+        * 
+        * Return:
+        * @return list of CorporateHolder objects with updated attributes
+        * 
+        */
 
-    function create(holder: corporateHolder[], params?: {expand?: string[], user?: Project | Organization | null}): Promise<corporateHolder>
-    
-    /**
-    * 
-    * Retrieve a specific CorporateHolder
-    * 
-    * @description Receive a single CorporateHolder object previously created in the Stark Bank API by its id
-    * 
-    * Parameters (required):
-    * @param id [string]: object unique id. ex: "5656565656565656"
-    * 
-    * Parameters (optional):
-    * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
-    * 
-    * Return:
-    * @retun CorporateHolder object with updated attributes
-    * 
-    */
-    function get(id: string, params?: {user?: Project | Organization | null}): Promise<corporateHolder>;
+        function create(holder: corporateHolder[], params?: {
+            expand?: string[], user?: Project | Organization | null
+        }): Promise<corporateHolder>
+        
+        /**
+        * 
+        * Retrieve a specific CorporateHolder
+        * 
+        * @description Receive a single CorporateHolder object previously created in the Stark Bank API by its id
+        * 
+        * Parameters (required):
+        * @param id [string]: object unique id. ex: "5656565656565656"
+        * 
+        * Parameters (optional):
+        * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
+        * 
+        * Return:
+        * @retun CorporateHolder object with updated attributes
+        * 
+        */
+        function get(id: string, params?: {user?: Project | Organization | null}): Promise<corporateHolder>;
 
-    /**
-    * 
-    * Retrieve CorporateHolders
-    * 
-    * @description Receive a generator of CorporateHolder objects previously created in the Stark Bank API
-    * 
-    * Parameters (optional):
-    * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
-    * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
-    * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
-    * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ["5656565656565656", "4545454545454545"]
-    * @param status [list of strings, default null]: filter for status of retrieved objects. ex: ["active", "blocked", "canceled"]
-    * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ["tony", "stark"]
-    * @param expand [string, default null]: fields to expand information. Options: ["rules"]
-    * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
-    * 
-    * Return:
-    * @retun generator of CorporateHolder objects with updated attributes
-    * 
-    */
+        /**
+        * 
+        * Retrieve CorporateHolders
+        * 
+        * @description Receive a generator of CorporateHolder objects previously created in the Stark Bank API
+        * 
+        * Parameters (optional):
+        * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
+        * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
+        * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+        * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ["5656565656565656", "4545454545454545"]
+        * @param status [list of strings, default null]: filter for status of retrieved objects. ex: ["active", "blocked", "canceled"]
+        * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ["tony", "stark"]
+        * @param expand [string, default null]: fields to expand information. Options: ["rules"]
+        * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
+        * 
+        * Return:
+        * @retun generator of CorporateHolder objects with updated attributes
+        * 
+        */
 
-    function query(params?: {
-        limit?: number | null, 
-        after?: string | null, 
-        before?: string | null, 
-        types?: string[] | null, 
-        holderIds?: string[] | null, 
-        user?: Project | Organization | null}): Promise<corporateHolder[]>;
-    
-    /**
-    * 
-    * Retrieve CorporateHolders
-    * 
-    * @description Receive a list of up to 100 CorporateHolder objects previously created in the Stark Bank API and the cursor to the next page.
-    * Use this function instead of query if you want to manually page your requests.
-    * 
-    * Parameters (optional):
-    * @param cursor [string, default null]: cursor returned on the previous page function call
-    * @param limit [integer, default 100]: maximum number of objects to be retrieved. Max = 100. ex: 35
-    * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
-    * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
-    * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ["5656565656565656", "4545454545454545"]
-    * @param status [list of strings, default null]: filter for status of retrieved objects. ex: ["active", "blocked", "canceled"]
-    * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ["tony", "stark"]
-    * @param expand [string, default null]: fields to expand information. Options: ["rules"]
-    * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
-    * 
-    * Return:
-    * @return list of CorporateHolder objects with updated attributes
-    * @return cursor to retrieve the next page of CorporateHolder objects
-    * 
-    */
+        function query(params?: {
+            limit?: number | null, 
+            after?: string | null, 
+            before?: string | null, 
+            types?: string[] | null, 
+            holderIds?: string[] | null, 
+            user?: Project | Organization | null
+        }): Promise<corporateHolder[]>;
+        
+        /**
+        * 
+        * Retrieve CorporateHolders
+        * 
+        * @description Receive a list of up to 100 CorporateHolder objects previously created in the Stark Bank API and the cursor to the next page.
+        * Use this function instead of query if you want to manually page your requests.
+        * 
+        * Parameters (optional):
+        * @param cursor [string, default null]: cursor returned on the previous page function call
+        * @param limit [integer, default 100]: maximum number of objects to be retrieved. Max = 100. ex: 35
+        * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'
+        * @param before [string, default null] date filter for objects created only before specified date. ex: '2020-03-10'
+        * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ["5656565656565656", "4545454545454545"]
+        * @param status [list of strings, default null]: filter for status of retrieved objects. ex: ["active", "blocked", "canceled"]
+        * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ["tony", "stark"]
+        * @param expand [string, default null]: fields to expand information. Options: ["rules"]
+        * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
+        * 
+        * Return:
+        * @return list of CorporateHolder objects with updated attributes
+        * @return cursor to retrieve the next page of CorporateHolder objects
+        * 
+        */
 
-    function page(params?: { 
-        cursor?: string  | null,
-        expand?: string[] | null, 
-        limit?: number | null, 
-        after?: string | null, 
-        before?: string | null, 
-        types?: string[] | null, 
-        boletoIds?: string[] | null, 
-        user?: Project | Organization | null
-    }): Promise<[corporateHolder[], string | null]>;
+        function page(params?: { 
+            cursor?: string  | null,
+            expand?: string[] | null, 
+            limit?: number | null, 
+            after?: string | null, 
+            before?: string | null, 
+            types?: string[] | null, 
+            boletoIds?: string[] | null, 
+            user?: Project | Organization | null
+        }): Promise<[corporateHolder[], string | null]>;
 
-    /**
-    * 
-    * Update CorporateHolder entity
-    * 
-    * @description Update a CorporateHolder by passing its id.
-    *
-    * Parameters (required):
-    * @param id [string]: CorporateHolder id. ex: '5656565656565656'
-    * 
-    * Parameters (optional):
-    * @param centerId [string, default null]: target cost center ID. ex: "5656565656565656"
-    * @param permissions [list of Permission object, default null]: list of Permission object representing access granted to an user for a particular cardholder.
-    * @param status [string, default null]: You may block the CorporateHolder by passing 'blocked' in the status
-    * @param name [string, default null]: card holder name.
-    * @param tags [list of strings, default null]: list of strings for tagging
-    * @param rules [list of dictionaries, default null]: list of dictionaries with "amount": int, "currencyCode": string, "id": string, "interval": string, "name": string pairs
-    * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
-    * 
-    * Return:
-    * @return target CorporateHolder with updated attributes
-    * 
-    */
-    function update(id: string, params?: {
-        centerId?: string,
-        permissions?: Permissions[],  
-        status?: string,
-        name?: string | null,
-        rules?: {}[],
-        tags?: string[],
-        user?: Project | Organization | null}): Promise<corporateHolder>;
-    
+        /**
+        * 
+        * Update CorporateHolder entity
+        * 
+        * @description Update a CorporateHolder by passing its id.
+        *
+        * Parameters (required):
+        * @param id [string]: CorporateHolder id. ex: '5656565656565656'
+        * 
+        * Parameters (optional):
+        * @param centerId [string, default null]: target cost center ID. ex: "5656565656565656"
+        * @param permissions [list of Permission object, default null]: list of Permission object representing access granted to an user for a particular cardholder.
+        * @param status [string, default null]: You may block the CorporateHolder by passing 'blocked' in the status
+        * @param name [string, default null]: card holder name.
+        * @param tags [list of strings, default null]: list of strings for tagging
+        * @param rules [list of dictionaries, default null]: list of dictionaries with "amount": int, "currencyCode": string, "id": string, "interval": string, "name": string pairs
+        * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
+        * 
+        * Return:
+        * @return target CorporateHolder with updated attributes
+        * 
+        */
+        function update(id: string, params?: {
+            centerId?: string,
+            permissions?: Permissions[],  
+            status?: string,
+            name?: string | null,
+            rules?: {}[],
+            tags?: string[],
+            user?: Project | Organization | null
+        }): Promise<corporateHolder>;
+        
 
     export class Permission {
         /**
@@ -203,7 +210,11 @@ declare module 'starkbank' {
         readonly ownerStatus : string | null
         readonly created : string | null
 
-        constructor(params?: {ownerType?: string, ownerId?: string | null, ownerEmail?: string | null, ownerName?: string | null, ownerPictureUrl?: string | null, ownerStatus?: string | null, created?: string | null})
+        constructor(params?: {
+            ownerType?: string, ownerId?: string | null,
+            ownerEmail?: string | null, ownerName?: string | null,
+            ownerPictureUrl?: string | null, ownerStatus?: string | null,
+            created?: string | null})
         }
 
         export class Log {
@@ -227,7 +238,9 @@ declare module 'starkbank' {
             readonly type : string
             readonly created : string
 
-            constructor(params?: {id?: string | null, holder?: corporateHolder | null, type?: string | null, created?: string | null})
+            constructor(params?: {
+                id?: string | null, holder?: corporateHolder | null,
+                type?: string | null, created?: string | null})
         }
 
         export namespace log {
@@ -270,7 +283,15 @@ declare module 'starkbank' {
         * 
         */
 
-        function query (params?: {limit?: number | null, after?: string | null, before?: string | null, types?: string[] | null, holderIds?: string[] | null, ids?: string[] | null, user?: Project | Organization | null}): Promise<corporateHolder.Log[]>
+        function query (params?: {
+            limit?: number | null,
+            after?: string | null,
+            before?: string | null,
+            types?: string[] | null,
+            holderIds?: string[] | null,
+            ids?: string[] | null,
+            user?: Project | Organization | null
+        }): Promise<corporateHolder.Log[]>
         /**
         * 
         * Retrieve paged corporateholder.Log
@@ -295,7 +316,16 @@ declare module 'starkbank' {
         * 
         */
 
-        function page (params?: {cursor?: string | null, limit?: number | null, after?: string | null, before?: string | null, types?: string[] | null, holderids?: string[] | null, ids?: string[] | null, user?: Project | Organization | null}): Promise<corporateHolder.Log[], string | null>
+        function page (params?: {
+            cursor?: string | null,
+            limit?: number | null,
+            after?: string | null,
+            before?: string | null,
+            types?: string[] | null, 
+            holderids?: string[] | null, 
+            ids?: string[] | null,
+            user?: Project | Organization | null
+        }): Promise<corporateHolder.Log[], string | null>
         }
     }
 }
