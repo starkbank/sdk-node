@@ -218,8 +218,8 @@ declare module 'starkbank' {
             readonly ownerStatus : string | null
             readonly created : string | null
 
-            constructor(params?: {
-                ownerType?: string,
+            constructor(params: {
+                ownerType?: string | null
                 ownerId?: string | null,
                 ownerEmail?: string | null, 
                 ownerName?: string | null,

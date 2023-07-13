@@ -43,8 +43,8 @@ declare module 'starkbank' {
         readonly currencyName  : string
 
         constructor(params: {
-            name: string | null, 
-            amount: number | null, 
+            name: string, 
+            amount: number, 
             interval?: string | null, 
             schedule?: string | null, 
             purposes?: string[] | null, 
