@@ -28,8 +28,13 @@ declare module 'starkbank' {
         readonly updated : string
 
         constructor(params: {
-            id?: string | null, amount?: number | null, limit?: number | null,
-            maxLimit?: number | null,  currency?: string | null, updated?: string | null});
+            id?: string | null,
+            amount?: number | null, 
+            limit?: number | null,
+            maxLimit?: number | null, 
+            currency?: string | null, 
+            updated?: string | null
+        });
 
     }
 
@@ -44,7 +49,7 @@ declare module 'starkbank' {
          * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
          * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
          * 
-         * Return:zx
+         * Return:
          * @returns Balance object with updated attributes
          *
          */

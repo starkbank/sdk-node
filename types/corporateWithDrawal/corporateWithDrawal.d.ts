@@ -1,6 +1,6 @@
 declare module 'starkbank' {
 
-        export class CorporateWithdrawal {
+    export class CorporateWithdrawal {
         /**
          * 
          * CorporateWithdrawal object
@@ -24,10 +24,10 @@ declare module 'starkbank' {
          * 
          */
 
-        amount: number
-        externalId: string
+        amount : number
+        externalId : string
 
-        tags: string[]
+        tags : string[]
 
         readonly id : string
         readonly transactionId : string
@@ -36,12 +36,16 @@ declare module 'starkbank' {
         readonly created : string
 
         constructor(params: {
-            amount?: number | null, externalId?: string | null,
-            tags?: string[] | null, id?: string | null,
-            transactionId?: string | null, corporateTransactionId?: string | null,
-            updated?: string | null, created?: string | null})
-
-        }
+            amount?: number | null,
+            externalId?: string | null,
+            tags?: string[] | null,
+            id?: string | null,
+            transactionId?: string | null,
+            corporateTransactionId?: string | null,
+            updated?: string | null,
+            created?: string | null
+        })
+    }
 
     export namespace corporateWithdrawal {
         /**

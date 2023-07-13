@@ -47,15 +47,21 @@ declare module 'starkbank' {
         readonly created : string | null
 
         constructor(params: {
-            amount: number, tags?: string[] | null,
-            id?: string | null, name?: string | null,
-            taxId?: string | null, brcode?: string | null, 
-            due?: string | null, link?: string | null, 
-            status?: string | null, corporateTransactionId?: string | null, 
-            updated?: string | null, created?: string | null})
-
-        }
-
+            amount:  number,
+            tags?: string[] | null,
+            id?: string | null, 
+            name?: string | null,
+            taxId?: string | null, 
+            brcode?: string | null, 
+            due?: string | null, 
+            link?: string | null, 
+            status?: string | null, 
+            corporateTransactionId?: string | null, 
+            updated?: string | null, 
+            created?: string | null
+        })
+    }
+    
         export namespace corporateInvoice {
         /**
          * 

@@ -50,13 +50,18 @@ describe('TestCorporateCardQuery', function(){
 describe('TestCorporateCardCreate', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let card = await starkbank.corporateCard.create(
-            new starkbank.CorporateCard(
-                {
-                    "holderId": "4787389398515712",
-                }
-            ), {"expand": ["rules", "securityCode", "number", "expiration"]}
-        )
-        assert(card.securityCode != '***');
+
+        let holders = await starkbank.corporateHolder.query({limit: 1})
+
+        for await (let holder of holders) {
+            let card = await starkbank.corporateCard.create(
+                new starkbank.CorporateCard(
+                    {
+                        "holderId": holder.id,
+                    }
+                ), {"expand": ["rules", "securityCode", "number", "expiration"]}
+            )
+            assert(card.securityCode != '***');
+        }
     });
 });

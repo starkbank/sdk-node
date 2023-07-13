@@ -26,8 +26,15 @@ declare module 'starkbank' {
         readonly tags : string
         readonly created : string
 
-        constructor(params: {id? : string | null, amount? : string | null, balance? : string | null, description? : string | null, source? : string | null, tags? : string | null, created})
-
+        constructor(params: {
+            id?: string | null, 
+            amount?: string | null, 
+            balance?: string | null, 
+            description?: string | null, 
+            source?: string | null, 
+            tags?: string | null, 
+            created?: string | null
+        })
     }
 
     export namespace corporateTransaction {

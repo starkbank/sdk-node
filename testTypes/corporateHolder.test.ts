@@ -11,7 +11,7 @@ describe('TestCorporateHolderCreateAndUpdate', function(){
         let holder = await starkbank.corporateHolder.create(
             [new starkbank.CorporateHolder({
                 name: "Test - " + 1025425,
-                permissions: [new starkbank.corporateHolder.Permission({ ownerType: "project", ownerId: "6253551860842496" })],
+                permissions: [new starkbank.corporateHolder.Permission({ ownerType: "project", ownerId: process.env.SANDBOX_ID })],
                 rules: [new starkbank.CorporateRule({ name: "Travel", amount: 200000 })]
             })
         ]);

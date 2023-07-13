@@ -35,7 +35,7 @@ declare module 'starkbank' {
          * @param created [string]: creation datetime for the CorportaCard. ex: '2020-03-10 10:30:00.000'
          */
 
-        holderId: string
+        holderId : string
 
         readonly id : string
         readonly holderName : string
@@ -57,15 +57,25 @@ declare module 'starkbank' {
         readonly created : string 
 
         constructor(params: {
-            holderId: string, id? : string | null, holderName? : string | null,
-            displayName? : string | null, rules? : invoice.Rule[] | null,
-            tags? : string[] | null, streetLine1? : string | null,
-            streetLine2? : string | null, district? : string | null,
-            city? : string | null, stateCode? : string | null,
-            zipCode? : string | null, type? : string | null,
-            status? : string | null, number? : string | null,
-            securityCode? : string | null, expiration? : string | null,
-            updated? : string | null, created?: string | null
+            holderId : string,
+            id?: string | null, 
+            holderName?: string | null,
+            displayName?: string | null, 
+            rules?: invoice.Rule[] | null,
+            tags?: string[] | null, 
+            streetLine1?: string | null,
+            streetLine2?: string | null, 
+            district?: string | null,
+            city?: string | null, 
+            stateCode?: string | null,
+            zipCode?: string | null, 
+            type?: string | null,
+            status?: string | null, 
+            number?: string | null,
+            securityCode?: string | null, 
+            expiration?: string | null,
+            updated?: string | null, 
+            created?: string | null
         })
     }
 
@@ -209,7 +219,12 @@ declare module 'starkbank' {
          */
 
         function update(id: string, params?: {
-            displayName?: string | null, status?: string | null, pin?: string | null, rules?: CorporateRule[] | null, tags?: string[] | null, user?: Project | Organization | null
+            displayName?: string | null,
+            status?: string | null,
+            pin?: string | null, 
+            rules?: CorporateRule[] | null, 
+            tags?: string[] | null, 
+            user?: Project | Organization | null
         }): Promise<CorporateCard>;
 
 
@@ -273,8 +288,11 @@ declare module 'starkbank' {
             readonly created : string
 
             constructor(params: {
-                id?: string | null, card?: corporateCard | null,
-                type?: string | null, created?: string | null})
+                id?: string | null,
+                card?: corporateCard | null,
+                type?: string | null, 
+                created?: string | null
+            })
         }
 
         export namespace log {
@@ -331,8 +349,8 @@ declare module 'starkbank' {
             * 
             * @description Receive a list of up to 100 CorporateCard objects previously created in the Stark Bank API and the cursor to the next page.
             * Use this function instead of query if you want to manually page your requests.
-            * Parameters (optional):
             * 
+            * Parameters (optional):
             * @param cursor [string, default null]: cursor returned on the previous page function call
             * @param limit [integer, default 100]: maximum number of objects to be retrieved. Max = 100. ex: 35
             * @param after [string, default null] date filter for objects created only after specified date. ex: '2020-03-10'

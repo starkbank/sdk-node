@@ -1,6 +1,6 @@
 declare module 'starkbank' {
 
-        export class CorporateRule {
+    export class CorporateRule {
         /**
          * 
          * CorporateRule object
@@ -27,8 +27,8 @@ declare module 'starkbank' {
          * @param currencyName [string]: currency name. ex: "Brazilian Real"
          */
 
-        name: string
-        amount: number
+        name : string
+        amount : number
 
         readonly interval : string
         readonly schedule : string
@@ -43,11 +43,19 @@ declare module 'starkbank' {
         readonly currencyName  : string
 
         constructor(params: {
-            name: string | null, amount: number | null, 
-            interval?: string | null, schedule?: string | null, 
-            purposes?: string[] | null, currencyCode?: string[] | null, 
-            categories?: merchantCategories[] | null, countries?: merchantCountry[] | null, 
-            methods?: cardMethods[] | null, id?: string | null, counterAmount?: number | null, 
-            currencySymbol?: string | null, currencyName?: string | null})
-        }
+            name: string | null, 
+            amount: number | null, 
+            interval?: string | null, 
+            schedule?: string | null, 
+            purposes?: string[] | null, 
+            currencyCode?: string[] | null, 
+            categories?: merchantCategories[] | null, 
+            countries?: merchantCountry[] | null, 
+            methods?: cardMethods[] | null, 
+            id?: string | null, 
+            counterAmount?: number | null, 
+            currencySymbol?: string | null, 
+            currencyName?: string | null
+        })
+    }
 }
