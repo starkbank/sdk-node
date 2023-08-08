@@ -155,8 +155,7 @@ declare module 'starkbank' {
          * 
          * Retrieve paged CorporatePurchase
          * 
-         * @description Receive a list of up to 100 CorporatePurchase objects previously created in the Stark Bank API and the cursor to the next page.
-         * Use this function instead of query if you want to manually page your requests.
+         * @description Receive a generator of CorporatePurchase objects previously created in the Stark Bank API
          * 
          * Parameters (optional):
          * @param cursor [string, default null]: cursor returned on the previous page function call
