@@ -24,15 +24,10 @@ class DictKey extends Resource {
      * @param accountNumber [string, default null]: bank account number associated with the Pix key. ex: '9828282578010513'
      * @param accountType [string, default null]: bank account type associated with the Pix key. ex: 'checking', 'saving', 'salary' or 'payment'
      * @param status [string, default null]: current Pix key status. ex: 'created', 'registered', 'canceled' or 'failed'
-     * @param accountCreated [string, default null]: creation datetime of the bank account associated with the Pix key. ex: '2020-11-05T14:55:08.812665+00:00'
-     * @param owned [string, default null]: datetime since when the current owner hold this Pix key. ex : '2020-11-05T14:55:08.812665+00:00'     
-     * @param created [string, default null]: creation datetime for the Pix key. ex: '2020-11-05T14:55:08.812665+00:00'
-     *
      */
     constructor({
                     id, type = null, accountCreated = null, accountType = null, name = null, taxId = null,
                     ownerType = null, bankName = null, ispb = null, branchCode = null, accountNumber = null, 
-                    status = null, owned = null, created = null
                 }) {
         super(id);
         this.type = type;
@@ -45,9 +40,6 @@ class DictKey extends Resource {
         this.ispb = ispb;
         this.branchCode = branchCode;
         this.accountNumber = accountNumber;
-        this.status = status;
-        this.owned = check.date(owned);
-        this.created = check.date(created);
     }
 }
 
