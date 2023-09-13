@@ -20,8 +20,8 @@ class DictKey extends Resource {
      * @param ownerType [string, default null]: Pix key owner type. ex 'naturalPerson' or 'legalPerson'
      * @param bankName [string, null null]: bank name associated with the DICT key. ex: 'Stark Bank'
      * @param ispb [string, default null]: ISPB code used for transactions. ex: '20018183'
-     * @param branchCode [string, default null]: bank account branch code associated with the Pix key. ex: '9585'
-     * @param accountNumber [string, default null]: bank account number associated with the Pix key. ex: '9828282578010513'
+     * @param branchCode [string, default null]: bank account branch code associated with the Pix key. ex: 'ZW5jcnlwdGVkLWJyYW5jaC1jb2Rl'
+     * @param accountNumber [string, default null]: bank account number associated with the Pix key. ex: 'ZW5jcnlwdGVkLWFjY291bnQtbnVtYmVy'
      * @param accountType [string, default null]: bank account type associated with the Pix key. ex: 'checking', 'saving', 'salary' or 'payment'
      * @param status [string, default null]: current Pix key status. ex: 'created', 'registered', 'canceled' or 'failed'
      */
