@@ -13,6 +13,11 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Removed
+- accountCreated, created, owned attributes
+
+### Changed
+- accountNumber and branchCode docstring attributes to DictKey resource
 
 ## [2.19.0] - 2023-06-21
 ### Added
