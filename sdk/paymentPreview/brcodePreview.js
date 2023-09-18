@@ -13,8 +13,6 @@ class BrcodePreview extends SubResource {
      * @param name [string]: Payment receiver name. ex: 'Tony Stark'
      * @param taxId [string]: Payment receiver tax ID. ex: '012.345.678-90'
      * @param bankCode [string]: Payment receiver bank code. ex: '20018183'
-     * @param branchCode [string]: Payment receiver branch code. ex: '0001'
-     * @param accountNumber [string]: Payment receiver account number. ex: '1234567'
      * @param accountType [string]: Payment receiver account type. ex: 'checking'
      * @param allowChange [bool]: If true, the payment is able to receive amounts that are different from the nominal one. ex: true or false
      * @param amount [integer]: Value in cents that this payment is expecting to receive. If 0, any value is accepted. ex: 123 (= R$1,23)
@@ -26,17 +24,14 @@ class BrcodePreview extends SubResource {
      * @param reconciliationId [string]: Reconciliation ID linked to this payment. ex: 'txId', 'payment-123'
      * 
      */
-    constructor(status, name, taxId, bankCode, branchCode, accountNumber, accountType, 
-        allowChange, amount, nominalAmount, interestAmount, fineAmount, reductionAmount, 
-        discountAmount, reconciliationId) 
+    constructor(status, name, taxId, bankCode, accountType, allowChange, amount, nominalAmount, 
+        interestAmount, fineAmount, reductionAmount, discountAmount, reconciliationId) 
     {
         super();
         this.status = status;
         this.name = name;
         this.taxId = taxId;
         this.bankCode = bankCode;
-        this.branchCode = branchCode;
-        this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.allowChange = allowChange;
         this.amount = amount;
