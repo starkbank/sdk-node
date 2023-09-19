@@ -265,7 +265,7 @@ The error language can also be set in the same way as the default user:
 ```javascript
 const starkbank = require('starkbank');
 
-starkbank.language = 'en-US';
+starkbank.setLanguage('en-US'); // 'en-US' or 'pt-BR'
 ```
 
 Language options are 'en-US' for english and 'pt-BR' for brazilian portuguese. English is default.
