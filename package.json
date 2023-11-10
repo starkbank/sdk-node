@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^1.6.0",
     "starkbank-ecdsa": "^1.1.5"
   },
   "devDependencies": {
