@@ -140,3 +140,27 @@ exports.page = async function ({ cursor, limit, after, before, status, sort, tag
     };
     return rest.getPage(resource, query, user);
 };
+
+exports.update = function (id, {amount, user} = {}) {
+    /**
+     *
+     *  Update Deposit entity
+     *
+     * @description Update the Deposit by passing its id to be partially or fully reversed.
+     *
+     * Parameters (required):
+     * @param id [string]: Deposit id. ex: '5656565656565656'
+     *
+     * Parameters (optional):
+     * @param amount [integer]: The new amount of the Deposit. If the amount = 0 the Deposit will be fully reversed
+     * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns target Deposit with updated attributes
+     *
+     */
+    let payload = {
+        amount: amount,
+    };
+    return rest.patchId(resource, id, payload, user);
+};

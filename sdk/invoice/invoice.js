@@ -216,10 +216,10 @@ exports.update = function (id, {amount, status, due, expiration, user} = {}) {
      *
      */
     let payload = {
-        amount:         amount,
-        status:         status,
-        due:            due,
-        expiration:     expiration
+        amount: amount,
+        status: status,
+        due: due,
+        expiration: expiration
     };
     return rest.patchId(resource, id, payload, user);
 };
