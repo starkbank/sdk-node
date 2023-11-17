@@ -1,6 +1,6 @@
 {
   "name": "starkbank",
-  "version": "2.20.0",
+  "version": "2.21.0",
   "description": "SDK to facilitate Node integrations with Stark Bank",
   "main": "index.js",
   "types": "types/index.d.ts",
@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^1.6.2",
     "starkbank-ecdsa": "^1.1.5"
   },
   "devDependencies": {
