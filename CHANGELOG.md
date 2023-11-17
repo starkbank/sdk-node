@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- update function to Deposit resource
 
 ## [2.20.0] - 2023-09-18
 ### Removed
