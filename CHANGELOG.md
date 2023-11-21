@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- Readme Deposit resource 
 
 ## [2.21.0] - 2023-11-17
 ### Added
