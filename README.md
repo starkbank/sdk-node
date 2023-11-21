@@ -927,6 +927,7 @@ const starkbank = require('starkbank');
     console.log(deposit);
 })();
 ```
+
 ## Update a deposit 
 
 You can update a deposit amount by its id. The amount can only be decreased, which will result in a payment reversal. To fully reverse the deposit, pass amount = 0.
@@ -935,14 +936,14 @@ You can update a deposit amount by its id. The amount can only be decreased, whi
 const starkbank = require('starkbank');
 
 (async() => {
-    let invoice = await starkbank.invoice.update(
+    let deposit = await starkbank.deposit.update(
         '5155165527080960',
         {
             amount: 0
         }
     );
 
-    console.log(invoice);
+    console.log(deposit);
 })();
 ```
 
