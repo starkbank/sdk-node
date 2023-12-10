@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- update types to Deposit resource
 ### Fixed
 - Readme Deposit resource 
 
