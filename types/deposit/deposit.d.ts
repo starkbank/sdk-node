@@ -132,6 +132,11 @@ declare module 'starkbank' {
             user?: Project | Organization | null
         }): Promise<Deposit[]>;
 
+        function update(id: string, params?: {
+            amount?: number  | null,
+            user?: Project | Organization | null
+        }): Promise<Deposit>;
+
         export class Log {
             /**
              *
