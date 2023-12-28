@@ -4,7 +4,7 @@ const generateExampleBoletoPaymentsJson = require('./utils/boletoPayment.js').ge
 const generateExampleBrcodePaymentsJson = require('./utils/brcodePayment.js').generateExampleBrcodePaymentsJson;
 const generateExampleTaxPaymentsJson = require('./utils/taxPayment.js').generateExampleTaxPaymentsJson;
 const generateExampleUtilityPaymentsJson = require('./utils/utilityPayment.js').generateExampleUtilityPaymentsJson;
-const check = require('../sdk/utils/check.js');
+const check = require('core-node').check;
 
 
 starkbank.user = require('./utils/user').exampleProject;

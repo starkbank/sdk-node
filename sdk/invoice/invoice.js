@@ -1,10 +1,10 @@
 const rest = require('../utils/rest.js');
-const check = require('../utils/check.js');
-const Resource = require('../utils/resource.js').Resource
-const subResource = require('../invoice/payment.js').subResource
 const { Rule } = require('./rule/rule.js');
+const check = require('core-node').check;
+const Resource = require('core-node').Resource;
 const rulesResource = require('./rule/rule.js').resource;
 const parseObjects = require('../utils/parse.js').parseObjects;
+const subResource = require('../invoice/payment.js').subResource
 
 
 class Invoice extends Resource {
@@ -56,7 +56,7 @@ class Invoice extends Resource {
                 }) {
         super(id);
         this.amount = amount;
-        this.due = check.datetimeOrDate(due);
+        this.due = check.dateTimeOrDate(due);
         this.taxId = taxId;
         this.name = name;
         this.expiration = expiration;
@@ -67,7 +67,7 @@ class Invoice extends Resource {
         this.tags = tags;
         if (discounts != null) {
             discounts.forEach(discount => {
-                discount.due = check.datetimeOrDate(discount.due);
+                discount.due = check.dateTimeOrDate(discount.due);
             });
         }
         this.descriptions = descriptions;
@@ -245,7 +245,7 @@ exports.qrcode = function (id, {size=7, user} = {}) {
     let payload = {
         size: size
     }
-    return rest.getQrcode(resource, id, payload, user);
+    return rest.getContent(resource, id, user, payload, 'qrcode');
 };
 
 exports.pdf = async function (id, {user} = {}) {
@@ -265,7 +265,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Invoice pdf file
      *
      */
-    return rest.getPdf(resource, id, null, user);
+    return rest.getContent(resource, id, user, null, 'pdf');
 };
 
 exports.payment = async function (id, {user} = {}) {

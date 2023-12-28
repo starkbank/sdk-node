@@ -1,6 +1,6 @@
 const starkbank = require('../../index.js');
 const random = require('./random.js');
-const check = require('../../sdk/utils/check.js');
+const check = require('core-node').check;
 const generateExampleBoletosJson = require('./boleto').generateExampleBoletosJson;
 
 exports.generateExampleBoletoPaymentsJson = async function (n, schedule = true) {

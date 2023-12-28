@@ -1,9 +1,9 @@
 const rest = require('../utils/rest.js');
-const check = require('../utils/check.js');
-const Resource = require('../utils/resource.js').Resource
+const check = require('core-node').check;
+const Resource = require('core-node').Resource;
+const taxPreviewSubResource = require('./taxPreview.js').subResource
 const boletoPreviewSubResource = require('./boletoPreview.js').subResource
 const brcodePreviewSubResource = require('./brcodePreview.js').subResource
-const taxPreviewSubResource = require('./taxPreview.js').subResource
 const utilityPreviewSubResource = require('./utilityPreview.js').subResource
 
 const subResourceByType = {

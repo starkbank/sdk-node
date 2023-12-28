@@ -1,10 +1,10 @@
 const rest = require('../utils/rest.js');
-const check = require('../utils/check.js');
-const Resource = require('../utils/resource.js').Resource;
-const api = require('../utils/api.js');
+const api = require('core-node').api;
+const check = require('core-node').check;
+const Resource = require('core-node').Resource;
+const parseObjects = require('../utils/parse.js').parseObjects;
 const {CorporateRule} = require('../corporateRule/corporateRule.js');
 const testCorporateRule = require('../corporateRule/corporateRule.js').resource;
-const parseObjects = require('../utils/parse.js').parseObjects;
 
 class CorporateCard extends Resource {
     /**

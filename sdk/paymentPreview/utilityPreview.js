@@ -1,4 +1,4 @@
-const SubResource = require('../utils/subResource.js').SubResource
+const SubResource = require('core-node').SubResource;
 
 
 class UtilityPreview extends SubResource {

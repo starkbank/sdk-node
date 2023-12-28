@@ -1,5 +1,5 @@
 const rest = require('../../utils/rest.js');
-const check = require('../../utils/check.js');
+const check = require('core-node').check;
 const Resource = require('../../utils/resource.js').Resource
 
 
@@ -132,5 +132,5 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Invoice.Log pdf file
      *
      */
-    return rest.getPdf(resource, id, null, user);
+    return rest.getContent(resource, id, user, null, 'pdf');
 };

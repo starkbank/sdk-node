@@ -1,9 +1,9 @@
+const error = require('../error.js');
+const rest = require('../utils/rest.js');
+const check = require('core-node').check;
 const starkbank = require('../../index.js');
 const Ellipticcurve = require('starkbank-ecdsa');
-const Resource = require('../utils/resource.js').Resource;
-const check = require('../utils/check.js');
-const rest = require('../utils/rest.js');
-const error = require('../error.js');
+const Resource = require('core-node').Resource;
 
 
 class Event extends Resource {

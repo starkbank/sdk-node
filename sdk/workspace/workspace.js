@@ -1,5 +1,5 @@
 const rest = require('../utils/rest');
-const Resource = require('../utils/resource').Resource;
+const Resource = require('core-node').Resource;
 
 class Workspace extends Resource {
     /**

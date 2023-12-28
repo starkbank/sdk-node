@@ -1,7 +1,4 @@
-const SubResource = require('../utils/subResource').SubResource;
-const rest = require('../utils/rest.js');
-const check = require('../utils/check.js');
-const parseObjects = require('../utils/parse.js').parseObjects;
+const SubResource = require('core-node').SubResource;
 
 class Permission extends SubResource {
     /**

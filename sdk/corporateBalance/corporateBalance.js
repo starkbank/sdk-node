@@ -1,4 +1,4 @@
-const Resource = require('../utils/resource.js').Resource;
+const Resource = require('core-node').Resource;
 const rest = require('../utils/rest.js');
 
 
