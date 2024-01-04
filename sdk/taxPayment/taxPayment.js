@@ -1,6 +1,6 @@
 const rest = require('../utils/rest');
-const check = require('../utils/check');
-const Resource = require('../utils/resource').Resource;
+const check = require('core-node').check;
+const Resource = require('core-node').Resource;
 
 
 class TaxPayment extends Resource {
@@ -113,7 +113,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns TaxPayment pdf file
      *
      */
-    return rest.getPdf(resource, id, null, user);
+    return rest.getContent(resource, id, user, null, 'pdf');
 };
 
 exports.query = async function ({ limit, after, before, tags, ids, status, user} = {}) {

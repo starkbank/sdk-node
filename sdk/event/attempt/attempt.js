@@ -1,5 +1,5 @@
 const Resource = require('../../utils/resource.js').Resource;
-const check = require('../../utils/check.js');
+const check = require('core-node').check;
 const rest = require('../../utils/rest.js');
 
 

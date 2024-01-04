@@ -1,5 +1,5 @@
-const SubResource = require('../utils/subResource.js').SubResource
-const check = require('../utils/check.js');
+const check = require('core-node').check;
+const SubResource = require('core-node').SubResource;
 
 
 class BoletoPreview extends SubResource {

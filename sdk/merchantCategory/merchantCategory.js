@@ -1,4 +1,4 @@
-const SubResource = require('../utils/subResource').SubResource;
+const SubResource = require('core-node').SubResource;
 const rest = require('../utils/rest.js')
 
 class MerchantCategory extends SubResource {

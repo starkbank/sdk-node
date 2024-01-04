@@ -1,6 +1,6 @@
 const starkbank = require('../../index.js');
 const random = require('./random.js');
-const check = require('../../sdk/utils/check.js');
+const check = require('core-node').check;
 
 exports.generateExampleUtilityPaymentsJson = function (n, scheduled = true) {
     

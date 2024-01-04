@@ -1,4 +1,4 @@
-const Resource = require('../utils/resource.js').Resource
+const Resource = require('core-node').Resource;
 const {CardMethod} = require('../cardMethod/cardMethod.js');
 const {MerchantCategory} = require('../merchantCategory/merchantCategory.js')
 const {MerchantCountry} = require('../merchantCountry/merchantCountry.js')

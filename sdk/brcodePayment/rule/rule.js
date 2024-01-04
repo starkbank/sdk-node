@@ -1,5 +1,4 @@
-const SubResource = require('../../utils/subResource').SubResource
-
+const SubResource = require('core-node').SubResource;
 
 class Rule extends SubResource {
     /**

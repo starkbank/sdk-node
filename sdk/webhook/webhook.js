@@ -1,5 +1,5 @@
 const rest = require('../utils/rest.js');
-const Resource = require('../utils/resource.js').Resource
+const Resource = require('core-node').Resource;
 
 
 class Webhook extends Resource {

@@ -1,6 +1,6 @@
 const rest = require('../utils/rest.js');
-const check = require('../utils/check.js');
-const Resource = require('../utils/resource.js').Resource
+const check = require('core-node').check;
+const Resource = require('core-node').Resource;
 
 
 class Boleto extends Resource {
@@ -145,7 +145,7 @@ exports.pdf = async function (id, { layout, hiddenFields, user } = {}) {
      * @returns Boleto pdf file
      *
      */
-    return rest.getPdf(resource, id, { layout: layout, hiddenFields: hiddenFields }, user);
+    return rest.getContent(resource, id, user, { layout: layout, hiddenFields: hiddenFields }, 'pdf');
 };
 
 exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {

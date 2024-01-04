@@ -1,4 +1,4 @@
-const { environment } = require('../utils/check');
+const { environment } = require('core-node').check;
 
 const User = require('./user').User;
 

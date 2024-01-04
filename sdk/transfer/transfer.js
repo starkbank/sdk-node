@@ -1,9 +1,9 @@
 const rest = require('../utils/rest.js');
-const check = require('../utils/check.js');
-const parseObjects = require('../utils/parse.js').parseObjects;
-const Resource = require('../utils/resource.js').Resource
+const check = require('core-node').check;
 const { Rule } = require('./rule/rule.js');
+const Resource = require('core-node').Resource;
 const ruleResource = require('./rule/rule.js').subResource;
+const parseObjects = require('../utils/parse.js').parseObjects;
 
 
 class Transfer extends Resource {
@@ -149,7 +149,7 @@ exports.pdf = async function (id, {user} = {}) {
      * @returns Transfer pdf file
      *
      */
-    return rest.getPdf(resource, id, null, user);
+    return rest.getContent(resource, id, user, null, 'pdf');
 };
 
 exports.query = async function ({ limit, after, before, transactionIds, status, taxId, sort, tags, ids, user} = {}) {

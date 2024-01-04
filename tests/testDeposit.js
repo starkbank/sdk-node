@@ -45,7 +45,6 @@ describe('TestDepositInfoPatch', function(){
         let deposits = await starkbank.deposit.query({status: "created", limit: 1});
         let depositAmount = 0;
         for await (let deposit of deposits) {
-            console.log(JSON.stringify(deposit));
             assert(typeof deposit.id == 'string');
             let updatedDeposit = await starkbank.deposit.update(deposit.id, {amount: depositAmount});
             assert(updatedDeposit.amount == depositAmount);

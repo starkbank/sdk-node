@@ -1,6 +1,6 @@
-const Resource = require('../utils/resource.js').Resource;
-const check = require('../utils/check.js');
 const rest = require('../utils/rest.js');
+const check = require('core-node').check;
+const Resource = require('core-node').Resource;
 
 class CorporateInvoice extends Resource {
     /**
@@ -43,7 +43,7 @@ class CorporateInvoice extends Resource {
         this.name = name;
         this.tags = tags;
         this.brcode = brcode;
-        this.due = check.datetimeOrDate(due);
+        this.due = check.dateTimeOrDate(due);
         this.link = link;
         this.status = status;
         this.corporateTransactionId = corporateTransactionId;

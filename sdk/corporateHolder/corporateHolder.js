@@ -1,11 +1,11 @@
-const Resource = require('../utils/resource.js').Resource;
 const rest = require('../utils/rest.js');
-const check = require('../utils/check.js');
+const check = require('core-node').check;
+const {Permission} = require('./permission.js');
+const Resource = require('core-node').Resource;
+const permissionResource = require('./permission.js').resource;
 const parseObjects = require('../utils/parse.js').parseObjects;
 const {CorporateRule} = require('../corporateRule/corporateRule.js');
 const rulesResource = require('../corporateRule/corporateRule.js').resource;
-const {Permission} = require('./permission.js');
-const permissionResource = require('./permission.js').resource;
 
 class CorporateHolder extends Resource {
     /**

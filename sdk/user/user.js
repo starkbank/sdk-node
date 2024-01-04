@@ -1,6 +1,6 @@
+const check = require('core-node').check;
+const Resource = require('core-node').Resource;
 const PrivateKey = require('starkbank-ecdsa').PrivateKey;
-const Resource = require('../utils/resource.js').Resource
-const check = require('../utils/check.js')
 
 
 class User extends Resource {
