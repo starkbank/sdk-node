@@ -1,4 +1,4 @@
-const Resource = require('core-node').Resource;
+const Resource = require('starkcore').Resource;
 const rest = require('../utils/rest.js');
 
 

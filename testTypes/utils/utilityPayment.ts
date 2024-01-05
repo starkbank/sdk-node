@@ -1,6 +1,6 @@
 import starkbank from "starkbank"
 const random = require('./random.js');
-const check = require('core-node').check;
+const check = require('starkcore').check;
 
 export function generateExampleUtilityPaymentsJson(n: number, scheduled = true) {
     

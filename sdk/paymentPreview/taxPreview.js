@@ -1,4 +1,4 @@
-const SubResource = require('core-node').SubResource;
+const SubResource = require('starkcore').SubResource;
 
 
 class TaxPreview extends SubResource {

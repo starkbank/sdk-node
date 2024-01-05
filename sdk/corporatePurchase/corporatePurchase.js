@@ -1,7 +1,7 @@
 const rest = require('../utils/rest.js');
-const api = require('core-node').api;
-const check = require('core-node').check;
-const Resource = require('core-node').Resource;
+const api = require('starkcore').api;
+const check = require('starkcore').check;
+const Resource = require('starkcore').Resource;
 const parseAndVerify = require('../utils/parse.js').parseAndVerify;
 
 class CorporatePurchase extends Resource {

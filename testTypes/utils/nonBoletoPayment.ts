@@ -1,6 +1,6 @@
 const starkbank = require('starkbank');
 const random = require('./random.js');
-const check = require('core-node').check;
+const check = require('starkcore').check;
 const sha256 = require('js-sha256');
 const utf8 = require('utf8');
 const businesses = require('../utils/businesses');

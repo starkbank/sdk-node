@@ -1,5 +1,5 @@
-const check = require('core-node').check;
-const SubResource = require('core-node').SubResource;
+const check = require('starkcore').check;
+const SubResource = require('starkcore').SubResource;
 
 
 class BoletoPreview extends SubResource {

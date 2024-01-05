@@ -1,4 +1,4 @@
-const Resource = require('core-node').Resource;
+const Resource = require('starkcore').Resource;
 const {CardMethod} = require('../cardMethod/cardMethod.js');
 const {MerchantCategory} = require('../merchantCategory/merchantCategory.js')
 const {MerchantCountry} = require('../merchantCountry/merchantCountry.js')

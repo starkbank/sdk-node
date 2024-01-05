@@ -1,5 +1,5 @@
-const starkHost = require('core-node').starkHost;
-const rest = require('core-node').rest;
+const starkHost = require('starkcore').starkHost;
+const rest = require('starkcore').rest;
 
 const apiVersion = 'v2'
 const sdkVersion = '2.13.0'
