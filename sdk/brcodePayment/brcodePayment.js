@@ -1,7 +1,7 @@
 const rest = require('../utils/rest.js');
 const { Rule } = require('./rule/rule.js');
-const check = require('core-node').check;
-const Resource = require('core-node').Resource;
+const check = require('starkcore').check;
+const Resource = require('starkcore').Resource;
 const ruleResource = require('./rule/rule.js').subResource;
 const parseObjects = require('../utils/parse.js').parseObjects;
 

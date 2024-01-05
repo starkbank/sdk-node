@@ -36,8 +36,8 @@
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
     "axios": "^1.6.2",
-    "core-node": "^0.0.1",
-    "starkbank-ecdsa": "^1.1.5"
+    "starkbank-ecdsa": "^1.1.5",
+    "starkcore": "^0.0.2"
   },
   "devDependencies": {
     "@types/jest": "^28.1.3",

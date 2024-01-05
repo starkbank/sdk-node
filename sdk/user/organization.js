@@ -1,4 +1,4 @@
-const { environment } = require('core-node').check;
+const { environment } = require('starkcore').check;
 
 const User = require('./user').User;
 

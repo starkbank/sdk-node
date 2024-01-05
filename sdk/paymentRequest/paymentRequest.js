@@ -4,8 +4,8 @@ const { Transfer } = require('../transfer/transfer.js');
 const { UtilityPayment } = require('../utilityPayment/utilityPayment.js');
 const { BrcodePayment } = require('../brcodePayment/brcodePayment.js');
 const rest = require('../utils/rest.js');
-const check = require('core-node').check;
-const Resource = require('core-node').Resource;
+const check = require('starkcore').check;
+const Resource = require('starkcore').Resource;
 
 
 class PaymentRequest extends Resource {

@@ -1,5 +1,5 @@
 
-const parse = require('core-node').parse;
+const parse = require('starkcore').parse;
 const {apiVersion, sdkVersion, host, language, timeout } = require('../utils/rest.js');
 
 

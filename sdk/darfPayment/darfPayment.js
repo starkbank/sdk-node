@@ -1,6 +1,6 @@
 const rest = require('../utils/rest');
-const check = require('core-node').check;
-const Resource = require('core-node').Resource;
+const check = require('starkcore').check;
+const Resource = require('starkcore').Resource;
 
 class DarfPayment extends Resource {
 

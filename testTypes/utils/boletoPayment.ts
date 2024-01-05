@@ -1,6 +1,6 @@
 import starkbank from 'starkbank';
 const random = require('./random.js');
-const check = require('core-node').check;
+const check = require('starkcore').check;
 const generateExampleBoletosJson = require('./boleto').generateExampleBoletosJson;
 
 exports.generateExampleBoletoPaymentsJson = async function (n: number, schedule = true) {

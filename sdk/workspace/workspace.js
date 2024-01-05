@@ -1,5 +1,5 @@
 const rest = require('../utils/rest');
-const Resource = require('core-node').Resource;
+const Resource = require('starkcore').Resource;
 
 class Workspace extends Resource {
     /**

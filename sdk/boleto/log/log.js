@@ -1,5 +1,5 @@
 const rest = require('../../utils/rest.js');
-const check = require('core-node').check;
+const check = require('starkcore').check;
 const Resource = require('../../utils/resource.js').Resource
 
 
