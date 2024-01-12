@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.23.1] - 2024-01-12
 ### Fixed
 - user export to rest resource
 
