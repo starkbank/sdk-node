@@ -1,7 +1,7 @@
 exports.version = '2.23.0';
 
 exports.cache = {};
-exports.user = null;
+exports.user = {};
 exports.language = "en-US";
 
 exports.setUser = function (user) {

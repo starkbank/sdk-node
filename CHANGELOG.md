@@ -13,10 +13,12 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- user export to rest resource
 
 ## [2.23.0] - 2024-01-08
 ### Changed
-- internal structure to use starkcore as a dependency.
+- internal structure to use starkcore as a dependency
 ### Fixed
 - sdk version
 
