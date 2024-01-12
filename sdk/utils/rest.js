@@ -1,5 +1,6 @@
 const starkHost = require('starkcore').starkHost;
 const rest = require('starkcore').rest;
+const starkBank = require('../../index.js')
 
 const apiVersion = 'v2'
 const sdkVersion = '2.13.0'
@@ -7,7 +8,7 @@ const host = starkHost.bank
 const language = 'en-US'
 const timeout = 2000
 
-exports.getList = async function* (resource, query, user = null) {
+exports.getList = async function* (resource, query, user = starkBank.user) {
     yield* rest.getList(
         sdkVersion,
         host,
@@ -20,7 +21,7 @@ exports.getList = async function* (resource, query, user = null) {
     );
 };
 
-exports.post = async function (resource, entities, user = null, { ...query } = {}) {
+exports.post = async function (resource, entities, user = starkBank.user, { ...query } = {}) {
     return rest.post( 
         sdkVersion,
         host,
@@ -34,7 +35,7 @@ exports.post = async function (resource, entities, user = null, { ...query } = {
     );
 };
 
-exports.getId = async function (resource, id, user = null, { ...query } = {}) {
+exports.getId = async function (resource, id, user = starkBank.user, { ...query } = {}) {
     return rest.getId(
         sdkVersion,
         host,
@@ -48,7 +49,7 @@ exports.getId = async function (resource, id, user = null, { ...query } = {}) {
     );
 };
 
-exports.getPublicKey = async function (user) {
+exports.getPublicKey = async function (user = starkBank.user) {
     return rest.getPublicKey(
         sdkVersion,
         host,
@@ -59,7 +60,7 @@ exports.getPublicKey = async function (user) {
     );
 };
 
-exports.getContent = async function (resource, id, user, query = {}, subResource){
+exports.getContent = async function (resource, id, user = starkBank.user, query = {}, subResource){
     return rest.getContent(
         sdkVersion,
         host,
@@ -74,7 +75,7 @@ exports.getContent = async function (resource, id, user, query = {}, subResource
     );
 };
 
-exports.deleteId = async function (resource, id, user = null) {
+exports.deleteId = async function (resource, id, user = starkBank.user) {
     return rest.deleteId(
         sdkVersion,
         host,
@@ -87,7 +88,7 @@ exports.deleteId = async function (resource, id, user = null) {
     );
 };
 
-exports.postSingle = async function (resource, query, user = null) {
+exports.postSingle = async function (resource, query, user = starkBank.user) {
     return rest.postSingle(
         sdkVersion,
         host,
@@ -100,7 +101,7 @@ exports.postSingle = async function (resource, query, user = null) {
     );
 };
 
-exports.postRaw = async function (resource, payload, user = null, { ...query } = {}) {
+exports.postRaw = async function (resource, payload, user = starkBank.user, { ...query } = {}) {
     return rest.postRaw(
         sdkVersion,
         host,
@@ -114,7 +115,7 @@ exports.postRaw = async function (resource, payload, user = null, { ...query } =
     );
 };
 
-exports.patchId = async function (resource, id, payload, user = null) {
+exports.patchId = async function (resource, id, payload, user = starkBank.user) {
     return rest.patchId(
         sdkVersion,
         host,
@@ -128,7 +129,7 @@ exports.patchId = async function (resource, id, payload, user = null) {
     );
 };
 
-exports.getSubResource = async function (resource, id, subResource, user = null ) {
+exports.getSubResource = async function (resource, id, subResource, user = starkBank.user ) {
     return rest.getSubResource(
         sdkVersion,
         host,
@@ -142,7 +143,7 @@ exports.getSubResource = async function (resource, id, subResource, user = null 
     );
 };
 
-exports.getPage = async function (resource, query = {}, user = null ) {
+exports.getPage = async function (resource, query = {}, user = starkBank.user ) {
     return rest.getPage(
         sdkVersion,
         host,
