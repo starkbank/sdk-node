@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- tags types parameter reference
+
 ## [2.23.2] - 2024-02-21
 ### Changed
 - core version to v0.0.4

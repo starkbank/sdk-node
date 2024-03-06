@@ -48,7 +48,7 @@ declare module 'starkbank' {
         externalId: string | null
         scheduled: string | null
         description: string | null
-        tags: string | null
+        tags: string[] | null
         rules: transfer.Rule[] | null
 
         readonly id : string
