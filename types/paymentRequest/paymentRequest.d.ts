@@ -38,7 +38,7 @@ declare module 'starkbank' {
         type: string
 
         due: string
-        tags: string[]
+        tags: string[] | null
 
         readonly id: string
         readonly amount: number | null
@@ -54,7 +54,7 @@ declare module 'starkbank' {
 
         constructor(params: {
             centerId: string, payment: Transfer | BoletoPayment | UtilityPayment | Transaction | BrcodePayment | {}, 
-            type?: string, due?: string, tags?: string[], id?: string | null | null, amount?: number | null, 
+            type?: string, due?: string, tags?: string[] | null, id?: string | null | null, amount?: number | null, 
             status?: string | null, description?: string | null, actions?: {type: string, id: string, 
             action: string}[] | null, updated?: string | null, created?: string | null
         })

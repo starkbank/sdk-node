@@ -57,7 +57,7 @@ declare module 'starkbank' {
             due: string
         }[]
         rules : invoice.Rule[] | null
-        tags: string[]
+        tags: string[] | null
         descriptions: {
             key: string
             value?: string
@@ -79,7 +79,7 @@ declare module 'starkbank' {
 
         constructor(params: {
             amount: number, taxId: string, name: string, due?: string, expiration?: number, fine?: number, 
-            interest?: number, discounts?: {percentage: number, due: string}[], tags?: string[], 
+            interest?: number, discounts?: {percentage: number, due: string}[], tags?: string[] | null, 
             descriptions?: {key: string, value?: string}[], fee?: number | null, pdf?: string | null, link?: string | null, 
             nominalAmount?: number | null, fineAmount?: number | null, interestAmount?: number | null, 
             discountAmount?: number | null, id?: string, brcode?: string | null, status?: string | null, transactionIds?: string[] | null, created?: string | null, 

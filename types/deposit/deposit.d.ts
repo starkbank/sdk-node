@@ -36,7 +36,7 @@ declare module 'starkbank' {
         amount: number
         type: string
         status: string
-        tags: string[]
+        tags: string[] | null
         fee: number
         transactionIds: string[]
         created: string
@@ -44,7 +44,7 @@ declare module 'starkbank' {
 
         constructor(params: {
             id: string, name: string, taxId: string, bankCode: string, branchCode: string, accountNumber: string, accountType: string, amount: number,
-            type: string, status: string, tags: string[], fee: number, transactionIds: string[], created: string, updated: string
+            type: string, status: string, tags: string[] | null, fee: number, transactionIds: string[], created: string, updated: string
         })
     }
 
