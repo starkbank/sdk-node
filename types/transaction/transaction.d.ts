@@ -38,7 +38,7 @@ declare module 'starkbank' {
         externalId: string
         receiverId: string
 
-        tags: string[]
+        tags: string[] | null
 
         readonly senderId : string
         readonly id : string
@@ -50,7 +50,7 @@ declare module 'starkbank' {
 
         constructor(params: {
             amount: number, description: string, externalId: string, receiverId: string, 
-            tags?: string[], senderId?: string | null, id?: string | null, fee?: number | null, 
+            tags?: string[] | null, senderId?: string | null, id?: string | null, fee?: number | null, 
             source?: string | null, balance?: number | null, created?: string | null, 
         })
     }

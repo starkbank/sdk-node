@@ -39,7 +39,7 @@ declare module 'starkbank' {
         barCode: string
 
         scheduled: string
-        tags: string[]
+        tags: string[] | null
 
         readonly id : string
         readonly type : string
@@ -51,7 +51,7 @@ declare module 'starkbank' {
         readonly created : string
 
         constructor(params: {
-            description: string, line?: string, barCode?: string, scheduled?: string, tags?: string[], 
+            description: string, line?: string, barCode?: string, scheduled?: string, tags?: string[] | null, 
             id?: string | null, type?: string | null, status?: string | null, amount?: number | null, 
             fee?: number | null, transactionIds?: string[] | null, updated?: string | null, 
             created?: string | null

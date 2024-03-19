@@ -62,7 +62,7 @@ declare module 'starkbank' {
 
         constructor(params: {
             amount: number, name: string, taxId: string, bankCode: string, branchCode: string, accountNumber: string, 
-            accountType?: string, externalId?: string, tags?: string[], rules?: transfer.Rule[], scheduled?: string, 
+            accountType?: string, externalId?: string, tags?: string[] | null, rules?: transfer.Rule[], scheduled?: string, 
             description?: string | null, id?: string | null, fee?: number | null, status?: string | null, 
             transactionIds?: string[] | null, metadata?: {}, created?: string | null, updated?: string | null, 
         })

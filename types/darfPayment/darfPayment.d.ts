@@ -45,9 +45,9 @@ declare module 'starkbank' {
         interestAmount: number
         due: string
 
-        referenceNumber: string
-        scheduled: string
-        tags: string[]
+        referenceNumber: string | null
+        scheduled: string | null
+        tags: string[] | null
 
         readonly id : string
         readonly status : string
