@@ -185,7 +185,7 @@ exports.update = async function (id, {centerId, permissions, status, name, rules
     * @description Update a CorporateHolder by passing its id.
     *
     * Parameters (required):
-    * @parmam id [string]: CorporateHolder id. ex: '5656565656565656'
+    * @param id [string]: CorporateHolder id. ex: '5656565656565656'
     * 
     * Parameters (optional):
     * @param centerId [string, default null]: target cost center ID. ex: "5656565656565656"
