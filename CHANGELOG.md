@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.23.3] - 2024-04-01
 ### Fixed
 - tags types parameter reference
 - optional parameters types
