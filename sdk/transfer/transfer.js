@@ -28,6 +28,7 @@ class Transfer extends Resource {
      * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated externalIds will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
      * @param scheduled [string, default now]: date or datetime when the transfer will be processed. May be pushed to next business day if necessary. ex: '2020-11-12T00:14:22.806+00:00' or '2020-11-30'
      * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
+     * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
      * @param tags [list of strings, default []]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
      * @param rules [list of Transfer.Rules, default []]: list of Transfer.Rule objects for modifying transfer behaviour. ex: [Transfer.Rule(key="resendingLimit", value=5)]
      *
@@ -43,7 +44,7 @@ class Transfer extends Resource {
      */
     constructor({
                     amount, name, taxId, bankCode, branchCode, accountNumber, accountType, 
-                    externalId, scheduled, description, tags, rules, id, fee, status, 
+                    externalId, scheduled, description, displayDescription, tags, rules, id, fee, status, 
                     transactionIds, metadata, created, updated
                 }) {
         super(id);
@@ -57,6 +58,7 @@ class Transfer extends Resource {
         this.externalId = externalId;
         this.scheduled = scheduled;
         this.description = description;
+        this.displayDescription = displayDescription;
         this.tags = tags;
         this.rules = parseObjects(rules, ruleResource, Rule);
         this.fee = fee;
