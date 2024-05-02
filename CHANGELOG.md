@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.24.0] - 2024-05-02
 ### Added
 - displayDescription parameter to transfer, invoice and deposit resources
 
