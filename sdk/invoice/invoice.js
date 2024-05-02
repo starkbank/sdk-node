@@ -32,6 +32,7 @@ class Invoice extends Resource {
      * @param rules [list of Invoice.Rules, default []]: list of Invoice.Rule objects for modifying invoice behavior. ex: [Invoice.Rule({key: "allowedTaxIds", value: [ "012.345.678-90", "45.059.493/0001-73" ]})]
      * @param tags [list of strings, default null]: list of strings for tagging
      * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
+     * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
      *
      * Attributes (return-only):
      * @param pdf [string]: public Invoice PDF URL. ex: 'https://invoice.starkbank.com/pdf/d454fa4e524441c1b0c1a729457ed9d8'
@@ -51,7 +52,7 @@ class Invoice extends Resource {
      */
     constructor({
                     amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null, rules = null, tags = null, 
-                    descriptions = null, fee = null, pdf = null, link = null, nominalAmount = null, fineAmount = null, interestAmount = null, 
+                    descriptions = null, displayDescription = null, fee = null, pdf = null, link = null, nominalAmount = null, fineAmount = null, interestAmount = null, 
                     discountAmount = null, id = null, brcode = null, status = null, transactionIds = null, created = null, updated = null
                 }) {
         super(id);
@@ -71,6 +72,7 @@ class Invoice extends Resource {
             });
         }
         this.descriptions = descriptions;
+        this.displayDescription = displayDescription;
         this.fee = fee;
         this.pdf = pdf;
         this.link = link;

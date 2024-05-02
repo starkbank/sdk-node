@@ -21,6 +21,7 @@ class Deposit extends Resource {
      * @param amount [integer]: Deposit value in cents. ex: 1234 (= R$ 12.34)
      * @param type [string]: type of settlement that originated the deposit. ex: 'pix' or 'ted'
      * @param status [string]: current Deposit status. ex: 'created'
+     * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
      * @param tags [list of strings]: list of strings that are tagging the deposit. ex: ['reconciliationId', 'taxId']
      * @param fee [integer]: fee charged when a deposit is created. ex: 50 (= R$ 0.50)
      * @param transactionIds [list of strings]: ledger transaction ids linked to this deposit (if there are more than one, all but first are reversals). ex: ['19827356981273']
@@ -29,7 +30,7 @@ class Deposit extends Resource {
      */
     constructor({
                     id, name, taxId, bankCode, branchCode, accountNumber, accountType, amount,
-                    type, status, tags, fee, transactionIds, created, updated
+                    type, status, displayDescription, tags, fee, transactionIds, created, updated
                 }) {
         super(id);
         this.name = name;
@@ -41,6 +42,7 @@ class Deposit extends Resource {
         this.amount = amount;
         this.type = type;
         this.status = status;
+        this.displayDescription = displayDescription;
         this.tags = tags;
         this.fee = fee;
         this.transactionIds = transactionIds;
