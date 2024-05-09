@@ -12,7 +12,7 @@ describe('TestCorporateHolderCreate', function(){
                 new starkbank.CorporateHolder({
                     name: "Test - " + randomInt.randomInt(100000, 1000000),
                     permissions: [
-                        new starkbank.corporateHolder.Permission({'ownerId': '6253551860842496', 'ownerType': 'project'})
+                        new starkbank.corporateHolder.Permission({'ownerId': process.env.SANDBOX_ID, 'ownerType': 'project'})
                     ]
                 })
             ]

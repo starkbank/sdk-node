@@ -19,11 +19,11 @@ describe('TestCorporateHolderQuery', function(){
 describe('TestCorporateHolderGet', function () {
     this.timeout(10000);
     it('test_success', async () => {
-        let purchases = await starkbank.corporatePurchase.log.query({limit: 1});
-        for await (let purchase of purchases) {
-            assert(typeof purchase.id == typeof 'string');
-            brcode = await starkbank.corporatePurchase.log.get(purchase.id);
-            assert(typeof purchase.id == typeof 'string');
+        let holders = await starkbank.corporateHolder.log.query({limit: 1});
+        for await (let holder of holders) {
+            assert(typeof holder.id == typeof 'string');
+            holder = await starkbank.corporateHolder.log.get(holder.id);
+            assert(typeof holder.id == typeof 'string');
         }
     });
 });

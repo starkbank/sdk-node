@@ -311,7 +311,7 @@ declare module 'starkbank' {
             readonly created : string
 
             constructor(id: string, invoice: Invoice, errors: string[], type: string, created: string)
-        }
+        }        
 
         namespace log {
             /**
