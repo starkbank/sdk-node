@@ -37,7 +37,7 @@ class Event extends Resource {
 exports.Event = Event;
 let resource = {'class': exports.Event, 'name': 'Event'};
 
-async function verifySignature(content, signature, user = null, refresh = false) {
+async function verifySignature(content, signature, user = starkBank.user, refresh = false) {
     let publicKey = starkbank.cache['starkbank-public-key'];
     if (!publicKey || refresh) {
         let pem = await rest.getPublicKey(user);
