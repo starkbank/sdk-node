@@ -54,7 +54,6 @@ describe('TestCorporateCardCreate', function(){
             new starkbank.CorporateCard(
                 {
                     "holderId": "4787389398515712",
-
                 }
             ), {"expand": ["rules", "securityCode", "number", "expiration"]}
         )

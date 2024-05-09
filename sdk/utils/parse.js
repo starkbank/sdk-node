@@ -4,7 +4,7 @@ const {apiVersion, sdkVersion, host, language, timeout } = require('../utils/res
 
 
 exports.parseObjects = function (objects, resource, resourceClass) {
-    return parse.parseObjects (
+    return parse.parseObjects(
         objects,
         resource,
         resourceClass

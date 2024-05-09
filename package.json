@@ -37,7 +37,7 @@
   "dependencies": {
     "axios": "^1.6.2",
     "starkbank-ecdsa": "^1.1.5",
-    "starkcore": "^0.0.4"
+    "starkcore": "^0.0.5"
   },
   "devDependencies": {
     "@types/jest": "^28.1.3",

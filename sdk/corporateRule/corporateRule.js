@@ -4,7 +4,7 @@ const {MerchantCategory} = require('../merchantCategory/merchantCategory.js')
 const {MerchantCountry} = require('../merchantCountry/merchantCountry.js')
 const cardMethodResource = require('../cardMethod/cardMethod.js').resource;
 const merchantCountryResource = require('../merchantCountry/merchantCountry.js').resource;
-const merchantCategoryResource = require('../merchantCountry/merchantCountry.js').resource;
+const merchantCategoryResource = require('../merchantCategory/merchantCategory.js').resource;
 const parseObjects = require('../utils/parse.js').parseObjects;
 
 

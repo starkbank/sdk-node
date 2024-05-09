@@ -13,6 +13,10 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Changed
+- core version to v0.0.5
+### Fixed
+- MerchantCategory subResource import 
 
 ## [2.24.0] - 2024-05-02
 ### Added
