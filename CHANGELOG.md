@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- Tax as a valid payment request
 
 ## [2.24.1] - 2024-05-09
 ### Changed
