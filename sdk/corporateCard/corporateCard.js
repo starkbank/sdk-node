@@ -94,9 +94,9 @@ exports.create = async function (card, {expand, user} = {}) {
     let path = `${api.endpoint(resource['name'])}/token`;
     let payload = Object.assign(new resource['class']({}), card);
     api.removeNullKeys(payload);
-    let json = await rest.postRaw(path, payload, user, {"expand": expand});
+    let json = await rest.postRaw(path, payload, null, true, user, {"expand": expand});
     let name = api.lastName(resource['name']);
-    let returnEntity = json[name];
+    let returnEntity = json["content"][name];
 
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 }

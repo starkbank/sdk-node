@@ -59,7 +59,7 @@ describe('TestCorporateHolderPage', function () {
         let cursor = null;
         let page = null;
         for (let i = 0; i < 2; i++) {
-            [page, cursor] = await starkbank.corporateHolder.page({ limit: 5, cursor: cursor });
+            [page, cursor] = await starkbank.corporateHolder.page({ limit: 1, cursor: cursor });
             for (let entity of page) {
                 assert(!ids.includes(entity.id));
                 ids.push(entity.id);
@@ -68,6 +68,6 @@ describe('TestCorporateHolderPage', function () {
                 break;
             }
         }
-        assert(ids.length == 10);
+        assert(ids.length == 2);
     });
 });

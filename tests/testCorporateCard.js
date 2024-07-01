@@ -1,5 +1,6 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
+const randomInt = require('./utils/random.js');
 
 starkbank.user = require('./utils/user').exampleProject;
 
@@ -50,12 +51,19 @@ describe('TestCorporateCardQuery', function(){
 describe('TestCorporateCardCreate', function(){
     this.timeout(10000);
     it('test_success', async () => {
+        let holder = await starkbank.corporateHolder.create(
+            [
+                new starkbank.CorporateHolder({
+                    name: "Test - " + randomInt.randomInt(100000, 1000000),
+                    permissions: [
+                        new starkbank.corporateHolder.Permission({'ownerId': starkbank.user.id, 'ownerType': 'project'})
+                    ]
+                })
+            ]
+        );
+        const data = new starkbank.CorporateCard({"holderId": holder[0].id,});
         let card = await starkbank.corporateCard.create(
-            new starkbank.CorporateCard(
-                {
-                    "holderId": "4787389398515712",
-                }
-            ), {"expand": ["rules", "securityCode", "number", "expiration"]}
+            data, {"expand": ["rules", "securityCode", "number", "expiration"]}
         )
         assert(card.securityCode != '***');
     });
