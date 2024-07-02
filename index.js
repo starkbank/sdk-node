@@ -24,6 +24,8 @@ exports.getLanguage = function () {
     return exports.language
 }
 
+exports.requestMethodsPrefix = "Joker"
+
 // Modules
 exports.corporateCard = require('./sdk/corporateCard')
 exports.corporateWithdrawal = require('./sdk/corporateWithdrawal')
@@ -59,6 +61,7 @@ exports.institution = require('./sdk/institution')
 exports.key = require('./sdk/key.js');
 exports.error = require('./sdk/error.js');
 exports.organization = require('./sdk/user/organization.js')
+exports.request = require('./sdk/request/request.js')
 
 
 // Classes

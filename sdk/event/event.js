@@ -37,7 +37,7 @@ class Event extends Resource {
 exports.Event = Event;
 let resource = {'class': exports.Event, 'name': 'Event'};
 
-async function verifySignature(content, signature, user = null, refresh = false) {
+async function verifySignature(content, signature, user = starkbank.user, refresh = false) {
     let publicKey = starkbank.cache['starkbank-public-key'];
     if (!publicKey || refresh) {
         let pem = await rest.getPublicKey(user);
@@ -190,7 +190,6 @@ exports.parse = async function ({content, signature, user} = {}) {
      */
 
     let event = Object.assign(new Event(), JSON.parse(content)['event']);
-
     try {
         signature = Ellipticcurve.Signature.fromBase64(signature);
     } catch (e) {

@@ -53,6 +53,7 @@ is as easy as sending a text message to your client!
     - [WebhookEvents](#process-webhook-events): Manage webhook events
     - [WebhookEventAttempts](#query-failed-webhook-event-delivery-attempts-information): Query failed webhook event deliveries
     - [Workspaces](#create-a-new-workspace): Manage your accounts
+- [Request](#request): Send a custom request to Stark Bank. This can be used to access features that haven't been mapped yet.
 - [Handling errors](#handling-errors)
 - [Help and Feedback](#help-and-feedback)
 
@@ -2631,6 +2632,162 @@ const fs = require('fs');
 
 **Note**: the Organization user can only update a workspace with the Workspace ID set.
 
+# Request
+
+This resource allows you to send HTTP requests to StarkBank routes.
+
+## GET
+
+You can perform a GET request to any StarkBank route.
+
+It's possible to get a single resource using its id in the path.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let exampleId = "5699165527090460"
+    let invoice = await starkbank.request.get(`/invoice/${exampleId}`);
+    console.log(invoice);
+})
+```
+
+You can also get the specific resource log,
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let exampleId = "5699165527090460"
+    let invoice = await starkbank.request.get(`/invoice/log/${exampleId}`);
+    console.log(invoice);
+})
+```
+
+This same method will be used to list all created items for the requested resource.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let path = "/invoice/";
+    let query={"limit": 10, "status": "paid"};
+    let i=0;
+    let list = await starkbank.request.get(path, query);
+    for (let invoice of list["invoices"]) {
+        console.log(invoice)
+    }
+})
+```
+
+To list logs, you will use the same logic as for getting a single log.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let path = "/invoice/log";
+    let query={"limit": 10, "status": "paid"};
+    let i=0;
+    let list = await starkbank.request.get(path, query);
+    for (let invoice of list["invoices"]) {
+        console.log(invoice)
+    }
+})
+```
+
+You can get a resource file using this method.
+
+```javascript
+const starkbank = require('starkbank');
+const fs = require('fs').promises;
+
+(async() => {
+    let path = "/invoice/";
+    let query={"limit": 10, "status": "paid"};
+    let list = await starkbank.request.get(path, query);
+    let pdf = await starkbank.request.get(`invoice/${list["invoices"][0]["id"]}/pdf`)
+    await fs.writeFile('transfer.pdf', pdf);
+})
+```
+
+## POST
+
+You can perform a POST request to any StarkBank route.
+
+This will create an object for each item sent in your request
+
+**Note**: It's not possible to create multiple resources simultaneously. You need to send separate requests if you want to create multiple resources, such as invoices and boletos.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    const path = "/invoice/";
+    const data={
+        "invoices": [{
+            "amount": 100,
+            "name": "Iron Bank S.A.",
+            "taxId": "20.018.183/0001-80"
+        }]
+    };
+    let invoice = await starkbank.request.post(path, data);
+    console.log(invoice)
+})
+```
+
+## PATCH
+
+You can perform a PATCH request to any StarkBank route.
+
+It's possible to update a single item of a StarkBank resource.
+```javascript
+import starkbank
+
+exampleId = "5155165527080960"
+request = starkbank.request.patch(
+    path=f"/invoice/{exampleId}",
+    body={"amount": 0},
+)
+print(request)
+```
+
+## PUT
+
+You can perform a PUT request to any StarkBank route.
+
+It's possible to put a single item of a StarkBank resource.
+```javascript
+import starkbank
+
+data = {
+    "profiles": [
+        {
+            "interval": "day",
+            "delay": 0
+        }
+    ]
+}
+request = starkbank.request.put(
+    path="/split-profile",
+    body=data,
+)
+print(request)
+```
+## DELETE
+
+You can perform a DELETE request to any StarkBank route.
+
+It's possible to delete a single item of a StarkBank resource.
+```javascript
+import starkbank
+
+exampleId = "5155165527080960"
+request = starkbank.request.delete(
+    path=f"/transfer/{exampleId}",
+)
+print(request)        
+```
 
 # Handling errors
 

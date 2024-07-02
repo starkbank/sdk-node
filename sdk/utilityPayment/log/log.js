@@ -53,7 +53,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit = null, after = null, before = null, types = null, paymentIds = null, user = null} = {}) {
+exports.query = async function ({ limit, after, before, types, paymentIds, user} = {}) {
     /**
      *
      * Retrieve UtilityPayment Logs
@@ -82,7 +82,7 @@ exports.query = async function ({ limit = null, after = null, before = null, typ
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({ cursor = null, limit = null, after = null, before = null, types = null, paymentIds = null, user = null } = {}) {
+exports.page = async function ({ cursor, limit, after, before, types, paymentIds, user } = {}) {
     /**
      *
      * Retrieve paged UtilityPayment Logs
