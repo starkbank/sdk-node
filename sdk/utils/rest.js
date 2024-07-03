@@ -101,20 +101,6 @@ exports.postSingle = async function (resource, query, user = starkBank.user) {
     );
 };
 
-exports.postRaw = async function (resource, payload, user = starkBank.user, { ...query } = {}) {
-    return rest.postRaw(
-        sdkVersion,
-        host,
-        apiVersion,
-        resource,
-        payload,
-        user,
-        language,
-        timeout,
-        query
-    );
-};
-
 exports.patchId = async function (resource, id, payload, user = starkBank.user) {
     return rest.patchId(
         sdkVersion,
@@ -153,6 +139,85 @@ exports.getPage = async function (resource, query = {}, user = starkBank.user ) 
         language,
         timeout,
         query
+    );
+};
+
+exports.postRaw = async function (path, payload, prefix = null, throwError, user = starkBank.user, { ...query } = {}) {
+    return rest.postRaw(
+        sdkVersion,
+        host,
+        apiVersion,
+        path,
+        payload,
+        user,
+        language,
+        timeout,
+        query,
+        prefix,
+        throwError
+    );
+};
+
+exports.getRaw = async function (path, query = {}, prefix = null, throwError, user = starkBank.user ) {
+    return rest.getRaw(
+        sdkVersion,
+        host,
+        apiVersion,
+        path,
+        user,
+        language,
+        timeout,
+        query,
+        prefix,
+        throwError
+    )
+}
+
+exports.patchRaw = async function (path, payload, prefix = null, throwError, user = starkBank.user, { ...query } = {}) {
+    return rest.patchRaw(
+        sdkVersion,
+        host,
+        apiVersion,
+        path,
+        payload,
+        user,
+        language,
+        timeout,
+        query,
+        prefix,
+        throwError
+    );
+};
+
+exports.putRaw = async function (path, payload, prefix = null, throwError, user = starkBank.user, { ...query } = {}) {
+    return rest.putRaw(
+        sdkVersion,
+        host,
+        apiVersion,
+        path,
+        payload,
+        user,
+        language,
+        timeout,
+        query,
+        prefix,
+        throwError
+    );
+};
+
+exports.deleteRaw = async function (path, payload, prefix = null, throwError, user = starkBank.user, { ...query } = {}) {
+    return rest.deleteRaw(
+        sdkVersion,
+        host,
+        apiVersion,
+        path,
+        payload,
+        user,
+        language,
+        timeout,
+        query,
+        prefix,
+        throwError
     );
 };
 

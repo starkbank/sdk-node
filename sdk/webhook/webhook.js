@@ -29,7 +29,7 @@ class Webhook extends Resource {
 exports.Webhook = Webhook;
 let resource = {'class': exports.Webhook, 'name': 'Webhook'};
 
-exports.create = async function ({url, subscriptions, user = null} = {}) {
+exports.create = async function ({url, subscriptions, user} = {}) {
     /**
      *
      * Create Webhook subscription
@@ -74,7 +74,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit = null, user = null} = {}) {
+exports.query = async function ({limit, user} = {}) {
     /**
      *
      * Retrieve Webhook subcriptions
@@ -95,7 +95,7 @@ exports.query = async function ({limit = null, user = null} = {}) {
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({ cursor = null, limit = null, user = null } = {}) {
+exports.page = async function ({ cursor, limit, user } = {}) {
     /**
      *
      * Retrieve paged Webhook subcriptions

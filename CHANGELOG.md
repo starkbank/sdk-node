@@ -13,6 +13,10 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- request methods
+### Changed
+- core version
 
 ## [2.24.1] - 2024-05-09
 ### Changed
