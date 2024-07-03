@@ -1,4 +1,4 @@
-exports.version = '2.24.1';
+exports.version = '2.25.0';
 
 exports.cache = {};
 exports.user = {};
