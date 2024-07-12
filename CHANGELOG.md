@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- request methods to typescript
 
 ## [2.27.0] - 2024-07-16
 ### Added
