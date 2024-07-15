@@ -129,6 +129,21 @@ exports.getSubResource = async function (resource, id, subResource, user = stark
     );
 };
 
+exports.postSubResource = async function (resource, id, subResource, payload, user = starkBank.user ) {
+    return rest.postSubResource(
+        sdkVersion,
+        host,
+        apiVersion,
+        user,
+        id,
+        subResource,
+        resource,
+        payload,
+        language,
+        timeout
+    );
+}
+
 exports.getPage = async function (resource, query = {}, user = starkBank.user ) {
     return rest.getPage(
         sdkVersion,
