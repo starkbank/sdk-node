@@ -15,6 +15,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ## [Unreleased]
 ### Added
 - merchantSession and merchantSessionPurchase resources
+### Changed
+- core version
 
 ## [2.25.0] - 2024-07-03
 ### Added
