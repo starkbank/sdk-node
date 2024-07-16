@@ -16,7 +16,10 @@ describe('MerchantSessionQuery', function(){
 describe('MerchantSessionGet', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let merchantPurchase = await starkbank.merchantPurchase.get(5019538395496448);
-        assert(typeof merchantPurchase.id == 'string');
+        let merchantPurchases = await starkbank.merchantPurchase.query({limit: 3});
+        for await (let purchase of merchantPurchases) {
+            let merchantPurchase = await starkbank.merchantPurchase.get(purchase.id);
+            assert(typeof merchantPurchase.id == 'string');
+        }
     });
 });
