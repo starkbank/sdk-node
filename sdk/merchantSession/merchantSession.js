@@ -10,7 +10,7 @@ const parseObjects = require('../utils/parse.js').parseObjects;
 class MerchantSession extends Resource {
 
     /**
-     * Check out our API Documentation at https://starkbank.com/merchant-session
+     * Check out our API Documentation at https://starkbank.com/docs/api#merchant-session
      */
 
     constructor({id, allowedFundingTypes, allowedInstallments, allowedIps, challengeMode, created, expiration, status, tags, updated, uuid}){

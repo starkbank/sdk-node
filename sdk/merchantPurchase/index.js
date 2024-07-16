@@ -1,0 +1,1 @@
+const merchantPurchase = require('./merchantPurchase.js')
