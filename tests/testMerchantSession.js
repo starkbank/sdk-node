@@ -5,7 +5,7 @@ const generateExampleMerchantSessionPurchaseJson = require('./utils/merchantSess
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('MerchantSession', function(){
+describe('MerchantSessionCreate', function(){
     this.timeout(10000);
     it('test_success', async () => {
         let merchantSessionJson = generateExampleMerchantSessionJson()

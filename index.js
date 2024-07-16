@@ -64,6 +64,7 @@ exports.organization = require('./sdk/user/organization.js')
 exports.request = require('./sdk/request/request.js')
 exports.merchantSession = require('./sdk/merchantSession/merchantSession.js')
 exports.merchantSessionPurchase = require('./sdk/merchantSession/purchase.js')
+exports.merchantPurchase = require('./sdk/merchantPurchase/merchantPurchase.js')
 
 
 // Classes
@@ -102,4 +103,4 @@ exports.Event = exports.event.Event;
 exports.Institution = exports.institution.Institution;
 exports.PaymentPreview = exports.paymentPreview.PaymentPreview;
 exports.MerchantSession = exports.merchantSession.MerchantSession;
-exports.MerchantSessionPurchase = exports.merchantSessionPurchase.MerchantSessionPurchase; 
+exports.MerchantPurchase = exports.merchantPurchase.MerchantPurchase;
