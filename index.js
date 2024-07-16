@@ -58,13 +58,12 @@ exports.webhook = require('./sdk/webhook');
 exports.workspace = require('./sdk/workspace');
 exports.event = require('./sdk/event');
 exports.institution = require('./sdk/institution')
+exports.merchantSession = require('./sdk/merchantSession');
+exports.merchantPurchase = require('./sdk/merchantPurchase');
 exports.key = require('./sdk/key.js');
 exports.error = require('./sdk/error.js');
 exports.organization = require('./sdk/user/organization.js')
 exports.request = require('./sdk/request/request.js')
-exports.merchantSession = require('./sdk/merchantSession/merchantSession.js')
-exports.merchantSessionPurchase = require('./sdk/merchantSession/purchase.js')
-exports.merchantPurchase = require('./sdk/merchantPurchase/merchantPurchase.js')
 
 
 // Classes
