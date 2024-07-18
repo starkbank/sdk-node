@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.28.0] - 2024-07-18
 ### Added
 - request methods to typescript
 - query and get methods to merchantSession resource
