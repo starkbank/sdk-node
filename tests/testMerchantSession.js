@@ -15,6 +15,47 @@ describe('MerchantSessionCreate', function(){
     });
 });
 
+describe('MerchantSessionQuery', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let merchantSessions = await starkbank.merchantSession.query({limit: 3});
+        for await (let merchantSession of merchantSessions) {
+            assert(typeof merchantSession.id == 'string');
+        }
+    });
+});
+
+describe('MerchantSessionGet', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let merchantSessions = await starkbank.merchantSession.query({limit: 3});
+        for await (let session of merchantSessions) {
+            let merchantSession = await starkbank.merchantSession.get(session.id);
+            assert(typeof merchantSession.id == 'string');
+        }
+    });
+});
+
+describe('MerchantSessionPage', function () {
+    this.timeout(10000);
+    it('test_success', async () => {
+        let ids = [];
+        let cursor = null;
+        let page = null;
+        for (let i = 0; i < 2; i++) {
+            [page, cursor] = await starkbank.merchantSession.page({ limit: 5, cursor: cursor });
+            for (let entity of page) {
+                assert(!ids.includes(entity.id));
+                ids.push(entity.id);
+            }
+            if (cursor == null) {
+                break;
+            }
+        }
+        assert(ids.length == 10);
+    });
+});
+
 describe('MerchantSessionPurchase', function(){
     this.timeout(10000);
     it('test_success', async () => {

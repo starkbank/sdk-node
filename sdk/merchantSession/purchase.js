@@ -9,7 +9,7 @@ class Purchase extends Resource {
      * Check out our API Documentation at https://starkbank.com/merchant-purchase
      */
 
-    constructor({id, amount, installmentCount, cardExpiration, cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, billingZipCode, metadata}){
+    constructor({amount, cardExpiration, cardNumber, cardSecurityCode, holderName, fundingType, holderEmail=null, holderPhone=null, billingCity=null, billingZipCode=null, billingStateCode=null, billingCountryCode=null, billingStreetLine1=null, billingStreetLine2=null, metadata=null, installmentCount=null, id=null}){
         super(id)
         this.amount = amount
         this.installmentCount = installmentCount

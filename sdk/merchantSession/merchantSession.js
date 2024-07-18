@@ -13,7 +13,7 @@ class MerchantSession extends Resource {
      * Check out our API Documentation at https://starkbank.com/docs/api#merchant-session
      */
 
-    constructor({id, allowedFundingTypes, allowedInstallments, allowedIps, challengeMode, created, expiration, status, tags, updated, uuid}){
+    constructor({allowedFundingTypes, allowedInstallments, expiration, allowedIps=null, challengeMode=null, created=null, status=null, tags=null, updated=null, uuid=null, id=null}){
         super(id) 
         this.allowedFundingTypes = allowedFundingTypes;
         this.allowedInstallments = parseObjects(allowedInstallments, allowedInstallmentResource, AllowedInstallment);
@@ -35,7 +35,36 @@ exports.create = async function (merchantSession, {user} = {}) {
     return rest.postSingle(resource=resource, query=merchantSession)
 }
 
-exports.purchase = async function ({uuid, amount, installmentCount, cardExpiration, cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, billingZipCode, metadata, user} = {}) {
+exports.get = async function (id, {user} = {}) {
+    return rest.getId(resource, id, user);
+};
+
+exports.query = async function ({ limit, after, before, status, tags, ids, user } = {}) {
+    let query = {
+        limit: limit,
+        after: check.date(after),
+        before: check.date(before),
+        status: status,
+        tags: tags,
+        ids: ids,
+    };
+    return rest.getList(resource, query, user);
+};
+
+exports.page = async function ({ cursor, limit, after, before, status, tags, ids, user } = {}) {
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: check.date(after),
+        before: check.date(before),
+        status: status,
+        tags: tags,
+        ids: ids,
+    };
+    return rest.getPage(resource, query, user);
+};
+
+exports.purchase = async function ({ uuid, amount, installmentCount, cardExpiration, cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, billingZipCode, metadata, user } = {}) {
     payload = {
         "amount": amount,
         "installmentCount": installmentCount,
