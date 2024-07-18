@@ -15,10 +15,13 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ## [Unreleased]
 ### Added
 - request methods to typescript
+- query and get methods to merchantSession resource
+### Fixed
+- merchantPurchase log
 
 ## [2.27.0] - 2024-07-16
 ### Added
-- query and get request methods
+- query and get methods to merchantPurchase resource
 
 ## [2.26.0] - 2024-07-15
 ### Added

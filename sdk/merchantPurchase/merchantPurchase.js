@@ -49,7 +49,11 @@ class MerchantPurchase extends Resource {
 exports.MerchantPurchase = MerchantPurchase;
 let resource = {'class': exports.MerchantPurchase, 'name': 'MerchantPurchase'};
 
-exports.query = async function ({ limit, after, before, status, tags, ids, user} = {}) {
+exports.get = async function (id, {user} = {}) {
+    return rest.getId(resource, id, user);
+};
+
+exports.query = async function ({ limit, after, before, status, tags, ids, user } = {}) {
     let query = {
         limit: limit,
         after: check.date(after),
@@ -61,6 +65,15 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user}
     return rest.getList(resource, query, user);
 };
 
-exports.get = async function (id, {user} = {}) {
-    return rest.getId(resource, id, user);
+exports.page = async function ({ cursor, limit, after, before, status, tags, ids, user } = {}) {
+    let query = {
+        cursor: cursor,
+        limit: limit,
+        after: check.date(after),
+        before: check.date(before),
+        status: status,
+        tags: tags,
+        ids: ids,
+    };
+    return rest.getPage(resource, query, user);
 };
