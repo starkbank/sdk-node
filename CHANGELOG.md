@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- types to merchantSession and merchantPurchase resources
 
 ## [2.28.0] - 2024-07-18
 ### Added
