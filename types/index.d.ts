@@ -20,6 +20,8 @@
 ///<reference path='./utilityPayment/utilityPayment.d.ts' />
 ///<reference path='./webhook/webhook.d.ts' />
 ///<reference path='./workspace/workspace.d.ts' />
+///<reference path='./merchantPurchase/merchantPurchase.d.ts' />
+///<reference path='./merchantSession/merchantSession.d.ts' />
 
 
 declare module 'starkbank' {
