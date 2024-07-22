@@ -15,10 +15,7 @@ declare module 'starkbank' {
         readonly billingStreetLine1 : string 
         readonly billingStreetLine2 : string 
         readonly billingZipCode : string 
-        readonly metadata : {
-            key: string
-            value?: string
-        }
+        readonly metadata : Record<string, any>
 
         readonly id : string
         readonly installmentCount : number
@@ -49,12 +46,6 @@ declare module 'starkbank' {
     }
 
     export namespace merchantPurchase {
-
-        // function create(params?:{amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, holderName: string, holderEmail: string,
-        //     fundingType: string, holderPhone: string | null, billingCountryCode: string | null, billingCity: string | null, billingStateCode: string | null,
-        //     billingStreetLine1: string | null, billingStreetLine2: string | null, billingZipCode: string | null, metadata: { 
-        //         key: string 
-        //         value?: string} | null, user?: Project | Organization | null}): Promise<MerchantPurchase>;
 
         function get(id: string, params?:{ user?: Project | Organization | null}): Promise<MerchantPurchase>;
 

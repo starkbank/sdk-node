@@ -49,6 +49,9 @@ is as easy as sending a text message to your client!
     - [CorporateBalance](#get-your-corporatebalance): View your corporate balance
     - [CorporateTransactions](#query-corporatetransactions): View the transactions that have affected your corporate balance
     - [CorporateEnums](#corporate-enums): Query enums related to the corporate purchases, such as merchant categories, countries and card purchase methods
+    - [MerchantSession](#merchant-session): The Merchant Session allows you to create a session prior to a purchase.
+Sessions are essential for defining the parameters of a purchase, including funding type, expiration, 3DS, and more.
+    - [MerchantPurchase](#merchant-purchase): The Merchant Purchase section allows users to retrieve detailed information of the purchases.
     - [Webhooks](#create-a-webhook-subscription): Configure your webhook endpoints and subscriptions
     - [WebhookEvents](#process-webhook-events): Manage webhook events
     - [WebhookEventAttempts](#query-failed-webhook-event-delivery-attempts-information): Query failed webhook event deliveries
@@ -2336,6 +2339,145 @@ let methods = await starkbank.cardMethod.query({"search": "token"});
 for await (let method of methods) {
     console.log(method);
 }
+```
+
+## Merchant Session
+
+The Merchant Session allows you to create a session prior to a purchase.
+Sessions are essential for defining the parameters of a purchase, including funding type, expiration, 3DS, and more.
+
+## Create a MerchantSession
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+
+    let merchantSession = await starkbank.merchantSession.create({
+            allowedFundingTypes: [
+                "debit",
+                "credit"
+            ],
+            allowedInstallments: [
+                {
+                    "totalAmount": 0,
+                    "count": 1
+                },
+                {
+                    "totalAmount": 120,
+                    "count": 2
+                },
+                {
+                    "totalAmount": 180,
+                    "count": 12
+                }
+            ],
+            expiration: 3600,
+            challengeMode: "disabled",
+            tags: [
+                "yourTags"
+            ]
+        });
+
+    console.log(merchantSession)
+})();
+```
+
+You can create a MerchantPurchase through a MerchantSession by passing its UUID.
+**Note**: This method must be implemented in your front-end to ensure that sensitive card data does not pass through the back-end of the integration.
+
+### Create a MerchantSesssion Purchase
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantSessionPurchase = await starkbank.merchantSession.purchase(
+        {
+            uuid: "0bb894a2697d41d99fe02cad2c00c9bc",
+            amount: 180,
+            installmentCount: 12,
+            cardExpiration: "2035-01",
+            cardNumber: "5448280000000007",
+            cardSecurityCode: "123",
+            holderName: "Holder Name",
+            holderEmail: "holdeName@email.com",
+            holderPhone: "11111111111",
+            fundingType: "credit",
+            billingCountryCode: "BRA",
+            billingCity: "São Paulo",
+            billingStateCode: "SP",
+            billingStreetLine1: "Rua do Holder Name, 123",
+            billingStreetLine2: "",
+            billingZipCode: "11111-111",
+            metadata: {
+                "extraData": "extraData",
+                "language": "pt-BR",
+                "timezoneOffset": 3,
+                "userAgent": "Postman",
+                "userIp": "255.255.255.255
+            },
+            tags: [ "yourtags" ]
+        }
+    );
+
+    console.log(merchantSessionPurchase)
+})();
+```
+
+### Query MerchantSessions
+
+```javascript
+
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantSessions = await starkbank.merchantSession.query({limit: 3});
+
+    for await (let merchantSession of merchantSessions){
+        console.log(merchantSession);
+    }
+})();
+```
+
+### Get a MerchantSession
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantSession = await starkbank.merchantSession.get('5950134772826112');
+    console.log(merchantSession);
+})();
+```
+
+## Merchant Purchase
+
+The Merchant Purchase section allows users to retrieve detailed information of the purchases.
+
+### Query MerchantPurchases
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantPurchases = await starkbank.merchantPurchase.query({limit: 3});
+
+    for await (let merchantPurchase of merchantPurchases){
+        console.log(merchantPurchases);
+    }
+})();
+```
+
+### Get a MerchantPurchase
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantPurchase = await starkbank.merchantPurchase.get('5950134772826112');
+    console.log(merchantPurchase);
+})();
 ```
 
 

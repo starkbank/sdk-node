@@ -1,18 +1,12 @@
 declare module 'starkbank' {
 
     export class MerchantSession {
-        allowedFundingTypes: {
-            key: number,
-            value?: number
-        }
-        allowedInstallments: {
-            key: number,
-            value?: number
-        }
+        allowedFundingTypes: string[]
+        allowedInstallments: {totalAmount: number, count: number}[]
         expiration: number
 
         readonly id : string
-        readonly allowedIps: string
+        readonly allowedIps: string[]
         readonly challengeMode: string
         readonly created: string
         readonly status: string
@@ -20,30 +14,16 @@ declare module 'starkbank' {
         readonly updated: string
         readonly uuid: string
 
-        constructor(params: {allowedFundingTypes: {
-            key: number,
-            value?: number
-        }, allowedInstallments: {
-            key: number,
-            value?: number
-        }, id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string})
+        constructor(params: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string})
     }
 
     export namespace merchantSession {
 
-        function create(params?: {allowedFundingTypes: {
-            key: number,
-            value?: number
-        }, allowedInstallments: {
-            key: number,
-            value?: number
-        }, expiration: number, challengeMode: string | null, allowedIps: string | null, tags: string[] | null}): Promise<MerchantSession>;
+        function create(params?: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], expiration: number, challengeMode?: string | null, allowedIps?: string[] | null, tags?: string[] | null}): Promise<MerchantSession>;
 
-        function purchase(params?: {amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, holderName: string, holderEmail: string,
-            fundingType: string, holderPhone: string | null, billingCountryCode: string | null, billingCity: string | null, billingStateCode: string | null,
-            billingStreetLine1: string | null, billingStreetLine2: string | null, billingZipCode: string | null, metadata: { 
-                key: string 
-                value?: string} | null, user?: Project | Organization | null}): any;
+        function purchase(params?: {uuid: string, amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, holderName: string, fundingType: string, holderEmail?: string | null,
+            holderPhone?: string | null, billingCountryCode?: string | null, billingCity?: string | null, billingStateCode?: string | null, installmentCount?: number | null,
+            billingStreetLine1?: string | null, billingStreetLine2?: string | null, billingZipCode?: string | null, metadata?: Record<string, any> | null, user?: Project | Organization | null}): any;
 
         function get(id: string, params?:{ user?: Project | Organization | null}): Promise<MerchantSession>;
 
