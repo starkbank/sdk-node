@@ -13,6 +13,11 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- merchantSession and merchantPurchase README.md
+### Fixed
+- merchantSession tests
+- merchantSession required parameters
 
 ## [2.29.0] - 2024-07-21
 ### Added

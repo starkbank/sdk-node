@@ -20,13 +20,64 @@ describe('TestMerchantSessionCreate', function(){
 describe('TestMerchantSessionPurchaseCreate', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
+
+        let sessionJson = {
+            allowedFundingTypes: [
+                "debit",
+                "credit"
+            ],
+            allowedInstallments: [
+                {
+                    "totalAmount": 0,
+                    "count": 1
+                },
+                {
+                    "totalAmount": 120,
+                    "count": 2
+                },
+                {
+                    "totalAmount": 180,
+                    "count": 12
+                }
+            ],
+            expiration: 3600,
+            challengeMode: "disabled",
+            tags: [
+                "yourTags"
+            ]
+        }
+
+        let merchantSession = await starkbank.merchantSession.create(sessionJson);
 
         let merchantSessionUuid = merchantSession.uuid
 
-        let merchantSessionPuchaseJson = generateExampleMerchantSessionPurchaseJson(merchantSessionUuid)
+        let purchaseJson = {
+            uuid: merchantSessionUuid,
+            amount: 180,
+            cardExpiration: "2035-01",
+            cardNumber: "5277696455399733",
+            cardSecurityCode: "123",
+            holderName: "Holder Name",
+            fundingType: "credit",
+            holderEmail: "holdeName@email.com",
+            holderPhone: "11111111111",
+            billingCountryCode: "BRA",
+            billingCity: "São Paulo",
+            billingStateCode: "SP",
+            billingStreetLine1: "Rua do Holder Name, 123",
+            billingStreetLine2: "",
+            billingZipCode: "11111-111",
+            metadata: {
+                "userAgent": "Postman",
+                "userIp": "255.255.255.255",
+                "language": "pt-BR",
+                "timezoneOffset": 3,
+                "extraData": "extraData"
+            },
+            installmentCount: 12
+        }
 
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(merchantSessionPuchaseJson);
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(purchaseJson);
 
         assert(typeof merchantSessionPurchase.id == 'string')
     });
