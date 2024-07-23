@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.29.1] - 2024-07-22
 ### Added
 - merchantSession and merchantPurchase README.md
 ### Fixed
