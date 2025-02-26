@@ -1,7 +1,50 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
+const generateExampleMerchantSessionJson = require('./utils/merchantSession.js').generateExampleMerchantSessionJson;
+const generateExampleMerchantSessionPurchaseJson = require('./utils/merchantSession.js').generateExampleMerchantSessionPurchaseJson
 
 starkbank.user = require('./utils/user').exampleProject;
+
+describe('MerchantPurchaseCreate', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+
+        let merchantSession = await starkbank.merchantSession.create({
+            "allowedFundingTypes": [
+                "credit"
+            ],
+            "allowedInstallments": [
+                {
+                    "totalAmount": 1000,
+                    "count": 1
+                }
+            ],
+            "expiration": 3600,
+            "challengeMode": "disabled",
+            "tags": [
+                "yourTags"
+            ]
+        });
+
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase({
+            uuid: merchantSession.uuid,
+            "amount": 1000,
+            "cardExpiration": "2035-01",
+            "cardNumber": "36490101441625",
+            "cardSecurityCode": "123",
+            "holderName": "Margaery Tyrell",
+            "fundingType": "credit"
+        });
+
+        let merchantPurchase = await starkbank.merchantPurchase.create({
+            amount: 1000,
+            fundingType: 'credit',
+            challengeMode: 'disabled',
+            cardId: merchantSessionPurchase.cardId,
+        });
+        assert(typeof merchantPurchase.id == 'string');
+    });
+});
 
 describe('MerchantPurchaseQuery', function(){
     this.timeout(10000);
@@ -43,3 +86,42 @@ describe('MerchantPurchasePage', function () {
         assert(ids.length == 10);
     });
 });
+
+describe('MerchantPurchaseUpdate', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+
+        let merchantSession = await starkbank.merchantSession.create({
+            "allowedFundingTypes": [
+                "credit"
+            ],
+            "allowedInstallments": [
+                {
+                    "totalAmount": 1000,
+                    "count": 1
+                }
+            ],
+            "expiration": 3600,
+            "challengeMode": "disabled",
+            "tags": [
+                "yourTags"
+            ]
+        });
+
+        let merchantPurchase = await starkbank.merchantSession.purchase({
+            uuid: merchantSession.uuid,
+            "amount": 1000,
+            "cardExpiration": "2035-01",
+            "cardNumber": "36490101441625",
+            "cardSecurityCode": "123",
+            "holderName": "Margaery Tyrell",
+            "fundingType": "credit"
+        });
+
+        let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantPurchase.id, {
+            amount: 0,
+            status: "canceled"
+        });
+        assert(updatedMerchantPurchase.id == merchantPurchase.id);
+    });
+})

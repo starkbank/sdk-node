@@ -22,6 +22,8 @@
 ///<reference path='./workspace/workspace.d.ts' />
 ///<reference path='./merchantPurchase/merchantPurchase.d.ts' />
 ///<reference path='./merchantSession/merchantSession.d.ts' />
+///<reference path='./merchantInstallment/merchantInstallment.d.ts' />
+///<reference path='./merchantCard/merchantCard.d.ts' />
 
 
 declare module 'starkbank' {

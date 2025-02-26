@@ -64,7 +64,7 @@ exports.page = async function ({ cursor, limit, after, before, status, tags, ids
     return rest.getPage(resource, query, user);
 };
 
-exports.purchase = async function ({ uuid, amount, installmentCount, cardExpiration, cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, billingZipCode, metadata, user } = {}) {
+exports.purchase = async function (uuid, { amount, installmentCount, cardExpiration, cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, billingZipCode, metadata, cardId, user } = {}) {
     payload = {
         "amount": amount,
         "installmentCount": installmentCount,
@@ -81,7 +81,8 @@ exports.purchase = async function ({ uuid, amount, installmentCount, cardExpirat
         "billingStreetLine1": billingStreetLine1,
         "billingStreetLine2": billingStreetLine2,
         "billingZipCode": billingZipCode,
-        "metadata": metadata
+        "metadata": metadata,
+        "cardId": cardId,
     }
     api.removeNullKeys(payload);
     return rest.postSubResource(resource, uuid, purchaseResource, payload);

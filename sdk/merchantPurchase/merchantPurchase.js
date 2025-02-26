@@ -49,6 +49,10 @@ class MerchantPurchase extends Resource {
 exports.MerchantPurchase = MerchantPurchase;
 let resource = {'class': exports.MerchantPurchase, 'name': 'MerchantPurchase'};
 
+exports.create = async function (purchase, {user} = {}) {
+    return rest.postSingle(resource, purchase, user);
+}
+
 exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
@@ -77,3 +81,11 @@ exports.page = async function ({ cursor, limit, after, before, status, tags, ids
     };
     return rest.getPage(resource, query, user);
 };
+
+exports.update = async function (id, {amount, status, user} = {}) {
+    let payload = {
+        amount: amount,
+        status: status
+    };
+    return rest.patchId(resource, id, payload, user);
+}
