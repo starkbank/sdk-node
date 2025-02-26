@@ -47,6 +47,8 @@ declare module 'starkbank' {
 
     export namespace merchantPurchase {
 
+        function create(merchantPurchase: MerchantPurchase, params?:{ user?: Project | Organization | null}): Promise<MerchantPurchase>;
+
         function get(id: string, params?:{ user?: Project | Organization | null}): Promise<MerchantPurchase>;
 
         function page(params?: { 
@@ -69,6 +71,8 @@ declare module 'starkbank' {
             ids?: string[] | null, 
             user?: Project | Organization | null
         }): Promise<MerchantPurchase[]>;
+
+        function update(id: string, params?: {amount?: number, status?: string, user?: Project | Organization | null}): Promise<MerchantPurchase>;
 
         export class Log {
             readonly id : string

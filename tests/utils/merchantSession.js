@@ -31,10 +31,9 @@ exports.generateExampleMerchantSessionJson = function () {
     return merchantSessionJson;
 }
 
-exports.generateExampleMerchantSessionPurchaseJson = function (uuid) {
+exports.generateExampleMerchantSessionPurchaseJson = function () {
 
     let merchantSessionPurchaseJson = {
-        uuid: uuid,
         amount: 180,
         installmentCount: 12,
         cardExpiration: "2035-01",

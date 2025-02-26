@@ -48,3 +48,18 @@ describe('TestMerchantPurchaseGetPage', function () {
         assert(ids.length == 10);
     });
 });
+
+describe('TestMerchantPurchase', function () {
+    jest.setTimeout(10000);
+    it('test_success', async () => {
+        let purchaseId = "";
+        let purchases = await starkbank.merchantPurchase.query({status: "approved"})
+
+        for await (let purchase of purchases) {
+            purchaseId = purchase.id;
+            break;
+        }
+        let updatedPurchase = await starkbank.merchantPurchase.update(purchaseId, {amount: 0, status: "canceled"});
+        assert(updatedPurchase.id == purchaseId);
+    });
+});

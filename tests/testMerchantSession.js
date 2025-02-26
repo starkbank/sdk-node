@@ -61,12 +61,10 @@ describe('MerchantSessionPurchase', function(){
     it('test_success', async () => {
 
         let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
-
-        let merchantSessionUuid = merchantSession.uuid
-
-        let merchantSessionPuchaseJson = generateExampleMerchantSessionPurchaseJson(merchantSessionUuid)
-
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(merchantSessionPuchaseJson);
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
+            merchantSession.uuid,
+            generateExampleMerchantSessionPurchaseJson(),
+        );
         assert(merchantSessionPurchase.id != null)
     });
 });
