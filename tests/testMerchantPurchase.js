@@ -3,38 +3,18 @@ const starkbank = require('../index.js');
 const generateExampleMerchantSessionJson = require('./utils/merchantSession.js').generateExampleMerchantSessionJson;
 const generateExampleMerchantSessionPurchaseJson = require('./utils/merchantSession.js').generateExampleMerchantSessionPurchaseJson
 
+
 starkbank.user = require('./utils/user').exampleProject;
 
 describe('MerchantPurchaseCreate', function(){
     this.timeout(10000);
     it('test_success', async () => {
+        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
 
-        let merchantSession = await starkbank.merchantSession.create({
-            "allowedFundingTypes": [
-                "credit"
-            ],
-            "allowedInstallments": [
-                {
-                    "totalAmount": 1000,
-                    "count": 1
-                }
-            ],
-            "expiration": 3600,
-            "challengeMode": "disabled",
-            "tags": [
-                "yourTags"
-            ]
-        });
-
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase({
-            uuid: merchantSession.uuid,
-            "amount": 1000,
-            "cardExpiration": "2035-01",
-            "cardNumber": "36490101441625",
-            "cardSecurityCode": "123",
-            "holderName": "Margaery Tyrell",
-            "fundingType": "credit"
-        });
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
+            merchantSession.uuid,
+            generateExampleMerchantSessionPurchaseJson(),
+        );
 
         let merchantPurchase = await starkbank.merchantPurchase.create({
             amount: 1000,
@@ -43,6 +23,8 @@ describe('MerchantPurchaseCreate', function(){
             cardId: merchantSessionPurchase.cardId,
         });
         assert(typeof merchantPurchase.id == 'string');
+
+        let a = starkbank.merchantSession.purchase("", {})
     });
 });
 
@@ -91,37 +73,17 @@ describe('MerchantPurchaseUpdate', function(){
     this.timeout(10000);
     it('test_success', async () => {
 
-        let merchantSession = await starkbank.merchantSession.create({
-            "allowedFundingTypes": [
-                "credit"
-            ],
-            "allowedInstallments": [
-                {
-                    "totalAmount": 1000,
-                    "count": 1
-                }
-            ],
-            "expiration": 3600,
-            "challengeMode": "disabled",
-            "tags": [
-                "yourTags"
-            ]
-        });
+        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
 
-        let merchantPurchase = await starkbank.merchantSession.purchase({
-            uuid: merchantSession.uuid,
-            "amount": 1000,
-            "cardExpiration": "2035-01",
-            "cardNumber": "36490101441625",
-            "cardSecurityCode": "123",
-            "holderName": "Margaery Tyrell",
-            "fundingType": "credit"
-        });
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
+            merchantSession.uuid,
+            generateExampleMerchantSessionPurchaseJson(),
+        );
 
-        let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantPurchase.id, {
+        let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantSessionPurchase.id, {
             amount: 0,
             status: "canceled"
         });
-        assert(updatedMerchantPurchase.id == merchantPurchase.id);
+        assert(updatedMerchantPurchase.id == merchantSessionPurchase.id);
     });
 })

@@ -52,14 +52,59 @@ describe('TestMerchantPurchaseGetPage', function () {
 describe('TestMerchantPurchase', function () {
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let purchaseId = "";
-        let purchases = await starkbank.merchantPurchase.query({status: "approved"})
-
-        for await (let purchase of purchases) {
-            purchaseId = purchase.id;
-            break;
+        let merchantSessionJson = {
+            allowedFundingTypes: [
+                "debit",
+                "credit"
+            ],
+            allowedInstallments: [
+                {
+                    "count": 1,
+                    "totalAmount": 5000
+                },
+                {
+                    "count": 2,
+                    "totalAmount": 5500
+                }
+            ],
+            expiration: 3600,
+            challengeMode: "disabled",
+            tags: [
+                "purchase_1234"
+            ]
         }
-        let updatedPurchase = await starkbank.merchantPurchase.update(purchaseId, {amount: 0, status: "canceled"});
-        assert(updatedPurchase.id == purchaseId);
+
+        let merchantSession = await starkbank.merchantSession.create(merchantSessionJson);
+
+        let merchantSessionPurchaseJson = {
+            amount: 5000,
+            installmentCount: 1,
+            cardExpiration: "2035-01",
+            cardNumber: "5448280000000007",
+            cardSecurityCode: "123",
+            holderName: "Rhaenyra Targaryen",
+            holderEmail: "rhaenyra.targaryen@starkbank.com",
+            holderPhone: "11985923451",
+            fundingType: "credit",
+            billingCountryCode: "BRA",
+            billingCity: "Sao Paulo",
+            billingStateCode: "SP",
+            billingStreetLine1: "Av. Faria Lima, 1844",
+            billingStreetLine2: "",
+            billingZipCode: "01500-000",
+            challengeMode: "disabled",
+        }
+
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
+            merchantSession.uuid,
+            merchantSessionPurchaseJson,
+        );
+
+        let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantSessionPurchase.id, {
+            amount: 0,
+            status: "canceled"
+        });
+
+        assert(updatedMerchantPurchase.id == merchantSessionPurchase.id);
     });
 });

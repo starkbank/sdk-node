@@ -49,8 +49,8 @@ is as easy as sending a text message to your client!
     - [CorporateBalance](#get-your-corporatebalance): View your corporate balance
     - [CorporateTransactions](#query-corporatetransactions): View the transactions that have affected your corporate balance
     - [CorporateEnums](#corporate-enums): Query enums related to the corporate purchases, such as merchant categories, countries and card purchase methods
-    - [MerchantCard](#query-merchantcards): Stores information about approved purchase cards for reuse.
-    - [MerchantSession](#create-a-merchantsession): Manages a session to create a purchase with a new card.
+    - [MerchantCard](#query-merchantcards): Stores information about approved purchase cards for reuse
+    - [MerchantSession](#create-a-merchantsession): Manages a session to create a purchase with a new card
     - [MerchantPurchase](#create-a-merchantpurchase): Allows a merchant to charge their customers using debit or credit cards
     - [MerchantInstallment](#query-merchantinstallments): Tracks the lifecycle of purchase installments
     - [Webhooks](#create-a-webhook-subscription): Configure your webhook endpoints and subscriptions
@@ -2344,7 +2344,7 @@ for await (let method of methods) {
 
 ## Query MerchantCards
 
-Get a list of merchant sessions in chunks of at most 100. If you need smaller chunks, use the limit parameter.
+Get a list of merchant cards in chunks of at most 100. If you need smaller chunks, use the limit parameter.
 
 ```javascript
 
@@ -2487,20 +2487,21 @@ const starkbank = require('starkbank');
 
 ## Create a MerchantPurchase
 
-The Merchant Purchase resource can be used to charge customers with credit or debit cards. If a card hasn't been used before, a Merchant Session Purchase must be created and approved with that specific card before it can be used directly in a Merchant Purchase.
+The Merchant Purchase resource can be used to charge customers with credit or debit cards.
+If a card hasn't been used before, a Merchant Session Purchase must be created and approved with that specific card
+before it can be used directly in a Merchant Purchase.
 
 ```javascript
 const starkbank = require('starkbank');
 
 (async() => {
-        let merchantPurchase = await starkbank.merchantPurchase.create({
-            amount: 1000,
-            fundingType: 'credit',
-            challengeMode: 'disabled',
-            cardId: '5950134772826112',
-        });
-
-        console.log(merchantPurchase);
+    let merchantPurchase = await starkbank.merchantPurchase.create({
+        amount: 1000,
+        fundingType: 'credit',
+        challengeMode: 'disabled',
+        cardId: '5950134772826112',
+    });
+    console.log(merchantPurchase);
 })();
 ```
 
@@ -2535,7 +2536,7 @@ const starkbank = require('starkbank');
 
 ## Query MerchantInstallments
 
-Get a list of merchant purchases in chunks of at most 100. If you need smaller chunks, use the limit parameter.
+Get a list of merchant installments in chunks of at most 100. If you need smaller chunks, use the limit parameter.
 
 ```javascript
 const starkbank = require('starkbank');

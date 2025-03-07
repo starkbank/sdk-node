@@ -20,7 +20,9 @@ class MerchantCategory extends SubResource {
     * @return number [string]: category's number. ex: "742", "5814"
     */
 
-    constructor (code = null, type = null, name = null, number = null) {
+    constructor ({
+        code = null, type = null, name = null, number = null
+    }) {
         super();
         this.code = code
         this.type = type

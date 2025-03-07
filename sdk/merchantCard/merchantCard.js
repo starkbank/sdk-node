@@ -3,15 +3,13 @@ const check = require('starkcore').check;
 const Resource = require('starkcore').Resource;
 
 class MerchantCard extends Resource {
-
     /**
      * Check out our API Documentation at https://starkbank.com/docs/api#merchant-card
      */
 
     constructor({
-                ending, expiration, holderName, fundingType,
-                network, status, tags, created, updated
-                }) {
+        ending, expiration, holderName, fundingType, network, status, tags, created, updated
+    }) {
         super();
         this.ending = ending;
         this.expiration = expiration;
@@ -26,18 +24,18 @@ class MerchantCard extends Resource {
 }
 
 exports.MerchantCard = MerchantCard;
-let resource = {'class': exports.MerchantCard, 'name': 'merchantCard'};
+let resource = {'class': exports.MerchantCard, 'name': 'MerchantCard'};
 
 exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 }
 
-exports.query = async function ({ limit, after, before, status, user} = {}) {
+exports.query = async function ({limit, after, before, status, user} = {}) {
     let query = {
         limit: limit,
         after: check.date(after),
         before: check.date(before),
-        status: status
+        status: status,
     };
     return rest.getList(resource, query, user);
 }
