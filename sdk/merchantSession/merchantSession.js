@@ -8,12 +8,14 @@ const purchaseResource = require('./purchase.js').resource;
 const parseObjects = require('../utils/parse.js').parseObjects;
 
 class MerchantSession extends Resource {
-
     /**
      * Check out our API Documentation at https://starkbank.com/docs/api#merchant-session
      */
 
-    constructor({allowedFundingTypes, allowedInstallments, expiration, allowedIps=null, challengeMode=null, created=null, status=null, tags=null, updated=null, uuid=null, id=null}){
+    constructor({
+        allowedFundingTypes, allowedInstallments, expiration, allowedIps=null, challengeMode=null, created=null, 
+        status=null, tags=null, updated=null, uuid=null, id=null
+    }) {
         super(id) 
         this.allowedFundingTypes = allowedFundingTypes;
         this.allowedInstallments = parseObjects(allowedInstallments, allowedInstallmentResource, AllowedInstallment);
@@ -39,7 +41,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, status, tags, ids, user } = {}) {
+exports.query = async function ({limit, after, before, status, tags, ids, user} = {}) {
     let query = {
         limit: limit,
         after: check.date(after),
@@ -51,7 +53,7 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user 
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({ cursor, limit, after, before, status, tags, ids, user } = {}) {
+exports.page = async function ({cursor, limit, after, before, status, tags, ids, user} = {}) {
     let query = {
         cursor: cursor,
         limit: limit,
@@ -64,7 +66,10 @@ exports.page = async function ({ cursor, limit, after, before, status, tags, ids
     return rest.getPage(resource, query, user);
 };
 
-exports.purchase = async function ({ uuid, amount, installmentCount, cardExpiration, cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, billingZipCode, metadata, user } = {}) {
+exports.purchase = async function (uuid, {amount, installmentCount, cardExpiration,
+    cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType,
+    billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, 
+    billingZipCode, metadata, cardId, user} = {}) {
     payload = {
         "amount": amount,
         "installmentCount": installmentCount,
@@ -81,7 +86,8 @@ exports.purchase = async function ({ uuid, amount, installmentCount, cardExpirat
         "billingStreetLine1": billingStreetLine1,
         "billingStreetLine2": billingStreetLine2,
         "billingZipCode": billingZipCode,
-        "metadata": metadata
+        "metadata": metadata,
+        "cardId": cardId,
     }
     api.removeNullKeys(payload);
     return rest.postSubResource(resource, uuid, purchaseResource, payload);
