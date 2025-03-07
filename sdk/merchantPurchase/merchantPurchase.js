@@ -3,22 +3,18 @@ const rest = require('../utils/rest.js');
 const check = require('starkcore').check;
 
 class MerchantPurchase extends Resource {
-
     /**
      * Check out our API Documentation at https://starkbank.com/docs/api#merchant-purchase
      */
 
-    constructor({id, amount, installmentCount, cardExpiration, cardNumber, cardSecurityCode,
-        holderName, holderEmail, holderPhone, fundingType, billingCountryCode, billingCity, billingStateCode,
-        billingStreetLine1, billingStreetLine2, billingZipCode, metadata, cardEnding, cardId, challengeMode, 
-        challengeUrl, created, currencyCode, endToEndId, fee, network, source, status, tags, updated
-    }){
+    constructor({
+        id, amount, installmentCount, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, 
+        billingCity, billingStateCode,billingStreetLine1, billingStreetLine2, billingZipCode, metadata, cardEnding, 
+        cardId, challengeMode, challengeUrl, created, currencyCode, endToEndId, fee, network, source, status, tags, updated
+    }) {
         super(id)
         this.amount = amount
         this.installmentCount = installmentCount
-        this.cardExpiration = cardExpiration
-        this.cardNumber = cardNumber
-        this.cardSecurityCode = cardSecurityCode
         this.holderName = holderName
         this.holderEmail = holderEmail
         this.holderPhone = holderPhone
@@ -57,7 +53,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, status, tags, ids, user } = {}) {
+exports.query = async function ({limit, after, before, status, tags, ids, user} = {}) {
     let query = {
         limit: limit,
         after: check.date(after),
@@ -69,7 +65,7 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user 
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({ cursor, limit, after, before, status, tags, ids, user } = {}) {
+exports.page = async function ({cursor, limit, after, before, status, tags, ids, user} = {}) {
     let query = {
         cursor: cursor,
         limit: limit,
@@ -85,7 +81,7 @@ exports.page = async function ({ cursor, limit, after, before, status, tags, ids
 exports.update = async function (id, {amount, status, user} = {}) {
     let payload = {
         amount: amount,
-        status: status
+        status: status,
     };
     return rest.patchId(resource, id, payload, user);
 }

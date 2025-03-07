@@ -4,7 +4,9 @@ const Resource = require('../../utils/resource.js').Resource
 
 
 class Log extends Resource {
-    constructor({ created, type, errors, installment, id }) {
+    constructor({
+        created, type, errors, installment, id
+    }) {
         super(id);
         this.created = check.datetime(created);
         this.type = type;
@@ -20,7 +22,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, types, cardIds, user} = {}) {
+exports.query = async function ({limit, after, before, types, cardIds, user} = {}) {
     let query = {
         limit: limit,
         after: after,
@@ -31,7 +33,7 @@ exports.query = async function ({ limit, after, before, types, cardIds, user} = 
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({ cursor, limit, after, before, types, cardIds, user } = {}) {
+exports.page = async function ({cursor, limit, after, before, types, cardIds, user} = {}) {
     let query = {
         cursor: cursor,
         limit: limit,

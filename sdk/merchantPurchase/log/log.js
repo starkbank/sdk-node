@@ -3,12 +3,13 @@ const check = require('starkcore').check;
 const Resource = require('../../utils/resource.js').Resource
 
 class Log extends Resource {
-
     /**
      * Check out our API Documentation at https://starkbank.com/docs/api#merchant-purchase
      */
 
-    constructor({ created, type, errors, purchase, id }) {
+    constructor({
+        created, type, errors, purchase, id
+    }) {
         super(id);
         this.created = check.datetime(created);
         this.type = type;
@@ -24,7 +25,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, user} = {}) {
+exports.query = async function ({limit, after, before, user} = {}) {
     let query = {
         limit: limit,
         after: after,
@@ -33,7 +34,7 @@ exports.query = async function ({ limit, after, before, user} = {}) {
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({ cursor, limit, after, before, types, purchaseIds, user } = {}) {
+exports.page = async function ({cursor, limit, after, before, types, purchaseIds, user} = {}) {
     let query = {
         cursor: cursor,
         limit: limit,

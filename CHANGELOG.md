@@ -16,6 +16,10 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ### Added
 - merchantCard and merchantInstallment resources
 - create and update methods to merchantPurchase
+### Fixed
+- merchantSession tests
+- merchantPurchase tests
+- merchantSession required parameters
 
 ## [2.29.1] - 2024-07-22
 ### Added
