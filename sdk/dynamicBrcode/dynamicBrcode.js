@@ -1,6 +1,9 @@
 const rest = require('../utils/rest.js');
+const { Rule } = require('./rule/rule.js');
 const check = require('starkcore').check;
 const Resource = require('starkcore').Resource;
+const rulesResource = require('./rule/rule.js').resource;
+const parseObjects = require('../utils/parse.js').parseObjects;
 
 
 class DynamicBrcode extends Resource {
@@ -22,6 +25,8 @@ class DynamicBrcode extends Resource {
      * Parameters (optional):
      * @param expiration [integer, default 3600 (1 hour)]: time interval in seconds between due date and expiration date. ex 123456789
      * @param tags [list of strings, default []]: list of strings for tagging, these will be passed to the respective Deposit resource when paid
+     * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
+     * @param rules [list of DynamicBrCodeRule, default []]: list of dynamic brcode rules to be applied to this brcode. ex: [new DynamicBrCode.Rule({key: 'allowedTaxIds', value: ['012.345.678-90', '20.018.183/0001-80']})]
      * 
      * Attributes (return-only):
      * @param id [string]: id returned on creation, this is the BR code. ex: "00020126360014br.gov.bcb.pix0114+552840092118152040000530398654040.095802BR5915Jamie Lannister6009Sao Paulo620705038566304FC6C"
@@ -31,10 +36,12 @@ class DynamicBrcode extends Resource {
      * @param created [string]: creation datetime for the DynamicBrcode. ex: '2020-03-10 10:30:00.000'
      *
      */
-    constructor({ amount, expiration, tags, id, uuid, pictureUrl, updated, created }) {
+    constructor({ amount, expiration = null, tags = null, id = null, uuid = null, pictureUrl = null, displayDescription = null, rules = null, updated = null, created = null }) {
         super(id);
         this.amount = amount;
         this.expiration = expiration;
+        this.displayDescription = displayDescription
+        this.rules = parseObjects(rules, rulesResource, Rule);
         this.tags = tags;
         this.id = id;
         this.uuid = uuid;

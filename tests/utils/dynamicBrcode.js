@@ -6,8 +6,16 @@ exports.generateExampleDynamicBrcodesJson = function (n, amount = null) {
     let exampleDynamicBrcode = {
         amount: 1000,
         expiration: 4000,
-        tags: [ "SDK Node Test" ]
+        tags: [ "SDK Node Test" ],
+        displayDescription: "Payment for service #1234",
+        rules: [
+            new starkbank.dynamicBrcode.Rule({
+                key: "allowedTaxIds",
+                value: ["012.345.678-90"]
+            })
+        ]
     };
+    
 
     let brcodes = [];
     for (let i = 0; i < n; i++) {
