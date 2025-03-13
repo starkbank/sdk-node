@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.30.0] - 2025-03-13
 ### Added
 - rules parameter on DynamicBrcode resource
 - displayDescription parameter on DynamicBrcode resource
