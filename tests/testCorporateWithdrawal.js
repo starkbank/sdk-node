@@ -56,7 +56,7 @@ describe('TestCorporateTransactionGet', function () {
         let withdrawals = await starkbank.corporateWithdrawal.query({ limit: 1 });
         for await (let withdrawal of withdrawals) {
             assert(typeof withdrawal.id == typeof 'string');
-            brcode = await starkbank.corporateWithdrawal.get(withdrawal.id);
+            purchase = await starkbank.corporateWithdrawal.get(withdrawal.id);
             assert(typeof withdrawal.id == typeof 'string');
         }
     });

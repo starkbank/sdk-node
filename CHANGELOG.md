@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- corporateCard tests
+- corporateHolder Log getId method and tests
 
 ## [2.30.0] - 2025-03-13
 ### Added
