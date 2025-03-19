@@ -49,10 +49,7 @@ describe('TestMerchantSessionPurchaseCreate', function(){
 
         let merchantSession = await starkbank.merchantSession.create(sessionJson);
 
-        let merchantSessionUuid = merchantSession.uuid
-
         let purchaseJson = {
-            uuid: merchantSessionUuid,
             amount: 180,
             cardExpiration: "2035-01",
             cardNumber: "5277696455399733",
@@ -77,7 +74,7 @@ describe('TestMerchantSessionPurchaseCreate', function(){
             installmentCount: 12
         }
 
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(purchaseJson);
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(merchantSession.uuid, purchaseJson);
 
         assert(typeof merchantSessionPurchase.id == 'string')
     });

@@ -21,7 +21,7 @@ declare module 'starkbank' {
 
         function create(params?: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], expiration: number, challengeMode?: string | null, allowedIps?: string[] | null, tags?: string[] | null}): Promise<MerchantSession>;
 
-        function purchase(params?: {uuid: string, amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, holderName: string, fundingType: string, holderEmail?: string | null,
+        function purchase(uuid: string, params?: { amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, holderName: string, fundingType: string, holderEmail?: string | null,
             holderPhone?: string | null, billingCountryCode?: string | null, billingCity?: string | null, billingStateCode?: string | null, installmentCount?: number | null,
             billingStreetLine1?: string | null, billingStreetLine2?: string | null, billingZipCode?: string | null, metadata?: Record<string, any> | null, user?: Project | Organization | null}): any;
 
