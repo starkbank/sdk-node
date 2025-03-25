@@ -7,7 +7,6 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestMerchantCardGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let i = 0;
         const cards = await starkbank.merchantCard.query({limit: 1});
         for await (let card of cards) {
             card = await starkbank.merchantCard.get(card.id);

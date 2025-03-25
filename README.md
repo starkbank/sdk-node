@@ -2347,7 +2347,6 @@ for await (let method of methods) {
 Get a list of merchant cards in chunks of at most 100. If you need smaller chunks, use the limit parameter.
 
 ```javascript
-
 const starkbank = require('starkbank');
 
 (async() => {
@@ -2363,11 +2362,11 @@ const starkbank = require('starkbank');
 
 Retrieve detailed information about a specific session by its id.
 
-```python
-import starkbank
+```javascript
+const starkbank = require('starkbank');
 
-merchantcard = starkbank.merchantCard.get('5950134772826112')
-print(merchantcard)
+let merchantCard = await starkbank.merchantCard.get('5950134772826112')
+console.log(merchantCard)
 ```
 
 ## Create a MerchantSession

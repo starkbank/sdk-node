@@ -23,8 +23,6 @@ describe('MerchantPurchaseCreate', function(){
             cardId: merchantSessionPurchase.cardId,
         });
         assert(typeof merchantPurchase.id == 'string');
-
-        let a = starkbank.merchantSession.purchase("", {})
     });
 });
 
@@ -86,4 +84,4 @@ describe('MerchantPurchaseUpdate', function(){
         });
         assert(updatedMerchantPurchase.id == merchantSessionPurchase.id);
     });
-})
+});

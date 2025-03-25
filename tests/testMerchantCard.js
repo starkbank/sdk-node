@@ -7,16 +7,6 @@ describe('MerchantCardQuery', function(){
     this.timeout(10000);
     it('test_success', async () => {
         let merchantCards = await starkbank.merchantCard.query({limit: 3});
-        for await (let merchantCard of merchantCards) {
-            assert(typeof merchantCard.id == 'string');
-        }
-    });
-});
-
-describe('MerchantCardGet', function(){
-    this.timeout(10000);
-    it('test_success', async () => {
-        let merchantCards = await starkbank.merchantCard.query({limit: 3});
         for await (let card of merchantCards) {
             let merchantCard = await starkbank.merchantCard.get(card.id);
             assert(typeof merchantCard.id == 'string');

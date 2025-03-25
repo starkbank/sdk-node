@@ -7,11 +7,10 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestMerchantCardLogGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let i = 0;
-        const cards = await starkbank.merchantCard.log.query({limit: 1});
-        for await (let card of cards) {
-            card = await starkbank.merchantCard.log.get(card.id);
-            assert(typeof card.id == 'string');
+        const logs = await starkbank.merchantCard.log.query({limit: 1});
+        for await (let log of logs) {
+            log = await starkbank.merchantCard.log.get(log.id);
+            assert(typeof log.id == 'string');
         }
     });
 });
@@ -20,9 +19,9 @@ describe('TestMerchantCardLogGetQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        const cards = await starkbank.merchantCard.log.query({limit: 5});
-        for await (let card of cards) {
-            assert(typeof card.id == 'string');
+        const logs = await starkbank.merchantCard.log.query({limit: 5});
+        for await (let log of logs) {
+            assert(typeof log.id == 'string');
             i += 1;
         }
         assert(i === 5);

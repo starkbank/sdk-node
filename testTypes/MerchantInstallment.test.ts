@@ -7,7 +7,6 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestMerchantInstallmentGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let i = 0;
         const installments = await starkbank.merchantInstallment.query({limit: 1});
         for await (let installment of installments) {
             installment = await starkbank.merchantInstallment.get(installment.id);

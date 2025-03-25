@@ -7,11 +7,10 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('TestMerchantInstallmentLogGet', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let i = 0;
-        const installments = await starkbank.merchantInstallment.log.query({limit: 1});
-        for await (let installment of installments) {
-            installment = await starkbank.merchantInstallment.log.get(installment.id);
-            assert(typeof installment.id == 'string');
+        const logs = await starkbank.merchantInstallment.log.query({limit: 1});
+        for await (let log of logs) {
+            log = await starkbank.merchantInstallment.log.get(log.id);
+            assert(typeof log.id == 'string');
         }
     });
 });
@@ -20,9 +19,9 @@ describe('TestMerchantInstallmentLogGetQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        const installments = await starkbank.merchantInstallment.log.query({limit: 5});
-        for await (let installment of installments) {
-            assert(typeof installment.id == 'string');
+        const logs = await starkbank.merchantInstallment.log.query({limit: 5});
+        for await (let log of logs) {
+            assert(typeof log.id == 'string');
             i += 1;
         }
         assert(i === 5);

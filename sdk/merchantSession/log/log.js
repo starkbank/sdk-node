@@ -26,8 +26,8 @@ exports.get = async function (id, {user} = {}) {
 exports.query = async function ({limit, after, before, types, sessionIds, user} = {}) {
     let query = {
         limit: limit,
-        after: after,
-        before: before,
+        after: check.date(after),
+        before: check.date(before),
         types: types,
         sessionIds: sessionIds,
     };
@@ -38,8 +38,8 @@ exports.page = async function ({cursor, limit, after, before, types, sessionIds,
     let query = {
         cursor: cursor,
         limit: limit,
-        after: after,
-        before: before,
+        after: check.date(after),
+        before: check.date(before),
         types: types,
         sessionIds: sessionIds,
     };
