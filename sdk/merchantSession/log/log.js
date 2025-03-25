@@ -23,11 +23,13 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit, after, before, user} = {}) {
+exports.query = async function ({limit, after, before, types, sessionIds, user} = {}) {
     let query = {
         limit: limit,
         after: after,
-        before: before
+        before: before,
+        types: types,
+        sessionIds: sessionIds,
     };
     return rest.getList(resource, query, user);
 };
