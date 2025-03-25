@@ -32,23 +32,29 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 }
 
-exports.query = async function ({limit, after, before, status, user} = {}) {
+exports.query = async function ({limit, after, before, status, purchaseIds, tags, ids, user} = {}) {
     let query = {
         limit: limit,
         after: check.date(after),
         before: check.date(before),
-        status: status
+        status: status,
+        tags: tags,
+        ids: ids,
+        purchaseIds: purchaseIds,
     };
     return rest.getList(resource, query, user);
 }
 
-exports.page = async function ({cursor, limit, after, before, status, user} = {}) {
+exports.page = async function ({cursor, limit, after, before, status, purchaseIds, tags, ids, user} = {}) {
     let query = {
         cursor: cursor,
         limit: limit,
         after: check.date(after),
         before: check.date(before),
         status: status,
+        tags: tags,
+        ids: ids,
+        purchaseIds: purchaseIds,
     };
     return rest.getPage(resource, query, user);
 }
