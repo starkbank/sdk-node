@@ -13,7 +13,6 @@ describe('TestRequestGet', function(){
         let query = {"limit": 10, "status": "paid"};
         let i=0;
         let list = await starkbank.request.get(path, query);
-        console.log(list)
         for (let invoice of list["content"]["invoices"]) {
             assert(typeof invoice.id == 'string');
             i += 1;

@@ -9,54 +9,43 @@ exports.generateExampleMerchantSessionJson = function () {
         ],
         allowedInstallments: [
             {
-                "totalAmount": 0,
-                "count": 1
+                "count": 1,
+                "totalAmount": 5000
             },
             {
-                "totalAmount": 120,
-                "count": 2
-            },
-            {
-                "totalAmount": 180,
-                "count": 12
+                "count": 2,
+                "totalAmount": 5500
             }
         ],
         expiration: 3600,
         challengeMode: "disabled",
         tags: [
-            "yourTags"
+            "purchase_1234"
         ]
     }
 
     return merchantSessionJson;
 }
 
-exports.generateExampleMerchantSessionPurchaseJson = function (uuid) {
+exports.generateExampleMerchantSessionPurchaseJson = function () {
 
     let merchantSessionPurchaseJson = {
-        uuid: uuid,
-        amount: 180,
-        installmentCount: 12,
+        amount: 5000,
+        installmentCount: 1,
         cardExpiration: "2035-01",
-        cardNumber: "5277696455399733",
+        cardNumber: "5448280000000007",
         cardSecurityCode: "123",
-        holderName: "Holder Name",
-        holderEmail: "holdeName@email.com",
-        holderPhone: "11111111111",
+        holderName: "Rhaenyra Targaryen",
+        holderEmail: "rhaenyra.targaryen@starkbank.com",
+        holderPhone: "11985923451",
         fundingType: "credit",
         billingCountryCode: "BRA",
-        billingCity: "São Paulo",
+        billingCity: "Sao Paulo",
         billingStateCode: "SP",
-        billingStreetLine1: "Rua do Holder Name, 123",
+        billingStreetLine1: "Av. Faria Lima, 1844",
         billingStreetLine2: "",
-        billingZipCode: "11111-111",
-        metadata: {
-            "userAgent": "Postman",
-            "userIp": "255.255.255.255",
-            "language": "pt-BR",
-            "timezoneOffset": 3,
-            "extraData": "extraData"
-        }
+        billingZipCode: "01500-000",
+        challengeMode: "disabled",
     }
 
     return merchantSessionPurchaseJson;

@@ -49,9 +49,10 @@ is as easy as sending a text message to your client!
     - [CorporateBalance](#get-your-corporatebalance): View your corporate balance
     - [CorporateTransactions](#query-corporatetransactions): View the transactions that have affected your corporate balance
     - [CorporateEnums](#corporate-enums): Query enums related to the corporate purchases, such as merchant categories, countries and card purchase methods
-    - [MerchantSession](#merchant-session): The Merchant Session allows you to create a session prior to a purchase.
-Sessions are essential for defining the parameters of a purchase, including funding type, expiration, 3DS, and more.
-    - [MerchantPurchase](#merchant-purchase): The Merchant Purchase section allows users to retrieve detailed information of the purchases.
+    - [MerchantCard](#query-merchantcards): Stores information about approved purchase cards for reuse
+    - [MerchantSession](#create-a-merchantsession): Manages a session to create a purchase with a new card
+    - [MerchantPurchase](#create-a-merchantpurchase): Allows a merchant to charge their customers using debit or credit cards
+    - [MerchantInstallment](#query-merchantinstallments): Tracks the lifecycle of purchase installments
     - [Webhooks](#create-a-webhook-subscription): Configure your webhook endpoints and subscriptions
     - [WebhookEvents](#process-webhook-events): Manage webhook events
     - [WebhookEventAttempts](#query-failed-webhook-event-delivery-attempts-information): Query failed webhook event deliveries
@@ -2341,12 +2342,37 @@ for await (let method of methods) {
 }
 ```
 
-## Merchant Session
+## Query MerchantCards
+
+Get a list of merchant cards in chunks of at most 100. If you need smaller chunks, use the limit parameter.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantCards = await starkbank.merchantCard.query({limit: 3});
+
+    for await (let merchantCard of merchantCards){
+        console.log(merchantCard);
+    }
+})();
+```
+
+## Get a MerchantCard
+
+Retrieve detailed information about a specific session by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+let merchantCard = await starkbank.merchantCard.get('5950134772826112')
+console.log(merchantCard)
+```
+
+## Create a MerchantSession
 
 The Merchant Session allows you to create a session prior to a purchase.
 Sessions are essential for defining the parameters of a purchase, including funding type, expiration, 3DS, and more.
-
-## Create a MerchantSession
 
 ```javascript
 const starkbank = require('starkbank');
@@ -2386,7 +2412,10 @@ const starkbank = require('starkbank');
 You can create a MerchantPurchase through a MerchantSession by passing its UUID.
 **Note**: This method must be implemented in your front-end to ensure that sensitive card data does not pass through the back-end of the integration.
 
-### Create a MerchantSesssion Purchase
+## Create a MerchantSesssion Purchase
+
+This route can be used to create a Merchant Purchase directly from the payer's client application.
+The UUID of a Merchant Session that was previously created by the merchant is necessary to access this route.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -2425,7 +2454,9 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Query MerchantSessions
+## Query MerchantSessions
+
+Get a list of merchant sessions in chunks of at most 100. If you need smaller chunks, use the limit parameter.
 
 ```javascript
 
@@ -2440,7 +2471,9 @@ const starkbank = require('starkbank');
 })();
 ```
 
-### Get a MerchantSession
+## Get a MerchantSession
+
+Retrieve detailed information about a specific session by its id.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -2451,11 +2484,29 @@ const starkbank = require('starkbank');
 })();
 ```
 
-## Merchant Purchase
+## Create a MerchantPurchase
 
-The Merchant Purchase section allows users to retrieve detailed information of the purchases.
+The Merchant Purchase resource can be used to charge customers with credit or debit cards.
+If a card hasn't been used before, a Merchant Session Purchase must be created and approved with that specific card
+before it can be used directly in a Merchant Purchase.
 
-### Query MerchantPurchases
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantPurchase = await starkbank.merchantPurchase.create({
+        amount: 1000,
+        fundingType: 'credit',
+        challengeMode: 'disabled',
+        cardId: '5950134772826112',
+    });
+    console.log(merchantPurchase);
+})();
+```
+
+## Query MerchantPurchases
+
+Get a list of merchant purchases in chunks of at most 100. If you need smaller chunks, use the limit parameter.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -2464,12 +2515,14 @@ const starkbank = require('starkbank');
     let merchantPurchases = await starkbank.merchantPurchase.query({limit: 3});
 
     for await (let merchantPurchase of merchantPurchases){
-        console.log(merchantPurchases);
+        console.log(merchantPurchase);
     }
 })();
 ```
 
-### Get a MerchantPurchase
+## Get a MerchantPurchase
+
+Retrieve detailed information about a specific purchase by its id.
 
 ```javascript
 const starkbank = require('starkbank');
@@ -2480,6 +2533,34 @@ const starkbank = require('starkbank');
 })();
 ```
 
+## Query MerchantInstallments
+
+Get a list of merchant installments in chunks of at most 100. If you need smaller chunks, use the limit parameter.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantInstallments = await starkbank.merchantInstallment.query({limit: 3});
+
+    for await (let merchantInstallment of merchantInstallments){
+        console.log(merchantInstallment);
+    }
+})();
+```
+
+## Get a MerchantInstallment
+
+Retrieve detailed information about a specific installment by its id.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantInstallment = await starkbank.merchantInstallment.get('5950134772826112');
+    console.log(merchantInstallment);
+})();
+```
 
 ## Create a webhook subscription
 

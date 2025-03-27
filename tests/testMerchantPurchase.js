@@ -1,7 +1,30 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
+const generateExampleMerchantSessionJson = require('./utils/merchantSession.js').generateExampleMerchantSessionJson;
+const generateExampleMerchantSessionPurchaseJson = require('./utils/merchantSession.js').generateExampleMerchantSessionPurchaseJson
+
 
 starkbank.user = require('./utils/user').exampleProject;
+
+describe('MerchantPurchaseCreate', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
+
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
+            merchantSession.uuid,
+            generateExampleMerchantSessionPurchaseJson(),
+        );
+
+        let merchantPurchase = await starkbank.merchantPurchase.create({
+            amount: 1000,
+            fundingType: 'credit',
+            challengeMode: 'disabled',
+            cardId: merchantSessionPurchase.cardId,
+        });
+        assert(typeof merchantPurchase.id == 'string');
+    });
+});
 
 describe('MerchantPurchaseQuery', function(){
     this.timeout(10000);
@@ -41,5 +64,24 @@ describe('MerchantPurchasePage', function () {
             }
         }
         assert(ids.length == 10);
+    });
+});
+
+describe('MerchantPurchaseUpdate', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+
+        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
+
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
+            merchantSession.uuid,
+            generateExampleMerchantSessionPurchaseJson(),
+        );
+
+        let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantSessionPurchase.id, {
+            amount: 0,
+            status: "canceled"
+        });
+        assert(updatedMerchantPurchase.id == merchantSessionPurchase.id);
     });
 });

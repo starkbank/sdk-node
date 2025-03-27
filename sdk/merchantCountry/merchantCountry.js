@@ -17,7 +17,9 @@ class MerchantCountry extends SubResource {
     * @return shortCode [string]: country's short code. ex: "BR"
     */
 
-    constructor (code, name = null, number = null, shortCode = null) {
+    constructor ({
+        code, name = null, number = null, shortCode = null
+    }) {
         super();
         this.code = code;
         this.name = name;
