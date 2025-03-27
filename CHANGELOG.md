@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.31.0] - 2025-03-27
 ### Added
 - MerchantCard and MerchantInstallment resources
 - create and update methods to MerchantPurchase
