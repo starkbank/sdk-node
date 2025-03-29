@@ -22,7 +22,7 @@ describe('TestCorporateTransactionGet', function () {
         let transactions = await starkbank.corporateTransaction.query({ limit: 1 });
         for await (let transaction of transactions) {
             assert(typeof transaction.id == typeof 'string');
-            brcode = await starkbank.corporateTransaction.get(transaction.id);
+            transaction = await starkbank.corporateTransaction.get(transaction.id);
             assert(typeof transaction.id == typeof 'string');
         }
     });
