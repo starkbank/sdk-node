@@ -115,3 +115,24 @@ exports.page = async function ({ cursor, limit, after, before, types, depositIds
     };
     return rest.getPage(resource, query, user);
 };
+
+exports.pdf = async function (id, {user} = {}) {
+  /**
+   *
+   * Retrieve a specific reversal receipt pdf file
+   *
+   * @description Whenever a Deposit is successfully reversed, a reversed log will be created. To retrieve a specific reversal receipt, you can request the corresponding log PDF.
+   *
+   * Parameters (required):
+   * @param id [string]: object unique id. ex: '5656565656565656'
+   *
+   * Parameters (optional):
+
+   * @param user [Project object]: Project object. Not necessary if starkbank.user was set before function call
+   *
+   * Return:
+   * @returns Reversed deposit log pdf file
+   *
+   */
+  return rest.getContent(resource, id, user, null, 'pdf');
+};
