@@ -49,3 +49,28 @@ describe('TestDepositLogGetPage', function () {
         assert(ids.length == 10);
     });
 });
+
+describe('TestDepositLogGet', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let i = 0;
+        const logs = await starkbank.deposit.log.query({limit: 150});
+        for await (let log of logs) {
+            assert(typeof log.id == 'string');
+            i += 1;
+        }
+        assert(i === 150);
+    });
+});
+
+describe('TestDepositPdfGet', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let deposits = await starkbank.deposit.log.query({limit: 1, types: 'reversed'});
+        for await (let deposit of deposits) {
+            let pdf = await starkbank.deposit.log.pdf(deposit.id);
+            const pdfSignature = pdf.toString('utf8', 0, 5);
+            assert(pdfSignature === '%PDF-');
+        }
+    });
+});
