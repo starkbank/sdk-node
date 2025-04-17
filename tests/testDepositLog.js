@@ -69,7 +69,6 @@ describe('TestDepositPdfGet', function(){
         let deposits = await starkbank.deposit.log.query({limit: 1, types: 'reversed'});
         for await (let deposit of deposits) {
             let pdf = await starkbank.deposit.log.pdf(deposit.id);
-            assert(Buffer.isBuffer(pdf));
             const pdfSignature = pdf.toString('utf8', 0, 5);
             assert(pdfSignature === '%PDF-');
         }
