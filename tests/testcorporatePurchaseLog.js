@@ -22,7 +22,7 @@ describe('TestCorporatePurchaseLogGet', function () {
         let purchases = await starkbank.corporatePurchase.log.query({ limit: 1 });
         for await (let purchase of purchases) {
             assert(typeof purchase.id == typeof 'string');
-            brcode = await starkbank.corporatePurchase.log.get(purchase.id);
+            purchase = await starkbank.corporatePurchase.log.get(purchase.id);
             assert(typeof purchase.id == typeof 'string');
         }
     });

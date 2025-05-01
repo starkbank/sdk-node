@@ -12,7 +12,7 @@ describe('TestCorporateHolderCreate', function(){
                 new starkbank.CorporateHolder({
                     name: "Test - " + randomInt.randomInt(100000, 1000000),
                     permissions: [
-                        new starkbank.corporateHolder.Permission({'ownerId': '6253551860842496', 'ownerType': 'project'})
+                        new starkbank.corporateHolder.Permission({'ownerId': starkbank.user.id, 'ownerType': 'project'})
                     ]
                 })
             ]
@@ -46,7 +46,7 @@ describe('TestCorporateHolderGet', function () {
         let purchases = await starkbank.corporatePurchase.query({ limit: 1 });
         for await (let purchase of purchases) {
             assert(typeof purchase.id == typeof 'string');
-            brcode = await starkbank.corporatePurchase.get(purchase.id);
+            purchase = await starkbank.corporatePurchase.get(purchase.id);
             assert(typeof purchase.id == typeof 'string');
         }
     });
