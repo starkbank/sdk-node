@@ -3,6 +3,7 @@ const api = require('starkcore').api;
 const check = require('starkcore').check;
 const Resource = require('starkcore').Resource;
 const parseAndVerify = require('../utils/parse.js').parseAndVerify;
+const starkBank = require('../../index.js');
 
 class CorporatePurchase extends Resource {
     /**
@@ -201,7 +202,7 @@ exports.parse = async function (content, signature, {user} = {}) {
     * 
     */
 
-    return parseAndVerify(resource, content, signature, user);
+    return parseAndVerify(resource, content, signature, user ? user : starkBank.user);
 };
 
 exports.response = async function (status, {amount, reason, tags} = {}) {
