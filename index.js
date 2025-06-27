@@ -43,6 +43,7 @@ exports.corporateBalance = require('./sdk/corporateBalance')
 exports.boleto = require('./sdk/boleto');
 exports.boletoHolmes = require('./sdk/boletoHolmes');
 exports.invoice = require('./sdk/invoice');
+exports.invoicePullRequest = require('./sdk/invoicePullRequest');
 exports.dictKey = require('./sdk/dictKey');
 exports.dynamicBrcode = require('./sdk/dynamicBrcode');
 exports.deposit = require('./sdk/deposit');
