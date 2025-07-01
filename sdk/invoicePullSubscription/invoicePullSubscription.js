@@ -15,7 +15,7 @@ class InvoicePullSubscription extends Resource {
      * Parameters (required):
      * @param start [string]: subscription start date in UTC ISO format. ex: "2022-04-01"
      * @param interval [string]: subscription installment interval. Options: "week", "month", "quarter", "semester", "year"
-     * @param pullMode [string]: subscription pull mode. Options: "manual", "automatic". Automatic mode will create the Invoice Pull Requests automatcally
+     * @param pullMode [string]: subscription pull mode. Options: "manual", "automatic". Automatic mode will create the Invoice Pull Requests automatically
      * @param pullRetryLimit [integer]: subscription pull retry limit. Options: 0,
      * @param type [string]: subscription type. Options: "push", "qrcode", "qrcodeAndPayment", "paymentAndOrQrcode"
      *
@@ -36,7 +36,7 @@ class InvoicePullSubscription extends Resource {
      *
      * Attributes (return-only):
      * @param id [string]: unique id returned when InvoicePullSubscription is created. ex: "5656565656565656"
-     * @param status [string]: current InvoicePullSubscription status. ex: "active", "canceled"
+     * @param status [string]: current InvoicePullSubscription status. ex: "active", "canceled", "created", "expired"
      * @param bacenId [string]: unique authentication id at the Central Bank. ex: "ccf9bd9c-e99d-999e-bab9-b999ca999f99"
      * @param installmentId [string]: unique id of the installment related to this request. ex: "5656565656565656"
      * @param created [string]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
@@ -131,7 +131,7 @@ exports.query = async function ({ limit, after, before, tags, ids, invoiceIds, s
      * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * @param invoiceIds [list of strings, default null]: list of strings to get specific entities by invoice ids. ex: ["12376517623", "1928367198236"]
      * @param externalIds [list of strings, default null]: list of strings to get specific entities by external ids. ex: ["my-external-id-1", "my-external-id-2"]
-     * @param status [string, default null]: filter for status of retrieved objects. ex: 'active' or 'canceled'
+     * @param status [string, default null]: filter for status of retrieved objects. ex: "active", "canceled", "created", "expired"
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
@@ -168,7 +168,7 @@ exports.page = async function ({ cursor, limit, after, before, tags, ids, invoic
      * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * @param invoiceIds [list of strings, default null]: list of strings to get specific entities by invoice ids. ex: ["12376517623", "1928367198236"]
      * @param externalIds [list of strings, default null]: list of strings to get specific entities by external ids. ex: ["my-external-id-1", "my-external-id-2"]
-     * @param status [string, default null]: filter for status of retrieved objects. ex: 'active' or 'canceled'
+     * @param status [string, default null]: filter for status of retrieved objects. ex: ex: "active", "canceled", "created", "expired"
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
