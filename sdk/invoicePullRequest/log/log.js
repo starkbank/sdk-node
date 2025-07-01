@@ -101,7 +101,7 @@ exports.page = async function ({ cursor, limit, after, before, types, requestIds
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * @returns list of InvoicePullRequest Log objects with updated attributes and cursor to retrieve the next page of Boleto objects
+     * @returns list of InvoicePullRequest Log objects with updated attributes and cursor to retrieve the next page of InvoicePullRequest objects
      *
      */
     let query = {
