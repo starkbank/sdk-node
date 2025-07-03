@@ -3,6 +3,19 @@ const starkbank = require('../index.js');
 
 starkbank.user = require('./utils/user.js').exampleProject;
 
+describe('TestInvoicePullSubscriptionCreate', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let i = 0;
+        const subscriptions = await starkbank.invoicePullSubscription.query({limit: 5});
+        for await (let subscription of subscriptions) {
+            assert(typeof subscription.id == 'string');
+            i += 1;
+        }
+        assert(i > 0);
+    });
+});
+
 describe('TestInvoicePullSubscriptionGet', function(){
     this.timeout(10000);
     it('test_success', async () => {
@@ -12,6 +25,7 @@ describe('TestInvoicePullSubscriptionGet', function(){
             assert(typeof subscription.id == 'string');
             i += 1;
         }
+        assert(i > 0);
     });
 });
 
@@ -19,10 +33,13 @@ describe('TestInvoicePullSubscriptionQueryAndGet', function(){
     this.timeout(10000);
     it('test_success', async () => {
         let subscriptions = await starkbank.invoicePullSubscription.query({limit: 5});
+        let i = 0;
         for await (let subscription of subscriptions) {
             subscription = await starkbank.invoicePullSubscription.get(subscription.id);
             assert(typeof subscription.id == 'string');
+            i += 1;
         }
+        assert(i > 0);
     });
 });
 

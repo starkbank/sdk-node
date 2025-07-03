@@ -38,6 +38,7 @@ class InvoicePullSubscription extends Resource {
      * @param id [string]: unique id returned when InvoicePullSubscription is created. ex: "5656565656565656"
      * @param status [string]: current InvoicePullSubscription status. ex: "active", "canceled", "created", "expired"
      * @param bacenId [string]: unique authentication id at the Central Bank. ex: "ccf9bd9c-e99d-999e-bab9-b999ca999f99"
+     * @param brcode [string]: Brcode string for the subscription. ex: "00020101021126580014br.gov.bcb.pix0114+5599999999990210starkbank.com.br520400005303986540410000000000005802BR5913Stark Bank S.A.6009SAO PAULO62070503***6304D2B1"
      * @param installmentId [string]: unique id of the installment related to this request. ex: "5656565656565656"
      * @param created [string]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
      * @param updated [string]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
