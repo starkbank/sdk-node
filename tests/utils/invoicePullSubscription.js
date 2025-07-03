@@ -1,6 +1,6 @@
 const starkbank = require('../../index.js');
 const random = require('./random.js');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 exports.generateExampleInvoicePullSubscriptionsJson = function (type) {
 
@@ -24,7 +24,7 @@ exports.generateExampleInvoicePullSubscriptionsJson = function (type) {
                 taxId: "20.018.183/0001-80"
             },
             displayDescription: "Dragon Travel Fare",
-            externalId: uuidv4(),
+            externalId: randomUUID(),
             interval: "month",
             name: "John Snow",
             pullMode: "manual",
@@ -43,7 +43,7 @@ exports.generateExampleInvoicePullSubscriptionsJson = function (type) {
             amount: 0,
             amountMinLimit: 5000,
             displayDescription: "Dragon Travel Fare",
-            externalId: uuidv4(),
+            externalId: randomUUID(),
             interval: "month",
             name: "John Snow",
             pullMode: "manual",
@@ -65,7 +65,7 @@ exports.generateExampleInvoicePullSubscriptionsJson = function (type) {
                 amount: 400000
             },
             displayDescription: "Dragon Travel Fare",
-            externalId: uuidv4(),
+            externalId: randomUUID(),
             interval: "month",
             name: "John Snow",
             pullMode: "manual",
@@ -90,7 +90,7 @@ exports.generateExampleInvoicePullSubscriptionsJson = function (type) {
                 interest: 1.3
             },
             displayDescription: "Dragon Travel Fare",
-            externalId: uuidv4(),
+            externalId: randomUUID(),
             interval: "month",
             name: "John Snow",
             pullMode: "manual",

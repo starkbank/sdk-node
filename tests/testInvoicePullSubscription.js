@@ -1,18 +1,41 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
+const generateExampleInvoicesPullSubscriptionsJson = require('./utils/invoicePullSubscription.js').generateExampleInvoicePullSubscriptionsJson;
 
 starkbank.user = require('./utils/user.js').exampleProject;
 
-describe('TestInvoicePullSubscriptionCreate', function(){
+describe('TestInvoicePullSubscriptionCreatePush', function(){
     this.timeout(10000);
-    it('test_success', async () => {
-        let i = 0;
-        const subscriptions = await starkbank.invoicePullSubscription.query({limit: 5});
+    it('test_success_push', async () => {
+        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("push");
+        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
-            i += 1;
         }
-        assert(i > 0);
+    });
+
+    it('test_success_qrcode', async () => {
+        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("qrcode");
+        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
+        for await (let subscription of subscriptions) {
+            assert(typeof subscription.id == 'string');
+        }
+    });
+
+    it('test_success_qrcode_and_payment', async () => {
+        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("qrcodeAndPayment");
+        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
+        for await (let subscription of subscriptions) {
+            assert(typeof subscription.id == 'string');
+        }
+    });
+
+    it('test_success_payment_and_or_qrcode', async () => {
+        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("paymentAndOrQrcode");
+        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
+        for await (let subscription of subscriptions) {
+            assert(typeof subscription.id == 'string');
+        }
     });
 });
 
