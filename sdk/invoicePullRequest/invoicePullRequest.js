@@ -26,7 +26,6 @@ class InvoicePullRequest extends Resource {
      * Attributes (return-only):
      * @param id [string]: unique id returned when InvoicePullRequest is created. ex: "5656565656565656"
      * @param status [string]: current InvoicePullRequest status. ex: "pending", "scheduled", "success", "failed", "canceled"
-     * @param bacenId [string]: unique authentication id at the Central Bank. ex: "ccf9bd9c-e99d-999e-bab9-b999ca999f99"
      * @param installmentId [string]: unique id of the installment related to this request. ex: "5656565656565656"
      * @param created [string]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
      * @param updated [string]: creation datetime for the Invoice. ex: '2020-03-10 10:30:00.000000+00:00'
@@ -34,7 +33,7 @@ class InvoicePullRequest extends Resource {
      */
     constructor({
                     subscriptionId, invoiceId, due, attemptType = 'default', tags = null, externalId = null, displayDescription = null,
-                    id = null, status = null, bacenId = null, installmentId = null,
+                    id = null, status = null, installmentId = null,
                     created = null, updated = null
                 }) {
         super(id);
@@ -46,7 +45,6 @@ class InvoicePullRequest extends Resource {
         this.externalId = externalId;
         this.displayDescription = displayDescription;
         this.status = status;
-        this.bacenId = bacenId;
         this.installmentId = installmentId;
         this.created = check.datetime(created);
         this.updated = check.datetime(updated);
