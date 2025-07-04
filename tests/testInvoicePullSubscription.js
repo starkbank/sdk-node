@@ -7,32 +7,28 @@ starkbank.user = require('./utils/user.js').exampleProject;
 describe('TestInvoicePullSubscriptionCreatePush', function(){
     this.timeout(10000);
     it('test_success_push', async () => {
-        let subscriptions = generateExampleInvoicePullSubscriptionJson("push");
-        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
+        subscriptions = await starkbank.invoicePullSubscription.create([generateExampleInvoicePullSubscriptionJson("push")]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
         }
     });
 
     it('test_success_qrcode', async () => {
-        let subscriptions = generateExampleInvoicePullSubscriptionJson("qrcode");
-        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
+        subscriptions = await starkbank.invoicePullSubscription.create([generateExampleInvoicePullSubscriptionJson("qrcode")]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
         }
     });
 
     it('test_success_qrcode_and_payment', async () => {
-        let subscriptions = generateExampleInvoicePullSubscriptionJson("qrcodeAndPayment");
-        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
+        subscriptions = await starkbank.invoicePullSubscription.create([generateExampleInvoicePullSubscriptionJson("qrcodeAndPayment")]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
         }
     });
 
     it('test_success_payment_and_or_qrcode', async () => {
-        let subscriptions = generateExampleInvoicePullSubscriptionJson("paymentAndOrQrcode");
-        subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
+        subscriptions = await starkbank.invoicePullSubscription.create([generateExampleInvoicePullSubscriptionJson("paymentAndOrQrcode")]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
         }
@@ -83,5 +79,16 @@ describe('TestInvoicePullSubscriptionPage', function () {
             }
         }
         assert(ids.length == 10);
+    });
+});
+
+describe('TestInvoicePullSubscriptionCreateAndCancel', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        subscriptions = await starkbank.invoicePullSubscription.create([generateExampleInvoicePullSubscriptionJson("push")]);
+        for await (let subscription of subscriptions) {
+            cancelSubscription = await starkbank.invoicePullSubscription.cancel(subscription.id);
+            assert.equal(cancelSubscription.id, subscription.id);
+        }
     });
 });

@@ -1,5 +1,3 @@
-const starkbank = require('../../index.js');
-const random = require('./random.js');
 const { randomUUID } = require('crypto');
 
 exports.generateExampleInvoicePullSubscriptionJson = function (type) {

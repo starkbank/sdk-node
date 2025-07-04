@@ -1,5 +1,4 @@
-const starkbank = require('../../index.js');
-const random = require('./random.js');
+
 
 exports.generateExampleInvoicePullRequestJson = function (invoiceId, subscriptionId) {
 
