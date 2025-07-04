@@ -1,7 +1,27 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
+const generateExampleInvoicesJson = require('./utils/invoice.js').generateExampleInvoicesJson;
+const generateExampleInvoicePullSubscriptionJson = require('./utils/invoicePullSubscription.js').generateExampleInvoicePullSubscriptionJson;
+const generateExampleInvoicePullRequestJson = require('./utils/invoicePullRequest.js').generateExampleInvoicePullRequestJson;
+
 
 starkbank.user = require('./utils/user').exampleProject;
+
+describe('TestInvoicePullRequestCreateAndCancel', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let invoices = await starkbank.invoice.create(generateExampleInvoicesJson(5));
+        let invoiceId = invoices[0].id;
+        let subscriptions = await starkbank.invoicePullSubscription.create([generateExampleInvoicePullSubscriptionJson('qrcodeAndPayment')]);
+        let subscriptionId = subscriptions[0].id;
+        
+        let requests = await starkbank.invoicePullRequest.create([generateExampleInvoicePullRequestJson(invoiceId, subscriptionId)]);
+        let request = requests[0];
+        assert(request.id != null);
+        let cancelRequest = await starkbank.invoicePullRequest.cancel(request.id);
+        assert(cancelRequest.id != null);
+    });
+});
 
 describe('TestInvoicePullRequestGet', function(){
     this.timeout(10000);

@@ -2,7 +2,7 @@ const starkbank = require('../../index.js');
 const random = require('./random.js');
 const { randomUUID } = require('crypto');
 
-exports.generateExampleInvoicePullSubscriptionsJson = function (type) {
+exports.generateExampleInvoicePullSubscriptionJson = function (type) {
 
      example = null;
      const today = new Date();

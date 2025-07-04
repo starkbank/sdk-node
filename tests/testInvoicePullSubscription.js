@@ -1,13 +1,13 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
-const generateExampleInvoicesPullSubscriptionsJson = require('./utils/invoicePullSubscription.js').generateExampleInvoicePullSubscriptionsJson;
+const generateExampleInvoicePullSubscriptionJson = require('./utils/invoicePullSubscription.js').generateExampleInvoicePullSubscriptionJson;
 
 starkbank.user = require('./utils/user.js').exampleProject;
 
 describe('TestInvoicePullSubscriptionCreatePush', function(){
     this.timeout(10000);
     it('test_success_push', async () => {
-        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("push");
+        let subscriptions = generateExampleInvoicePullSubscriptionJson("push");
         subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
@@ -15,7 +15,7 @@ describe('TestInvoicePullSubscriptionCreatePush', function(){
     });
 
     it('test_success_qrcode', async () => {
-        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("qrcode");
+        let subscriptions = generateExampleInvoicePullSubscriptionJson("qrcode");
         subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
@@ -23,7 +23,7 @@ describe('TestInvoicePullSubscriptionCreatePush', function(){
     });
 
     it('test_success_qrcode_and_payment', async () => {
-        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("qrcodeAndPayment");
+        let subscriptions = generateExampleInvoicePullSubscriptionJson("qrcodeAndPayment");
         subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
@@ -31,7 +31,7 @@ describe('TestInvoicePullSubscriptionCreatePush', function(){
     });
 
     it('test_success_payment_and_or_qrcode', async () => {
-        let subscriptions = generateExampleInvoicesPullSubscriptionsJson("paymentAndOrQrcode");
+        let subscriptions = generateExampleInvoicePullSubscriptionJson("paymentAndOrQrcode");
         subscriptions = await starkbank.invoicePullSubscription.create([subscriptions]);
         for await (let subscription of subscriptions) {
             assert(typeof subscription.id == 'string');
