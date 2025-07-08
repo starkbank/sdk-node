@@ -22,6 +22,7 @@ class Deposit extends Resource {
      * @param type [string]: type of settlement that originated the deposit. ex: 'pix' or 'ted'
      * @param status [string]: current Deposit status. ex: 'created'
      * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
+     * @param reversalDisplayDescription [string, default null]: optional description to be shown in the receiver bank interface after a deposit reversal. ex: 'Payment reversal for service #1234'
      * @param tags [list of strings]: list of strings that are tagging the deposit. ex: ['reconciliationId', 'taxId']
      * @param fee [integer]: fee charged when a deposit is created. ex: 50 (= R$ 0.50)
      * @param transactionIds [list of strings]: ledger transaction ids linked to this deposit (if there are more than one, all but first are reversals). ex: ['19827356981273']
@@ -30,7 +31,7 @@ class Deposit extends Resource {
      */
     constructor({
                     id, name, taxId, bankCode, branchCode, accountNumber, accountType, amount,
-                    type, status, displayDescription, tags, fee, transactionIds, created, updated
+                    type, status, displayDescription, reversalDisplayDescription, tags, fee, transactionIds, created, updated
                 }) {
         super(id);
         this.name = name;
@@ -43,6 +44,7 @@ class Deposit extends Resource {
         this.type = type;
         this.status = status;
         this.displayDescription = displayDescription;
+        this.reversalDisplayDescription = reversalDisplayDescription;
         this.tags = tags;
         this.fee = fee;
         this.transactionIds = transactionIds;
@@ -143,7 +145,7 @@ exports.page = async function ({ cursor, limit, after, before, status, sort, tag
     return rest.getPage(resource, query, user);
 };
 
-exports.update = function (id, {amount, user} = {}) {
+exports.update = function (id, {amount, reversalDisplayDescription, user} = {}) {
     /**
      *
      *  Update Deposit entity
@@ -155,6 +157,7 @@ exports.update = function (id, {amount, user} = {}) {
      *
      * Parameters (optional):
      * @param amount [integer]: The new amount of the Deposit. If the amount = 0 the Deposit will be fully reversed
+     * @param reversalDisplayDescription [string, default null]: optional description to be shown in the receiver bank interface after a deposit reversal. ex: 'Payment reversal for service #1234'
      * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
@@ -163,6 +166,7 @@ exports.update = function (id, {amount, user} = {}) {
      */
     let payload = {
         amount: amount,
+        reversalDisplayDescription: reversalDisplayDescription
     };
     return rest.patchId(resource, id, payload, user);
 };
