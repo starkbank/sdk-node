@@ -4,7 +4,7 @@ const starkbank = require('../index.js');
 starkbank.user = require('./utils/user').exampleProject;
 
 
-describe('TestDepositLogGet', function(){
+describe('TestDepositLogQuery', function(){
     this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
@@ -16,7 +16,6 @@ describe('TestDepositLogGet', function(){
         assert(i === 150);
     });
 });
-
 
 describe('TestDepositLogInfoGet', function(){
     this.timeout(10000);
@@ -47,19 +46,6 @@ describe('TestDepositLogGetPage', function () {
             }
         }
         assert(ids.length == 10);
-    });
-});
-
-describe('TestDepositLogGet', function(){
-    this.timeout(10000);
-    it('test_success', async () => {
-        let i = 0;
-        const logs = await starkbank.deposit.log.query({limit: 150});
-        for await (let log of logs) {
-            assert(typeof log.id == 'string');
-            i += 1;
-        }
-        assert(i === 150);
     });
 });
 

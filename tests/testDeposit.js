@@ -43,10 +43,11 @@ describe('TestDepositInfoPatch', function(){
     this.timeout(20000);
     it('test_success_amount', async () => {
         let deposits = await starkbank.deposit.query({status: "created", limit: 1});
-        let depositAmount = 0;
+        let depositAmount;
         for await (let deposit of deposits) {
             assert(typeof deposit.id == 'string');
-            let updatedDeposit = await starkbank.deposit.update(deposit.id, {amount: depositAmount});
+            depositAmount = deposit.amount - 1;
+            let updatedDeposit = await starkbank.deposit.update(deposit.id, {amount: depositAmount, reversalDisplayDescription: "Test reversal description PH"});
             assert(updatedDeposit.amount == depositAmount);
         }
     });
