@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.34.0] - 2025-07-11
 ### Added
 - reversalDisplayDescription to Deposit resource
 
