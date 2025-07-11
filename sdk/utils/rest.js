@@ -5,7 +5,6 @@ const starkBank = require('../../index.js')
 const apiVersion = 'v2'
 const sdkVersion = '2.13.0'
 const host = starkHost.bank
-const language = 'en-US'
 const timeout = 2000
 
 exports.getList = async function* (resource, query, user = starkBank.user) {
@@ -15,7 +14,7 @@ exports.getList = async function* (resource, query, user = starkBank.user) {
         apiVersion,
         resource,
         user,
-        language,
+        language = starkBank.language,
         timeout,
         query
     );
@@ -29,7 +28,7 @@ exports.post = async function (resource, entities, user = starkBank.user, { ...q
         user,
         resource,
         entities,
-        language,
+        language = starkBank.language,
         timeout,
         query
     );
@@ -43,7 +42,7 @@ exports.getId = async function (resource, id, user = starkBank.user, { ...query 
         user,
         resource,
         id,
-        language,
+        language = starkBank.language,
         timeout,
         query
     );
@@ -55,7 +54,7 @@ exports.getPublicKey = async function (user = starkBank.user) {
         host,
         apiVersion,
         user,
-        language,
+        language = starkBank.language,
         timeout
     );
 };
@@ -69,7 +68,7 @@ exports.getContent = async function (resource, id, user = starkBank.user, query 
         resource,
         id,
         subResource,
-        language,
+        language = starkBank.language,
         timeout,
         query
     );
@@ -83,7 +82,7 @@ exports.deleteId = async function (resource, id, user = starkBank.user) {
         user,
         resource,
         id,
-        language,
+        language = starkBank.language,
         timeout,
     );
 };
@@ -95,7 +94,7 @@ exports.postSingle = async function (resource, query, user = starkBank.user) {
         apiVersion,
         user,
         resource,
-        language,
+        language = starkBank.language,
         timeout,
         query
     );
@@ -110,12 +109,12 @@ exports.patchId = async function (resource, id, payload, user = starkBank.user) 
         resource,
         id,
         payload,
-        language,
+        language = starkBank.language,
         timeout
     );
 };
 
-exports.getSubResource = async function (resource, id, subResource, user = starkBank.user ) {
+exports.getSubResource = async function (resource, id, subResource, user = starkBank.user) {
     return rest.getSubResource(
         sdkVersion,
         host,
@@ -124,7 +123,7 @@ exports.getSubResource = async function (resource, id, subResource, user = stark
         resource,
         id,
         subResource,
-        language,
+        language = starkBank.language,
         timeout
     );
 };
@@ -139,7 +138,7 @@ exports.postSubResource = async function (resource, id, subResource, payload, us
         subResource,
         resource,
         payload,
-        language,
+        language = starkBank.language,
         timeout
     );
 }
@@ -151,7 +150,7 @@ exports.getPage = async function (resource, query = {}, user = starkBank.user ) 
         apiVersion,
         resource,
         user,
-        language,
+        language = starkBank.language,
         timeout,
         query
     );
@@ -165,7 +164,7 @@ exports.postRaw = async function (path, payload, prefix = null, throwError, user
         path,
         payload,
         user,
-        language,
+        language = starkBank.language,
         timeout,
         query,
         prefix,
@@ -180,7 +179,7 @@ exports.getRaw = async function (path, query = {}, prefix = null, throwError, us
         apiVersion,
         path,
         user,
-        language,
+        language = starkBank.language,
         timeout,
         query,
         prefix,
@@ -196,7 +195,7 @@ exports.patchRaw = async function (path, payload, prefix = null, throwError, use
         path,
         payload,
         user,
-        language,
+        language = starkBank.language,
         timeout,
         query,
         prefix,
@@ -212,7 +211,7 @@ exports.putRaw = async function (path, payload, prefix = null, throwError, user 
         path,
         payload,
         user,
-        language,
+        language = starkBank.language,
         timeout,
         query,
         prefix,
@@ -228,7 +227,7 @@ exports.deleteRaw = async function (path, payload, prefix = null, throwError, us
         path,
         payload,
         user,
-        language,
+        language = starkBank.language,
         timeout,
         query,
         prefix,
@@ -239,5 +238,4 @@ exports.deleteRaw = async function (path, payload, prefix = null, throwError, us
 exports.apiVersion = 'v2'
 exports.sdkVersion = '2.13.0'
 exports.host = starkHost.infra;
-exports.language = 'en-US';
 exports.timeout = 2000

@@ -1,6 +1,7 @@
 
 const parse = require('starkcore').parse;
-const {apiVersion, sdkVersion, host, language, timeout } = require('../utils/rest.js');
+const {apiVersion, sdkVersion, host, timeout } = require('../utils/rest.js');
+const starkBank = require('../../index.js');
 
 
 exports.parseObjects = function (objects, resource, resourceClass) {
@@ -20,7 +21,7 @@ exports.parseAndVerify = async function (resource, content, signature, user = nu
         apiVersion,
         host,
         user,
-        language,
+        starkBank.language,
         timeout
     );
 }
@@ -33,7 +34,7 @@ exports.verify = async function (content, signature, user = null) {
         apiVersion,
         host,
         user,
-        language,
+        starkBank.language,
         timeout
     );
 }
