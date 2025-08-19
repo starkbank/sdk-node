@@ -26,10 +26,10 @@ describe('TestCorporateCardLogPage', function () {
 describe('TestCorporateCardLogGet', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let cards = await starkbank.corporateCard.log.query({"limit": 1})
-        for await (let card of cards) {
-            card = await starkbank.corporateCard.log.get(card.id)
-            assert(typeof card.id == typeof 'String')
+        let cardLogs = await starkbank.corporateCard.log.query({"limit": 1})
+        for await (let log of cardLogs) {
+            log = await starkbank.corporateCard.log.get(log.id)
+            assert(typeof log.id == typeof 'String')
         }
     });
 });
@@ -38,9 +38,9 @@ describe('TestCorporateCardLogQuery', function(){
     this.timeout(10000);
     it('test_success', async () => {
         let i = 0;
-        const cards = await starkbank.corporateCard.log.query({limit: 5});
-        for await (let card of cards) {
-            assert(typeof card.id == 'string');
+        const cardLogs = await starkbank.corporateCard.log.query({limit: 5});
+        for await (let log of cardLogs) {
+            assert(typeof log.id == 'string');
             i += 1;
         }
         assert(i === 5);
