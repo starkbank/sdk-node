@@ -9,10 +9,12 @@ describe('TestTransactionPost', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let transactions = generateExampleTransactionsJson(1);
-        transactions = await starkbank.transaction.create(transactions);
-        for (let transaction of transactions) {
-            assert(typeof transaction.id == 'string');
-        }
+        await assert.rejects(
+            async () => {
+                await starkbank.transaction.create(transactions);
+            },
+            Error
+        );
     });
 });
 

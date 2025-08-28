@@ -54,7 +54,7 @@ let resource = {'class': exports.Transaction, 'name': 'Transaction'};
 
 exports.create = async function (transactions, {user} = {}) {
     /**
-     *
+     * @deprecated Function deprecated since 2.35.0
      * Create Transactions
      *
      * @description Send a list of Transaction objects for creation in the Stark Bank API
@@ -69,7 +69,7 @@ exports.create = async function (transactions, {user} = {}) {
      * @returns list of Transaction objects with updated attributes
      *
      */
-    return rest.post(resource, transactions, user);
+    throw new Error('Function deprecated since 2.35.0');
 };
 
 exports.get = async function (id, {user} = {}) {

@@ -57,6 +57,7 @@ declare module 'starkbank' {
     
     export namespace transaction {
         /**
+         * @deprecated Function deprecated since 2.35.0
          *
          * Create Transactions
          *
@@ -72,7 +73,9 @@ declare module 'starkbank' {
          * @returns list of Transaction objects with updated attributes
          *
          */
-        function create(transactions: Transaction[], params?:{ user?: Project | Organization | null}): Promise<Transaction[]>;
+        function create(transactions: Transaction[], params?:{ user?: Project | Organization | null}): Promise<Transaction[]> {
+            throw new Error('Function deprecated since 2.35.0');
+        };
 
         /**
          *
