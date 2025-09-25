@@ -10,6 +10,9 @@
 ///<reference path='./event/event.d.ts' />
 ///<reference path='./institution/institution.d.ts' />
 ///<reference path='./invoice/invoice.d.ts' />
+///<reference path='./invoicePullRequest/invoicePullRequest.d.ts' />
+///<reference path='./invoicePullSubscription/invoicePullSubscription.d.ts' />
+///<reference path='./invoice/invoice.d.ts' />
 ///<reference path='./paymentPreview/paymentPreview.d.ts' />
 ///<reference path='./paymentRequest/paymentRequest.d.ts' />
 ///<reference path='./taxPayment/taxPayment.d.ts' />

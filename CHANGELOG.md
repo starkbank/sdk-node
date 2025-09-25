@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- InvoicePullSubscription and InvoicePullRequest TypeScript support
 
 ## [2.34.0] - 2025-07-11
 ### Added
