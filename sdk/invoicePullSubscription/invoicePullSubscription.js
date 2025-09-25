@@ -25,7 +25,7 @@ class InvoicePullSubscription extends Resource {
      *
      * Parameters (optional):
      * @param displayDescription [string, default None]: Invoice description to be shown to the payer. ex: "Subscription payment"
-     * @param due [integer, default None]: subscription invoice due offset. Available only for type "push". ex: timedelta(days=7)
+     * @param due [string, default 2 days after creation]: subscription invoice due offset. Available only for type "push". ex: '2023-04-01'
      * @param externalId [string, default None]: string that must be unique among all your subscriptions. Duplicated externalIds will cause failures. ex: "my-external-id"
      * @param referenceCode [string, default None]: reference code for reconciliation. ex: "REF123456"
      * @param end [string, default None]: subscription end date. ex: "2023-04-01"
@@ -117,7 +117,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({ limit, after, before, tags, ids, invoiceIds, subscriptionIds, externalIds, status, user } = {}) {
+exports.query = async function ({ limit, after, before, tags, ids, status, expand, user } = {}) {
     /**
      *
      * Retrieve InvoicePullSubscriptions
@@ -130,9 +130,8 @@ exports.query = async function ({ limit, after, before, tags, ids, invoiceIds, s
      * @param before [string, default null]: date filter for objects created or updated only before specified date. ex: '2020-03-10'
      * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
      * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
-     * @param invoiceIds [list of strings, default null]: list of strings to get specific entities by invoice ids. ex: ["12376517623", "1928367198236"]
-     * @param externalIds [list of strings, default null]: list of strings to get specific entities by external ids. ex: ["my-external-id-1", "my-external-id-2"]
      * @param status [string, default null]: filter for status of retrieved objects. ex: "active", "canceled", "created", "expired"
+     * @param expand [list of strings, default null]: fields to expand information. ex: ["data"]
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
@@ -144,10 +143,9 @@ exports.query = async function ({ limit, after, before, tags, ids, invoiceIds, s
         after: check.date(after),
         before: check.date(before),
         status: status,
-        invoiceIds: invoiceIds,
-        externalIds: externalIds,
         tags: tags,
-        ids: ids
+        ids: ids,
+        expand: expand
     };
     return rest.getList(resource, query, user);
 };
