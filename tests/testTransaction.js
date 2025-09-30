@@ -6,12 +6,17 @@ starkbank.user = require('./utils/user').exampleProject;
 
 describe('TestTransactionPost', function(){
     this.timeout(10000);
-    it('test_success', async () => {
+    it('test_deprecated_error', async () => {
         let transactions = generateExampleTransactionsJson(1);
-        transactions = await starkbank.transaction.create(transactions);
-        for (let transaction of transactions) {
-            assert(typeof transaction.id == 'string');
-        }
+        await assert.rejects(
+            async () => {
+                await starkbank.transaction.create(transactions);
+            },
+            (err) => {
+                assert.strictEqual(err.message, "Function deprecated since v2.36.0");
+                return true;
+            }
+        );
     });
 });
 
