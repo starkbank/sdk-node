@@ -1,5 +1,6 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
+const starkcore = require("../node_modules/starkcore/starkcore/error.js");
 
 starkbank.user = require('./utils/user').exampleProject;
 
@@ -53,29 +54,25 @@ describe('TestCorporatePurchasePage', function () {
 describe('TestCorporatePurchaseParseRight', function(){
     this.timeout(10000);
     it('test_valid_signature', async () => {
-        content = '{"event": {"created": "2024-06-07T23:19:39.606017+00:00", "id": "6447612198649856", "log": {"corporateTransactionId": "", "created": "2024-06-07T23:19:38.893018+00:00", "description": "Purchase updated.", "errors": [], "id": "5980114986729472", "purchase": {"amount": 8042502, "attachments": [], "cardEnding": null, "cardId": "5740780031311872", "centerId": "4830905268961280", "corporateTransactionIds": ["5999472605659136"], "created": "2024-06-03T15:00:19.018834+00:00", "description": null, "holderId": "6026968331976704", "holderName": null, "id": "6280947582369792", "issuerAmount": null, "issuerCurrencyCode": null, "issuerCurrencySymbol": null, "merchantAmount": null, "merchantCategoryCode": null, "merchantCategoryType": null, "merchantCountryCode": null, "merchantCurrencyCode": null, "merchantCurrencySymbol": null, "merchantDisplayName": "COMIDA NICE", "merchantDisplayUrl": "https://sandbox.api.starkbank.com/v2/corporate-icon/type/food.png", "merchantFee": null, "merchantName": "COMIDA NICE", "methodCode": null, "status": "confirmed", "tags": [], "tax": null, "updated": "2024-06-07T23:19:38.893086+00:00"}, "type": "updated"}, "subscription": "corporate-purchase", "workspaceId": "6341320293482496"}}'
-        valid_signature = "MEUCIA4SMyl8sdTlB/oMZCJFQ1PuqP4UchFAiwdCvt1ZPGAPAiEArv7PE6fJGKODowfT1s2n+dJncsIOq9ZsSOpWt01lvUg="
-        let event = await starkbank.event.parse({
-            content: content,
-            signature: valid_signature
-        });
-        assert(event instanceof starkbank.Event)
+        content = '{"acquirerId": "236090", "amount": 100, "cardId": "5671893688385536", "cardTags": [], "endToEndId": "2fa7ef9f-b889-4bae-ac02-16749c04a3b6", "holderId": "5917814565109760", "holderTags": [], "isPartialAllowed": false, "issuerAmount": 100, "issuerCurrencyCode": "BRL", "merchantAmount": 100, "merchantCategoryCode": "bookStores", "merchantCountryCode": "BRA", "merchantCurrencyCode": "BRL", "merchantFee": 0, "merchantId": "204933612653639", "merchantName": "COMPANY 123", "methodCode": "token", "purpose": "purchase", "score": null, "tax": 0, "walletId": ""}'
+        valid_signature = "MEUCIBxymWEpit50lDqFKFHYOgyyqvE5kiHERi0ZM6cJpcvmAiEA2wwIkxcsuexh9BjcyAbZxprpRUyjcZJ2vBAjdd7o28Q="
+        let corporatePurchase = await starkbank.corporatePurchase.parse(content, valid_signature);
+        assert(corporatePurchase instanceof starkbank.CorporatePurchase)
         
     });
 
     it('test_malformed_signature', async () => {
-        content = '{"event": {"created": "2024-06-07T23:19:39.606017+00:00", "id": "6447612198649856", "log": {"corporateTransactionId": "", "created": "2024-06-07T23:19:38.893018+00:00", "description": "Purchase updated.", "errors": [], "id": "5980114986729472", "purchase": {"amount": 8042502, "attachments": [], "cardEnding": null, "cardId": "5740780031311872", "centerId": "4830905268961280", "corporateTransactionIds": ["5999472605659136"], "created": "2024-06-03T15:00:19.018834+00:00", "description": null, "holderId": "6026968331976704", "holderName": null, "id": "6280947582369792", "issuerAmount": null, "issuerCurrencyCode": null, "issuerCurrencySymbol": null, "merchantAmount": null, "merchantCategoryCode": null, "merchantCategoryType": null, "merchantCountryCode": null, "merchantCurrencyCode": null, "merchantCurrencySymbol": null, "merchantDisplayName": "COMIDA NICE", "merchantDisplayUrl": "https://sandbox.api.starkbank.com/v2/corporate-icon/type/food.png", "merchantFee": null, "merchantName": "COMIDA NICE", "methodCode": null, "status": "confirmed", "tags": [], "tax": null, "updated": "2024-06-07T23:19:38.893086+00:00"}, "type": "updated"}, "subscription": "corporate-purchase", "workspaceId": "6341320293482496"}}'
-        malformed_signature = "MEUCIQDOpo1j+V40DNZK2URL2786UQK/8mDXon9ayEd8U0/l7AIgYXtIZJBTs8zCRR3vmted6Ehz/qfw1GRut/eYyvf1yOk=";
+        content = '{"acquirerId": "236090", "amount": 100, "cardId": "5671893688385536", "cardTags": [], "endToEndId": "2fa7ef9f-b889-4bae-ac02-16749c04a3b6", "holderId": "5917814565109760", "holderTags": [], "isPartialAllowed": false, "issuerAmount": 100, "issuerCurrencyCode": "BRL", "merchantAmount": 100, "merchantCategoryCode": "bookStores", "merchantCountryCode": "BRA", "merchantCurrencyCode": "BRL", "merchantFee": 0, "merchantId": "204933612653639", "merchantName": "COMPANY 123", "methodCode": "token", "purpose": "purchase", "score": null, "tax": 0, "walletId": ""}'
+        malformed_signature = "MEUCIBxymWEpit50lDqFKFHYOgyyqvE5kiHERi0ZM6cJpcvmAiEA2wwIkxcsuexh9BjcyAbZxprpRUyjcZJ2vBAjdd7o29Q="
 
         try {
-            await starkbank.event.parse({
+            await starkbank.corporatePurchase.parse({
                 content: content,
                 signature: malformed_signature
             });
             throw new Error('Oops, signature was accepted!');
         } catch (e) {
-            if (!(e instanceof starkbank.error.InvalidSignatureError))
-                throw e;
+            assert(e instanceof starkcore.InvalidSignatureError);
         }
     });
 });
