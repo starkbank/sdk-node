@@ -34,7 +34,7 @@ exports.MerchantSession = MerchantSession;
 let resource = {'class': exports.MerchantSession, 'name': 'MerchantSession'};
 
 exports.create = async function (merchantSession, {user} = {}) {
-    return rest.postSingle(resource=resource, query=merchantSession)
+    return rest.postSingle(resource=resource, query=merchantSession, user=user)
 }
 
 exports.get = async function (id, {user} = {}) {
@@ -90,5 +90,5 @@ exports.purchase = async function (uuid, {amount, installmentCount, cardExpirati
         "cardId": cardId,
     }
     api.removeNullKeys(payload);
-    return rest.postSubResource(resource, uuid, purchaseResource, payload);
+    return rest.postSubResource(resource, uuid, purchaseResource, payload, user);
 }

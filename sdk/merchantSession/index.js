@@ -1,6 +1,8 @@
 const merchantSession = require('./merchantSession.js');
+const purchase = require('./purchase.js');
 exports.log = require('./log');
 exports.MerchantSession = merchantSession.MerchantSession;
+exports.Purchase = purchase.Purchase;
 exports.create = merchantSession.create;
 exports.purchase = merchantSession.purchase;
 exports.query = merchantSession.query;

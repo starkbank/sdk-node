@@ -19,11 +19,16 @@ declare module 'starkbank' {
 
     export namespace merchantSession {
 
-        function create(params?: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], expiration: number, challengeMode?: string | null, allowedIps?: string[] | null, tags?: string[] | null}): Promise<MerchantSession>;
+        function create(
+            MerchantSession: MerchantSession,
+            params?: { user: Project | Organization | null }
+        ): Promise<MerchantSession>;
 
-        function purchase(uuid: string, params?: { amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, holderName: string, fundingType: string, holderEmail?: string | null,
-            holderPhone?: string | null, billingCountryCode?: string | null, billingCity?: string | null, billingStateCode?: string | null, installmentCount?: number | null,
-            billingStreetLine1?: string | null, billingStreetLine2?: string | null, billingZipCode?: string | null, metadata?: Record<string, any> | null, user?: Project | Organization | null}): any;
+        function purchase(
+            uuid: string,
+            Purchase: MerchantSession.Purchase,
+            params?: { user: Project | Organization | null }
+        ): any;
 
         function get(id: string, params?:{ user?: Project | Organization | null}): Promise<MerchantSession>;
 
@@ -47,6 +52,32 @@ declare module 'starkbank' {
             ids?: string[] | null, 
             user?: Project | Organization | null
         }): Promise<MerchantSession[]>;
+
+        export class Purchase {
+            amount : number
+            cardExpiration : string
+            cardNumber : string
+            cardSecurityCode : string
+            fundingType : string
+            holderName : string
+            billingCity : string
+            billingCountryCode : string
+            billingStateCode : string
+            billingStreetLine1 : string
+            billingStreetLine2 : string
+            billingZipCode : string
+            holderEmail : string 
+            holderPhone : string 
+            metadata : Record<string, any>
+            installmentCount : number
+
+            constructor(params: {
+                amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, fundingType: string, holderName: string,
+                billingCity?: string | null, billingCountryCode?: string | null, billingStateCode?: string | null, billingStreetLine1?: string | null,
+                billingStreetLine2?: string | null, billingZipCode?: string | null, holderEmail?: string | null, holderPhone?: string | null,
+                metadata?: Record<string, any> | null, installmentCount?: number | null
+            })
+        }
 
         export class Log {
             readonly id : string
@@ -80,5 +111,4 @@ declare module 'starkbank' {
             }): Promise<merchantSession.Log[]>;
         }
     }
-
 }

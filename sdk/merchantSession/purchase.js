@@ -9,12 +9,15 @@ class Purchase extends Resource {
      */
 
     constructor({
-        amount, holderName, fundingType, holderEmail=null, holderPhone=null, billingCity=null, billingZipCode=null, 
-        billingStateCode=null, billingCountryCode=null, billingStreetLine1=null, billingStreetLine2=null, 
-        metadata=null, cardId=null, installmentCount=null, id=null
+        amount, cardExpiration, cardNumber, cardSecurityCode, holderName, fundingType, holderEmail=null, holderPhone=null,
+        billingCity=null, billingZipCode=null, billingStateCode=null, billingCountryCode=null, billingStreetLine1=null,
+        billingStreetLine2=null, metadata=null, cardId=null, installmentCount=null, id=null
     }) {
         super(id)
         this.amount = amount
+        this.cardExpiration = cardExpiration
+        this.cardNumber = cardNumber
+        this.cardSecurityCode = cardSecurityCode
         this.installmentCount = installmentCount
         this.holderName = holderName
         this.holderEmail = holderEmail
