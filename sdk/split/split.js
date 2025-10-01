@@ -25,6 +25,7 @@ class Split extends Resource {
      * @param status [string]: current payment status. ex: 'success', 'failed', 'canceled', 'failed' or 'processing'
      * @param created [string]: creation datetime for the payment. ex: '2020-03-10 10:30:00.000000+00:00'
      * @param updated [string]: update datetime for the payment. ex: '2020-03-10 10:30:00.000000+00:00'
+     * 
      */
     constructor({
         amount, receiverId, id = null, source = null, externalId = null, tags = null, scheduled = null,

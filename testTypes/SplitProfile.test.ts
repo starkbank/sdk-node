@@ -1,31 +1,35 @@
-const assert = require('assert');
-const starkbank = require('../index.js');
+///<reference types="../types/" />
+import assert from 'assert';
+import starkbank from "starkbank";
+import { exampleProject } from './utils/user';
+
+starkbank.user = exampleProject;
 
 
-starkbank.user = require('./utils/user').exampleProject;
-
-describe('TestSplitProfilePut', async function() {
-    this.timeout(10000);
+describe('TestSplitProfilePut', function() {
+    jest.setTimeout(10000);
     it('test_success', async () => {
-        let splitProfile = await starkbank.splitProfile.put([{
-            interval: 'day',
-            delay: 0
-        }]);
+        let splitProfile = await starkbank.splitProfile.put([new starkbank.SplitProfile({
+            interval: 'week',
+            delay: 1
+        })]);
 
-        splitProfile = await starkbank.splitProfile.get(splitProfile[0].id);
+        let getSplitProfile = await starkbank.splitProfile.get(splitProfile[0].id);
 
-        assert(splitProfile.interval == 'day');
-        assert(splitProfile.delay == 0);
+        assert(getSplitProfile.interval == 'week');
+        assert(getSplitProfile.delay == 1);
+        assert(getSplitProfile instanceof starkbank.SplitProfile);
     });
 });
 
-describe('TestSplitProfileQueryAndGet', async function(){
-    this.timeout(10000);
+describe('TestSplitProfileQueryAndGet', function(){
+    jest.setTimeout(10000);
     it('test_success', async () => {
         let profiles = await starkbank.splitProfile.query({limit: 5});
         for await (let profile of profiles) {
             profile = await starkbank.splitProfile.get(profile.id);
             assert(typeof profile.id == 'string');
+            assert(profile instanceof starkbank.SplitProfile);
         }
     });
 
@@ -33,21 +37,21 @@ describe('TestSplitProfileQueryAndGet', async function(){
         try {
             await starkbank.splitProfile.query({
                 limit: 5,
-                status: 'created',
+                status: ['created'],
                 after: '2020-03-10',
                 before: '2020-03-10',
                 ids: ['5656565656565656'],
             });
         } catch (e) {
-            throw new Error(e)
+            throw new Error(e as string)
         }
     });
 });
 
 describe('TestSplitProfilePage', function () {
-    this.timeout(10000);
+    jest.setTimeout(10000);
     it('test_success', async () => {
-        let ids = [];
+        let ids: string[] = [];
         let cursor = null;
         let page = null;
         for (let i = 0; i < 2; i++) {
@@ -55,6 +59,7 @@ describe('TestSplitProfilePage', function () {
             for (let entity of page) {
                 assert(!ids.includes(entity.id));
                 ids.push(entity.id);
+                assert(entity instanceof starkbank.SplitProfile);
             }
             if (cursor == null) {
                 break;

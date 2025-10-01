@@ -24,6 +24,7 @@ declare module 'starkbank' {
          * @param interest [float, default 1.0]: Invoice monthly interest for overdue payment in %. ex: 5.2
          * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'due':string pairs
          * @param rules [list of Invoice.Rules, default []]: list of Invoice.Rule objects for modifying invoice behavior. ex: [Invoice.Rule({key: "allowedTaxIds", value: [ "012.345.678-90", "45.059.493/0001-73" ]})]
+         * @param splits [list of Split.Splits, default []]: list of Split.Splits objects to indicate payment receivers. ex: [Invoice.Split({"amount": 141, "receiverId": "5706627130851328"})]
          * @param tags [list of strings, default null]: list of strings for tagging
          * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
          *
@@ -57,6 +58,7 @@ declare module 'starkbank' {
             due: string
         }[]
         rules : invoice.Rule[] | null
+        splits : Split[] | null
         tags: string[] | null
         descriptions: {
             key: string
@@ -79,11 +81,10 @@ declare module 'starkbank' {
 
         constructor(params: {
             amount: number, taxId: string, name: string, due?: string, expiration?: number, fine?: number, 
-            interest?: number, discounts?: {percentage: number, due: string}[], tags?: string[] | null, 
-            descriptions?: {key: string, value?: string}[], fee?: number | null, pdf?: string | null, link?: string | null, 
-            nominalAmount?: number | null, fineAmount?: number | null, interestAmount?: number | null, 
-            discountAmount?: number | null, id?: string, brcode?: string | null, status?: string | null, transactionIds?: string[] | null, created?: string | null, 
-            updated?: string | null, 
+            interest?: number, discounts?: {percentage: number, due: string}[], rules?: invoice.Rule[] | null, splits?: Split[] | null,
+            tags?: string[] | null, descriptions?: {key: string, value?: string}[], fee?: number | null, pdf?: string | null, link?: string | null, 
+            nominalAmount?: number | null, fineAmount?: number | null, interestAmount?: number | null, discountAmount?: number | null, id?: string,
+            brcode?: string | null, status?: string | null, transactionIds?: string[] | null, created?: string | null, updated?: string | null, 
         })
     }
 

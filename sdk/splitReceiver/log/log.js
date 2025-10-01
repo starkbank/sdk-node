@@ -16,14 +16,14 @@ class Log extends Resource {
      * @param id [string]: unique id returned when the log is created. ex: '5656565656565656'
      * @param receiver [SplitReceiver]: SplitReceiver entity to which the log refers to.
      * @param errors [list of strings]: list of errors linked to this SplitReceiver event.
-     * @param type [string]: type of the SplitReceiver event which triggered the log creation. ex: 'canceled', 'created', 'failed', 'processing', 'success' or 'updated'
+     * @param types [list of strings]: types of the SplitReceiver event which triggered the log creation. ex: 'canceled', 'created', 'failed', 'processing', 'success' or 'updated'
      * @param created [string]: creation datetime for the log. ex: '2020-03-10 10:30:00.000'
      * 
      */
-    constructor({ created, type, errors, receiver, id }) {
+    constructor({ created, types, errors, receiver, id }) {
         super(id);
         this.created = check.datetime(created);
-        this.type = type;
+        this.types = types;
         this.errors = errors;
         this.receiver = receiver;
     }

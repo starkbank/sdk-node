@@ -1,13 +1,13 @@
-const assert = require('assert');
-const starkbank = require('../index.js');
-const paySplittedInvoices = require('./utils/split.js').paySplittedInvoices;
-const generateExampleSplittedInvoices = require('./utils/split.js').generateExampleSplittedInvoices;
+///<reference types="../types/" />
+import assert from 'assert';
+import starkbank from "starkbank";
+import { exampleProject } from './utils/user';
+const { generateExampleSplittedInvoices, paySplittedInvoices } = require('./utils/split');
+
+starkbank.user = exampleProject;
 
 
-starkbank.user = require('./utils/user.js').exampleProject;
-
-describe('TestCreateInvoiceWithSplit', async function() {
-    this.timeout(40000);
+describe('TestCreateInvoiceWithSplit', function() {
     it('test_success', async () => {
         let invoices = await generateExampleSplittedInvoices(1);
         let payments = await paySplittedInvoices(invoices);
@@ -16,7 +16,7 @@ describe('TestCreateInvoiceWithSplit', async function() {
 
         while (!isInvoicePaid) {
             for await (let invoice of invoices) {
-                getInvoice = await starkbank.invoice.get(invoice.id)
+                let getInvoice = await starkbank.invoice.get(invoice.id);
                 if (getInvoice.status == "paid") {
                     isInvoicePaid = true;
                 }
@@ -25,31 +25,33 @@ describe('TestCreateInvoiceWithSplit', async function() {
         }
 
         for await (let invoice of invoices) {
-            let splitsArray = []
-            let tags = ["invoice\/" + invoice.id]
+            let splitsArray = [];
+            let tags = ["invoice\/" + invoice.id];
             while (splitsArray.length == 0) {
-                splits = await starkbank.split.query({tags: tags})
+                let splits = await starkbank.split.query({tags: tags});
                 for await (let split of splits) {
-                    splitsArray.push(split)
+                    splitsArray.push(split);
                 }
                 await new Promise(resolve => setTimeout(resolve, 2000));
             }
             for await (let split of splitsArray) {
-                assert(split.amount == 100)
-                assert(split.id != null)
+                assert(split.amount == 100);
+                assert(split.id != null);
+                assert(split instanceof starkbank.Split);
             }
-            assert(splitsArray.length == invoice.splits.length)
+            assert(splitsArray.length == invoice.splits.length);
         }
-    });
+    }, 40000);
 });
 
-describe('TestSplitQueryAndGet', async function(){
-    this.timeout(10000);
+describe('TestSplitQueryAndGet', function() {
+    jest.setTimeout(10000);
     it('test_success', async () => {
         let splits = await starkbank.split.query({limit: 5});
         for await (let split of splits) {
             split = await starkbank.split.get(split.id);
             assert(typeof split.id == 'string');
+            assert(split instanceof starkbank.Split);
         }
     });
 
@@ -65,15 +67,15 @@ describe('TestSplitQueryAndGet', async function(){
                 ids: ['5656565656565656'],
             });
         } catch (e) {
-            throw new Error(e)
+            throw new Error(e as string);
         }
     });
 });
 
 describe('TestSplitPage', function () {
-    this.timeout(10000);
+    jest.setTimeout(10000);
     it('test_success', async () => {
-        let ids = [];
+        let ids: string[] = [];
         let cursor = null;
         let page = null;
         for (let i = 0; i < 2; i++) {
@@ -81,6 +83,7 @@ describe('TestSplitPage', function () {
             for (let entity of page) {
                 assert(!ids.includes(entity.id));
                 ids.push(entity.id);
+                assert(entity instanceof starkbank.Split);
             }
             if (cursor == null) {
                 break;

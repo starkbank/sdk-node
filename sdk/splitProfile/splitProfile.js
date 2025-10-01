@@ -51,6 +51,7 @@ exports.put = async function (splitProfiles, {user} = {}) {
      * 
      * Return:
      * @returns SplitProfile object with updated attributes
+     * 
      */
     return rest.putMulti(resource, splitProfiles, user);
 }

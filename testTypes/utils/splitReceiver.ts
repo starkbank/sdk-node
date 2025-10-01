@@ -1,3 +1,5 @@
+import starkbank from 'starkbank';
+
 exports.generateExampleSplitReceiverJson = function () {
     let splitReceiver = {
         name: 'John Snow',
@@ -8,5 +10,5 @@ exports.generateExampleSplitReceiverJson = function () {
         accountType: 'checking'
     }
 
-    return splitReceiver;
+    return new starkbank.SplitReceiver(splitReceiver);
 }

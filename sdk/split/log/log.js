@@ -18,6 +18,7 @@ class Log extends Resource {
      * @param errors [list of strings]: list of errors linked to this Split event.
      * @param type [string]: type of the Split event which triggered the log creation. ex: 'created' or 'updated'
      * @param created [string]: creation datetime for the log. ex: '2020-03-10 10:30:00.000'
+     * 
      */
     constructor({ created, type, errors, split, id }) {
         super(id);
