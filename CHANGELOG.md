@@ -20,6 +20,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - SplitProfileLog resource
 - SplitReceiver resource
 - SplitReceiverLog resource
+### Fixed
+- MerchantSession user parameter
 
 ## [2.36.0] - 2025-09-30
 ### Changed

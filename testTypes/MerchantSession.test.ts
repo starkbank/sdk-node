@@ -20,34 +20,9 @@ describe('TestMerchantSessionCreate', function(){
 describe('TestMerchantSessionPurchaseCreate', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
+        let merchantSessionJson = generateExampleMerchantSessionJson();
 
-        let sessionJson = {
-            allowedFundingTypes: [
-                "debit",
-                "credit"
-            ],
-            allowedInstallments: [
-                {
-                    "totalAmount": 0,
-                    "count": 1
-                },
-                {
-                    "totalAmount": 120,
-                    "count": 2
-                },
-                {
-                    "totalAmount": 180,
-                    "count": 12
-                }
-            ],
-            expiration: 3600,
-            challengeMode: "disabled",
-            tags: [
-                "yourTags"
-            ]
-        }
-
-        let merchantSession = await starkbank.merchantSession.create(sessionJson);
+        let merchantSession = await starkbank.merchantSession.create(merchantSessionJson);
 
         let purchaseJson = {
             amount: 180,
@@ -74,7 +49,9 @@ describe('TestMerchantSessionPurchaseCreate', function(){
             installmentCount: 12
         }
 
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(merchantSession.uuid, purchaseJson);
+        let purchase = new starkbank.merchantSession.Purchase(purchaseJson);
+
+        let merchantSessionPurchase = await starkbank.merchantSession.purchase(merchantSession.uuid, purchase);
 
         assert(typeof merchantSessionPurchase.id == 'string')
     });
