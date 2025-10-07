@@ -27,6 +27,9 @@
 ///<reference path='./merchantSession/merchantSession.d.ts' />
 ///<reference path='./merchantInstallment/merchantInstallment.d.ts' />
 ///<reference path='./merchantCard/merchantCard.d.ts' />
+///<reference path='./split/split.d.ts' />
+///<reference path='./splitProfile/splitProfile.d.ts' />
+///<reference path='./splitReceiver/splitReceiver.d.ts' />
 
 
 declare module 'starkbank' {

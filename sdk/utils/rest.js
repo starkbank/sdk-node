@@ -157,6 +157,20 @@ exports.getPage = async function (resource, query = {}, user = starkBank.user ) 
     );
 };
 
+exports.putMulti = async function (resource, entities, user = starkBank.user, query = {}) {
+    return rest.putMulti(
+        sdkVersion,
+        host,
+        apiVersion,
+        user,
+        resource,
+        entities,
+        language,
+        timeout,
+        query
+    );
+};
+
 exports.postRaw = async function (path, payload, prefix = null, throwError, user = starkBank.user, { ...query } = {}) {
     return rest.postRaw(
         sdkVersion,

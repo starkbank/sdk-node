@@ -1,10 +1,12 @@
 const rest = require('../utils/rest.js');
-const { Rule } = require('./rule/rule.js');
 const check = require('starkcore').check;
 const Resource = require('starkcore').Resource;
-const rulesResource = require('./rule/rule.js').resource;
-const parseObjects = require('../utils/parse.js').parseObjects;
+const { Rule } = require('./rule/rule.js');
+const { Split } = require('../split/split.js');
 const subResource = require('../invoice/payment.js').subResource
+const parseObjects = require('../utils/parse.js').parseObjects;
+const rulesResource = require('./rule/rule.js').resource;
+const splitsResource = require('../split/split.js').resource;
 
 
 class Invoice extends Resource {
@@ -30,6 +32,7 @@ class Invoice extends Resource {
      * @param interest [float, default 1.0]: Invoice monthly interest for overdue payment in %. ex: 5.2
      * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'due':string pairs
      * @param rules [list of Invoice.Rules, default []]: list of Invoice.Rule objects for modifying invoice behavior. ex: [Invoice.Rule({key: "allowedTaxIds", value: [ "012.345.678-90", "45.059.493/0001-73" ]})]
+     * @param splits [list of Split.Splits, default []]: list of Split.Splits objects to indicate payment receivers. ex: [Invoice.Split({"amount": 141, "receiverId": "5706627130851328"})]
      * @param tags [list of strings, default null]: list of strings for tagging
      * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
      * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
@@ -51,7 +54,7 @@ class Invoice extends Resource {
      *
      */
     constructor({
-                    amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null, rules = null, tags = null, 
+                    amount, taxId, name, due= null, expiration = null, fine = null, interest = null, discounts = null, rules = null, splits = null, tags = null, 
                     descriptions = null, displayDescription = null, fee = null, pdf = null, link = null, nominalAmount = null, fineAmount = null, interestAmount = null, 
                     discountAmount = null, id = null, brcode = null, status = null, transactionIds = null, created = null, updated = null
                 }) {
@@ -65,6 +68,7 @@ class Invoice extends Resource {
         this.interest = interest;
         this.discounts = discounts;
         this.rules = parseObjects(rules, rulesResource, Rule);
+        this.splits = parseObjects(splits, splitsResource, Split);
         this.tags = tags;
         if (discounts != null) {
             discounts.forEach(discount => {
