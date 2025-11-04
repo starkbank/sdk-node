@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- softDescriptor attribute to MerchantSession resource
 ### Fixed
 - language attribute
 - parse functions
