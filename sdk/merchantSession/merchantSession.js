@@ -14,7 +14,7 @@ class MerchantSession extends Resource {
 
     constructor({
         allowedFundingTypes, allowedInstallments, expiration, allowedIps=null, challengeMode=null, created=null, 
-        status=null, tags=null, updated=null, uuid=null, id=null
+        status=null, tags=null, updated=null, uuid=null, softDescriptor=null, id=null
     }) {
         super(id) 
         this.allowedFundingTypes = allowedFundingTypes;
@@ -26,7 +26,8 @@ class MerchantSession extends Resource {
         this.status = status;
         this.tags = tags;
         this.updated = updated;
-        this.uuid = uuid;    
+        this.uuid = uuid;
+        this.softDescriptor = softDescriptor;
     }
 }
 
