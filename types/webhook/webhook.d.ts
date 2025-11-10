@@ -104,7 +104,7 @@ declare module 'starkbank' {
         export function query(params?: {
             limit?: number | null, 
             user?: Project | Organization | null
-        }): Promise<Webhook[]>;
+        }): Promise<AsyncGenerator<Webhook, Webhook, void>>;
 
         /**
          *
