@@ -2641,23 +2641,10 @@ app.post('/', async (req, res) => {
             content: req.body.toString(),
             signature: req.headers['digital-signature']
         });
-        if (event.subscription === 'transfer') {
-            console.log(event.log.transfer);
-        } else if (event.subscription === 'boleto') {
-            console.log(event.log.boleto);
-        } else if (event.subscription === 'boleto-payment') {
-            console.log(event.log.payment);
-        } else if (event.subscription === 'utility-payment') {
-            console.log(event.log.payment);
-        } else if (event.subscription === 'boleto-holmes') {
-            console.log(event.log.holmes);
-        } else if (event.subscription === 'brcode-payment') {
-            console.log(event.log.payment);
-        } else if (event.subscription === 'deposit') {
-            console.log(event.log.deposit);
-        } else if (event.subscription === 'invoice') {
-            console.log(event.log.invoice);
-        }
+        const subscription = event.log[event.subscription]
+
+        console.log(subscription)
+
         res.end()
     }
     catch (err) {
