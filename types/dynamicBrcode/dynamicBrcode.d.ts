@@ -1,6 +1,6 @@
 
 declare module 'starkbank' {
-    
+
     export class DynamicBrcode {
         /**
          *
@@ -20,6 +20,8 @@ declare module 'starkbank' {
          * Parameters (optional):
          * @param expiration [integer, default 3600 (1 hour)]: time interval in seconds between due date and expiration date. ex 123456789
          * @param tags [list of strings, default []]: list of strings for tagging, these will be passed to the respective Deposit resource when paid
+         * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
+         * @param rules [list of DynamicBrCodeRule, default []]: list of dynamic brcode rules to be applied to this brcode. ex: [new DynamicBrCode.Rule({key: 'allowedTaxIds', value: ['012.345.678-90', '20.018.183/0001-80']})]
          * 
          * Attributes (return-only):
          * @param id [string]: id returned on creation, this is the BR code. ex: "00020126360014br.gov.bcb.pix0114+552840092118152040000530398654040.095802BR5915Jamie Lannister6009Sao Paulo620705038566304FC6C"
@@ -34,7 +36,9 @@ declare module 'starkbank' {
 
         expiration : number | null
         tags : string[] | null
-        
+        displayDescription: string | null
+        rules : dynamicBrcode.Rule[] | null
+
         readonly id : string
         readonly uuid : string
         readonly pictureUrl : string
@@ -42,8 +46,8 @@ declare module 'starkbank' {
         readonly created : string
 
         constructor(params: {
-            amount: number, expiration? : number | null, tags? : string[] | null, 
-            id?: string | null, uuid? : string | null, pictureUrl?: string | null, 
+            amount: number, expiration? : number | null, displayDescription?: string | null, rules?: dynamicBrcode.Rule[] | null, tags? : string[] | null,
+            id?: string | null, uuid? : string | null, pictureUrl?: string | null,
             updated? : string | null, created? : string | null
         })
     }
@@ -67,7 +71,7 @@ declare module 'starkbank' {
          *
          */
         export function create(dynamicBrcodes: DynamicBrcode[] | {}[], params?:{ user?: Project | Organization | null }): Promise<DynamicBrcode[]>;
-    
+
         /**
          *
          * Retrieve a specific DynamicBrcode
@@ -104,12 +108,12 @@ declare module 'starkbank' {
          * @returns generator of DynamicBrcode objects with updated attributes
          *
          */
-        export function query(params?: { 
-            limit?: number | null, 
-            after?: string | null, 
-            before?: string | null, 
-            tags?: string[] | null, 
-            uuids?: string[] | null, 
+        export function query(params?: {
+            limit?: number | null,
+            after?: string | null,
+            before?: string | null,
+            tags?: string[] | null,
+            uuids?: string[] | null,
             user?: Project | Organization | null
         }): Promise<DynamicBrcode[]>
 
@@ -133,14 +137,34 @@ declare module 'starkbank' {
          * @returns list of DynamicBrcode objects with updated attributes and cursor to retrieve the next page of DynamicBrcode objects
          *
          */
-        export function page(params?: { 
-            cursor?: string | null, 
-            limit?: number | null, 
-            after?: string | null, 
-            before?: string | null, 
-            tags?: string[] | null, 
-            uuids?: string[] | null, 
+        export function page(params?: {
+            cursor?: string | null,
+            limit?: number | null,
+            after?: string | null,
+            before?: string | null,
+            tags?: string[] | null,
+            uuids?: string[] | null,
             user?: Project | Organization | null
         }): Promise<[DynamicBrcode[], string | null]>
+
+        export class Rule {
+            /**
+              * DynamicBrcode.Rule object
+              * 
+              * @description The DynamicBrcode.Rule object modifies the behavior of DynamicBrcode objects when passed as an argument upon their creation.
+              * 
+              * Parameters (required):
+              * @param key [string]: Rule to be customized, describes what DynamicBrcode behavior will be altered. ex: "allowedTaxIds"
+              * @param value [list of string]: Value of the rule. ex: ["012.345.678-90", "45.059.493/0001-73"]
+              * 
+              */
+            key: string
+            value: string[]
+
+            constructor(params: {
+                key: string,
+                value: string[]
+            })
+        }
     }
 }

@@ -13,8 +13,9 @@ declare module 'starkbank' {
         readonly tags: string[]
         readonly updated: string
         readonly uuid: string
+        readonly softDescriptor: string
 
-        constructor(params: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string})
+        constructor(params: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string, softDescriptor: string})
     }
 
     export namespace merchantSession {

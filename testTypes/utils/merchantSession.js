@@ -25,7 +25,8 @@ exports.generateExampleMerchantSessionJson = function () {
         challengeMode: "disabled",
         tags: [
             "yourTags"
-        ]
+        ],
+        softDescriptor: "mais um test"
     }
 
     return merchantSessionJson;

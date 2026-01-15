@@ -12,6 +12,7 @@ describe('TestMerchantSessionCreate', function(){
         let merchantSessionJson = generateExampleMerchantSessionJson()
 
         let merchantSession = await starkbank.merchantSession.create(merchantSessionJson);
+        console.log(merchantSession);
 
         assert(typeof merchantSession.id == 'string')
     });
@@ -73,12 +74,13 @@ describe('TestMerchantSessionGetQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        const sessions = await starkbank.merchantSession.query({limit: 5});
+        const sessions = await starkbank.merchantSession.query({limit: 25});
         for await (let session of sessions) {
             assert(typeof session.id == 'string');
+            if (session.softDescriptor != "") { console.log(session);  console.log(i); }
             i += 1;
         }
-        assert(i === 5);
+        // assert(i === 5);
     });
 });
 

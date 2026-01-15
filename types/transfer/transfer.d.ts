@@ -226,15 +226,15 @@ declare module 'starkbank' {
              *
              * Parameters (required):
              * @param key [string]: Rule to be customized, describes what Transfer behavior will be altered. ex: "resendingLimit"
-             * @param value [integer]: Value of the rule. ex: 5
+             * @param value [integer or boolean]: Value of the rule. ex: 5 or true
              * 
              */
             key: string
-            value: number
+            value: number | boolean
 
             constructor(params: {
                 key: string,
-                value: number 
+                value: number | boolean
             })
         }
 

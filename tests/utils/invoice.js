@@ -5,7 +5,7 @@ exports.generateExampleInvoicesJson = function (n, amount = null, useRandomFutur
 
     let exampleInvoice = {
         amount: 400000,
-        due: random.futureDateTime(200),
+        due: "2025-11-05T10:00:00.000000+00:00",
         taxId: '012.345.678-90',
         name: 'Iron Bank S.A.',
         expiration: 123456789,
