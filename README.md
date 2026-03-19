@@ -2430,7 +2430,7 @@ const starkbank = require('starkbank');
             cardNumber: "5448280000000007",
             cardSecurityCode: "123",
             holderName: "Holder Name",
-            holderEmail: "holdeName@email.com",
+            holderEmail: "holderName@email.com",
             holderPhone: "11111111111",
             fundingType: "credit",
             billingCountryCode: "BRA",

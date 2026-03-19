@@ -8,9 +8,10 @@ class MerchantPurchase extends Resource {
      */
 
     constructor({
-        id, amount, installmentCount, holderName, holderEmail, holderPhone, fundingType, billingCountryCode, 
+        id, amount, installmentCount, holderName, holderEmail, holderPhone, holderId, fundingType, billingCountryCode, 
         billingCity, billingStateCode,billingStreetLine1, billingStreetLine2, billingZipCode, metadata, cardEnding, 
-        cardId, challengeMode, challengeUrl, created, currencyCode, endToEndId, fee, network, source, status, tags, updated
+        cardId, challengeMode, challengeUrl, created, currencyCode, endToEndId, fee, network, source, status, tags, updated,
+        softDescriptor
     }) {
         super(id)
         this.amount = amount
@@ -18,6 +19,7 @@ class MerchantPurchase extends Resource {
         this.holderName = holderName
         this.holderEmail = holderEmail
         this.holderPhone = holderPhone
+        this.holderId = holderId
         this.fundingType = fundingType
         this.billingCountryCode = billingCountryCode
         this.billingCity = billingCity
@@ -39,6 +41,7 @@ class MerchantPurchase extends Resource {
         this.status = status
         this.tags = tags
         this.updated = updated
+        this.softDescriptor = softDescriptor
     }
 }
 
@@ -53,7 +56,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit, after, before, status, tags, ids, user} = {}) {
+exports.query = async function ({limit, after, before, status, tags, ids, holderId, user} = {}) {
     let query = {
         limit: limit,
         after: check.date(after),
@@ -61,11 +64,12 @@ exports.query = async function ({limit, after, before, status, tags, ids, user} 
         status: status,
         tags: tags,
         ids: ids,
+        holderId: holderId,
     };
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({cursor, limit, after, before, status, tags, ids, user} = {}) {
+exports.page = async function ({cursor, limit, after, before, status, tags, ids, holderId, user} = {}) {
     let query = {
         cursor: cursor,
         limit: limit,
@@ -74,6 +78,7 @@ exports.page = async function ({cursor, limit, after, before, status, tags, ids,
         status: status,
         tags: tags,
         ids: ids,
+        holderId: holderId,
     };
     return rest.getPage(resource, query, user);
 };

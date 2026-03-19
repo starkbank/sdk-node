@@ -18,10 +18,16 @@ describe('MerchantSessionCreate', function(){
 describe('MerchantSessionQuery', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let merchantSessions = await starkbank.merchantSession.query({limit: 3});
+        let i = 0;
+        let limit = 3;
+        let holderId = "0123456789012345";
+        let merchantSessions = await starkbank.merchantSession.query({limit: limit, holderId: holderId});
         for await (let merchantSession of merchantSessions) {
+            assert(merchantSession.holderId == holderId);
             assert(typeof merchantSession.id == 'string');
+            i += 1;
         }
+        assert(i == limit);
     });
 });
 
@@ -42,9 +48,12 @@ describe('MerchantSessionPage', function () {
         let ids = [];
         let cursor = null;
         let page = null;
+        let limit = 5;
+        let holderId = "0123456789012345";
         for (let i = 0; i < 2; i++) {
-            [page, cursor] = await starkbank.merchantSession.page({ limit: 5, cursor: cursor });
+            [page, cursor] = await starkbank.merchantSession.page({ limit: limit, holderId: holderId, cursor: cursor });
             for (let entity of page) {
+                assert(entity.holderId == holderId);
                 assert(!ids.includes(entity.id));
                 ids.push(entity.id);
             }
@@ -52,7 +61,7 @@ describe('MerchantSessionPage', function () {
                 break;
             }
         }
-        assert(ids.length == 10);
+        assert(ids.length > limit);
     });
 });
 

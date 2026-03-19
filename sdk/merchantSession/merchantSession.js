@@ -14,7 +14,7 @@ class MerchantSession extends Resource {
 
     constructor({
         allowedFundingTypes, allowedInstallments, expiration, allowedIps=null, challengeMode=null, created=null, 
-        status=null, tags=null, updated=null, uuid=null, softDescriptor=null, id=null
+        status=null, tags=null, updated=null, uuid=null, softDescriptor=null, id=null, holderId=null
     }) {
         super(id) 
         this.allowedFundingTypes = allowedFundingTypes;
@@ -23,6 +23,7 @@ class MerchantSession extends Resource {
         this.challengeMode = challengeMode;
         this.created = created;
         this.expiration = expiration;
+        this.holderId = holderId;
         this.status = status;
         this.tags = tags;
         this.updated = updated;
@@ -42,7 +43,7 @@ exports.get = async function (id, {user} = {}) {
     return rest.getId(resource, id, user);
 };
 
-exports.query = async function ({limit, after, before, status, tags, ids, user} = {}) {
+exports.query = async function ({limit, after, before, status, tags, ids, holderId, user} = {}) {
     let query = {
         limit: limit,
         after: check.date(after),
@@ -50,11 +51,12 @@ exports.query = async function ({limit, after, before, status, tags, ids, user} 
         status: status,
         tags: tags,
         ids: ids,
+        holderId: holderId,
     };
     return rest.getList(resource, query, user);
 };
 
-exports.page = async function ({cursor, limit, after, before, status, tags, ids, user} = {}) {
+exports.page = async function ({cursor, limit, after, before, status, tags, ids, holderId, user} = {}) {
     let query = {
         cursor: cursor,
         limit: limit,
@@ -63,6 +65,7 @@ exports.page = async function ({cursor, limit, after, before, status, tags, ids,
         status: status,
         tags: tags,
         ids: ids,
+        holderId: holderId,
     };
     return rest.getPage(resource, query, user);
 };

@@ -1,6 +1,7 @@
 ///<reference types="../types/" />
 import starkbank from "starkbank";
 import assert from 'assert';
+const generateExampleMerchantPurchaseJson = require('./utils/merchantPurchase.js').generateExampleMerchantPurchaseJson
 
 starkbank.user = require('./utils/user').exampleProject;
 
@@ -20,12 +21,15 @@ describe('TestMerchantPurchaseGetQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        const purchases = await starkbank.merchantPurchase.query({limit: 5});
+        let limit = 5;
+        let holderId = "0123456789012345";
+        const purchases = await starkbank.merchantPurchase.query({limit: limit, holderId: holderId});
         for await (let purchase of purchases) {
+            assert(purchase.holderId == holderId);
             assert(typeof purchase.id == 'string');
             i += 1;
         }
-        assert(i === 5);
+        assert(i == limit);
     });
 });
 
@@ -34,10 +38,13 @@ describe('TestMerchantPurchaseGetPage', function () {
     it('test_success', async () => {
         let ids: string[] = [];
         let cursor: string | null = null;
-        let page: starkbank.MerchantPurchase[] | null = null;    
+        let page: starkbank.MerchantPurchase[] | null = null;
+        let limit = 5;
+        let holderId = "0123456789012345";
         for (let i = 0; i < 2; i++) {
-            [page, cursor] = await starkbank.merchantPurchase.page({ limit: 5, cursor: cursor });
+            [page, cursor] = await starkbank.merchantPurchase.page({ limit: limit, holderId: holderId, cursor: cursor });
             for (let entity of page) {
+                assert(entity.holderId == holderId);
                 assert(!ids.includes(entity.id));
                 ids.push(entity.id);
             }
@@ -45,66 +52,23 @@ describe('TestMerchantPurchaseGetPage', function () {
                 break;
             }
         }
-        assert(ids.length == 10);
+        assert(ids.length > limit);
     });
 });
 
-describe('TestMerchantPurchase', function () {
+describe('TestMerchantPurchaseAndUpdate', function () {
     jest.setTimeout(10000);
     it('test_success', async () => {
-        let merchantSessionJson = {
-            allowedFundingTypes: [
-                "debit",
-                "credit"
-            ],
-            allowedInstallments: [
-                {
-                    "count": 1,
-                    "totalAmount": 5000
-                },
-                {
-                    "count": 2,
-                    "totalAmount": 5500
-                }
-            ],
-            expiration: 3600,
-            challengeMode: "disabled",
-            tags: [
-                "purchase_1234"
-            ]
-        }
-
-        let merchantSession = await starkbank.merchantSession.create(merchantSessionJson);
-
-        let merchantSessionPurchaseJson = {
-            amount: 5000,
-            installmentCount: 1,
-            cardExpiration: "2035-01",
-            cardNumber: "5448280000000007",
-            cardSecurityCode: "123",
-            holderName: "Rhaenyra Targaryen",
-            holderEmail: "rhaenyra.targaryen@starkbank.com",
-            holderPhone: "11985923451",
-            fundingType: "credit",
-            billingCountryCode: "BRA",
-            billingCity: "Sao Paulo",
-            billingStateCode: "SP",
-            billingStreetLine1: "Av. Faria Lima, 1844",
-            billingStreetLine2: "",
-            billingZipCode: "01500-000",
-            challengeMode: "disabled",
-        }
-
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
-            merchantSession.uuid,
-            merchantSessionPurchaseJson,
-        );
-
-        let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantSessionPurchase.id, {
+        let merchantPurchase = await starkbank.merchantPurchase.create(new starkbank.MerchantPurchase(generateExampleMerchantPurchaseJson()));
+        let params = {
             amount: 0,
             status: "canceled"
-        });
-
-        assert(updatedMerchantPurchase.id == merchantSessionPurchase.id);
+        }
+        try {
+            let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantPurchase.id, params);
+            assert(updatedMerchantPurchase.id == merchantPurchase.id);
+        } catch (error: any) {
+            assert(error.message.includes("Only approved and unconfirmed purchases can be canceled"));
+        }
     });
 });

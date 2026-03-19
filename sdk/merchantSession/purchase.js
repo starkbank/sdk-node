@@ -11,7 +11,7 @@ class Purchase extends Resource {
     constructor({
         amount, cardExpiration, cardNumber, cardSecurityCode, holderName, fundingType, holderEmail=null, holderPhone=null,
         billingCity=null, billingZipCode=null, billingStateCode=null, billingCountryCode=null, billingStreetLine1=null,
-        billingStreetLine2=null, metadata=null, cardId=null, installmentCount=null, id=null
+        billingStreetLine2=null, metadata=null, cardId=null, installmentCount=null, id=null, holderId=null, softDescriptor=null
     }) {
         super(id)
         this.amount = amount
@@ -31,6 +31,8 @@ class Purchase extends Resource {
         this.billingZipCode = billingZipCode
         this.metadata = metadata
         this.cardId = cardId
+        this.holderId = holderId
+        this.softDescriptor = softDescriptor
     }
 }
 

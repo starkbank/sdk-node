@@ -6,7 +6,9 @@ declare module 'starkbank' {
         cardNumber : string
         cardSecurityCode : string
         holderName : string
+        holderId : string
         fundingType : string 
+        softDescriptor : string 
         readonly holderEmail : string 
         readonly holderPhone : string 
         readonly billingCountryCode : string 
@@ -41,7 +43,7 @@ declare module 'starkbank' {
                 value?: string} | null, id : string | null,
             installmentCount?: number | null, cardEnding?: string | null, cardId?: string | null, challengeMode?: string | null, challengeUrl?: string | null,
             created?: string | null, currencyCode?: string | null, endToEndId?: string | null, fee?: number | null, network?: string | null, source?: string | null,
-            status?: string | null, tags?: string[] | null, updated?: string | null
+            status?: string | null, tags?: string[] | null, updated?: string | null, softDescriptor?: string | null, holderId?: string | null,
         })
     }
 
@@ -59,6 +61,7 @@ declare module 'starkbank' {
             status?: string | null, 
             tags?: string[] | null, 
             ids?: string[] | null, 
+            holderId?: string | null, 
             user?: Project | Organization | null
         }): Promise<[MerchantPurchase[], string | null]>;
 
@@ -69,6 +72,7 @@ declare module 'starkbank' {
             status?: string | null, 
             tags?: string[] | null, 
             ids?: string[] | null, 
+            holderId?: string | null, 
             user?: Project | Organization | null
         }): Promise<MerchantPurchase[]>;
 
