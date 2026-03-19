@@ -13,6 +13,10 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- holderId attribute to MerchantSession resource
+- holderId and softDescriptor attributes to MerchantPurchase resource
+- holderId and softDescriptor attributes to MerchantSession and MerchantPurchase resources to support TypeScript
 
 ## [2.38.0] - 2025-11-06
 ### Added

@@ -4,7 +4,9 @@ declare module 'starkbank' {
         allowedFundingTypes: string[]
         allowedInstallments: {totalAmount: number, count: number}[]
         expiration: number
-
+        holderId?: string
+        softDescriptor?: string
+        
         readonly id : string
         readonly allowedIps: string[]
         readonly challengeMode: string
@@ -14,7 +16,7 @@ declare module 'starkbank' {
         readonly updated: string
         readonly uuid: string
 
-        constructor(params: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string})
+        constructor(params: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string, holderId?: string, softDescriptor?: string})
     }
 
     export namespace merchantSession {
@@ -40,6 +42,7 @@ declare module 'starkbank' {
             status?: string | null, 
             tags?: string[] | null, 
             ids?: string[] | null, 
+            holderId?: string | null, 
             user?: Project | Organization | null
         }): Promise<[MerchantSession[], string | null]>;
 
@@ -50,6 +53,7 @@ declare module 'starkbank' {
             status?: string | null, 
             tags?: string[] | null, 
             ids?: string[] | null, 
+            holderId?: string | null, 
             user?: Project | Organization | null
         }): Promise<MerchantSession[]>;
 
@@ -70,12 +74,14 @@ declare module 'starkbank' {
             holderPhone : string 
             metadata : Record<string, any>
             installmentCount : number
+            holderId : string
+            softDescriptor : string
 
             constructor(params: {
                 amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, fundingType: string, holderName: string,
                 billingCity?: string | null, billingCountryCode?: string | null, billingStateCode?: string | null, billingStreetLine1?: string | null,
                 billingStreetLine2?: string | null, billingZipCode?: string | null, holderEmail?: string | null, holderPhone?: string | null,
-                metadata?: Record<string, any> | null, installmentCount?: number | null
+                metadata?: Record<string, any> | null, installmentCount?: number | null, holderId?: string, softDescriptor?: string,
             })
         }
 

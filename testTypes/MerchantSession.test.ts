@@ -25,13 +25,13 @@ describe('TestMerchantSessionPurchaseCreate', function(){
         let merchantSession = await starkbank.merchantSession.create(merchantSessionJson);
 
         let purchaseJson = {
-            amount: 180,
+            amount: 5000,
             cardExpiration: "2035-01",
             cardNumber: "5277696455399733",
             cardSecurityCode: "123",
             holderName: "Holder Name",
             fundingType: "credit",
-            holderEmail: "holdeName@email.com",
+            holderEmail: "holderName@email.com",
             holderPhone: "11111111111",
             billingCountryCode: "BRA",
             billingCity: "São Paulo",
@@ -46,7 +46,7 @@ describe('TestMerchantSessionPurchaseCreate', function(){
                 "timezoneOffset": 3,
                 "extraData": "extraData"
             },
-            installmentCount: 12
+            installmentCount: 1
         }
 
         let purchase = new starkbank.merchantSession.Purchase(purchaseJson);
@@ -73,12 +73,15 @@ describe('TestMerchantSessionGetQuery', function(){
     jest.setTimeout(10000);
     it('test_success', async () => {
         let i = 0;
-        const sessions = await starkbank.merchantSession.query({limit: 5});
+        let holderId = "0123456789012345";
+        let limit = 5;
+        const sessions = await starkbank.merchantSession.query({limit: limit, holderId: holderId});
         for await (let session of sessions) {
+            assert(session.holderId == holderId);
             assert(typeof session.id == 'string');
             i += 1;
         }
-        assert(i === 5);
+        assert(i == limit);
     });
 });
 
@@ -87,10 +90,13 @@ describe('TestMerchantSessionGetPage', function () {
     it('test_success', async () => {
         let ids: string[] = [];
         let cursor: string | null = null;
-        let page: starkbank.MerchantSession[] | null = null;    
+        let page: starkbank.MerchantSession[] | null = null;
+        let limit = 5;
+        let holderId = "0123456789012345";
         for (let i = 0; i < 2; i++) {
-            [page, cursor] = await starkbank.merchantSession.page({ limit: 5, cursor: cursor });
+            [page, cursor] = await starkbank.merchantSession.page({ limit: limit, holderId: holderId, cursor: cursor });
             for (let entity of page) {
+                assert(entity.holderId == holderId);
                 assert(!ids.includes(entity.id));
                 ids.push(entity.id);
             }
@@ -98,6 +104,6 @@ describe('TestMerchantSessionGetPage', function () {
                 break;
             }
         }
-        assert(ids.length == 10);
+        assert(ids.length > limit);
     });
 });

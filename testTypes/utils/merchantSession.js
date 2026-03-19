@@ -1,3 +1,4 @@
+const randomInt = require('./random.js');
 
 
 exports.generateExampleMerchantSessionJson = function () {
@@ -9,29 +10,27 @@ exports.generateExampleMerchantSessionJson = function () {
         ],
         allowedInstallments: [
             {
-                "totalAmount": 0,
-                "count": 1
+                "count": 1,
+                "totalAmount": 5000
             },
             {
-                "totalAmount": 120,
-                "count": 2
-            },
-            {
-                "totalAmount": 180,
-                "count": 12
+                "count": 2,
+                "totalAmount": 5500
             }
         ],
         expiration: 3600,
         challengeMode: "disabled",
+        holderId: randomInt.randomInt(100000, 1000000).toString(),
         tags: [
-            "yourTags"
-        ]
+            "purchase_1234"
+        ],
+        softDescriptor: "Test Descriptor"
     }
 
     return merchantSessionJson;
 }
 
-exports.generateExampleMerchantSessionPurchaseJson = function (uuid) {
+exports.generateExampleMerchantSessionPurchaseJson = function () {
 
     let merchantSessionPurchaseJson = {
         uuid: uuid,
@@ -41,7 +40,7 @@ exports.generateExampleMerchantSessionPurchaseJson = function (uuid) {
         cardNumber: "5277696455399733",
         cardSecurityCode: "123",
         holderName: "Holder Name",
-        holderEmail: "holdeName@email.com",
+        holderEmail: "holderName@email.com",
         holderPhone: "11111111111",
         fundingType: "credit",
         billingCountryCode: "BRA",

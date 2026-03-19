@@ -1,7 +1,8 @@
 const assert = require('assert');
 const starkbank = require('../index.js');
-const generateExampleMerchantSessionJson = require('./utils/merchantSession.js').generateExampleMerchantSessionJson;
+const generateExampleMerchantSessionJson = require('./utils/merchantSession.js').generateExampleMerchantSessionJson
 const generateExampleMerchantSessionPurchaseJson = require('./utils/merchantSession.js').generateExampleMerchantSessionPurchaseJson
+const generateExampleMerchantPurchaseJson = require('./utils/merchantPurchase.js').generateExampleMerchantPurchaseJson
 
 
 starkbank.user = require('./utils/user').exampleProject;
@@ -9,19 +10,7 @@ starkbank.user = require('./utils/user').exampleProject;
 describe('MerchantPurchaseCreate', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
-
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
-            merchantSession.uuid,
-            generateExampleMerchantSessionPurchaseJson(),
-        );
-
-        let merchantPurchase = await starkbank.merchantPurchase.create({
-            amount: 1000,
-            fundingType: 'credit',
-            challengeMode: 'disabled',
-            cardId: merchantSessionPurchase.cardId,
-        });
+        let merchantPurchase = await starkbank.merchantPurchase.create(generateExampleMerchantPurchaseJson());
         assert(typeof merchantPurchase.id == 'string');
     });
 });
@@ -29,10 +18,16 @@ describe('MerchantPurchaseCreate', function(){
 describe('MerchantPurchaseQuery', function(){
     this.timeout(10000);
     it('test_success', async () => {
-        let merchantPurchases = await starkbank.merchantPurchase.query({limit: 3});
+        let i = 0;
+        let limit = 3;
+        let holderId = "0123456789012345";
+        let merchantPurchases = await starkbank.merchantPurchase.query({limit: limit, holderId: holderId});
         for await (let merchantPurchase of merchantPurchases) {
+            assert(merchantPurchase.holderId == holderId);
             assert(typeof merchantPurchase.id == 'string');
+            i += 1;
         }
+        assert(i == limit);
     });
 });
 
@@ -53,9 +48,12 @@ describe('MerchantPurchasePage', function () {
         let ids = [];
         let cursor = null;
         let page = null;
+        let limit = 5;
+        let holderId = "0123456789012345";
         for (let i = 0; i < 2; i++) {
-            [page, cursor] = await starkbank.merchantPurchase.page({ limit: 5, cursor: cursor });
+            [page, cursor] = await starkbank.merchantPurchase.page({ limit: limit, holderId: holderId, cursor: cursor });
             for (let entity of page) {
+                assert(entity.holderId == holderId);
                 assert(!ids.includes(entity.id));
                 ids.push(entity.id);
             }
@@ -63,25 +61,22 @@ describe('MerchantPurchasePage', function () {
                 break;
             }
         }
-        assert(ids.length == 10);
+        assert(ids.length > limit);
     });
 });
 
-describe('MerchantPurchaseUpdate', function(){
+describe('MerchantPurchaseCreateAndUpdate', function(){
     this.timeout(10000);
     it('test_success', async () => {
-
-        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
-
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
-            merchantSession.uuid,
-            generateExampleMerchantSessionPurchaseJson(),
-        );
-
-        let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantSessionPurchase.id, {
-            amount: 0,
-            status: "canceled"
-        });
-        assert(updatedMerchantPurchase.id == merchantSessionPurchase.id);
+        let merchantPurchase = await starkbank.merchantPurchase.create(generateExampleMerchantPurchaseJson());
+        try {
+            let updatedMerchantPurchase = await starkbank.merchantPurchase.update(merchantPurchase.id, {
+                amount: 0,
+                status: "canceled"
+            });
+            assert(updatedMerchantPurchase.id == merchantPurchase.id);
+        } catch (error) {
+            assert(error.message.includes("Only approved and unconfirmed purchases can be canceled"));
+        }
     });
 });

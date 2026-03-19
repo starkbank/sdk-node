@@ -19,6 +19,7 @@ exports.generateExampleMerchantSessionJson = function () {
         ],
         expiration: 3600,
         challengeMode: "disabled",
+        holderId: Math.floor(Math.random() * 10000000000000000).toString(),
         tags: [
             "purchase_1234"
         ],
@@ -34,9 +35,9 @@ exports.generateExampleMerchantSessionPurchaseJson = function () {
         amount: 5000,
         installmentCount: 1,
         cardExpiration: "2035-01",
-        cardNumber: "5448280000000007",
+        cardNumber: "5315281703921200",
         cardSecurityCode: "123",
-        holderName: "Rhaenyra Targaryen",
+        holderName: "Rhaenyra Targaryenzzzz",
         holderEmail: "rhaenyra.targaryen@starkbank.com",
         holderPhone: "11985923451",
         fundingType: "credit",
