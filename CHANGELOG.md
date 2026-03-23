@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- putMulti language parameter
 
 ## [2.39.0] - 2026-03-19
 ### Added
