@@ -164,7 +164,7 @@ exports.putMulti = async function (resource, entities, user = starkBank.user, qu
         user,
         resource,
         entities,
-        language,
+        language = starkBank.language,
         timeout,
         query
     );
