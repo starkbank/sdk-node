@@ -1,4 +1,4 @@
-exports.version = '2.39.0';
+exports.version = '2.39.1';
 
 exports.apiVersion = 'v2';
 exports.timeout = 2000;
