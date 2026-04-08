@@ -15,6 +15,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ## [Unreleased]
 ### Added
 - VerifiedAccount resource
+- VerifiedTransfer resource
 
 ## [2.39.1] - 2026-03-25
 ### Fixed

@@ -2,7 +2,7 @@ import starkbank from "starkbank";
 
 export function bankInfoExample(): starkbank.VerifiedAccount {
     return new starkbank.VerifiedAccount({
-        taxId: '911.544.440-66',
+        taxId: '232.377.340-20',
         number: '76543-8',
         bankCode: '341',
         branchCode: '2201',

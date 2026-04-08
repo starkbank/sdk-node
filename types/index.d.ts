@@ -29,6 +29,7 @@
 ///<reference path='./merchantCard/merchantCard.d.ts' />
 ///<reference path='./split/split.d.ts' />
 ///<reference path='./verifiedAccount/verifiedAccount.d.ts' />
+///<reference path='./verifiedTransfer/verifiedTransfer.d.ts' />
 ///<reference path='./splitProfile/splitProfile.d.ts' />
 ///<reference path='./splitReceiver/splitReceiver.d.ts' />
 

@@ -1839,6 +1839,136 @@ const starkbank = require('starkbank');
 })();
 ```
 
+## Create VerifiedAccounts
+
+You can create VerifiedAccounts to confirm that a bank account or Pix key belongs to a given tax ID before sending a transfer.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let accounts = await starkbank.verifiedAccount.create([
+        {
+            taxId: '012.345.678-90',
+            name: 'Tony Stark',
+            bankCode: '341',
+            branchCode: '2201',
+            number: '76543-8',
+            type: 'checking',
+            tags: ['iron', 'suit'],
+        },
+        {
+            taxId: '012.345.678-90',
+            keyId: 'tony@starkbank.com',
+            tags: ['iron', 'suit'],
+        }
+    ]);
+
+    for (let account of accounts) {
+        console.log(account);
+    }
+})();
+```
+
+## Get a VerifiedAccount
+
+You can get a specific VerifiedAccount by its id:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let account = await starkbank.verifiedAccount.get('5155165527080960');
+    console.log(account);
+})();
+```
+
+## Cancel a VerifiedAccount
+
+You can cancel a VerifiedAccount by its id:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let account = await starkbank.verifiedAccount.cancel('5155165527080960');
+    console.log(account);
+})();
+```
+
+## Query VerifiedAccounts
+
+To search for VerifiedAccounts using filters, run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let accounts = await starkbank.verifiedAccount.query({
+        limit: 10,
+        status: 'active',
+        tags: ['iron', 'suit'],
+    });
+
+    for await (let account of accounts) {
+        console.log(account);
+    }
+})();
+```
+
+## Query VerifiedAccount logs
+
+You can search for VerifiedAccount logs by specifying filters:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let logs = await starkbank.verifiedAccount.log.query({
+        limit: 10,
+    });
+
+    for await (let log of logs) {
+        console.log(log);
+    }
+})();
+```
+
+## Get a VerifiedAccount log
+
+If you want to get a specific VerifiedAccount log by its id, just run:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let log = await starkbank.verifiedAccount.log.get('1902837198237992');
+    console.log(log);
+})();
+```
+
+## Create VerifiedTransfers
+
+You can send a transfer to a previously verified account by creating a VerifiedTransfer:
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let transfers = await starkbank.verifiedTransfer.create([
+        {
+            amount: 1000,
+            accountId: '5155165527080960',
+            tags: ['iron', 'suit'],
+        }
+    ]);
+
+    for (let transfer of transfers) {
+        console.log(transfer);
+    }
+})();
+```
+
 ## Preview payment information before executing the payment
 
 You can preview multiple types of payment to confirm any information before actually paying.

@@ -1,6 +1,6 @@
 const rest = require('../../utils/rest.js');
 const check = require('starkcore').check;
-const Resource = require('../../utils/resource.js').Resource
+const Resource = require('starkcore').Resource;
 
 
 class Log extends Resource {
