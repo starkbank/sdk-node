@@ -3,6 +3,7 @@ const { Transaction } = require('../transaction/transaction.js');
 const { Transfer } = require('../transfer/transfer.js');
 const { UtilityPayment } = require('../utilityPayment/utilityPayment.js');
 const { BrcodePayment } = require('../brcodePayment/brcodePayment.js');
+const { TaxPayment } = require('../taxPayment/taxPayment.js');
 const rest = require('../utils/rest.js');
 const check = require('starkcore').check;
 const Resource = require('starkcore').Resource;
@@ -68,7 +69,8 @@ const parsePayment = function (payment, type) {
             ', transaction' +
             ', boleto-payment' +
             ', brcode-payment' +
-            'or utility-payment';
+            ', tax-payment' +
+            ' or utility-payment';
     }
 
     if (payment instanceof Transfer)
@@ -81,6 +83,8 @@ const parsePayment = function (payment, type) {
         type = 'brcode-payment';
     if (payment instanceof UtilityPayment)
         type = 'utility-payment';
+    if (payment instanceof TaxPayment)
+        type = 'tax-payment';
 
     if (type)
         return { 'payment': payment, 'type': type };
@@ -91,6 +95,7 @@ const parsePayment = function (payment, type) {
         ', a starkbank.Transaction' +
         ', a starkbank.BoletoPayment' +
         ', a starkbank.BrcodePayment' +
+        ', a starkbank.TaxPayment' +
         ' or a starkbank.UtilityPayment' +
         ', but not a ' + typeof (payment)
     );
