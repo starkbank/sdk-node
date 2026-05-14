@@ -4,13 +4,80 @@ const generatePaymentRequestExamplesJson = require('./utils/paymentRequest').gen
 
 starkbank.user = require('./utils/user').exampleProject;
 
-describe('TestPaymentRequestPost', function(){
+describe('TestPaymentRequestPostTransfer', function(){
     this.timeout(30000);
     it('test_success', async () => {
-        let requests = await generatePaymentRequestExamplesJson(10);
+        let requests = await generatePaymentRequestExamplesJson(1, ['transfer']);
         requests = await starkbank.paymentRequest.create(requests);
-        for (let request of requests)
+        for (let request of requests) {
             assert(typeof request.id == 'string');
+        }
+    });
+});
+
+describe('TestPaymentRequestPostTransaction', function(){
+    this.timeout(30000);
+    it('test_success', async () => {
+        let requests = await generatePaymentRequestExamplesJson(1, ['transaction']);
+        requests = await starkbank.paymentRequest.create(requests);
+        for (let request of requests) {
+            assert(typeof request.id == 'string');
+        }
+    });
+});
+
+describe('TestPaymentRequestPostBoletoPayment', function(){
+    this.timeout(30000);
+    it('test_success', async () => {
+        let requests = await generatePaymentRequestExamplesJson(1, ['boleto-payment']);
+        requests = await starkbank.paymentRequest.create(requests);
+        for (let request of requests) {
+            assert(typeof request.id == 'string');
+        }
+    });
+});
+
+describe('TestPaymentRequestPostUtilityPayment', function(){
+    this.timeout(30000);
+    it('test_success', async () => {
+        let requests = await generatePaymentRequestExamplesJson(1, ['utility-payment']);
+        requests = await starkbank.paymentRequest.create(requests);
+        for (let request of requests) {
+            assert(typeof request.id == 'string');
+        }
+    });
+});
+
+describe('TestPaymentRequestPostBrcodePayment', function(){
+    this.timeout(30000);
+    it('test_success', async () => {
+        let requests = await generatePaymentRequestExamplesJson(1, ['brcode-payment']);
+        requests = await starkbank.paymentRequest.create(requests);
+        for (let request of requests) {
+            assert(typeof request.id == 'string');
+        }
+    });
+});
+
+describe('TestPaymentRequestPostTaxPayment', function(){
+    this.timeout(30000);
+    it('test_success', async () => {
+        let requests = await generatePaymentRequestExamplesJson(1, ['tax-payment']);
+        requests = await starkbank.paymentRequest.create(requests);
+        for (let request of requests) {
+            assert(typeof request.id == 'string');
+        }
+    });
+});
+
+describe('TestPaymentRequestPostDarfPayment', function(){
+    this.timeout(30000);
+    it('test_success', async () => {
+        let requests = await generatePaymentRequestExamplesJson(1, ['darf-payment']);
+        requests = await starkbank.paymentRequest.create(requests);
+        for (let request of requests) {
+            assert(typeof request.id == 'string');
+        }
     });
 });
 

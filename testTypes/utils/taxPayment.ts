@@ -23,12 +23,12 @@ const exampleDarfPayment = new starkbank.DarfPayment({
     description: 'description test',
 });
 
-export const generateExampleTaxPaymentsJson = (n = 1, amount = null, nextDay = false, isTax = false) => {
+export const generateExampleTaxPaymentsJson = (n = 1, amount = null, nextDay = false) => {
     return generateExampleNonBoletoPaymentsJson(
         n = n,
         amount = amount,
         nextDay = nextDay,
-        isTax = isTax
+        true
     );
 };
 

@@ -4,8 +4,8 @@ const check = require('starkcore').check;
 const generateExampleBoletosJson = require('./boleto').generateExampleBoletosJson;
 
 exports.generateExampleBoletoPaymentsJson = async function (n: number, schedule = true) {
-    
-    let exampleBoletoPayment = {
+
+    let exampleBoletoPayment: any = {
         taxId: '20.018.183/0001-80',
         line: '34191.09008 61713.957308 71444.640008 2 83430000984732',
         description: 'loading a random account'
@@ -24,6 +24,8 @@ exports.generateExampleBoletoPaymentsJson = async function (n: number, schedule 
     for (let i = 0; i < n; i++) {
         exampleBoletoPayment.line = lines[i];
         exampleBoletoPayment.description = `Pagamento ${amounts[i]}`;
+        if (schedule)
+            exampleBoletoPayment.scheduled = check.date(random.futureDate(7));
         payments.push(new starkbank.BoletoPayment(exampleBoletoPayment));
     }
     return payments;

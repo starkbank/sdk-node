@@ -13,8 +13,8 @@ let choice = function (a: number | null | string, b: string) {
 
 
 exports.generateExampleTransfersJson = function (n: number, amount = null, tomorrow = false) {
-    
-    let exampleTransfer = {
+
+    let exampleTransfer: any = {
         amount: 10,
         name: 'João da Silva',
         taxId: '01234567890',
@@ -25,14 +25,21 @@ exports.generateExampleTransfersJson = function (n: number, amount = null, tomor
         description: choice(null, 'Test description') as string,
         externalId: "",
         rules: [
-            new starkbank.transfer.Rule({ 
-                key: 'resendingLimit', 
-                value: 5 
+            new starkbank.transfer.Rule({
+                key: 'resendingLimit',
+                value: 5
             })
         ]
     };
 
     let transfers: starkbank.Transfer[] = [];
+
+    let scheduled: string | null = null;
+    if (tomorrow) {
+        let scheduledDate = new Date();
+        scheduledDate.setDate(scheduledDate.getDate() + 1);
+        scheduled = choice(scheduledDate.toISOString().substring(0, 10), scheduledDate.toISOString().replace('Z','+00:00')) as string;
+    }
 
     for (let i = 0; i < n; i++) {
         let transferAmount = Math.floor(amount as unknown as number);
@@ -42,6 +49,7 @@ exports.generateExampleTransfersJson = function (n: number, amount = null, tomor
         exampleTransfer.name = 'Jon Snow';
         exampleTransfer.amount = transferAmount;
         exampleTransfer.taxId = '012.345.678-90';
+        exampleTransfer.scheduled = scheduled;
         exampleTransfer.externalId = 'node-' + uniqueId();
         transfers.push(new starkbank.Transfer(exampleTransfer));
     }

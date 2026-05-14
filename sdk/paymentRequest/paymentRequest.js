@@ -3,6 +3,8 @@ const { Transaction } = require('../transaction/transaction.js');
 const { Transfer } = require('../transfer/transfer.js');
 const { UtilityPayment } = require('../utilityPayment/utilityPayment.js');
 const { BrcodePayment } = require('../brcodePayment/brcodePayment.js');
+const { TaxPayment } = require('../taxPayment/taxPayment.js');
+const { DarfPayment } = require('../darfPayment/darfPayment.js');
 const rest = require('../utils/rest.js');
 const check = require('starkcore').check;
 const Resource = require('starkcore').Resource;
@@ -21,7 +23,7 @@ class PaymentRequest extends Resource {
      * 
      * Parameters (required):
      * @param centerId [string]: target cost center ID. ex: '5656565656565656'
-     * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction, BrcodePayment or dictionary]: payment entity that should be approved and executed.
+     * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction, BrcodePayment, TaxPayment, DarfPayment or dictionary]: payment entity that should be approved and executed.
      * 
      * Parameters (conditionally required):
      * @param type [string]: payment type, inferred from the payment parameter if it is not a dictionary. ex: 'transfer', 'boleto-payment'
@@ -68,7 +70,9 @@ const parsePayment = function (payment, type) {
             ', transaction' +
             ', boleto-payment' +
             ', brcode-payment' +
-            'or utility-payment';
+            ', utility-payment' +
+            ', tax-payment' +
+            ' or darf-payment';
     }
 
     if (payment instanceof Transfer)
@@ -81,6 +85,10 @@ const parsePayment = function (payment, type) {
         type = 'brcode-payment';
     if (payment instanceof UtilityPayment)
         type = 'utility-payment';
+    if (payment instanceof TaxPayment)
+        type = 'tax-payment';
+    if (payment instanceof DarfPayment)
+        type = 'darf-payment';
 
     if (type)
         return { 'payment': payment, 'type': type };
@@ -91,7 +99,9 @@ const parsePayment = function (payment, type) {
         ', a starkbank.Transaction' +
         ', a starkbank.BoletoPayment' +
         ', a starkbank.BrcodePayment' +
-        ' or a starkbank.UtilityPayment' +
+        ', a starkbank.UtilityPayment' +
+        ', a starkbank.TaxPayment' +
+        ' or a starkbank.DarfPayment' +
         ', but not a ' + typeof (payment)
     );
 }

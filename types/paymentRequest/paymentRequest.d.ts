@@ -13,7 +13,7 @@ declare module 'starkbank' {
          * 
          * Parameters (required):
          * @param centerId [string]: target cost center ID. ex: '5656565656565656'
-         * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction, BrcodePayment or dictionary]: payment entity that should be approved and executed.
+         * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction, BrcodePayment, TaxPayment, DarfPayment or dictionary]: payment entity that should be approved and executed.
          * 
          * Parameters (conditionally required):
          * @param type [string]: payment type, inferred from the payment parameter if it is not a dictionary. ex: 'transfer', 'boleto-payment'
@@ -33,7 +33,7 @@ declare module 'starkbank' {
          */
 
         centerId: string
-        payment: Transfer | BoletoPayment | UtilityPayment | Transaction | BrcodePayment | {}
+        payment: Transfer | BoletoPayment | UtilityPayment | Transaction | BrcodePayment | TaxPayment | DarfPayment | {}
 
         type: string
 
@@ -53,9 +53,9 @@ declare module 'starkbank' {
         readonly created: string | null
 
         constructor(params: {
-            centerId: string, payment: Transfer | BoletoPayment | UtilityPayment | Transaction | BrcodePayment | {}, 
-            type?: string, due?: string, tags?: string[] | null, id?: string | null | null, amount?: number | null, 
-            status?: string | null, description?: string | null, actions?: {type: string, id: string, 
+            centerId: string, payment: Transfer | BoletoPayment | UtilityPayment | Transaction | BrcodePayment | TaxPayment | DarfPayment | {},
+            type?: string, due?: string, tags?: string[] | null, id?: string | null | null, amount?: number | null,
+            status?: string | null, description?: string | null, actions?: {type: string, id: string,
             action: string}[] | null, updated?: string | null, created?: string | null
         })
     }
