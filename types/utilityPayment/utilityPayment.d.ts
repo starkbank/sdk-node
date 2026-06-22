@@ -41,7 +41,7 @@ declare module 'starkbank' {
         line?: string | null
         barCode?: string | null
 
-        readonly id?: string | null
+        readonly id: string
         readonly status?: string | null
         readonly amount?: number | null
         readonly fee?: number | null

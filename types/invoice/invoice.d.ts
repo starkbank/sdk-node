@@ -359,7 +359,7 @@ declare module 'starkbank' {
                 after?: string | null, 
                 before?: string | null, 
                 types?: string[] | null, 
-                paymentIds?: string[] | null, 
+                invoiceIds?: string[] | null, 
                 user?: Project | Organization | null
             }): Promise<[invoice.Log[], string | null]>;
 
@@ -404,7 +404,7 @@ declare module 'starkbank' {
                 after?: string | null, 
                 before?: string | null, 
                 types?: string[] | null, 
-                paymentIds?: string[] | null, 
+                invoiceIds?: string[] | null, 
                 user?: Project | Organization | null
             }): Promise<invoice.Log[]>;
         }
