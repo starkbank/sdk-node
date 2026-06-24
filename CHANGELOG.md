@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- tax-payment and darf-payment types support to PaymentRequest resource
 
 ## [2.40.0] - 2026-04-16
 ### Added
