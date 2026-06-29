@@ -168,7 +168,7 @@ exports.update = async function (id, {isDelivered, user} = {}) {
     return rest.patchId(resource, id, payload, user);
 };
 
-exports.parse = async function ({content, signature, user} = {}) {
+exports.parse = async function (content, signature, user) {
     /**
      *
      * Create single notification Event from a content string
@@ -188,6 +188,17 @@ exports.parse = async function ({content, signature, user} = {}) {
      * @returns Event object with updated attributes
      *
      */
+
+    if (typeof content === 'object' && content !== null && !Array.isArray(content)) {
+        ({content, signature, user} = content);
+    }
+
+    if (typeof content !== 'string' || content.length === 0) {
+        throw new Error('content must be a non-empty JSON string');
+    }
+    if (typeof signature !== 'string' || signature.length === 0) {
+        throw new Error('signature must be a non-empty base-64 string');
+    }
 
     let event = Object.assign(new Event(), JSON.parse(content)['event']);
     try {
