@@ -46,6 +46,12 @@ declare module 'starkbank' {
 
     export function getLanguage(): 'pt-BR' | 'en-US';
 
+    export var httpsAgent: import('http').Agent | null
+
+    export function setHttpsAgent(httpsAgent: import('http').Agent | null): void;
+
+    export function getHttpsAgent(): import('http').Agent | null;
+
     export namespace key {
         function create(): [newPrivatePem: string, newPublicPem: string];
         function create(path: string): [newPrivatePem: string, newPublicPem: string];
