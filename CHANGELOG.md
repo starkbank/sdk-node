@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+
+## [2.42.0] - 2026-07-21
 ### Added
 - option to set custom httpsAgent for axios requests
 ### Changed
