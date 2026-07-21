@@ -5,6 +5,7 @@ exports.timeout = 2000;
 exports.cache = {};
 exports.user = {};
 exports.language = "en-US";
+exports.httpsAgent = null;
 
 exports.setUser = function (user) {
     exports.user = user;
@@ -24,6 +25,15 @@ exports.setLanguage = function (language) {
 
 exports.getLanguage = function () {
     return exports.language
+}
+
+exports.setHttpsAgent = function (httpsAgent) {
+    exports.httpsAgent = httpsAgent;
+    require('starkcore').setHttpsAgent(httpsAgent);
+}
+
+exports.getHttpsAgent = function () {
+    return exports.httpsAgent;
 }
 
 exports.requestMethodsPrefix = "Joker"

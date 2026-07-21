@@ -22,7 +22,8 @@ is as easy as sending a text message to your client!
     - [Register your user credentials](#3-register-your-user-credentials)
     - [Setting up the user](#4-setting-up-the-user)
     - [Setting up the error language](#5-setting-up-the-error-language)
-    - [Resource listing and manual pagination](#6-resource-listing-and-manual-pagination)
+    - [Setting up a custom HTTPS agent](#6-setting-up-a-custom-https-agent)
+    - [Resource listing and manual pagination](#7-resource-listing-and-manual-pagination)
 - [Testing in Sandbox](#testing-in-sandbox) 
 - [Usage](#usage)
     - [Transactions](#create-transactions): Account statement entries
@@ -275,7 +276,39 @@ starkbank.language = 'en-US';
 
 Language options are 'en-US' for english and 'pt-BR' for brazilian portuguese. English is default.
 
-## 6. Resource listing and manual pagination
+## 6. Setting up a custom HTTPS agent
+
+If you need to route the SDK's requests through an outbound proxy — for example, to
+egress through a fixed IP registered in your project's allowed IPs — you can set a
+custom HTTPS agent. It is applied to every request the SDK makes.
+
+```javascript
+const starkbank = require('starkbank');
+const { HttpsProxyAgent } = require('https-proxy-agent');
+
+starkbank.setHttpsAgent(new HttpsProxyAgent('http://your-proxy.internal:3128'));
+```
+
+Or set it directly as a property:
+
+```javascript
+const https = require('https');
+
+starkbank.httpsAgent = new https.Agent({ keepAlive: true });
+```
+
+The agent is any Node `http(s).Agent`-like object (`https-proxy-agent` is a third-party
+package you install in your own project), so you control connection pooling and TLS
+options at construction. Keep TLS certificate validation enabled (do not set
+`rejectUnauthorized: false`) to preserve the security of the connection.
+
+Pass `null` to clear it and restore the default behavior:
+
+```javascript
+starkbank.setHttpsAgent(null);
+```
+
+## 7. Resource listing and manual pagination
 
 Almost all SDK resources provide a `query` and a `page` function.
 
