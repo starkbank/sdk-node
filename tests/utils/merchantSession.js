@@ -29,6 +29,31 @@ exports.generateExampleMerchantSessionJson = function () {
     return merchantSessionJson;
 }
 
+exports.generateExampleMerchantSessionPreAuthJson = function () {
+
+    let merchantSessionJson = {
+        allowedFundingTypes: [
+            "credit"
+        ],
+        allowedInstallments: [
+            {
+                "count": 1,
+                "totalAmount": 10000
+            }
+        ],
+        expiration: 3600,
+        challengeMode: "disabled",
+        confirmationMode: "manual",
+        holderId: Math.floor(Math.random() * 10000000000000000).toString(),
+        tags: [
+            "purchase_1234"
+        ],
+        softDescriptor: "Test Descriptor"
+    }
+
+    return merchantSessionJson;
+}
+
 exports.generateExampleMerchantSessionPurchaseJson = function () {
 
     let merchantSessionPurchaseJson = {

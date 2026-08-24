@@ -8,10 +8,10 @@ class MerchantPurchase extends Resource {
      */
 
     constructor({
-        id, amount, installmentCount, holderName, holderEmail, holderPhone, holderId, fundingType, billingCountryCode, 
-        billingCity, billingStateCode,billingStreetLine1, billingStreetLine2, billingZipCode, metadata, cardEnding, 
+        id, amount, installmentCount, holderName, holderEmail, holderPhone, holderId, fundingType, billingCountryCode,
+        billingCity, billingStateCode,billingStreetLine1, billingStreetLine2, billingZipCode, metadata, cardEnding,
         cardId, challengeMode, challengeUrl, created, currencyCode, endToEndId, fee, network, source, status, tags, updated,
-        softDescriptor
+        softDescriptor, confirmationMode
     }) {
         super(id)
         this.amount = amount
@@ -42,6 +42,7 @@ class MerchantPurchase extends Resource {
         this.tags = tags
         this.updated = updated
         this.softDescriptor = softDescriptor
+        this.confirmationMode = confirmationMode
     }
 }
 
@@ -89,4 +90,26 @@ exports.update = async function (id, {amount, status, user} = {}) {
         status: status,
     };
     return rest.patchId(resource, id, payload, user);
+}
+
+exports.delete = async function (id, {user} = {}) {
+    /**
+     *
+     * Cancel or reverse a MerchantPurchase entity
+     *
+     * @description Cancel a MerchantPurchase still in status "approved" (before capture) or reverse
+     * one already "confirmed" (after capture). The API infers cancelation vs reversal from the
+     * current purchase status. Only applies to purchases created with confirmationMode "manual".
+     *
+     * Parameters (required):
+     * @param id [string]: MerchantPurchase unique id. ex: '5656565656565656'
+     *
+     * Parameters (optional):
+     * @param user [Organization/Project object]: Organization or Project object. Not necessary if starkbank.user was set before function call
+     *
+     * Return:
+     * @returns deleted MerchantPurchase object
+     *
+     */
+    return rest.deleteId(resource, id, user);
 }

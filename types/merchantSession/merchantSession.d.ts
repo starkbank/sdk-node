@@ -6,7 +6,8 @@ declare module 'starkbank' {
         expiration: number
         holderId?: string
         softDescriptor?: string
-        
+        confirmationMode?: string
+
         readonly id : string
         readonly allowedIps: string[]
         readonly challengeMode: string
@@ -16,7 +17,7 @@ declare module 'starkbank' {
         readonly updated: string
         readonly uuid: string
 
-        constructor(params: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string, holderId?: string, softDescriptor?: string})
+        constructor(params: {allowedFundingTypes: string[], allowedInstallments: {totalAmount: number, count: number}[], id : string, expiration: number, allowedIps: string, challengeMode: string, created: string, status: string, tags: string[], updated: string, uuid: string, holderId?: string, softDescriptor?: string, confirmationMode?: string})
     }
 
     export namespace merchantSession {
@@ -76,12 +77,14 @@ declare module 'starkbank' {
             installmentCount : number
             holderId : string
             softDescriptor : string
+            confirmationMode : string
 
             constructor(params: {
                 amount: number, cardExpiration: string, cardNumber: string, cardSecurityCode: string, fundingType: string, holderName: string,
                 billingCity?: string | null, billingCountryCode?: string | null, billingStateCode?: string | null, billingStreetLine1?: string | null,
                 billingStreetLine2?: string | null, billingZipCode?: string | null, holderEmail?: string | null, holderPhone?: string | null,
                 metadata?: Record<string, any> | null, installmentCount?: number | null, holderId?: string, softDescriptor?: string,
+                confirmationMode?: string,
             })
         }
 

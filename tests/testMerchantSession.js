@@ -2,6 +2,7 @@ const assert = require('assert');
 const starkbank = require('../index.js');
 const generateExampleMerchantSessionJson = require('./utils/merchantSession.js').generateExampleMerchantSessionJson;
 const generateExampleMerchantSessionPurchaseJson = require('./utils/merchantSession.js').generateExampleMerchantSessionPurchaseJson
+const generateExampleMerchantSessionPreAuthJson = require('./utils/merchantSession.js').generateExampleMerchantSessionPreAuthJson
 
 starkbank.user = require('./utils/user').exampleProject;
 
@@ -62,6 +63,15 @@ describe('MerchantSessionPage', function () {
             }
         }
         assert(ids.length > limit);
+    });
+});
+
+describe('MerchantSessionCreatePreAuth', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionPreAuthJson());
+        assert(merchantSession.id != null)
+        assert(merchantSession.confirmationMode == "manual")
     });
 });
 

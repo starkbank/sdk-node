@@ -6,3 +6,4 @@ exports.get = merchantPurchase.get;
 exports.page = merchantPurchase.page;
 exports.create = merchantPurchase.create;
 exports.update = merchantPurchase.update;
+exports.delete = merchantPurchase.delete;
