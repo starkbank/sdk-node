@@ -3,6 +3,7 @@ const starkbank = require('../index.js');
 const generateExampleMerchantSessionJson = require('./utils/merchantSession.js').generateExampleMerchantSessionJson
 const generateExampleMerchantSessionPurchaseJson = require('./utils/merchantSession.js').generateExampleMerchantSessionPurchaseJson
 const generateExampleMerchantPurchaseJson = require('./utils/merchantPurchase.js').generateExampleMerchantPurchaseJson
+const generateExampleMerchantPurchasePreAuthJson = require('./utils/merchantPurchase.js').generateExampleMerchantPurchasePreAuthJson
 
 
 starkbank.user = require('./utils/user').exampleProject;
@@ -62,6 +63,28 @@ describe('MerchantPurchasePage', function () {
             }
         }
         assert(ids.length > limit);
+    });
+});
+
+describe('MerchantPurchaseCreatePreAuth', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let merchantPurchase = await starkbank.merchantPurchase.create(generateExampleMerchantPurchasePreAuthJson());
+        assert(typeof merchantPurchase.id == 'string');
+        assert(merchantPurchase.confirmationMode == "manual");
+    });
+});
+
+describe('MerchantPurchaseDelete', function(){
+    this.timeout(10000);
+    it('test_success', async () => {
+        let merchantPurchase = await starkbank.merchantPurchase.create(generateExampleMerchantPurchasePreAuthJson());
+        try {
+            let deletedMerchantPurchase = await starkbank.merchantPurchase.delete(merchantPurchase.id);
+            assert(deletedMerchantPurchase.id == merchantPurchase.id);
+        } catch (error) {
+            assert(error.message.includes("Only approved and unconfirmed purchases can be canceled"));
+        }
     });
 });
 

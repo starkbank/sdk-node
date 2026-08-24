@@ -2696,6 +2696,76 @@ const starkbank = require('starkbank');
 })();
 ```
 
+## Pre-authorize a MerchantPurchase
+
+By default, a purchase is authorized and captured in a single step (`confirmationMode: "automatic"`).
+To reserve the amount on the customer's card and capture it later, create the purchase (or the session)
+with `confirmationMode: "manual"`. Only credit purchases support manual confirmation. Once authorized,
+the purchase reaches status `"approved"` and can then be captured, canceled or reversed.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantPurchase = await starkbank.merchantPurchase.create({
+        amount: 10000,
+        fundingType: 'credit',
+        challengeMode: 'disabled',
+        cardId: '5950134772826112',
+        confirmationMode: 'manual',
+    });
+    console.log(merchantPurchase);
+})();
+```
+
+## Confirm (capture) a MerchantPurchase
+
+Capture an `"approved"` pre-authorized purchase by updating its status to `"confirmed"`.
+The `amount` must be between 100 (in cents) and the authorized amount.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantPurchase = await starkbank.merchantPurchase.update('5950134772826112', {
+        status: 'confirmed',
+        amount: 10000,
+    });
+    console.log(merchantPurchase);
+})();
+```
+
+## Cancel or reverse a MerchantPurchase
+
+Delete a pre-authorized purchase to cancel it before capture (status `"approved"`) or to fully
+reverse it after capture (status `"confirmed"` or `"paid"`). The API infers cancelation vs reversal
+from the current status.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantPurchase = await starkbank.merchantPurchase.delete('5950134772826112');
+    console.log(merchantPurchase);
+})();
+```
+
+To partially reverse a captured purchase, update its status to `"reversed"` with the amount to be
+reversed (minimum 100 in cents, at most the current amount minus 1). Partial reversals are only
+allowed starting the day after confirmation.
+
+```javascript
+const starkbank = require('starkbank');
+
+(async() => {
+    let merchantPurchase = await starkbank.merchantPurchase.update('5950134772826112', {
+        status: 'reversed',
+        amount: 3000,
+    });
+    console.log(merchantPurchase);
+})();
+```
+
 ## Query MerchantInstallments
 
 Get a list of merchant installments in chunks of at most 100. If you need smaller chunks, use the limit parameter.

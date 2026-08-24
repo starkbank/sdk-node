@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Added
+- `confirmationMode` attribute to MerchantSession, MerchantPurchase and MerchantSession.Purchase resources for pre-authorization support
+- `merchantPurchase.delete` method to cancel a pre-authorized purchase before capture or fully reverse it after capture
 
 ## [2.42.0] - 2026-07-21
 ### Added

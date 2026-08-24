@@ -13,8 +13,8 @@ class MerchantSession extends Resource {
      */
 
     constructor({
-        allowedFundingTypes, allowedInstallments, expiration, allowedIps=null, challengeMode=null, created=null, 
-        status=null, tags=null, updated=null, uuid=null, softDescriptor=null, id=null, holderId=null
+        allowedFundingTypes, allowedInstallments, expiration, allowedIps=null, challengeMode=null, created=null,
+        status=null, tags=null, updated=null, uuid=null, softDescriptor=null, id=null, holderId=null, confirmationMode=null
     }) {
         super(id) 
         this.allowedFundingTypes = allowedFundingTypes;
@@ -29,6 +29,7 @@ class MerchantSession extends Resource {
         this.updated = updated;
         this.uuid = uuid;
         this.softDescriptor = softDescriptor;
+        this.confirmationMode = confirmationMode;
     }
 }
 
@@ -73,7 +74,7 @@ exports.page = async function ({cursor, limit, after, before, status, tags, ids,
 exports.purchase = async function (uuid, {amount, installmentCount, cardExpiration,
     cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType,
     billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, 
-    billingZipCode, metadata, cardId, user} = {}) {
+    billingZipCode, metadata, cardId, confirmationMode, user} = {}) {
     payload = {
         "amount": amount,
         "installmentCount": installmentCount,
@@ -92,6 +93,7 @@ exports.purchase = async function (uuid, {amount, installmentCount, cardExpirati
         "billingZipCode": billingZipCode,
         "metadata": metadata,
         "cardId": cardId,
+        "confirmationMode": confirmationMode,
     }
     api.removeNullKeys(payload);
     return rest.postSubResource(resource, uuid, purchaseResource, payload, user);

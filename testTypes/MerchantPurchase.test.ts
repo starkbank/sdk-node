@@ -56,6 +56,19 @@ describe('TestMerchantPurchaseGetPage', function () {
     });
 });
 
+describe('TestMerchantPurchaseDelete', function () {
+    jest.setTimeout(10000);
+    it('test_success', async () => {
+        let merchantPurchase = await starkbank.merchantPurchase.create(new starkbank.MerchantPurchase(generateExampleMerchantPurchaseJson()));
+        try {
+            let deletedMerchantPurchase = await starkbank.merchantPurchase.delete(merchantPurchase.id);
+            assert(deletedMerchantPurchase.id == merchantPurchase.id);
+        } catch (error: any) {
+            assert(error.message.includes("Only approved and unconfirmed purchases can be canceled"));
+        }
+    });
+});
+
 describe('TestMerchantPurchaseAndUpdate', function () {
     jest.setTimeout(10000);
     it('test_success', async () => {

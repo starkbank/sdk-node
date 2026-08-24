@@ -7,9 +7,10 @@ declare module 'starkbank' {
         cardSecurityCode : string
         holderName : string
         holderId : string
-        fundingType : string 
-        softDescriptor : string 
-        readonly holderEmail : string 
+        fundingType : string
+        softDescriptor : string
+        confirmationMode : string
+        readonly holderEmail : string
         readonly holderPhone : string 
         readonly billingCountryCode : string 
         readonly billingCity : string 
@@ -44,6 +45,7 @@ declare module 'starkbank' {
             installmentCount?: number | null, cardEnding?: string | null, cardId?: string | null, challengeMode?: string | null, challengeUrl?: string | null,
             created?: string | null, currencyCode?: string | null, endToEndId?: string | null, fee?: number | null, network?: string | null, source?: string | null,
             status?: string | null, tags?: string[] | null, updated?: string | null, softDescriptor?: string | null, holderId?: string | null,
+            confirmationMode?: string | null,
         })
     }
 
@@ -77,6 +79,9 @@ declare module 'starkbank' {
         }): Promise<MerchantPurchase[]>;
 
         function update(id: string, params?: {amount?: number, status?: string, user?: Project | Organization | null}): Promise<MerchantPurchase>;
+
+        function _delete(id: string, params?:{ user?: Project | Organization | null }): Promise<MerchantPurchase>;
+        export { _delete as delete }
 
         export class Log {
             readonly id : string
