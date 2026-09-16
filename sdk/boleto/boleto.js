@@ -28,10 +28,10 @@ class Boleto extends Resource {
      * @param fine [float, default 2.0]: Boleto fine for overdue payment in %. ex: 2.5
      * @param interest [float, default 1.0]: Boleto monthly interest for overdue payment in %. ex: 5.2
      * @param overdueLimit [integer, default 59]: limit in days for payment after due date. ex: 7 (max: 59)
-     * @param receiverName [string]: receiver (Sacador Avalista) full name. ex: 'Anthony Edward Stark'
-     * @param receiverTaxId [string]: receiver (Sacador Avalista) tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
-     * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'text':string and (optional) 'amount':int pairs
-     * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'date':string pairs
+     * @param receiverName [string, default workspace owner name]: receiver (Sacador Avalista) full name; required together with receiverTaxId if either is set. ex: 'Anthony Edward Stark'
+     * @param receiverTaxId [string, default workspace owner tax ID]: receiver (Sacador Avalista) tax ID; required together with receiverName if either is set.
+     * @param descriptions [list of dictionaries, default null]: list of up to 15 dictionaries with 'text':string and (optional) 'amount':int pairs. When the pdf() 'booklet' layout is used, only the first description's text is shown, in the installment cell
+     * @param discounts [list of dictionaries, default null]: list of up to 2 dictionaries with 'percentage':float and 'date':string pairs
      * @param tags [list of strings]: list of strings for tagging
      *
      * Attributes (return-only):
@@ -91,7 +91,7 @@ exports.create = async function (boletos, {user} = {}) {
      *
      * Create Boletos
      *
-     * @description Send a list of Boleto objects for creation in the Stark Bank API
+     * @description Send a list of up to 100 Boleto objects for creation in the Stark Bank API. If a Boleto is paid after its due date with fine or interest, or is paid with a discount, its amount is updated to reflect the amount actually paid.
      *
      * Parameters (required):
      * @param boletos [list of Boleto objects]: list of Boleto objects to be created in the API
@@ -131,7 +131,7 @@ exports.pdf = async function (id, { layout, hiddenFields, user } = {}) {
      *
      * Retrieve a specific Boleto pdf file
      *
-     * @description Receive a single Boleto pdf file generated in the Stark Bank API by passing its id.
+     * @description Receive a single Boleto pdf file generated in the Stark Bank API by passing its id. This route is public and requires no authentication headers; repeated requests for an invalid id will block your IP for this route.
      *
      * Parameters (required):
      * @param id [string]: object unique id. ex: '5656565656565656'
@@ -153,7 +153,7 @@ exports.query = async function ({ limit, after, before, status, tags, ids, user}
      *
      * Retrieve Boletos
      *
-     * @description Receive a generator of Boleto objects previously created in the Stark Bank API
+     * @description Receive a generator of non-deleted Boleto objects previously created in the Stark Bank API
      *
      * Parameters (optional):
      * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
@@ -218,7 +218,7 @@ exports.delete = async function (id, {user} = {}) {
      *
      * Delete a Boleto entity
      *
-     * @description Delete a Boleto entity previously created in the Stark Bank API
+     * @description Delete a Boleto entity previously created in the Stark Bank API. This sends a cancellation request to CIP; once canceled, the Boleto can no longer be paid. This action cannot be undone.
      *
      * Parameters (required):
      * @param id [string]: Boleto unique id. ex: '5656565656565656'

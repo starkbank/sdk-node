@@ -24,7 +24,7 @@ class DynamicBrcode extends Resource {
      *
      * Parameters (optional):
      * @param expiration [integer, default 3600 (1 hour)]: time interval in seconds between due date and expiration date. ex 123456789
-     * @param tags [list of strings, default []]: list of strings for tagging, these will be passed to the respective Deposit resource when paid
+     * @param tags [list of strings, default []]: list of strings for tagging. When paid, the resulting Deposit's tags will include these plus "dynamic-brcode/{uuid}" for conciliation.
      * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
      * @param rules [list of DynamicBrCodeRule, default []]: list of dynamic brcode rules to be applied to this brcode. ex: [new DynamicBrCode.Rule({key: 'allowedTaxIds', value: ['012.345.678-90', '20.018.183/0001-80']})]
      * 
@@ -59,7 +59,7 @@ exports.create = async function (dynamicBrcodes, {user} = {}) {
      *
      * Create DynamicBrcodes
      *
-     * @description Send a list of DynamicBrcode objects for creation in the Stark Bank API
+     * @description Send a list of up to 100 DynamicBrcode objects for creation in the Stark Bank API
      *
      * Parameters (required):
      * @param dynamicBrcodes [list of DynamicBrcode objects]: list of DynamicBrcode objects to be created in the API

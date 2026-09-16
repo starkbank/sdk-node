@@ -47,7 +47,7 @@ exports.create = async function (holmes, {user} = {}) {
      *
      * Create BoletoHolmes
      *
-     * @description Send a list of BoletoHolmes objects for creation in the Stark Bank API
+     * @description Send a list of BoletoHolmes objects for creation in the Stark Bank API. Investigation results arrive asynchronously in under an hour; register a webhook to receive them instead of polling.
      *
      * Parameters (required):
      * @param holmes [list of BoletoHolmes objects]: list of BoletoHolmes objects to be created in the API
@@ -85,9 +85,9 @@ exports.get = async function (id, {user} = {}) {
 exports.query = async function ({limit, after, before, tags, ids, status, boletoId, user} = {}) {
     /**
      *
-     * Retrieve Boletos
+     * Retrieve BoletoHolmes
      *
-     * @description Receive a generator of Boleto objects previously created in the Stark Bank API
+     * @description Receive a generator of BoletoHolmes objects (not Boleto objects) previously created in the Stark Bank API
      *
      * Parameters (optional):
      * @param limit [integer, default null]: maximum number of objects to be retrieved. Unlimited if null. ex: 35
@@ -100,7 +100,7 @@ exports.query = async function ({limit, after, before, tags, ids, status, boleto
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * @returns generator of Boleto objects with updated attributes
+     * @returns generator of BoletoHolmes objects with updated attributes
      *
      */
     let query = {
@@ -135,7 +135,7 @@ exports.page = async function ({cursor, limit, after, before, tags, ids, status,
      * @param user [Project object, default null]: Project object. Not necessary if starkbank.user was set before function call
      *
      * Return:
-     * @returns list of Boleto objects with updated attributes and cursor to retrieve the next page of BoletoHolmes objects
+     * @returns list of BoletoHolmes objects with updated attributes and cursor to retrieve the next page of BoletoHolmes objects
      *
      */
     let query = {

@@ -41,7 +41,7 @@ exports.put = async function (splitProfiles, {user} = {}) {
      *
      * Create SplitProfile or update it if you already have it created
      * 
-     * @description Send a list of SplitProfile objects for creation in the Stark Bank API
+     * @description Send a list containing a single SplitProfile object to the Stark Bank API. If a SplitProfile already exists for the workspace, this updates its rules instead of creating a new one.
      * 
      * Parameters (required):
      * @param profile [list of SplitProfile objects]: SplitProfile object to be created in the API

@@ -98,7 +98,7 @@ exports.pdf = async function (id, {user} = {}) {
      * Retrieve a specific BoletoPayment pdf file
      *
      * @description Receive a single BoletoPayment pdf file generated in the Stark Bank API by passing its id.
-     * Only valid for boleto payments with 'success' status.
+     * Only valid for boleto payments with 'success', 'processing' or 'created' status.
      *
      * Parameters (required):
      * @param id [string]: object unique id. ex: '5656565656565656'
@@ -183,7 +183,7 @@ exports.delete = async function (id, {user} = {}) {
      *
      * Delete a BoletoPayment entity
      *
-     * @description Delete a BoletoPayment entity previously created in the Stark Bank API
+     * @description Delete (cancel) a BoletoPayment entity previously created in the Stark Bank API. Only payments that have not yet started processing can be canceled this way; payments already processed can still be deleted, but that no longer cancels the underlying payment.
      *
      * Parameters (required):
      * @param id [string]: BoletoPayment unique id. ex: '5656565656565656'

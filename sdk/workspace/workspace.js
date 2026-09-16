@@ -43,7 +43,7 @@ exports.create = async function ({ username, name, allowedTaxIds = null, user = 
     /**
      * Create Workspace
      * 
-     * @description Send a Workspace for creation in the Stark Bank API
+     * @description Send a Workspace for creation in the Stark Bank API. Only Organization credentials can create Workspaces; Project credentials will be rejected.
      * 
      * Parameters (required):
      * @param username [string]: Simplified name to define the workspace URL. This name must be unique across all Stark Bank Workspaces. Ex: 'starkbankworkspace'

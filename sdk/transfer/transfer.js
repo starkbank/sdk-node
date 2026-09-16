@@ -26,7 +26,7 @@ class Transfer extends Resource {
      * Parameters (optional):
      * @param accountType [string, default 'checking']: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
      * @param externalId [string, default null]: url safe string that must be unique among all your transfers. Duplicated externalIds will cause failures. By default, this parameter will block any transfer that repeats amount and receiver information on the same date. ex: 'my-internal-id-123456'
-     * @param scheduled [string, default now]: date or datetime when the transfer will be processed. May be pushed to next business day if necessary. ex: '2020-11-12T00:14:22.806+00:00' or '2020-11-30'
+     * @param scheduled [string, default now]: date or datetime when the transfer will be processed. TED transfers scheduled for today are accepted only until 16:00 (BRT), after which they are pushed to the next business day; Pix transfers are available 24/7 for any date/time. ex: '2020-11-12T00:14:22.806+00:00' or '2020-11-30'
      * @param description [string, default null]: optional description to override default description to be shown in the bank statement. ex: 'Payment for service #1234'
      * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
      * @param tags [list of strings, default []]: list of strings for reference when searching for transfers. ex: ['employees', 'monthly']
@@ -78,7 +78,7 @@ exports.create = async function (transfers, {user} = {}) {
      *
      * Create Transfers
      *
-     * @description Send a list of Transfer objects for creation in the Stark Bank API
+     * @description Send a list of up to 100 Transfer objects for creation in the Stark Bank API
      *
      * Parameters (required):
      * @param transfers [list of Transfer objects]: list of Transfer objects to be created in the API
@@ -118,7 +118,7 @@ exports.delete = async function (id, { user } = {}) {
      *
      * Delete a Transfer entity
      *
-     * @description Delete a Transfer entity previously created in the Stark Bank API
+     * @description Cancel a scheduled Transfer entity previously created in the Stark Bank API. Only transfers that have not yet started processing can be canceled; canceled transfers still appear in later queries.
      *
      * Parameters (required):
      * @param id [string]: Transfer unique id. ex: '5656565656565656'

@@ -16,7 +16,7 @@ class InvoicePullSubscription extends Resource {
      * @param start [string]: subscription start date. ex: "2022-04-01"
      * @param interval [string]: subscription installment interval. Options: "week", "month", "quarter", "semester", "year"
      * @param pullMode [string]: subscription pull mode. Options: "manual", "automatic". Automatic mode will create the Invoice Pull Requests automatically
-     * @param pullRetryLimit [integer]: subscription pull retry limit. Options: 0,
+     * @param pullRetryLimit [integer]: subscription pull retry limit. Options: 0 or 3.
      * @param type [string]: subscription type. Options: "push", "qrcode", "qrcodeAndPayment", "paymentAndOrQrcode"
      *
      * Parameters (conditionally required):
@@ -25,11 +25,11 @@ class InvoicePullSubscription extends Resource {
      *
      * Parameters (optional):
      * @param displayDescription [string, default None]: Invoice description to be shown to the payer. ex: "Subscription payment"
-     * @param due [string, default 2 days after creation]: subscription invoice due offset. Available only for type "push". ex: '2023-04-01'
+     * @param due [string or datetime, default 2 days after creation]: date by which the payer must approve or deny the subscription, after which it auto-expires if unanswered. Applies to all subscription types (not push-only). ex: "2022-04-08"
      * @param externalId [string, default None]: string that must be unique among all your subscriptions. Duplicated externalIds will cause failures. ex: "my-external-id"
      * @param referenceCode [string, default None]: reference code for reconciliation. ex: "REF123456"
      * @param end [string, default None]: subscription end date. ex: "2023-04-01"
-     * @param data [dictionary, default None]: additional data for the subscription based on type
+     * @param data [dictionary, default None]: additional data required by type: payer account details for "push", immediate-payment parameters for "qrcodeAndPayment"/"paymentAndOrQrcode"; not required for "qrcode"
      * @param name [string, default None]: subscription debtor name. ex: "Iron Bank S.A."
      * @param taxId [string, default None]: subscription debtor tax ID (CPF or CNPJ) with or without formatting. ex: "01234567890" or "20.018.183/0001-80"
      * @param tags [list of strings, default []]: list of strings for tagging
@@ -193,7 +193,7 @@ exports.cancel = async function (id, { user } = {}) {
      *
      * Cancel a InvoicePullSubscription entity
      *
-     * @description Cancel a InvoicePullSubscription entity previously created in the Stark Bank API
+     * @description Cancel a InvoicePullSubscription entity previously created in the Stark Bank API. The subscription must currently have "active" status to be canceled.
      *
      * Parameters (required):
      * @param id [string]: InvoicePullSubscription unique id. ex: '5656565656565656'

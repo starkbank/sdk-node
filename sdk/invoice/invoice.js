@@ -21,7 +21,7 @@ class Invoice extends Resource {
      * use dates instead of datetimes on the "due" and "discounts" fields.
      *
      * Parameters (required):
-     * @param amount [integer]: Invoice value in cents. Minimum = 0 (R$0,00). ex: 1234 (= R$ 12.34)
+     * @param amount [integer]: Invoice value in cents. Minimum = 0 (R$0,00). If set to 0, any amount paid by the customer will be accepted; otherwise, only the exact amount specified is accepted. ex: 1234 (= R$ 12.34)
      * @param taxId [string]: payer tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
      * @param name [string]: payer name. ex: 'Iron Bank S.A.'
      *
@@ -30,11 +30,11 @@ class Invoice extends Resource {
      * @param expiration [integer, default 59 days]: time interval in seconds between due date and expiration date. ex 123456789
      * @param fine [float, default 2.0]: Invoice fine for overdue payment in %. ex: 2.5
      * @param interest [float, default 1.0]: Invoice monthly interest for overdue payment in %. ex: 5.2
-     * @param discounts [list of dictionaries, default null]: list of dictionaries with 'percentage':float and 'due':string pairs
+     * @param discounts [list of dictionaries, default null]: list of up to 5 dictionaries with 'percentage':float and 'due':string pairs
      * @param rules [list of Invoice.Rules, default []]: list of Invoice.Rule objects for modifying invoice behavior. ex: [Invoice.Rule({key: "allowedTaxIds", value: [ "012.345.678-90", "45.059.493/0001-73" ]})]
      * @param splits [list of Split.Splits, default []]: list of Split.Splits objects to indicate payment receivers. ex: [Invoice.Split({"amount": 141, "receiverId": "5706627130851328"})]
      * @param tags [list of strings, default null]: list of strings for tagging
-     * @param descriptions [list of dictionaries, default null]: list of dictionaries with 'key':string and (optional) 'value':string pairs
+     * @param descriptions [list of dictionaries, default null]: list of up to 15 dictionaries with 'key':string and (optional) 'value':string pairs
      * @param displayDescription [string, default null]: optional description to be shown in the receiver bank interface. ex: 'Payment for service #1234'
      *
      * Attributes (return-only):
@@ -100,7 +100,7 @@ exports.create = async function (Invoices, {user} = {}) {
      *
      * Create Invoices
      *
-     * @description Send a list of Invoice objects for creation in the Stark Bank API
+     * @description Send a list of up to 100 Invoice objects for creation in the Stark Bank API
      *
      * Parameters (required):
      * @param Invoices [list of Invoice objects]: list of Invoice objects to be created in the API
@@ -212,7 +212,7 @@ exports.update = function (id, {amount, status, due, expiration, user} = {}) {
      *
      * Parameters (optional):
      * @param status        [string]: If the Invoice hasn't been paid yet, you may cancel it by passing 'canceled' in the status
-     * @param amount        [integer]: If the Invoice hasn't been paid yet, you may update its amount by passing the desired amount integer. ex: 100 (R$1,00)
+     * @param amount        [integer]: If the Invoice hasn't been paid yet, you may update its amount by passing the desired amount integer. If the Invoice has already been paid, only a decrease is allowed, which will trigger a payment reversal for the difference. ex: 100 (R$1,00)
      * @param due           [string, default now + 2 days]: Invoice due date in UTC ISO format. ex: '2020-11-25T17:59:26.249976+00:00'
      * @param expiration    [integer, default null]: time interval in seconds between due date and expiration date. ex 123456789
      * @param user          [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call

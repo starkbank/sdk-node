@@ -23,7 +23,7 @@ class PaymentRequest extends Resource {
      * 
      * Parameters (required):
      * @param centerId [string]: target cost center ID. ex: '5656565656565656'
-     * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction, BrcodePayment, TaxPayment, DarfPayment or dictionary]: payment entity that should be approved and executed.
+     * @param payment [Transfer, BoletoPayment, UtilityPayment, Transaction, BrcodePayment, TaxPayment, DarfPayment or dictionary]: payment entity that should be approved and executed. Do not set a 'scheduled' value on it; use the PaymentRequest's own 'due' instead.
      * 
      * Parameters (conditionally required):
      * @param type [string]: payment type, inferred from the payment parameter if it is not a dictionary. ex: 'transfer', 'boleto-payment'
