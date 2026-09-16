@@ -17,7 +17,7 @@ class DictKey extends Resource {
      * @param type [string, default null]: Pix key type. ex: 'email', 'cpf', 'cnpj', 'phone' or 'evp'
      * @param name [string, default null]: account owner full name. ex: 'Tony Stark'
      * @param taxId [string, default null]: tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
-     * @param ownerType [string, default null]: Pix key owner type. ex 'naturalPerson' or 'legalPerson'
+     * @param ownerType [string, default null]: Pix key owner type, set by the API. Options: 'individual' or 'business'
      * @param bankName [string, null null]: bank name associated with the DICT key. ex: 'Stark Bank'
      * @param ispb [string, default null]: ISPB code used for transactions. ex: '20018183'
      * @param branchCode [string, default null]: encrypted bank account branch code associated with the Pix key. ex: 'ZW5jcnlwdGVkLWJyYW5jaC1jb2Rl'
@@ -52,7 +52,7 @@ exports.get = async function (id, {user} = {}) {
      *
      * Retrieve a specific DictKey
      *
-     * @description Receive a single DictKey object by passing its id
+     * @description Receive a single DictKey object by passing its id. Includes keys you do not own, so it can be used to look up account details before creating a Transfer. Avoid standalone lookups with no follow-up transfer, including for invalid keys: Bacen blocks accounts that make too many such requests in a short time. The encrypted branchCode/accountNumber can be passed straight into a Transfer without decrypting.
      *
      * Parameters (required):
      * @param id [string]: DictKey object unique id and Pix key itself. ex: 'tony@starkbank.com', '722.461.430-04', '20.018.183/0001-80', '+5511988887777', 'b6295ee1-f054-47d1-9e90-ee57b74f60d9'

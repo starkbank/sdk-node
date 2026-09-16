@@ -100,7 +100,7 @@ exports.pdf = async function (id, {user} = {}) {
      * Retrieve a specific UtilityPayment pdf file
      *
      * @description Receive a single UtilityPayment pdf file generated in the Stark Bank API by passing its id.
-     * Only valid for utility payments with 'success' status.
+     * Only valid for payments with 'success', 'processing' or 'created' status.
      *
      * Parameters (required):
      * @param id [string]: object unique id. ex: '5656565656565656'
@@ -185,7 +185,7 @@ exports.delete = async function (id, {user} = {}) {
      *
      * Delete a UtilityPayment entity
      *
-     * @description Delete a UtilityPayment entity previously created in the Stark Bank API
+     * @description Delete (cancel) a UtilityPayment entity previously created in the Stark Bank API. Only payments that have not yet started processing can be canceled; payments already processed can still be deleted, but that no longer cancels the underlying payment.
      *
      * Parameters (required):
      * @param id [string]: UtilityPayment unique id. ex: '5656565656565656'

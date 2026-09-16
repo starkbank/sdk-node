@@ -20,12 +20,12 @@ class BrcodePayment extends Resource {
      * @param description [string]: Text to be displayed in your statement (min. 10 characters). ex: 'payment ABC'
      * 
      * Parameters (conditionally required):
-     * @param amount [int, default null]: amount automatically calculated from line or barCode. ex: 23456 (= R$ 234.56)
+     * @param amount [int, default null]: amount to pay, in cents. Required only if the brcode itself carries no fixed amount (the payment fails if left unset in that case); otherwise defaults to the brcode's own amount. ex: 23456 (= R$ 234.56)
      * 
      * Parameters (optional):
      * @param scheduled [string, default now]: payment scheduled date or datetime. ex: '2020-11-25T17:59:26.249976+00:00'
      * @param tags [list of strings, default null]: list of strings for tagging
-     * @param rules [list of BrcodePayment.Rule, default null]: list of BrcodePayment.Rule objects for modifying transfer behavior. ex: [BrcodePayment.Rule(key="resendingLimit", value=5)]
+     * @param rules [list of BrcodePayment.Rule, default null]: list of BrcodePayment.Rule objects for modifying brcodePayment behavior. ex: [BrcodePayment.Rule(key="resendingLimit", value=5)]
      * 
      * Attributes (return-only):
      * @param id [string]: unique id returned when payment is created. ex: '5656565656565656'
@@ -108,7 +108,7 @@ exports.pdf = async function (id, {user} = {}) {
    *
    * Retrieve a specific BrcodePayment pdf file
    *
-   * @description Receive a single BrcodePayment pdf file generated in the Stark Bank API by passing its id.
+   * @description Receive a single BrcodePayment pdf file generated in the Stark Bank API by passing its id. Only valid for payments with 'success', 'processing' or 'created' status.
    *
    * Parameters (required):
    * @param id [string]: object unique id. ex: '5656565656565656'

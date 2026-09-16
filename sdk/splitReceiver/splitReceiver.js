@@ -15,7 +15,7 @@ class SplitReceiver extends Resource {
      * Parameters (required):
      * @param name [string]: receiver full name. ex: 'Anthony Edward Stark'
      * @param taxId [string]: receiver tax ID (CPF or CNPJ) with or without formatting. ex: '01234567890' or '20.018.183/0001-80'
-     * @param bankCode [string]: code of the receiver bank institution in Brazil. ex: '20018183'
+     * @param bankCode [string]: code of the receiver bank institution in Brazil. An 8-digit ISPB creates a Pix SplitReceiver; any other value issues a TED. ex: '20018183'
      * @param branchCode [string]: receiver bank account branch. Use '-' in case there is a verifier digit. ex: '1357-9'
      * @param accountNumber [string]: receiver Bank Account number. Use '-' before the verifier digit. ex: '876543-2'
      * @param accountType [string]: Receiver bank account type. This parameter only has effect on Pix Transfers. ex: 'checking', 'savings', 'salary' or 'payment'
@@ -106,6 +106,9 @@ exports.query = async function ({limit, after, before, transactionIds, tags, ids
      * @param tags [list of strings, default null]: tags to filter retrieved objects. ex: ['tony', 'stark']
      * @param ids [list of strings, default null]: list of ids to filter retrieved objects. ex: ['5656565656565656', '4545454545454545']
      * @param status [string, default null]: filter for status of retrieved objects. ex: 'created', 'canceled', 'updated'
+     * @param transactionIds [list of strings, default null]: transaction ids linked to the desired SplitReceivers.
+     * @param taxId [string, default null]: filter by the receiver's tax ID.
+     * @param receiverIds [list of strings, default null]: filter by receiver ids.
      * @param user [Organization/Project object, default null]: Organization or Project object. Not necessary if starkbank.user was set before function call
      * 
      * Return:

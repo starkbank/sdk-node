@@ -101,7 +101,7 @@ exports.pdf = async function (id, {user} = {}) {
      * Retrieve a specific TaxPayment pdf file
      *
      * @description Receive a single TaxPayment pdf file generated in the Stark Bank API by passing its id.
-     * Only valid for tax payments with 'success' status.
+     * Only valid for payments with 'success', 'processing' or 'created' status.
      *
      * Parameters (required):
      * @param id [string]: object unique id. ex: '5656565656565656'
@@ -186,7 +186,7 @@ exports.delete = async function (id, {user} = {}) {
      *
      * Delete a TaxPayment entity
      *
-     * @description Delete a TaxPayment entity previously created in the Stark Bank API
+     * @description Delete (cancel) a TaxPayment entity previously created in the Stark Bank API. Only payments that have not yet started processing can be canceled; payments already processed can still be deleted, but that no longer cancels the underlying payment.
      *
      * Parameters (required):
      * @param id [string]: TaxPayment unique id. ex: '5656565656565656'

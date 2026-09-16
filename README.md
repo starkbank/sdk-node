@@ -2124,7 +2124,7 @@ let holders = await starkbank.corporateHolder.create(
                 }
                     ]
             permissions: [
-                new starkbank.corporateHolder.Permission('6253551860842496', 'project')
+                new starkbank.corporateHolder.Permission({ownerId: '6253551860842496', ownerType: 'project'})
             ]
         })
     ]
@@ -2245,7 +2245,7 @@ You can update aspecific card by its id.
 ```javascript
 const starkbank = require('starkbank');
 
-let card = await starkbank.corporateCard.update(holderId, {"status": "blocked"});
+let card = await starkbank.corporateCard.update("5155165527080960", {"status": "blocked"});
 console.log(card);
 ```
 
@@ -2380,10 +2380,9 @@ by using the Withdrawal resource.
 const starkbank = require('starkbank');
 
 let withdrawal = await starkbank.corporateWithdrawal.create(
-    new starkbank.CorporateWithDrawal ({
+    new starkbank.CorporateWithdrawal({
             amount: 10000,
             externalId: "123"
-            description: "Sending back"
             }
         )
 )
@@ -2411,7 +2410,7 @@ You can get a list of created withdrawals given some filters.
 ```javascript
 const starkbank = require('starkbank');
 
-let withdrawals = await starkbank.corporateWithdrawal.query("limit": 5);
+let withdrawals = await starkbank.corporateWithdrawal.query({limit: 5});
 
 for await (let withdrawal of withdrawals) {
     console.log(withdrawal);
@@ -2467,10 +2466,10 @@ Either codes (which represents specific MCCs) or types (code groups) will be acc
 ```javascript
 const starkbank = require('starkbank');
 
-let categories = await starkbank.merchantcategory.query({"search": "food"});
+let categories = await starkbank.merchantCategory.query({"search": "food"});
 
 for await (let category of categories) {
-    console.log(categorie);
+    console.log(category);
 }
 ```
 
@@ -2483,7 +2482,7 @@ You may also use MerchantCountries to define specific country filters in Corpora
 ```javascript
 const starkbank = require('starkbank');
 
-let countries = await starbank.merchantcountry.query({"search": "brazil"});
+let countries = await starkbank.merchantCountry.query({"search": "brazil"});
 
 for await (let country of countries) {
     console.log(country);

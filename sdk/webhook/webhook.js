@@ -7,7 +7,7 @@ class Webhook extends Resource {
      *
      * Webhook subscription object
      *
-     * @description A Webhook is used to subscribe to notification events on a user-selected endpoint.
+     * @description A Webhook is used to subscribe to notification events on a user-selected endpoint. Delivery is retried up to 3 times (after 5, 30 and 120 minutes) if your endpoint doesn't return HTTP 200; after that Stark Bank stops trying. A subscription only fires for events generated in the API version it was created under. As a safety net, poll starkbank.event.query({isDelivered: false}) daily and mark results delivered.
      * Currently available services for subscription are transfer, invoice, deposit, brcode-payment,
      * boleto, boleto-holmes, boleto-payment and utility-payment.
      *
@@ -124,7 +124,7 @@ exports.delete = async function (id, {user} = {}) {
      *
      * Delete a Webhook subscription entity
      *
-     * @description Delete a Webhook subscription entity previously created in the Stark Bank API
+     * @description Delete a Webhook subscription entity previously created in the Stark Bank API. This action cannot be undone.
      *
      * Parameters (required):
      * @param id [string]: Webhook unique id. ex: '5656565656565656'

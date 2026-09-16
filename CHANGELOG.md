@@ -13,6 +13,9 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+- docstrings that drifted from the API reference across Invoice, InvoicePullSubscription, Transfer, Boleto, BoletoHolmes, BoletoPayment, MerchantCard, MerchantPurchase, MerchantSession and related logs, BrcodePayment, DynamicBrcode, Webhook, Workspace, Event, DarfPayment, DictKey, PaymentRequest, SplitReceiver, TaxPayment, UtilityPayment and SplitProfile resources
+- README snippets for CorporateHolder.Permission, CorporateCard.update, CorporateWithdrawal and MerchantCategory/MerchantCountry queries
 
 ## [2.42.0] - 2026-07-21
 ### Added
