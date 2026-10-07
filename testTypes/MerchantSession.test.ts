@@ -19,41 +19,17 @@ describe('TestMerchantSessionCreate', function(){
 
 describe('TestMerchantSessionPurchaseCreate', function(){
     jest.setTimeout(10000);
-    it('test_success', async () => {
-        let merchantSessionJson = generateExampleMerchantSessionJson();
-
-        let merchantSession = await starkbank.merchantSession.create(merchantSessionJson);
-
-        let purchaseJson = {
-            amount: 5000,
-            cardExpiration: "2035-01",
-            cardNumber: "5277696455399733",
-            cardSecurityCode: "123",
-            holderName: "Holder Name",
-            fundingType: "credit",
-            holderEmail: "holderName@email.com",
-            holderPhone: "11111111111",
-            billingCountryCode: "BRA",
-            billingCity: "São Paulo",
-            billingStateCode: "SP",
-            billingStreetLine1: "Rua do Holder Name, 123",
-            billingStreetLine2: "",
-            billingZipCode: "11111-111",
-            metadata: {
-                "userAgent": "Postman",
-                "userIp": "255.255.255.255",
-                "language": "pt-BR",
-                "timezoneOffset": 3,
-                "extraData": "extraData"
+    it('test_deprecated_error', async () => {
+        let purchase = new starkbank.merchantSession.Purchase({amount: 5000} as any);
+        await assert.rejects(
+            async () => {
+                await starkbank.merchantSession.purchase("0bb894a2697d41d99fe02cad2c00c9bc", purchase);
             },
-            installmentCount: 1
-        }
-
-        let purchase = new starkbank.merchantSession.Purchase(purchaseJson);
-
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(merchantSession.uuid, purchase);
-
-        assert(typeof merchantSessionPurchase.id == 'string')
+            (err: Error) => {
+                assert.strictEqual(err.message, "Function deprecated since v2.43.0");
+                return true;
+            }
+        );
     });
 });
 
