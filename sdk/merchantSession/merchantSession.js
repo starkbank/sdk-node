@@ -1,10 +1,8 @@
 const check = require('starkcore').check;
 const Resource = require('starkcore').Resource;
 const rest = require('../utils/rest.js');
-const api = require('starkcore').api;
 const { AllowedInstallment } = require('./allowedInstallments/allowedInstallments.js');
 const allowedInstallmentResource = require('./allowedInstallments/allowedInstallments.js').resource;
-const purchaseResource = require('./purchase.js').resource;
 const parseObjects = require('../utils/parse.js').parseObjects;
 
 class MerchantSession extends Resource {
@@ -74,25 +72,8 @@ exports.purchase = async function (uuid, {amount, installmentCount, cardExpirati
     cardNumber, cardSecurityCode, holderName, holderEmail, holderPhone, fundingType,
     billingCountryCode, billingCity, billingStateCode, billingStreetLine1, billingStreetLine2, 
     billingZipCode, metadata, cardId, user} = {}) {
-    payload = {
-        "amount": amount,
-        "installmentCount": installmentCount,
-        "cardExpiration": cardExpiration,
-        "cardNumber": cardNumber,
-        "cardSecurityCode": cardSecurityCode,
-        "holderName": holderName,
-        "holderEmail": holderEmail,
-        "holderPhone": holderPhone,
-        "fundingType": fundingType,
-        "billingCountryCode": billingCountryCode,
-        "billingCity": billingCity,
-        "billingStateCode": billingStateCode,
-        "billingStreetLine1": billingStreetLine1,
-        "billingStreetLine2": billingStreetLine2,
-        "billingZipCode": billingZipCode,
-        "metadata": metadata,
-        "cardId": cardId,
-    }
-    api.removeNullKeys(payload);
-    return rest.postSubResource(resource, uuid, purchaseResource, payload, user);
+    /**
+     * @deprecated Function deprecated since v2.43.0
+     */
+    throw new Error('Function deprecated since v2.43.0');
 }

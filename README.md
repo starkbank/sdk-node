@@ -2572,50 +2572,9 @@ const starkbank = require('starkbank');
 })();
 ```
 
-You can create a MerchantPurchase through a MerchantSession by passing its UUID.
-**Note**: This method must be implemented in your front-end to ensure that sensitive card data does not pass through the back-end of the integration.
+With the MerchantSession's UUID, your front-end must send the card data directly to the Stark Bank API through the `POST /v2/merchant-session/:uuid/purchase` route, so that sensitive card data never passes through the back-end of your integration.
 
-## Create a MerchantSesssion Purchase
-
-This route can be used to create a Merchant Purchase directly from the payer's client application.
-The UUID of a Merchant Session that was previously created by the merchant is necessary to access this route.
-
-```javascript
-const starkbank = require('starkbank');
-
-(async() => {
-    let merchantSessionPurchase = await starkbank.merchantSession.purchase(
-        {
-            uuid: "0bb894a2697d41d99fe02cad2c00c9bc",
-            amount: 180,
-            installmentCount: 12,
-            cardExpiration: "2035-01",
-            cardNumber: "5448280000000007",
-            cardSecurityCode: "123",
-            holderName: "Holder Name",
-            holderEmail: "holderName@email.com",
-            holderPhone: "11111111111",
-            fundingType: "credit",
-            billingCountryCode: "BRA",
-            billingCity: "São Paulo",
-            billingStateCode: "SP",
-            billingStreetLine1: "Rua do Holder Name, 123",
-            billingStreetLine2: "",
-            billingZipCode: "11111-111",
-            metadata: {
-                "extraData": "extraData",
-                "language": "pt-BR",
-                "timezoneOffset": 3,
-                "userAgent": "Postman",
-                "userIp": "255.255.255.255
-            },
-            tags: [ "yourtags" ]
-        }
-    );
-
-    console.log(merchantSessionPurchase)
-})();
-```
+**Note**: `starkbank.merchantSession.purchase` is deprecated since v2.43.0 and throws an error when called.
 
 ## Query MerchantSessions
 
