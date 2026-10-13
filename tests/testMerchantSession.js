@@ -67,13 +67,16 @@ describe('MerchantSessionPage', function () {
 
 describe('MerchantSessionPurchase', function(){
     this.timeout(10000);
-    it('test_success', async () => {
-
-        let merchantSession = await starkbank.merchantSession.create(generateExampleMerchantSessionJson());
-        let merchantSessionPurchase = await starkbank.merchantSession.purchase(
-            merchantSession.uuid,
-            generateExampleMerchantSessionPurchaseJson(),
+    it('test_deprecated_error', async () => {
+        let purchase = generateExampleMerchantSessionPurchaseJson();
+        await assert.rejects(
+            async () => {
+                await starkbank.merchantSession.purchase("0bb894a2697d41d99fe02cad2c00c9bc", purchase);
+            },
+            (err) => {
+                assert.strictEqual(err.message, "Function deprecated since v2.43.0");
+                return true;
+            }
         );
-        assert(merchantSessionPurchase.id != null)
     });
 });

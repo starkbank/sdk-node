@@ -26,11 +26,16 @@ declare module 'starkbank' {
             params?: { user: Project | Organization | null }
         ): Promise<MerchantSession>;
 
+        /**
+         * @deprecated Function deprecated since v2.43.0
+         */
         function purchase(
             uuid: string,
             Purchase: MerchantSession.Purchase,
             params?: { user: Project | Organization | null }
-        ): any;
+        ): any {
+            throw new Error('Function deprecated since v2.43.0');
+        };
 
         function get(id: string, params?:{ user?: Project | Organization | null}): Promise<MerchantSession>;
 
